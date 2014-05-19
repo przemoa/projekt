@@ -12,6 +12,14 @@ void cPlansza::_Przerysuj(void)
 
 		RysujTlo();
 		RysujPodloze();
+	
+		//glColor3f(0,1,0);
+		//glBegin(GL_POLYGON);
+		//	for (int i = 0; i < licznikPunktow; i++)
+		//	{
+		//		glVertex2f(tabPunktow[i][0], tabPunktow[i][1]);
+		//	}
+		//glEnd();
 
 
 

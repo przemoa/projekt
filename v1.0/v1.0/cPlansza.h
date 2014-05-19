@@ -26,13 +26,16 @@ struct sKAMERA
 	int przesuwajy;
 };
 
+enum eRODZAJPOLA {PUSTE = 1, TRAWA = 2, ZIEMIA = 3, TWARDAZIEMIA = 4};
 
 class cPlansza
 {
 public:
+	cPlansza(void);
+	~cPlansza(void);
+
 	sROZMIAROKNA rozmiarOkna;
 	sKAMERA kamera;
-
 	void _Przerysuj();
 	void _ZmianaRozmiaruOkna(int width, int height);
 	void _Dzialaj(int value);
@@ -43,12 +46,14 @@ public:
 	void OdswiezKamere();
 	void PrzesunKamere(float dx, float dy);
 	
+
 	void TworzTekstury();
 	cChmura* tabChmur[ILOSC_CHMUR];
 	cPalma* tabPalm[ILOSC_PALM];
 
-	cPlansza(void);
-	~cPlansza(void);
+
+	int tabPol[2 * ZAKRES_GRY_X * MNOZNIK_POL][ZAKRES_GRY_Y * MNOZNIK_POL];
+
 
 	void RysujPodloze();
 	void RysujTlo();
@@ -58,7 +63,9 @@ public:
 	float testowy;
 	float testowy2;
 	void RysujSzescian();
-	GLuint tekstury[32];
+	
+	//int tabPunktow[200][2];
+	//int licznikPunktow;
 
 };
 

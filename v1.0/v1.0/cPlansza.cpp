@@ -5,6 +5,10 @@
 
 cPlansza::cPlansza(void)
 {
+	testowy = 0;
+	testowy2 = 0;
+	//licznikPunktow = 0;
+
 	rozmiarOkna.x = 800;
 	rozmiarOkna.y = 600;
 	rozmiarOkna.proporcja = (float) rozmiarOkna.x / rozmiarOkna.y;
@@ -18,8 +22,7 @@ cPlansza::cPlansza(void)
 	kamera.przesuwajx = 0;
 	kamera.przesuwajy = 0;
 
-	testowy = 0;
-	testowy2 = 0;
+
 
 	TworzTekstury();
 
@@ -40,6 +43,17 @@ cPlansza::cPlansza(void)
 		kolor.g = 1;
 		tabPalm[i] = new cPalma(TEKSTURA_PALMA1, 9+rand()%8, -10+rand()%20, -400+100*i+rand()%90,-35, -0.1);
 	}
+
+	for (int i = 0; i < 2 * ZAKRES_GRY_X * MNOZNIK_POL; i++)
+	{
+		for (int j = 0; j < ZAKRES_GRY_Y * MNOZNIK_POL; j++)
+		{
+			if (j < MNOZNIK_POL * 30) tabPol[i][j] = 0;
+			else if ( j < MNOZNIK_POL * 40) tabPol[i][j] = 1;
+			else tabPol[i][j] = 2;
+		}
+	}
+
 }
 
 cPlansza::~cPlansza(void)
@@ -232,6 +246,9 @@ void cPlansza::_MyszKlawisz(int button, int state, int x, int y)
 			testowy = ((float) x / rozmiarOkna.x * 2 * kamera.zakres - kamera.zakres) * rozmiarOkna.proporcja + kamera.x;
 			testowy2 = - ((float) y / rozmiarOkna.y * 2 * kamera.zakres - kamera.zakres) + kamera.y;
 
+			//tabPunktow[licznikPunktow][0] = testowy;
+			//tabPunktow[licznikPunktow++][1] = testowy2;
+
 			cout << "(" << testowy << " ; " << testowy2 << ") " << endl;
 		}
 	}
@@ -262,6 +279,7 @@ void cPlansza::_MyszKlawisz(int button, int state, int x, int y)
 		glutTimerFunc(20, Dzialaj, TIMER_KAMERA_PRZESUN_X);
 		glutTimerFunc(20, Dzialaj, TIMER_KAMERA_SCROLL);
 	}
+
 
 
 

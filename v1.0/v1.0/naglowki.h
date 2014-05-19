@@ -15,7 +15,9 @@ using namespace std;
 void Dzialaj(int value);
 
 
-#define ZAKRES_GRY 300
+#define ZAKRES_GRY_X 300
+#define ZAKRES_GRY_Y 80
+#define MNOZNIK_POL 5
 
 #define TIMER_KAMERA_SCROLL 5
 #define TIMER_KAMERA_PRZESUN_X 6
@@ -34,7 +36,7 @@ void Dzialaj(int value);
 #define KAMERA_MAX_POLOZENIE_X 300
 #define KAMERA_MAX_POLOZENIE_Y 100
 #define KAMERA_MIN_POLOZENIE_Y -30
-#define KAMERA_PRZESUWANIE_MYSZA 40
+#define KAMERA_PRZESUWANIE_MYSZA 60
 
 #define ILOSC_CHMUR 8
 #define SZYBKOSC_CHMUR 120.0
@@ -44,7 +46,7 @@ void Dzialaj(int value);
 #define TEKSTURA_CHMURA1 1
 #define TEKSTURA_CHMURA2 2
 #define TEKSTURA_PALMA1 3
-
+#define TEKSTURA_TRAWA1 4
 
 struct sKOLOR
 {
