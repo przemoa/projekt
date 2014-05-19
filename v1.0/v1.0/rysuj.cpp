@@ -39,6 +39,32 @@ void cPlansza::_Przerysuj(void)
 			tabChmur[i]->Rysuj();
 		}
 
+		for (int i = 0; i < ILOSC_PALM; i++)
+		{
+			tabPalm[i]->Rysuj();
+		}
+
+
+
+		
+			glPushMatrix();
+				glBindTexture(GL_TEXTURE_2D, 77);
+				glTranslatef(-250,-240,0);
+				glEnable(GL_TEXTURE_2D);
+				glColor4f(1, 1, 1, 0.7);
+				glBegin(GL_POLYGON);
+					for (int i = 0; i < 100; i++)
+					{
+						glTexCoord2f(i/99.0, 0.0); glVertex3f(i, 0.005*i*i, -0.1*i);
+					}
+					for (int i = 99; i >= 0; i--)
+					{
+						glTexCoord2f(i/99.0, 1); glVertex3f(i, 0.005*i*i+95, -0.1*i);
+					}
+				glEnd();
+				glDisable(GL_TEXTURE_2D);
+			glPopMatrix();
+
 
 
 	glPopMatrix();

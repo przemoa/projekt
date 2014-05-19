@@ -15,7 +15,8 @@ cPlansza::cPlansza(void)
 	kamera.yCel = 0;
 	kamera.zakres = 50;
 	kamera.zakresCel = 50;
-	kamera.przesuwaj = 0;
+	kamera.przesuwajx = 0;
+	kamera.przesuwajy = 0;
 
 	testowy = 0;
 	testowy2 = 0;
@@ -29,6 +30,15 @@ cPlansza::cPlansza(void)
 		kolor.r = 1 - i/20.0;
 		kolor.g = 1;
 		tabChmur[i] = new cChmura(((rand()%2) ? TEKSTURA_CHMURA1 : TEKSTURA_CHMURA2), -400+100*i+rand()%30, 30+rand()%20, -12, kolor, 5+rand()%7, rand()%2*180-5+rand()%10, 10+rand()%15);
+	}
+
+	for (int i = 0; i < ILOSC_PALM; i++)
+	{
+		sKOLOR kolor;
+		kolor.b = 0.9;
+		kolor.r = 1 - i/20.0;
+		kolor.g = 1;
+		tabPalm[i] = new cPalma(TEKSTURA_PALMA1, 9+rand()%8, -10+rand()%20, -400+100*i+rand()%90,-35, -0.1);
 	}
 }
 
@@ -121,14 +131,19 @@ void cPlansza::_Dzialaj(int value)
 
 	if (value == TIMER_KAMERA_MYSZ_PRZESUN_X)
 	{
-		if (kamera.przesuwaj)
+		if (kamera.przesuwajx)
 		{
-
-			kamera.x += kamera.przesuwaj * 0.01 * kamera.zakres;
-			kamera.xCel += kamera.przesuwaj * 0.01 * kamera.zakres;
-			OdswiezKamere();
-
+			PrzesunKamere(-kamera.przesuwajx * 0.01 * kamera.zakres, 0);
 			glutTimerFunc(20, Dzialaj, TIMER_KAMERA_MYSZ_PRZESUN_X);
+		}
+	}
+
+	if (value == TIMER_KAMERA_MYSZ_PRZESUN_Y)
+	{
+		if (kamera.przesuwajy)
+		{
+			PrzesunKamere(0, -kamera.przesuwajy * 0.01 * kamera.zakres);
+			glutTimerFunc(20, Dzialaj, TIMER_KAMERA_MYSZ_PRZESUN_Y);
 		}
 	}
 
@@ -179,6 +194,16 @@ void cPlansza::_Klawiatura(unsigned char key, int x, int y)
 
 	case 'd':
 		PrzesunKamere(-przesu, 0);
+		break;
+	case '-':
+		kamera.zakresCel *= SZYBKOSC_SCROLLOWANIA;
+		if (kamera.zakresCel > KAMERA_MAX_ZAKRES) kamera.zakresCel = KAMERA_MAX_ZAKRES;
+		glutTimerFunc(20, Dzialaj, TIMER_KAMERA_SCROLL);
+		break;
+	case '+':
+		kamera.zakresCel /= SZYBKOSC_SCROLLOWANIA;
+		if (kamera.zakresCel < KAMERA_MIN_ZAKRES) kamera.zakresCel = KAMERA_MIN_ZAKRES;
+		glutTimerFunc(20, Dzialaj, TIMER_KAMERA_SCROLL);
 		break;
 
 
@@ -245,23 +270,44 @@ void cPlansza::_MyszKlawisz(int button, int state, int x, int y)
 void cPlansza::_MyszRuch(int x,int y)
 {
 
-	if (kamera.przesuwaj == 0)
+	if (kamera.przesuwajx == 0)
 	{
-		if (x < 70)
+		if (x < KAMERA_PRZESUWANIE_MYSZA)
 		{
-			kamera.przesuwaj = -1;
+			kamera.przesuwajx = -1;
 			glutTimerFunc(20, Dzialaj, TIMER_KAMERA_MYSZ_PRZESUN_X);
 		}
-		if (x > rozmiarOkna.x - 70)
+		if (x > rozmiarOkna.x - KAMERA_PRZESUWANIE_MYSZA)
 		{
-			kamera.przesuwaj = +1;
+			kamera.przesuwajx = +1;
 			glutTimerFunc(20, Dzialaj, TIMER_KAMERA_MYSZ_PRZESUN_X);
 		}
 	}
 	else
 	{
-		if (x > 70 && x < rozmiarOkna.x - 70) kamera.przesuwaj = 0;
+		if (x > KAMERA_PRZESUWANIE_MYSZA && x < rozmiarOkna.x - KAMERA_PRZESUWANIE_MYSZA) kamera.przesuwajx = 0;
 	}
+
+
+	if (kamera.przesuwajy == 0)
+	{
+		if (y < KAMERA_PRZESUWANIE_MYSZA)
+		{
+			kamera.przesuwajy = -1;
+			glutTimerFunc(20, Dzialaj, TIMER_KAMERA_MYSZ_PRZESUN_Y);
+		}
+		if (y > rozmiarOkna.y - KAMERA_PRZESUWANIE_MYSZA)
+		{
+			kamera.przesuwajy = +1;
+			glutTimerFunc(20, Dzialaj, TIMER_KAMERA_MYSZ_PRZESUN_Y);
+		}
+	}
+	else
+	{
+		if (y > KAMERA_PRZESUWANIE_MYSZA && y < rozmiarOkna.y - KAMERA_PRZESUWANIE_MYSZA) kamera.przesuwajy = 0;
+	}
+
+
 }
 
 
@@ -301,9 +347,15 @@ void cPlansza::PrzesunKamere(float dx, float dy)
 
 
 
+
+
+
+
 void cPlansza::TworzTekstury()
 {
-	SOIL_load_OGL_texture("C:\\Users\\Przemek\\Desktop\\tx\\chmura1.png", SOIL_LOAD_AUTO, TEKSTURA_CHMURA1, SOIL_FLAG_INVERT_Y);
-	SOIL_load_OGL_texture("C:\\Users\\Przemek\\Desktop\\tx\\chmura2.png", SOIL_LOAD_AUTO, TEKSTURA_CHMURA2, SOIL_FLAG_INVERT_Y);
+	SOIL_load_OGL_texture("tx\\chmura1.png", SOIL_LOAD_AUTO, TEKSTURA_CHMURA1, SOIL_FLAG_INVERT_Y);
+	SOIL_load_OGL_texture("tx\\chmura2.png", SOIL_LOAD_AUTO, TEKSTURA_CHMURA2, SOIL_FLAG_INVERT_Y);
+	SOIL_load_OGL_texture("tx\\palma1.png", SOIL_LOAD_AUTO, TEKSTURA_PALMA1, SOIL_FLAG_INVERT_Y);
 
+	SOIL_load_OGL_texture("tx\\Przemek.png", SOIL_LOAD_AUTO, 77, SOIL_FLAG_INVERT_Y);
 }

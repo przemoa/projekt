@@ -45,6 +45,9 @@
     <ClCompile Include="cChmura.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="cPalma.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cPlansza.h">
@@ -75,6 +78,9 @@
       <Filter>SOIL</Filter>
     </ClInclude>
     <ClInclude Include="cChmura.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cPalma.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

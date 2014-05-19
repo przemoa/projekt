@@ -1,6 +1,8 @@
 #pragma once
 #include "naglowki.h"
 #include "cChmura.h"
+#include "cPalma.h"
+
 
 struct sROZMIAROKNA
 {
@@ -20,7 +22,8 @@ struct sKAMERA
 	float y;
 	float yCel;
 
-	int przesuwaj;			// czy przesuwac kamere z powodu bycia myszy na krawedzi
+	int przesuwajx;			// czy przesuwac kamere z powodu bycia myszy na krawedzi
+	int przesuwajy;
 };
 
 
@@ -39,8 +42,10 @@ public:
 	void _MyszRuch(int x,int y);
 	void OdswiezKamere();
 	void PrzesunKamere(float dx, float dy);
+	
 	void TworzTekstury();
 	cChmura* tabChmur[ILOSC_CHMUR];
+	cPalma* tabPalm[ILOSC_PALM];
 
 	cPlansza(void);
 	~cPlansza(void);
