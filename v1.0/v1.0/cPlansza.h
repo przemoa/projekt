@@ -26,7 +26,6 @@ struct sKAMERA
 	int przesuwajy;
 };
 
-enum eRODZAJPOLA {PUSTE = 1, TRAWA = 2, ZIEMIA = 3, TWARDAZIEMIA = 4};
 
 class cPlansza
 {
@@ -45,14 +44,14 @@ public:
 	void _MyszRuch(int x,int y);
 	void OdswiezKamere();
 	void PrzesunKamere(float dx, float dy);
-	
+	void WczytajTeren();
 
 	void TworzTekstury();
 	cChmura* tabChmur[ILOSC_CHMUR];
 	cPalma* tabPalm[ILOSC_PALM];
 
 
-	int tabPol[2 * ZAKRES_GRY_X * MNOZNIK_POL][ZAKRES_GRY_Y * MNOZNIK_POL];
+	unsigned char tabPol[400][1500]; // PUSTE = 1, TRAWA = 2, ZIEMIA = 3, TWARDAZIEMIA = 4};
 
 
 	void RysujPodloze();

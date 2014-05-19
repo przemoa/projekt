@@ -5,6 +5,7 @@
 
 cPlansza::cPlansza(void)
 {
+	WczytajTeren();
 	testowy = 0;
 	testowy2 = 0;
 	//licznikPunktow = 0;
@@ -362,6 +363,65 @@ void cPlansza::PrzesunKamere(float dx, float dy)
 		glutTimerFunc(20, Dzialaj, TIMER_KAMERA_PRZESUN_X);
 	}
 }
+
+
+void cPlansza::WczytajTeren()
+{
+	FILE* odczytTerenu = fopen("tx\\1.bmp", "r");
+	BYTE tablicaPikseli[1500*400];
+	fread(tablicaPikseli, 1, 1500*400, odczytTerenu);
+	fclose(odczytTerenu);
+
+	for (int w = 0; w < 400; w++)				// przepisz z wektra do tabeli pól i wykonaje pola specjalne
+	{
+		for (int k = 0; k < 1500; k++)
+		{
+			unsigned char pole = tablicaPikseli[(399-w)*1499 + k];
+			switch (pole)
+			{
+			case 0xD5:				 //- gracze
+
+				pole = 0xFF;
+				break;
+			case 0xE8:				//- palma
+
+				pole = 0xFF;
+				break;
+			case 0x37:				//- punkt stabilny 
+
+				pole = 0xFF;
+				break;
+			case 0xF9:				//- skrzynka z nagrod¹ 1
+
+				pole = 0xFF;
+				break;
+			case 0xFA:				//- skrzynka z nagrod¹ 2
+
+				pole = 0xFF;
+				break;
+			}
+
+			tabPol[w][k] = pole;
+		}
+	}
+
+
+	for (int k = 0; k < 1500; k++)
+	{
+		int ileObsiac = 20;
+
+		for (int w = 0; w < 400; w++)
+		{
+			if (!ileObsiac) break;
+			if (tabPol[w][k] == 0x70)
+			{
+				tabPol[w][k] = 0x55;
+				ileObsiac--;
+			}
+		}
+	
+}
+
 
 
 
