@@ -5,7 +5,7 @@
 
 cPlansza::cPlansza(void)
 {
-	WczytajTeren();
+	
 	testowy = 0;
 	testowy2 = 0;
 	//licznikPunktow = 0;
@@ -45,15 +45,15 @@ cPlansza::cPlansza(void)
 		tabPalm[i] = new cPalma(TEKSTURA_PALMA1, 9+rand()%8, -10+rand()%20, -400+100*i+rand()%90,-35, -0.1);
 	}
 
-	for (int i = 0; i < 2 * ZAKRES_GRY_X * MNOZNIK_POL; i++)
+	// wczytaj plansze
+	for (int w = 0; w < 400; w++)
 	{
-		for (int j = 0; j < ZAKRES_GRY_Y * MNOZNIK_POL; j++)
+		for (int k = 0; k < 1500; k++)
 		{
-			if (j < MNOZNIK_POL * 30) tabPol[i][j] = 0;
-			else if ( j < MNOZNIK_POL * 40) tabPol[i][j] = 1;
-			else tabPol[i][j] = 2;
+			tabPol[w][k] = 0xFF;
 		}
 	}
+	WczytajTeren();
 
 }
 
@@ -413,16 +413,14 @@ void cPlansza::WczytajTeren()
 		for (int w = 0; w < 400; w++)
 		{
 			if (!ileObsiac) break;
-			if (tabPol[w][k] == 0x70)
+			if (tabPol[w][k] == 0x71)
 			{
 				tabPol[w][k] = 0x55;
 				ileObsiac--;
 			}
 		}
-	
+	}
 }
-
-
 
 
 
@@ -434,6 +432,7 @@ void cPlansza::TworzTekstury()
 	SOIL_load_OGL_texture("tx\\chmura1.png", SOIL_LOAD_AUTO, TEKSTURA_CHMURA1, SOIL_FLAG_INVERT_Y);
 	SOIL_load_OGL_texture("tx\\chmura2.png", SOIL_LOAD_AUTO, TEKSTURA_CHMURA2, SOIL_FLAG_INVERT_Y);
 	SOIL_load_OGL_texture("tx\\palma1.png", SOIL_LOAD_AUTO, TEKSTURA_PALMA1, SOIL_FLAG_INVERT_Y);
-
+	SOIL_load_OGL_texture("tx\\trawa2.png", SOIL_LOAD_AUTO, TEKSTURA_TRAWA1, SOIL_FLAG_INVERT_Y);
+	
 	SOIL_load_OGL_texture("tx\\Przemek.png", SOIL_LOAD_AUTO, 77, SOIL_FLAG_INVERT_Y);
 }

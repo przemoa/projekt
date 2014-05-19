@@ -51,7 +51,7 @@ public:
 	cPalma* tabPalm[ILOSC_PALM];
 
 
-	unsigned char tabPol[400][1500]; // PUSTE = 1, TRAWA = 2, ZIEMIA = 3, TWARDAZIEMIA = 4};
+	unsigned char tabPol[400][1500];
 
 
 	void RysujPodloze();

@@ -15,10 +15,6 @@ using namespace std;
 void Dzialaj(int value);
 
 
-#define ZAKRES_GRY_X 300
-#define ZAKRES_GRY_Y 80
-#define MNOZNIK_POL 5
-
 #define TIMER_KAMERA_SCROLL 5
 #define TIMER_KAMERA_PRZESUN_X 6
 #define TIMER_KAMERA_MYSZ_PRZESUN_X 61

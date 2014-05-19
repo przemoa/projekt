@@ -11,8 +11,48 @@ void cPlansza::_Przerysuj(void)
 
 
 		RysujTlo();
-		RysujPodloze();
+		//RysujPodloze();
 	
+	glEnable(GL_TEXTURE_2D);
+	glColor4f(1, 1, 1, 0.7);
+
+	glTranslatef(-150.0, 0, 0);
+	for (int w = 0; w < 400; w++)
+	{
+		glTranslatef(0, -0.2, 0);
+		glPushMatrix();
+			for (int k = 0; k < 1500; k++)
+			{
+				glTranslatef(0.2, 0, 0);
+				if (tabPol[w][k] == 0x55)
+				{
+				
+					//glTranslatef(-150 + k/5.0, 0-k/5.0, 0);
+					glBindTexture(GL_TEXTURE_2D, TEKSTURA_TRAWA1);
+					glBegin(GL_POLYGON);
+						glTexCoord2f(k%39/40.0, w%7/6.0); 
+							glVertex2f(0, 0);
+
+						glTexCoord2f(k%39/40.0 + 1/40.0, w%7/6.0); 
+							glVertex2f(0.2, 0);
+
+						glTexCoord2f(k%39/40.0 + 1/40.0, w%7/6.0+1/6.0); 
+							glVertex2f(0.2, 0.2);
+
+						glTexCoord2f(k%39/40.0, w%7/6.0+1/6.0); 
+							glVertex2f(-0.2, 0.2);
+					glEnd();
+				}
+			}
+		glPopMatrix();
+	}
+	glDisable(GL_TEXTURE_2D);
+
+
+
+
+
+
 		//glColor3f(0,1,0);
 		//glBegin(GL_POLYGON);
 		//	for (int i = 0; i < licznikPunktow; i++)
