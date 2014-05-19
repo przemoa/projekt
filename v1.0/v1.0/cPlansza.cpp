@@ -124,7 +124,10 @@ void cPlansza::_Dzialaj(int value)
 		if (kamera.przesuwaj)
 		{
 
-			kamera.x += kamera.przesuwaj * 0.1;
+			kamera.x += kamera.przesuwaj * 0.01 * kamera.zakres;
+			kamera.xCel += kamera.przesuwaj * 0.01 * kamera.zakres;
+			OdswiezKamere();
+
 			glutTimerFunc(20, Dzialaj, TIMER_KAMERA_MYSZ_PRZESUN_X);
 		}
 	}
@@ -244,12 +247,12 @@ void cPlansza::_MyszRuch(int x,int y)
 
 	if (kamera.przesuwaj == 0)
 	{
-		if (x < 20)
+		if (x < 70)
 		{
 			kamera.przesuwaj = -1;
 			glutTimerFunc(20, Dzialaj, TIMER_KAMERA_MYSZ_PRZESUN_X);
 		}
-		if (x > rozmiarOkna.x - 20)
+		if (x > rozmiarOkna.x - 70)
 		{
 			kamera.przesuwaj = +1;
 			glutTimerFunc(20, Dzialaj, TIMER_KAMERA_MYSZ_PRZESUN_X);
@@ -257,7 +260,7 @@ void cPlansza::_MyszRuch(int x,int y)
 	}
 	else
 	{
-		if (x > 20 && x < rozmiarOkna.x - 20) kamera.przesuwaj = 0;
+		if (x > 70 && x < rozmiarOkna.x - 70) kamera.przesuwaj = 0;
 	}
 }
 

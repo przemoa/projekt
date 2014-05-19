@@ -68,7 +68,7 @@ int main(int argc, char **argv)
 	glutKeyboardFunc(Klawisz);
 	glutReshapeFunc(ZmienRozmiar);
 	glutMouseFunc(Mysz);
-	glutMotionFunc(RuchMyszy);
+	glutPassiveMotionFunc(RuchMyszy);
 	glutIdleFunc(idle);
 
 
