@@ -48,6 +48,9 @@
     <ClCompile Include="cPalma.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="cPunktStabilny.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cPlansza.h">
@@ -81,6 +84,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="cPalma.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cPunktStabilny.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

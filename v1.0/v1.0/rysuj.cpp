@@ -61,6 +61,8 @@ void cPlansza::_Przerysuj(void)
 			tabPalm[i]->Rysuj();
 		}
 
+		
+
 		RysujPola();
 
 		
@@ -83,6 +85,11 @@ void cPlansza::_Przerysuj(void)
 			glPopMatrix();
 
 
+		for (int i = 0; i < tabPunktStab.size(); i++)
+		{
+			tabPunktStab[i]->Rysuj();
+		}
+	
 
 	glPopMatrix();
 	glutSwapBuffers();

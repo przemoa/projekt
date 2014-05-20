@@ -43,6 +43,10 @@ void Dzialaj(int value);
 #define TEKSTURA_PALMA1 3
 #define TEKSTURA_TRAWA1 4
 
+
+#define LISTA_PUNKT_STABILNY 1
+
+
 struct sKOLOR
 {
 	float r;

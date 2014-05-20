@@ -2,7 +2,7 @@
 #include "naglowki.h"
 #include "cChmura.h"
 #include "cPalma.h"
-
+#include "cPunktStabilny.h"
 
 struct sROZMIAROKNA
 {
@@ -46,13 +46,16 @@ public:
 	void PrzesunKamere(float dx, float dy);
 	void WczytajTeren();
 
+	void UtworzListy();
+
 	void TworzTekstury();
 	cChmura* tabChmur[ILOSC_CHMUR];
 	vector < cPalma* > tabPalm;
+	vector < cPunktStabilny* > tabPunktStab;
 
 	unsigned char tabPol[400][1500];
 
-	
+	void DodajPunktStabilny(float _x, float _y);
 
 	void RysujPodloze();
 	void RysujTlo();

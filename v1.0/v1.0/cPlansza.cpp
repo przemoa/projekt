@@ -26,6 +26,7 @@ cPlansza::cPlansza(void)
 
 
 	TworzTekstury();
+	UtworzListy();
 
 	for (int i = 0; i < ILOSC_CHMUR; i++)
 	{
@@ -384,8 +385,8 @@ void cPlansza::WczytajTeren()
 				pole = 0xFF;
 				break;
 			case 0x37:				//- punkt stabilny 
-
-				pole = tabPol[w][k-1];
+				DodajPunktStabilny(-300 + 0.4*k, -w*0.4);
+				pole = 0xFF;
 				
 				break;
 			case 0xF9:				//- skrzynka z nagrod¹ 1
@@ -420,8 +421,26 @@ void cPlansza::WczytajTeren()
 }
 
 
+void cPlansza::DodajPunktStabilny(float _x, float _y)
+{
+	cPunktStabilny* nowyPunkt = new cPunktStabilny(_x, _y, 0);
+	tabPunktStab.push_back(nowyPunkt);
+}
 
 
+void cPlansza::UtworzListy()
+{
+
+	glGenLists(LISTA_PUNKT_STABILNY);
+	glNewList(LISTA_PUNKT_STABILNY, GL_COMPILE);
+		glBegin(GL_POLYGON);
+		for (int i = 0; i < 100; i++)
+		{
+			glVertex2f(sin(6.2832*i/100)*4, cos(6.2832*i/100)*4);
+		}
+		glEnd();
+	glEndList();
+}
 
 
 void cPlansza::TworzTekstury()
