@@ -449,6 +449,7 @@ void cPlansza::TworzTekstury()
 	SOIL_load_OGL_texture("tx\\chmura2.png", SOIL_LOAD_AUTO, TEKSTURA_CHMURA2, SOIL_FLAG_INVERT_Y);
 	SOIL_load_OGL_texture("tx\\palma1.png", SOIL_LOAD_AUTO, TEKSTURA_PALMA1, SOIL_FLAG_INVERT_Y);
 	SOIL_load_OGL_texture("tx\\trawa2.png", SOIL_LOAD_AUTO, TEKSTURA_TRAWA1, SOIL_FLAG_INVERT_Y);
-	
+	SOIL_load_OGL_texture("tx\\trawa2.png", SOIL_LOAD_AUTO, TEKSTURA_BOHATER, SOIL_FLAG_INVERT_Y);
+
 	SOIL_load_OGL_texture("tx\\Przemek.png", SOIL_LOAD_AUTO, 77, SOIL_FLAG_INVERT_Y);
 }

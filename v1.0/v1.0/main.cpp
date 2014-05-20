@@ -1,10 +1,10 @@
 #include "naglowki.h"
 #include "cPlansza.h"
 
-
-
-
 cPlansza* Plansza;
+
+
+
 
 void Przerysuj(void)
 {	

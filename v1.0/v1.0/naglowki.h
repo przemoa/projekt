@@ -14,6 +14,8 @@ using namespace std;
 
 void Dzialaj(int value);
 
+//class Plansza;
+//extern Plansza* Plansza;
 
 #define TIMER_KAMERA_SCROLL 5
 #define TIMER_KAMERA_PRZESUN_X 6
@@ -42,7 +44,7 @@ void Dzialaj(int value);
 #define TEKSTURA_CHMURA2 2
 #define TEKSTURA_PALMA1 3
 #define TEKSTURA_TRAWA1 4
-
+#define TEKSTURA_BOHATER 5
 
 #define LISTA_PUNKT_STABILNY 1
 
