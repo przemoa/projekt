@@ -1,7 +1,7 @@
 #include "naglowki.h"
 #include "cPlansza.h"
 
-cPlansza* Plansza;
+cPlansza* Plansza = 0;
 
 
 
@@ -37,6 +37,10 @@ void RuchMyszy(int x,int y)
 	Plansza->_MyszRuch(x, y);
 }
 
+void KlawiszeSpecjalne(int key, int x, int y)
+{
+	Plansza->_KlawiszeSpecjalne(key, x, y);
+}
 
 
 
@@ -70,7 +74,7 @@ int main(int argc, char **argv)
 	glutMouseFunc(Mysz);
 	glutPassiveMotionFunc(RuchMyszy);
 	glutIdleFunc(idle);
-
+	glutSpecialFunc(KlawiszeSpecjalne);
 
 
 	glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_CONTINUE_EXECUTION);

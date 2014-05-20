@@ -14,13 +14,6 @@ void cPlansza::_Przerysuj(void)
 		//RysujPodloze();
 		
 
-	
-	
-
-
-
-
-
 
 		//glColor3f(0,1,0);
 		//glBegin(GL_POLYGON);
@@ -88,6 +81,11 @@ void cPlansza::_Przerysuj(void)
 		for (int i = 0; i < tabPunktStab.size(); i++)
 		{
 			tabPunktStab[i]->Rysuj();
+		}
+
+		for (int i = 0; i < tabBohaterow.size(); i++)
+		{
+			tabBohaterow[i]->Rysuj();
 		}
 	
 

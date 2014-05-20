@@ -3,6 +3,8 @@
 #include "cChmura.h"
 #include "cPalma.h"
 #include "cPunktStabilny.h"
+#include "cBohater.h"
+
 
 struct sROZMIAROKNA
 {
@@ -42,6 +44,7 @@ public:
 	void _Klawiatura(unsigned char key, int x, int y);
 	void _MyszKlawisz(int button, int state, int x, int y);
 	void _MyszRuch(int x,int y);
+	void _KlawiszeSpecjalne(int key, int x, int y);
 	void OdswiezKamere();
 	void PrzesunKamere(float dx, float dy);
 	void WczytajTeren();
@@ -52,6 +55,7 @@ public:
 	cChmura* tabChmur[ILOSC_CHMUR];
 	vector < cPalma* > tabPalm;
 	vector < cPunktStabilny* > tabPunktStab;
+	vector < cBohater* > tabBohaterow;
 
 	unsigned char tabPol[400][1500];
 

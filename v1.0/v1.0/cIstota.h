@@ -13,7 +13,7 @@ protected:
 public:
 	cIstota(void);
 	~cIstota(void);
-	virtual void cRysuj() = 0;
+	virtual void Rysuj() = 0;
 	virtual bool CzyKliknieto(float px, float py) = 0;
 };
 

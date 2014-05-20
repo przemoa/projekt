@@ -15,15 +15,16 @@ cPlansza::cPlansza(void)
 	rozmiarOkna.proporcja = (float) rozmiarOkna.x / rozmiarOkna.y;
 
 	kamera.x = 0;
-	kamera.xCel = 0;
+	kamera.xCel = -190;
 	kamera.y = 0;
-	kamera.yCel = 0;
-	kamera.zakres = 50;
-	kamera.zakresCel = 50;
+	kamera.yCel = -44;
+	kamera.zakres = 300;
+	kamera.zakresCel = 75;
 	kamera.przesuwajx = 0;
 	kamera.przesuwajy = 0;
-
-
+	glutTimerFunc(20, Dzialaj, TIMER_KAMERA_PRZESUN_X);
+	glutTimerFunc(20, Dzialaj, TIMER_KAMERA_PRZESUN_Y);
+	glutTimerFunc(20, Dzialaj, TIMER_KAMERA_SCROLL);
 
 	TworzTekstury();
 	UtworzListy();
@@ -34,7 +35,7 @@ cPlansza::cPlansza(void)
 		kolor.b = 0.9;
 		kolor.r = 1 - i/20.0;
 		kolor.g = 1;
-		tabChmur[i] = new cChmura(((rand()%2) ? TEKSTURA_CHMURA1 : TEKSTURA_CHMURA2), -400+100*i+rand()%30, 30+rand()%20, -12, kolor, 5+rand()%7, rand()%2*180-5+rand()%10, 10+rand()%15);
+		tabChmur[i] = new cChmura(((rand()%2) ? TEKSTURA_CHMURA1 : TEKSTURA_CHMURA2), -400+100*i+rand()%30, -30+rand()%10, -12, kolor, 5+rand()%7, rand()%2*180-5+rand()%10, 10+rand()%15);
 	}
 
 	// wczytaj plansze
@@ -321,7 +322,6 @@ void cPlansza::_MyszRuch(int x,int y)
 
 }
 
-
 void cPlansza::OdswiezKamere()
 {
 	glMatrixMode(GL_PROJECTION);
@@ -334,8 +334,6 @@ void cPlansza::OdswiezKamere()
 	glTranslatef(0,0,-5);
 	glTranslatef(-kamera.x, -kamera.y, 0);
 }
-
-
 
 void cPlansza::PrzesunKamere(float dx, float dy)
 {
@@ -372,7 +370,10 @@ void cPlansza::WczytajTeren()
 			switch (pole)
 			{
 			case 0xD5:				 //- gracze
-
+				{
+					cBohater* nowyBohater = new cBohater(-300 + 0.4*k, -w*0.4, 0);
+					tabBohaterow.push_back(nowyBohater);
+				}
 				pole = 0xFF;
 				break;
 			case 0xE8:				//- palma
@@ -380,13 +381,15 @@ void cPlansza::WczytajTeren()
 				kolor.b = 0.9;
 				kolor.r = 1;
 				kolor.g = 1;
-				{cPalma* nowaPalma = new cPalma(TEKSTURA_PALMA1, 5+rand()%4, -5+rand()%10, -300 + 0.4*k,-w*0.4, -0.1);
-				tabPalm.push_back(nowaPalma);}
+				{
+					cPalma* nowaPalma = new cPalma(TEKSTURA_PALMA1, 5+rand()%4, -5+rand()%10, -300 + 0.4*k,-w*0.4, -0.1);
+					tabPalm.push_back(nowaPalma);
+				}
 				pole = 0xFF;
 				break;
 			case 0x37:				//- punkt stabilny 
 				DodajPunktStabilny(-300 + 0.4*k, -w*0.4);
-				pole = 0xFF;
+				pole = tabPol[w][k-1];
 				
 				break;
 			case 0xF9:				//- skrzynka z nagrod¹ 1
@@ -430,7 +433,7 @@ void cPlansza::DodajPunktStabilny(float _x, float _y)
 
 void cPlansza::UtworzListy()
 {
-
+	// punkt stabilny
 	glGenLists(LISTA_PUNKT_STABILNY);
 	glNewList(LISTA_PUNKT_STABILNY, GL_COMPILE);
 
@@ -472,11 +475,33 @@ void cPlansza::UtworzListy()
 			glVertex2f(0.8 * ROZMIAR_PUNKTUSTABILNEGO, 0.1 * ROZMIAR_PUNKTUSTABILNEGO);
 			glVertex2f(-0.8 * ROZMIAR_PUNKTUSTABILNEGO, 0.1 * ROZMIAR_PUNKTUSTABILNEGO);
 		glEnd();
+	glEndList();
 
-	
+	// bohater
 
+	glGenLists(LISTA_BOHATER);
+	glNewList(LISTA_BOHATER, GL_COMPILE);
+
+		glBegin(GL_POLYGON);
+			glVertex2f(-4.11489 , 0.210183);
+			glVertex2f(-3.96696 , 3.46462);
+			glVertex2f(-1.00838 , 5.97941);
+			glVertex2f(-0.268738 , 8.93799);
+			glVertex2f(0.470907 , 11.4528);
+			glVertex2f(5.05671 , 14.7072);
+			glVertex2f(10.8259 , 14.8552);
+			glVertex2f(12.3052 , 10.5652);
+			glVertex2f(11.4177 , 6.27527);
+			glVertex2f(17.039 , 5.23977);
+			glVertex2f(22.3644 , 6.12734);
+			glVertex2f(26.8023 , 4.64805);
+			glVertex2f(26.2106 , 1.54154);
+			glVertex2f(22.0685 , -1.12118);
+			glVertex2f(0.766765 , -1.26911);
+		glEnd();
 
 	glEndList();
+
 }
 
 
@@ -489,4 +514,30 @@ void cPlansza::TworzTekstury()
 	SOIL_load_OGL_texture("tx\\trawa2.png", SOIL_LOAD_AUTO, TEKSTURA_BOHATER, SOIL_FLAG_INVERT_Y);
 
 	SOIL_load_OGL_texture("tx\\Przemek.png", SOIL_LOAD_AUTO, 77, SOIL_FLAG_INVERT_Y);
+}
+
+
+void cPlansza::_KlawiszeSpecjalne(int key, int x, int y)
+{
+	float przesu = SZYBKOSC_PRZESUWANIA * kamera.zakres;
+
+	switch(key)
+	{
+	case GLUT_KEY_UP:
+		PrzesunKamere(0, przesu);
+		break;	
+	case GLUT_KEY_DOWN:
+		PrzesunKamere(0, -przesu);
+		break;
+	case GLUT_KEY_LEFT:
+		PrzesunKamere(przesu, 0);
+		break;
+	case GLUT_KEY_RIGHT:
+		PrzesunKamere(-przesu, 0);
+		break;
+	}
+	
+
+
+		
 }

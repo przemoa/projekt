@@ -14,8 +14,8 @@ using namespace std;
 
 void Dzialaj(int value);
 
-//class Plansza;
-//extern Plansza* Plansza;
+class cPlansza;
+extern cPlansza* Plansza;
 
 #define TIMER_KAMERA_SCROLL 5
 #define TIMER_KAMERA_PRZESUN_X 6
@@ -47,8 +47,10 @@ void Dzialaj(int value);
 #define TEKSTURA_BOHATER 5
 
 #define LISTA_PUNKT_STABILNY 1
+#define LISTA_BOHATER 2
 
-#define ROZMIAR_PUNKTUSTABILNEGO 0.5
+
+#define ROZMIAR_PUNKTUSTABILNEGO 1
 
 struct sKOLOR
 {
