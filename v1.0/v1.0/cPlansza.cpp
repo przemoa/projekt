@@ -369,36 +369,31 @@ void cPlansza::WczytajTeren()
 			unsigned char pole = tablicaPikseli[(399-w)*1500 + k];
 			switch (pole)
 			{
-			case 0xD5:				 //- gracze
-				{
-					cBohater* nowyBohater = new cBohater(-300 + 0.4*k, -w*0.4, 0);
-					tabBohaterow.push_back(nowyBohater);
-				}
-				pole = 0xFF;
+			case POLE_GRACZ:
+
+				pole = POLE_TLO;
 				break;
-			case 0xE8:				//- palma
+			case POLE_PALMA:
 				sKOLOR kolor;
 				kolor.b = 0.9;
 				kolor.r = 1;
 				kolor.g = 1;
-				{
-					cPalma* nowaPalma = new cPalma(TEKSTURA_PALMA1, 5+rand()%4, -5+rand()%10, -300 + 0.4*k,-w*0.4, -0.1);
-					tabPalm.push_back(nowaPalma);
-				}
-				pole = 0xFF;
+				{cPalma* nowaPalma = new cPalma(TEKSTURA_PALMA1, 5+rand()%4, -5+rand()%10, -300 + 0.4*k,-w*0.4, -0.1);
+				tabPalm.push_back(nowaPalma);}
+				pole = POLE_TLO;
 				break;
-			case 0x37:				//- punkt stabilny 
+			case POLE_PUNKT_STABILNY: 
 				DodajPunktStabilny(-300 + 0.4*k, -w*0.4);
-				pole = tabPol[w][k-1];
+				pole = POLE_TLO;
 				
 				break;
-			case 0xF9:				//- skrzynka z nagrod¹ 1
+			case POLE_SKRZYNKA_Z_NAGRODA_1:
 
-				pole = 0xFF;
+				pole = POLE_TLO;
 				break;
-			case 0xFA:				//- skrzynka z nagrod¹ 2
+			case POLE_SKRZYNKA_Z_NAGRODA_2:
 
-				pole = 0xFF;
+				pole = POLE_TLO;
 				break;
 			}
 

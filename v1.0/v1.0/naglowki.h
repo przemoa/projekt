@@ -46,6 +46,13 @@ extern cPlansza* Plansza;
 #define TEKSTURA_TRAWA1 4
 #define TEKSTURA_BOHATER 5
 
+#define POLE_GRACZ 0xD5
+#define POLE_PALMA 0xE8
+#define POLE_PUNKT_STABILNY 0x37
+#define POLE_SKRZYNKA_Z_NAGRODA_1 0xF9
+#define POLE_SKRZYNKA_Z_NAGRODA_2 0xFA
+#define POLE_TLO 0xFF
+
 #define LISTA_PUNKT_STABILNY 1
 #define LISTA_BOHATER 2
 
