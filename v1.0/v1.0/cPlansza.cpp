@@ -15,11 +15,11 @@ cPlansza::cPlansza(void)
 	rozmiarOkna.proporcja = (float) rozmiarOkna.x / rozmiarOkna.y;
 
 	kamera.x = 0;
-	kamera.xCel = -190;
+	kamera.xCel = -160;
 	kamera.y = 0;
-	kamera.yCel = -44;
+	kamera.yCel = -54;
 	kamera.zakres = 300;
-	kamera.zakresCel = 75;
+	kamera.zakresCel = 45;
 	kamera.przesuwajx = 0;
 	kamera.przesuwajy = 0;
 	glutTimerFunc(20, Dzialaj, TIMER_KAMERA_PRZESUN_X);
@@ -38,7 +38,7 @@ cPlansza::cPlansza(void)
 		kolor.b = 0.9;
 		kolor.r = 1 - i/20.0;
 		kolor.g = 1;
-		tabChmur[i] = new cChmura(((rand()%2) ? TEKSTURA_CHMURA1 : TEKSTURA_CHMURA2), -400+100*i+rand()%30, -30+rand()%10, -12, kolor, 5+rand()%7, rand()%2*180-5+rand()%10, 10+rand()%15);
+		tabChmur[i] = new cChmura(((rand()%2) ? TEKSTURA_CHMURA1 : TEKSTURA_CHMURA2), -400+80*i+rand()%30, -30+rand()%10, -12, kolor, 5+rand()%7, rand()%2*180-5+rand()%10, 10+rand()%15);
 	}
 
 	// wczytaj plansze
@@ -165,6 +165,12 @@ void cPlansza::_Dzialaj(int value)
 		{
 			tabChmur[i]->Ruszaj();
 		}
+
+		for (int i = 0; i < tabPunktStab.size(); i++)
+		{
+			tabPunktStab[i]->ObracajSie();
+		}
+
 		glutTimerFunc(20, Dzialaj, TIMER_ANIMACJI_TLA);
 	}
 
@@ -519,6 +525,56 @@ void cPlansza::UtworzListy()
 			glVertex2f(	9.444444444	,	0.444444444	);
 			glVertex2f(	9.444444444	,	0	);
 		glEnd();
+
+		
+
+		//glColor4f(0,0,0,0.3);
+
+		glBegin(GL_LINES);
+			glVertex2f(	0	,	0	);		glVertex3f(	0	,	0	,	-1.5	);
+			glVertex2f(	-1.444444444	,	0	);		glVertex3f(	-1.444444444	,	0	,	-1.5	);
+			glVertex2f(	-2.444444444	,	-0.444444444	);		glVertex3f(	-2.444444444	,	-0.444444444	,	-1.5	);
+			glVertex2f(	-2.444444444	,	0.222222222	);		glVertex3f(	-2.444444444	,	0.222222222	,	-1.5	);
+			glVertex2f(	-1.777777778	,	1	);		glVertex3f(	-1.777777778	,	1	,	-1.5	);
+			glVertex2f(	-1	,	1.222222222	);		glVertex3f(	-1	,	1.222222222	,	-1.5	);
+			glVertex2f(	-0.555555556	,	1.555555556	);		glVertex3f(	-0.555555556	,	1.555555556	,	-1.5	);
+			glVertex2f(	-0.333333333	,	5.333333333	);		glVertex3f(	-0.333333333	,	5.333333333	,	-1.5	);
+			glVertex2f(	1.222222222	,	5.555555556	);		glVertex3f(	1.222222222	,	5.555555556	,	-1.5	);
+			glVertex2f(	3	,	5.444444444	);		glVertex3f(	3	,	5.444444444	,	-1.5	);
+			glVertex2f(	3.777777778	,	4.222222222	);		glVertex3f(	3.777777778	,	4.222222222	,	-1.5	);
+			glVertex2f(	3.888888889	,	2	);		glVertex3f(	3.888888889	,	2	,	-1.5	);
+			glVertex2f(	6.111111111	,	2.555555556	);		glVertex3f(	6.111111111	,	2.555555556	,	-1.5	);
+			glVertex2f(	8	,	2.555555556	);		glVertex3f(	8	,	2.555555556	,	-1.5	);
+			glVertex2f(	8.444444444	,	2.111111111	);		glVertex3f(	8.444444444	,	2.111111111	,	-1.5	);
+			glVertex2f(	8.888888889	,	1.666666667	);		glVertex3f(	8.888888889	,	1.666666667	,	-1.5	);
+			glVertex2f(	9.222222222	,	0.666666667	);		glVertex3f(	9.222222222	,	0.666666667	,	-1.5	);
+			glVertex2f(	9.444444444	,	0.444444444	);		glVertex3f(	9.444444444	,	0.444444444	,	-1.5	);
+			glVertex2f(	9.444444444	,	0	);		glVertex3f(	9.444444444	,	0	,	-1.5	);
+		glEnd();
+
+		glBegin(GL_LINE_LOOP);
+			glVertex3f(	0	,	0	,	-1.5	);
+			glVertex3f(	-1.444444444	,	0	,	-1.5	);
+			glVertex3f(	-2.444444444	,	-0.444444444	,	-1.5	);
+			glVertex3f(	-2.444444444	,	0.222222222	,	-1.5	);
+			glVertex3f(	-1.777777778	,	1	,	-1.5	);
+			glVertex3f(	-1	,	1.222222222	,	-1.5	);
+			glVertex3f(	-0.555555556	,	1.555555556	,	-1.5	);
+			glVertex3f(	-0.333333333	,	5.333333333	,	-1.5	);
+			glVertex3f(	1.222222222	,	5.555555556	,	-1.5	);
+			glVertex3f(	3	,	5.444444444	,	-1.5	);
+			glVertex3f(	3.777777778	,	4.222222222	,	-1.5	);
+			glVertex3f(	3.888888889	,	2	,	-1.5	);
+			glVertex3f(	6.111111111	,	2.555555556	,	-1.5	);
+			glVertex3f(	8	,	2.555555556	,	-1.5	);
+			glVertex3f(	8.444444444	,	2.111111111	,	-1.5	);
+			glVertex3f(	8.888888889	,	1.666666667	,	-1.5	);
+			glVertex3f(	9.222222222	,	0.666666667	,	-1.5	);
+			glVertex3f(	9.444444444	,	0.444444444	,	-1.5	);
+			glVertex3f(	9.444444444	,	0	,	-1.5	);
+		glEnd();
+
+		
 
 
 		glBegin(GL_POLYGON);

@@ -36,7 +36,7 @@ extern cPlansza* Plansza;
 #define KAMERA_MIN_POLOZENIE_Y -200
 #define KAMERA_PRZESUWANIE_MYSZA 60
 
-#define ILOSC_CHMUR 8
+#define ILOSC_CHMUR 11
 #define SZYBKOSC_CHMUR 120.0
 
 

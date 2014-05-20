@@ -11,5 +11,6 @@ public:
 	~cPunktStabilny(void);
 	void Rysuj();
 	bool CzyKliknieto(float px, float py);
+	void ObracajSie();
 };
 
