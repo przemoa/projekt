@@ -83,9 +83,9 @@ void cPlansza::_Przerysuj(void)
 			tabPunktStab[i]->Rysuj();
 		}
 
-		for (int i = 0; i < tabBohaterow.size(); i++)
+		//for (int i = 0; i < tabBohaterow.size(); i++)
 		{
-			tabBohaterow[i]->Rysuj();
+			tabBohaterow[0]->Rysuj();
 		}
 	
 
@@ -163,18 +163,18 @@ void cPlansza::RysujPola()
 				for (int k = 0; k < 1500; k++)
 				{
 					//glTranslatef(0.4, 0, 0);
-					if (tabPol[w][k] == 0xFF) continue; 
-					if (tabPol[w][k] == 'P') continue;
+					if (tabPol[w][k] == POLE_TLO) continue; 
+					if (tabPol[w][k] == POLE_SKALA) continue;
 					
 					switch (tabPol[w][k])
 					{
-					case 'P':
+					case POLE_SKALA:
 						glColor3f(0.3, 0.3, 0.3);
 						break;
-					case 0x71:
+					case POLE_ZIEMIA:
 						glColor4f(0.6, 0.4, 0.2, 0.5);
 						break;
-					case 0x55:
+					case POLE_TRAWA:
 						glColor3f(0.2, 0.8, 0.2);
 						break;
 					}

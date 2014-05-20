@@ -56,6 +56,8 @@ public:
 	vector < cPalma* > tabPalm;
 	vector < cPunktStabilny* > tabPunktStab;
 	vector < cBohater* > tabBohaterow;
+	int wybranyBohater;
+
 
 	unsigned char tabPol[400][1500];
 
@@ -73,5 +75,9 @@ public:
 	//int tabPunktow[200][2];
 	//int licznikPunktow;
 
+	float TabDoX(int k);
+	float TabDoY(int w);
+	int XDoTab(float x);
+	int YDoTab(float y);
 };
 

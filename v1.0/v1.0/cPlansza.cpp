@@ -26,6 +26,9 @@ cPlansza::cPlansza(void)
 	glutTimerFunc(20, Dzialaj, TIMER_KAMERA_PRZESUN_Y);
 	glutTimerFunc(20, Dzialaj, TIMER_KAMERA_SCROLL);
 
+	wybranyBohater = 0;
+
+
 	TworzTekstury();
 	UtworzListy();
 
@@ -174,6 +177,18 @@ void cPlansza::_Dzialaj(int value)
 		glutTimerFunc(2000, Dzialaj, TIMER_CO_DWASEKUNDOWY);
 	}
 
+	if (value == TIMER_20)
+	{
+		//for (int i = 0; i < tabBohaterow.size(); i++)
+		{
+			tabBohaterow[0]->Opadaj();
+		}
+		glutTimerFunc(20, Dzialaj, TIMER_20);
+	}
+
+
+
+
 }
 
 void cPlansza::_Idle(void)
@@ -189,7 +204,6 @@ void cPlansza::_Klawiatura(unsigned char key, int x, int y)
 	{
 		// obsluga kamery
 	case 'w':
-		PrzesunKamere(0, przesu);
 		break;
 
 	case 's':
@@ -197,11 +211,11 @@ void cPlansza::_Klawiatura(unsigned char key, int x, int y)
 		break;
 
 	case 'a':
-		PrzesunKamere(przesu, 0);
+		tabBohaterow[wybranyBohater]->Ruszaj(-KROK_BOHATERA*10);
 		break;
 
 	case 'd':
-		PrzesunKamere(-przesu, 0);
+		tabBohaterow[wybranyBohater]->Ruszaj(KROK_BOHATERA*10);
 		break;
 	case '-':
 		kamera.zakresCel *= SZYBKOSC_SCROLLOWANIA;
@@ -254,8 +268,8 @@ void cPlansza::_MyszKlawisz(int button, int state, int x, int y)
 		if (button == 3)				// przyblizanie
 		{
 			kamera.zakresCel /= SZYBKOSC_SCROLLOWANIA;
-			float wspx = (x - rozmiarOkna.x / 2.0) / 30;
-			float wspy = (y - rozmiarOkna.y / 2.0) / 30;
+			float wspx = (x - rozmiarOkna.x / 2.0) * kamera.zakres / 1200;
+			float wspy = (y - rozmiarOkna.y / 2.0) * kamera.zakres / 1200;
 			PrzesunKamere(-wspx, -wspy);
 			if (kamera.zakresCel < KAMERA_MIN_ZAKRES) kamera.zakresCel = KAMERA_MIN_ZAKRES;
 		}
@@ -370,21 +384,26 @@ void cPlansza::WczytajTeren()
 			switch (pole)
 			{
 			case POLE_GRACZ:
-
+				{
+					cBohater* nowyBohater = new cBohater(TabDoX(k), TabDoY(w));
+					tabBohaterow.push_back(nowyBohater);
+				}
 				pole = POLE_TLO;
 				break;
+
 			case POLE_PALMA:
 				sKOLOR kolor;
 				kolor.b = 0.9;
 				kolor.r = 1;
 				kolor.g = 1;
-				{cPalma* nowaPalma = new cPalma(TEKSTURA_PALMA1, 5+rand()%4, -5+rand()%10, -300 + 0.4*k,-w*0.4, -0.1);
+				{cPalma* nowaPalma = new cPalma(TEKSTURA_PALMA1, 5+rand()%4, -5+rand()%10, TabDoX(k), TabDoY(w), -0.1);
 				tabPalm.push_back(nowaPalma);}
 				pole = POLE_TLO;
 				break;
+
 			case POLE_PUNKT_STABILNY: 
-				DodajPunktStabilny(-300 + 0.4*k, -w*0.4);
-				pole = POLE_TLO;
+				DodajPunktStabilny(TabDoX(k), TabDoY(w));
+				pole = tabPol[w][k-1];
 				
 				break;
 			case POLE_SKRZYNKA_Z_NAGRODA_1:
@@ -409,9 +428,9 @@ void cPlansza::WczytajTeren()
 		for (int w = 0; w < 400; w++)
 		{
 			if (!ileObsiac) break;
-			if (tabPol[w][k] == 0x71)
+			if (tabPol[w][k] == POLE_ZIEMIA)
 			{
-				tabPol[w][k] = 0x55;
+				tabPol[w][k] = POLE_TRAWA;
 				ileObsiac--;
 			}
 		}
@@ -434,25 +453,25 @@ void cPlansza::UtworzListy()
 
 		glBegin(GL_POLYGON);
 		glColor4f(0,0,0,1);
-		for (int i = 0; i < 100; i++)
+		for (int i = 0; i < 33; i++)
 		{
-			glVertex2f(ROZMIAR_PUNKTUSTABILNEGO * sin(6.2832*i/100), ROZMIAR_PUNKTUSTABILNEGO * cos(6.2832*i/100));
+			glVertex2f(ROZMIAR_PUNKTUSTABILNEGO * sin(6.2832*i/33), ROZMIAR_PUNKTUSTABILNEGO * cos(6.2832*i/33));
 		}
 		glEnd();
 
 		glBegin(GL_POLYGON);
 		glColor4f(0.38,0.25,0,1);
-		for (int i = 0; i < 100; i++)
+		for (int i = 0; i < 33; i++)
 		{
-			glVertex2f(0.8 * ROZMIAR_PUNKTUSTABILNEGO * sin(6.2832*i/100), 0.8 * ROZMIAR_PUNKTUSTABILNEGO * cos(6.2832*i/100));
+			glVertex2f(0.8 * ROZMIAR_PUNKTUSTABILNEGO * sin(6.2832*i/33), 0.8 * ROZMIAR_PUNKTUSTABILNEGO * cos(6.2832*i/33));
 		}
 		glEnd();
 
 		glBegin(GL_POLYGON);
 		glColor4f(0.63,0.13,0,1);
-		for (int i = 0; i < 100; i++)
+		for (int i = 0; i < 33; i++)
 		{
-			glVertex2f(0.45 * ROZMIAR_PUNKTUSTABILNEGO * sin(6.2832*i/100), 0.45 * ROZMIAR_PUNKTUSTABILNEGO * cos(6.2832*i/100));
+			glVertex2f(0.45 * ROZMIAR_PUNKTUSTABILNEGO * sin(6.2832*i/33), 0.45 * ROZMIAR_PUNKTUSTABILNEGO * cos(6.2832*i/33));
 		}
 		glEnd();
 
@@ -471,6 +490,8 @@ void cPlansza::UtworzListy()
 			glVertex2f(-0.8 * ROZMIAR_PUNKTUSTABILNEGO, 0.1 * ROZMIAR_PUNKTUSTABILNEGO);
 		glEnd();
 	glEndList();
+
+
 
 	// bohater
 
@@ -497,6 +518,41 @@ void cPlansza::UtworzListy()
 			glVertex2f(	9.222222222	,	0.666666667	);
 			glVertex2f(	9.444444444	,	0.444444444	);
 			glVertex2f(	9.444444444	,	0	);
+		glEnd();
+
+
+		glBegin(GL_POLYGON);
+			glColor4f(0,0,0,1);
+			for (int i = 0; i < 33; i++)
+			{
+				glVertex2f(BOHATER_PROMIEN1 * sin(6.2832*i/33), BOHATER_PROMIEN1 * cos(6.2832*i/33));
+			}		
+		glEnd();
+
+		glColor4f(1,1,0,1);
+		glBegin(GL_POLYGON);
+			for (int i = 0; i < 33; i++)
+			{
+				glVertex2f(0.55 * BOHATER_PROMIEN1 * sin(6.2832*i/33), 0.55 * BOHATER_PROMIEN1 * cos(6.2832*i/33));
+			}		
+		glEnd();
+
+		glTranslatef(BOHATER_POZYCJA_KOLA, BOHATER_PROMIEN2 - BOHATER_PROMIEN1, 0);
+
+		glBegin(GL_POLYGON);
+			glColor4f(0,0,0,1);
+			for (int i = 0; i < 33; i++)
+			{
+				glVertex2f(BOHATER_PROMIEN2 * sin(6.2832*i/33), BOHATER_PROMIEN2 * cos(6.2832*i/33));
+			}		
+		glEnd();
+
+		glBegin(GL_POLYGON);
+			glColor4f(1,1,0,1);
+			for (int i = 0; i < 33; i++)
+			{
+				glVertex2f(0.55 * BOHATER_PROMIEN2 * sin(6.2832*i/33), 0.55 * BOHATER_PROMIEN2 * cos(6.2832*i/33));
+			}		
 		glEnd();
 
 	glEndList();
@@ -539,4 +595,24 @@ void cPlansza::_KlawiszeSpecjalne(int key, int x, int y)
 
 
 		
+}
+
+float cPlansza::TabDoX(int k)
+{
+	return (-300 + 0.4*k);
+}
+
+float cPlansza::TabDoY(int w)
+{
+	return (-w*0.4);
+}
+
+int cPlansza::XDoTab(float x)
+{
+	return ((x + 300) / 0.4);
+}
+
+int cPlansza::YDoTab(float y)
+{
+	return (-y / 0.4);
 }

@@ -1,8 +1,8 @@
 #include "naglowki.h"
 #include "cPlansza.h"
 
-cPlansza* Plansza = 0;
 
+cPlansza* Plansza = 0;
 
 
 
@@ -62,7 +62,7 @@ int main(int argc, char **argv)
 
 	glutCreateWindow ("Program");
 
-
+	
 
 	glClearColor(1,1,1,1);
 
@@ -94,6 +94,7 @@ int main(int argc, char **argv)
 	
 	glutTimerFunc(20, Dzialaj, TIMER_ANIMACJI_TLA);
 	glutTimerFunc(2000, Dzialaj, TIMER_CO_DWASEKUNDOWY);
+	glutTimerFunc(20, Dzialaj, TIMER_20);
 
 	glutMainLoop();
 	return EXIT_SUCCESS;
