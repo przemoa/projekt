@@ -46,6 +46,7 @@ void Dzialaj(int value);
 
 #define LISTA_PUNKT_STABILNY 1
 
+#define ROZMIAR_PUNKTUSTABILNEGO 2
 
 struct sKOLOR
 {

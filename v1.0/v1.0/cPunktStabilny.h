@@ -10,5 +10,6 @@ public:
 	cPunktStabilny(float _x, float _y, float _z);
 	~cPunktStabilny(void);
 	void Rysuj();
+	bool CzyKliknieto(float px, float py);
 };
 
