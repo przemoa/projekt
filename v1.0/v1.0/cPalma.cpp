@@ -28,12 +28,12 @@ void cPalma::Rysuj()
 		glRotatef(kat, 0, 0, 1);
 		glBindTexture(GL_TEXTURE_2D, typPalmy);
 		glEnable(GL_TEXTURE_2D);
-		glColor4f(1, 1, 1, 0.7);
+		glColor4f(1, 1, 1, 0.9);
 		glBegin(GL_QUADS);
-			glTexCoord2f(0.0f, 0.0f); glVertex2f(-rozmiar, 0);
-			glTexCoord2f(1.0f, 0.0f); glVertex2f( rozmiar, 0);
-			glTexCoord2f(1.0f, 1.0f); glVertex2f( rozmiar,  4*rozmiar);
-			glTexCoord2f(0.0f, 1.0f); glVertex2f(-rozmiar,  4*rozmiar);
+			glTexCoord2f(0.0f, 0.0f); glVertex2f(-rozmiar*0.47, -0.3*rozmiar);
+			glTexCoord2f(1.0f, 0.0f); glVertex2f( rozmiar*1.155, -0.3*rozmiar);
+			glTexCoord2f(1.0f, 1.0f); glVertex2f( rozmiar*1.155,  2.5*rozmiar);
+			glTexCoord2f(0.0f, 1.0f); glVertex2f(-rozmiar*0.47,  2.5*rozmiar);
 		glEnd();
 		glDisable(GL_TEXTURE_2D);
 	glPopMatrix();

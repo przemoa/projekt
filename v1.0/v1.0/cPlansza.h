@@ -48,15 +48,15 @@ public:
 
 	void TworzTekstury();
 	cChmura* tabChmur[ILOSC_CHMUR];
-	cPalma* tabPalm[ILOSC_PALM];
-
+	vector < cPalma* > tabPalm;
 
 	unsigned char tabPol[400][1500];
 
+	
 
 	void RysujPodloze();
 	void RysujTlo();
-	
+	void RysujPola();
 
 
 	float testowy;

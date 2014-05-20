@@ -12,41 +12,10 @@ void cPlansza::_Przerysuj(void)
 
 		RysujTlo();
 		//RysujPodloze();
+		
+
 	
-	glEnable(GL_TEXTURE_2D);
-	glColor4f(1, 1, 1, 0.7);
-
-	glTranslatef(-150.0, 0, 0);
-	for (int w = 0; w < 400; w++)
-	{
-		glTranslatef(0, -0.2, 0);
-		glPushMatrix();
-			for (int k = 0; k < 1500; k++)
-			{
-				glTranslatef(0.2, 0, 0);
-				if (tabPol[w][k] == 0x55)
-				{
-				
-					//glTranslatef(-150 + k/5.0, 0-k/5.0, 0);
-					glBindTexture(GL_TEXTURE_2D, TEKSTURA_TRAWA1);
-					glBegin(GL_POLYGON);
-						glTexCoord2f(k%39/40.0, w%7/6.0); 
-							glVertex2f(0, 0);
-
-						glTexCoord2f(k%39/40.0 + 1/40.0, w%7/6.0); 
-							glVertex2f(0.2, 0);
-
-						glTexCoord2f(k%39/40.0 + 1/40.0, w%7/6.0+1/6.0); 
-							glVertex2f(0.2, 0.2);
-
-						glTexCoord2f(k%39/40.0, w%7/6.0+1/6.0); 
-							glVertex2f(-0.2, 0.2);
-					glEnd();
-				}
-			}
-		glPopMatrix();
-	}
-	glDisable(GL_TEXTURE_2D);
+	
 
 
 
@@ -87,12 +56,12 @@ void cPlansza::_Przerysuj(void)
 			tabChmur[i]->Rysuj();
 		}
 
-		for (int i = 0; i < ILOSC_PALM; i++)
+		for (int i = 0; i < tabPalm.size(); i++)
 		{
 			tabPalm[i]->Rysuj();
 		}
 
-
+		RysujPola();
 
 		
 			glPushMatrix();
@@ -172,4 +141,50 @@ void cPlansza::RysujPodloze()
 		glVertex2f(500, -300);
 	glEnd();
 
+}
+
+void cPlansza::RysujPola()
+{
+	glPushMatrix();
+		glTranslatef(-300.0, 0, 0);
+		
+		
+
+		for (int w = 0; w < 400; w++)
+		{
+			glTranslatef(0, -0.4, 0);
+			glPushMatrix();
+			glBegin(GL_QUADS);
+				for (int k = 0; k < 1500; k++)
+				{
+					//glTranslatef(0.4, 0, 0);
+					if (tabPol[w][k] == 0xFF) continue; 
+					if (tabPol[w][k] == 'P') continue;
+					
+					switch (tabPol[w][k])
+					{
+					case 'P':
+						glColor3f(0.3, 0.3, 0.3);
+						break;
+					case 0x71:
+						glColor4f(0.6, 0.4, 0.2, 0.5);
+						break;
+					case 0x55:
+						glColor3f(0.2, 0.8, 0.2);
+						break;
+					}
+						//glVertex2f(0, 0);
+						//glVertex2f(0.4, 0);
+						//glVertex2f(0.4, 0.4);
+						//glVertex2f(0, 0.4);
+						glVertex2f(0 + 0.4*k, 0);
+						glVertex2f(0.4 + 0.4*k, 0);
+						glVertex2f(0.4 + 0.4*k, 0.4);
+						glVertex2f(0 + 0.4*k, 0.4);
+				}
+			glEnd();
+			glPopMatrix();
+		}
+		
+	glPopMatrix();
 }

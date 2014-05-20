@@ -36,15 +36,6 @@ cPlansza::cPlansza(void)
 		tabChmur[i] = new cChmura(((rand()%2) ? TEKSTURA_CHMURA1 : TEKSTURA_CHMURA2), -400+100*i+rand()%30, 30+rand()%20, -12, kolor, 5+rand()%7, rand()%2*180-5+rand()%10, 10+rand()%15);
 	}
 
-	for (int i = 0; i < ILOSC_PALM; i++)
-	{
-		sKOLOR kolor;
-		kolor.b = 0.9;
-		kolor.r = 1 - i/20.0;
-		kolor.g = 1;
-		tabPalm[i] = new cPalma(TEKSTURA_PALMA1, 9+rand()%8, -10+rand()%20, -400+100*i+rand()%90,-35, -0.1);
-	}
-
 	// wczytaj plansze
 	for (int w = 0; w < 400; w++)
 	{
@@ -376,7 +367,7 @@ void cPlansza::WczytajTeren()
 	{
 		for (int k = 0; k < 1500; k++)
 		{
-			unsigned char pole = tablicaPikseli[(399-w)*1499 + k];
+			unsigned char pole = tablicaPikseli[(399-w)*1500 + k];
 			switch (pole)
 			{
 			case 0xD5:				 //- gracze
@@ -384,12 +375,18 @@ void cPlansza::WczytajTeren()
 				pole = 0xFF;
 				break;
 			case 0xE8:				//- palma
-
+				sKOLOR kolor;
+				kolor.b = 0.9;
+				kolor.r = 1;
+				kolor.g = 1;
+				{cPalma* nowaPalma = new cPalma(TEKSTURA_PALMA1, 5+rand()%4, -5+rand()%10, -300 + 0.4*k,-w*0.4, -0.1);
+				tabPalm.push_back(nowaPalma);}
 				pole = 0xFF;
 				break;
 			case 0x37:				//- punkt stabilny 
 
-				pole = 0xFF;
+				pole = tabPol[w][k-1];
+				
 				break;
 			case 0xF9:				//- skrzynka z nagrod¹ 1
 
