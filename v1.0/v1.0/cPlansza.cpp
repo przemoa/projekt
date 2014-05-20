@@ -433,12 +433,49 @@ void cPlansza::UtworzListy()
 
 	glGenLists(LISTA_PUNKT_STABILNY);
 	glNewList(LISTA_PUNKT_STABILNY, GL_COMPILE);
+
 		glBegin(GL_POLYGON);
+		glColor4f(0,0,0,1);
 		for (int i = 0; i < 100; i++)
 		{
-			glVertex2f(sin(6.2832*i/100)*4, cos(6.2832*i/100)*4);
+			glVertex2f(ROZMIAR_PUNKTUSTABILNEGO * sin(6.2832*i/100), ROZMIAR_PUNKTUSTABILNEGO * cos(6.2832*i/100));
 		}
 		glEnd();
+
+		glBegin(GL_POLYGON);
+		glColor4f(0.38,0.25,0,1);
+		for (int i = 0; i < 100; i++)
+		{
+			glVertex2f(0.8 * ROZMIAR_PUNKTUSTABILNEGO * sin(6.2832*i/100), 0.8 * ROZMIAR_PUNKTUSTABILNEGO * cos(6.2832*i/100));
+		}
+		glEnd();
+
+		glBegin(GL_POLYGON);
+		glColor4f(0.63,0.13,0,1);
+		for (int i = 0; i < 100; i++)
+		{
+			glVertex2f(0.45 * ROZMIAR_PUNKTUSTABILNEGO * sin(6.2832*i/100), 0.45 * ROZMIAR_PUNKTUSTABILNEGO * cos(6.2832*i/100));
+		}
+		glEnd();
+
+		glColor4f(0,0,0,1);
+		glBegin(GL_POLYGON);
+			glVertex2f(-0.1 * ROZMIAR_PUNKTUSTABILNEGO, -0.8 * ROZMIAR_PUNKTUSTABILNEGO);
+			glVertex2f(0.1 * ROZMIAR_PUNKTUSTABILNEGO, -0.8 * ROZMIAR_PUNKTUSTABILNEGO);
+			glVertex2f(0.1 * ROZMIAR_PUNKTUSTABILNEGO, 0.8 * ROZMIAR_PUNKTUSTABILNEGO);
+			glVertex2f(-0.1 * ROZMIAR_PUNKTUSTABILNEGO, 0.8 * ROZMIAR_PUNKTUSTABILNEGO);
+		glEnd();
+
+		glBegin(GL_POLYGON);
+			glVertex2f(-0.8 * ROZMIAR_PUNKTUSTABILNEGO, -0.1 * ROZMIAR_PUNKTUSTABILNEGO);
+			glVertex2f(0.8 * ROZMIAR_PUNKTUSTABILNEGO, -0.1 * ROZMIAR_PUNKTUSTABILNEGO);
+			glVertex2f(0.8 * ROZMIAR_PUNKTUSTABILNEGO, 0.1 * ROZMIAR_PUNKTUSTABILNEGO);
+			glVertex2f(-0.8 * ROZMIAR_PUNKTUSTABILNEGO, 0.1 * ROZMIAR_PUNKTUSTABILNEGO);
+		glEnd();
+
+	
+
+
 	glEndList();
 }
 
