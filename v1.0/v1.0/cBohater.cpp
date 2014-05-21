@@ -51,20 +51,31 @@ void cBohater::Ruszaj(float dx)
 
 void cBohater::Opadaj()
 {
-	int w1 = Plansza->YDoTab(y-1*KROK_BOHATERA - BOHATER_PROMIEN1);
-	int k1 = Plansza->XDoTab(x);
-	bool b1 = (Plansza->tabPol[w1][k1] == POLE_TLO);		// czy wolno spadac kolu 1
-	
+	int k = Plansza->XDoTab(x - KROK_BOHATERA);
+	bool b1;
+	if (y - KROK_BOHATERA >= Plansza->tabPol[k]) b1 = true;	// czy wolno spadac kolu 1
+	else b1 = false;
 
-
-	int w2 = Plansza->YDoTab()   -1*KROK_BOHATERA - BOHATER_PROMIEN2);
-	int k2 = Plansza->XDoTab(x + BOHATER_POZYCJA_KOLA * cos((+kat)*3.1415/180) - fazaKol);
-	bool b2 = (Plansza->tabPol[w2][k2] == POLE_TLO);
+	k = Plansza->XDoTab(x2 - KROK_BOHATERA);
+	bool b2;
+	if (y2 - KROK_BOHATERA >= Plansza->tabPol[k]) b2 = true;// czy wolno spadac kolu 2
+	else b2 = false;
 
 	if (!b1 && !b2) return;
-	if (b1 && b2) y -= 1*KROK_BOHATERA;
-	else if (b1) ZmienKat(20*KROK_OBROTU_BOHATERA);
-	else if (b2) ZmienKat(-20*KROK_OBROTU_BOHATERA);
+	if (b1 && b2) Przesun(0, -KROK_BOHATERA);
+	else if (b1) 
+		{
+			Przesun(0, -KROK_BOHATERA);
+			float nowyKat = asin(cos(fazaKol) * (y2 - y) / BOHATER_POZYCJA_KOLA) - fazaKol;
+			x = x2 - BOHATER_POZYCJA_KOLA / cos(fazaKol) * cos(nowyKat - fazaKol);
+			ZmienKat(nowyKat * 180 / 3.1416);
+		}
+	else if (b2) 
+		{
+			x2 -= KROK_BOHATERA;
+			float nowyKat = asin(cos(fazaKol) * (y2 - y) / BOHATER_POZYCJA_KOLA) - fazaKol;
+			ZmienKat(nowyKat * 180 / 3.1416);
+		}
 
 	
 }
@@ -74,8 +85,8 @@ void cBohater::ZmienKat(float dkat)
 	kat += dkat;
 	if (kat < -90) kat = 360 - kat;
 	if (kat > 270) kat = 360 - kat;
-	cBohater::UstawX2();
-	cBohater::UstawY2();
+	UstawX2();
+	UstawY2();
 }
 
 void cBohater::UstawX2()
@@ -86,4 +97,10 @@ void cBohater::UstawX2()
 void cBohater::UstawY2()
 {
 	y2 = y + BOHATER_POZYCJA_KOLA * sin((+kat)*3.1415/180 - fazaKol);
+}
+
+void cBohater::Przesun(float dx, float dy)
+{
+	x += dx;
+	y += dy;
 }

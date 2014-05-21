@@ -21,6 +21,6 @@ public:
 	void ZmienKat(float dkat);
 	void UstawX2();
 	void UstawY2();
-
+	void Przesun(float dx, float dy);
 };
 
