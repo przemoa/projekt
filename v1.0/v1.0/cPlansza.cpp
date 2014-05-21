@@ -14,12 +14,12 @@ cPlansza::cPlansza(void)
 	rozmiarOkna.y = 600;
 	rozmiarOkna.proporcja = (float) rozmiarOkna.x / rozmiarOkna.y;
 
-	kamera.x = 0;
-	kamera.xCel = -160;
-	kamera.y = 0;
-	kamera.yCel = -54;
-	kamera.zakres = 300;
-	kamera.zakresCel = 45;
+	kamera.x = 950;
+	kamera.xCel = -950;
+	kamera.y = 110;
+	kamera.yCel = 110;
+	kamera.zakres = 1200;
+	kamera.zakresCel = 55;
 	kamera.przesuwajx = 0;
 	kamera.przesuwajy = 0;
 	glutTimerFunc(20, Dzialaj, TIMER_KAMERA_PRZESUN_X);
@@ -44,7 +44,7 @@ cPlansza::cPlansza(void)
 	// wczytaj plansze
 	for (int k = 0; k < 5000; k++)
 	{
-		tabPol[k] = 0;
+		tabPol[k] = -7777;
 	}
 	WczytajTeren();
 
@@ -413,7 +413,7 @@ void cPlansza::WczytajTeren()
 			}
 			if (pole == POLE_TLO) continue;
 
-			tabPol[k] = TabDoY(w);
+			if (tabPol[k] == -7777) tabPol[k] = TabDoY(w);
 		}
 	}
 	delete [] tablicaPikseli;
