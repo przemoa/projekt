@@ -38,7 +38,9 @@ cPlansza::cPlansza(void)
 		kolor.b = 0.9;
 		kolor.r = 1 - i/20.0;
 		kolor.g = 1;
-		tabChmur[i] = new cChmura(((rand()%2) ? TEKSTURA_CHMURA1 : TEKSTURA_CHMURA2), -400+80*i+rand()%30, -30+rand()%10, -12, kolor, 5+rand()%7, rand()%2*180-5+rand()%10, 10+rand()%15);
+		tabChmur[i] = new cChmura(((rand()%2) ? TEKSTURA_CHMURA1 : TEKSTURA_CHMURA2), 
+									-1000 + (2000.0 / ILOSC_CHMUR) * i + rand()%50, 80+rand()%50, -12,
+									kolor, 8+rand()%11, rand()%2*180-7+rand()%14, 15+rand()%25);
 	}
 
 	// wczytaj plansze

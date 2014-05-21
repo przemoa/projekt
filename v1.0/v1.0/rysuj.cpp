@@ -11,9 +11,9 @@ void cPlansza::_Przerysuj(void)
 
 
 		RysujTlo();
-		//RysujPodloze();
-		
 
+
+		//RysujPodloze();
 
 		//glColor3f(0,1,0);
 		//glBegin(GL_POLYGON);
@@ -23,26 +23,25 @@ void cPlansza::_Przerysuj(void)
 		//	}
 		//glEnd();
 
+		//glPushMatrix();
+		//	RysujSzescian();
+		//	glTranslatef(32, -5, 0);
+		//	RysujSzescian();
+		//	glTranslatef(-89, -15, 0);
+		//	RysujSzescian();
+		//glPopMatrix();
 
+		//glPushMatrix();
+		//	glColor4f(1, 0.6, 0.6, 0.5);
+		//	glTranslatef(testowy, testowy2, 0);
+		//	glBegin(GL_POLYGON);
+		//		glVertex2f(1,1);
+		//		glVertex2f(-1,1);
+		//		glVertex2f(-1,-1);
+		//		glVertex2f(1,-1);
+		//	glEnd();
+		//glPopMatrix();
 
-		glPushMatrix();
-			RysujSzescian();
-			glTranslatef(32, -5, 0);
-			RysujSzescian();
-			glTranslatef(-89, -15, 0);
-			RysujSzescian();
-		glPopMatrix();
-
-		glPushMatrix();
-			glColor4f(1, 0.6, 0.6, 0.5);
-			glTranslatef(testowy, testowy2, 0);
-			glBegin(GL_POLYGON);
-				glVertex2f(1,1);
-				glVertex2f(-1,1);
-				glVertex2f(-1,-1);
-				glVertex2f(1,-1);
-			glEnd();
-		glPopMatrix();
 
 		for (int i = 0; i < ILOSC_CHMUR; i++)
 		{
@@ -57,24 +56,25 @@ void cPlansza::_Przerysuj(void)
 		
 		RysujTeren();
 
-		
-			glPushMatrix();
-				glBindTexture(GL_TEXTURE_2D, 77);
-				glTranslatef(-250,-240,0);
-				glEnable(GL_TEXTURE_2D);
-				glColor4f(1, 1, 1, 0.7);
-				glBegin(GL_POLYGON);
-					for (int i = 0; i < 100; i++)
-					{
-						glTexCoord2f(i/99.0, 0.0); glVertex3f(i, 0.005*i*i, -0.1*i);
-					}
-					for (int i = 99; i >= 0; i--)
-					{
-						glTexCoord2f(i/99.0, 1); glVertex3f(i, 0.005*i*i+95, -0.1*i);
-					}
-				glEnd();
-				glDisable(GL_TEXTURE_2D);
-			glPopMatrix();
+	// napis przemek
+			//glPushMatrix();
+			//	glBindTexture(GL_TEXTURE_2D, 77);
+			//	glTranslatef(-250,-240,0);
+			//	glEnable(GL_TEXTURE_2D);
+			//	glColor4f(1, 1, 1, 0.7);
+			//	glBegin(GL_POLYGON);
+			//		for (int i = 0; i < 100; i++)
+			//		{
+			//			glTexCoord2f(i/99.0, 0.0); glVertex3f(i, 0.005*i*i, -0.1*i);
+			//		}
+			//		for (int i = 99; i >= 0; i--)
+			//		{
+			//			glTexCoord2f(i/99.0, 1); glVertex3f(i, 0.005*i*i+95, -0.1*i);
+			//		}
+			//	glEnd();
+			//	glDisable(GL_TEXTURE_2D);
+			//glPopMatrix();
+
 
 
 		for (int i = 0; i < tabPunktStab.size(); i++)
@@ -147,10 +147,31 @@ void cPlansza::RysujPodloze()
 
 void cPlansza::RysujTeren()
 {
+	
+	glColor4f(0, 0.7, 0, 0.5);
+	glBegin(GL_LINES);
+	for (int i = 0; i < 5000; i+= 15)
+	{
+			glVertex3f(-1000+i*0.4, tabPol[i], 0);
+			glVertex3f(-1000+i*0.4, tabPol[i], -2);
+	}
+	glEnd();
+
+	glBegin(GL_LINE_STRIP);
+		for (int i = 0; i < 5000; i+= 15)
+		{
+			glVertex3f(-1000+i*0.4, tabPol[i], -2);
+		}
+	glEnd();
+	
+
+	
+
+
 	glPushMatrix();
+		glColor4f(1, 1, 1, 1);
 		glBindTexture(GL_TEXTURE_2D, TEKSTURA_MAPA_TERENU);
 		glEnable(GL_TEXTURE_2D);
-		glColor4f(1, 1, 1, 1);
 		glBegin(GL_QUADS);
 			glTexCoord2f(0.0f, 0.0f); glVertex2f(-1000, -170);
 			glTexCoord2f(1.0f, 0.0f); glVertex2f(1000, -170);
@@ -159,4 +180,7 @@ void cPlansza::RysujTeren()
 		glEnd();
 		glDisable(GL_TEXTURE_2D);
 	glPopMatrix();
+
+
+
 }
