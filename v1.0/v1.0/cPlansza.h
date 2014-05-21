@@ -59,7 +59,7 @@ public:
 	int wybranyBohater;
 
 
-	unsigned char tabPol[400][1500];
+	unsigned char tabPol[5000];
 
 	void DodajPunktStabilny(float _x, float _y);
 

@@ -4,9 +4,9 @@
 class cBohater : public cIstota
 {
 public:
-	float x2;
-	float y2;
-	float fazaKol;
+	float x2;			// wspolrzedne mniejszego kola
+	float y2;			
+	float fazaKol;		// kat miedzy kolami w poziomie
 
 	sKOLOR kolor;
 	float rozmiar;
@@ -15,12 +15,12 @@ public:
 	~cBohater(void);
 	void Rysuj();
 	bool CzyKliknieto(float px, float py);
+
 	void Ruszaj(float dx);
 	void Opadaj();
 	void ZmienKat(float dkat);
 	void UstawX2();
 	void UstawY2();
 
-	void 
 };
 

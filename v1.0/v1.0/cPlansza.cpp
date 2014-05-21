@@ -377,21 +377,24 @@ void cPlansza::PrzesunKamere(float dx, float dy)
 
 void cPlansza::WczytajTeren()
 {
-	FILE* odczytTerenu = fopen("tx\\1.bmp", "r");
-	BYTE tablicaPikseli[1500*400];
-	fread(tablicaPikseli, 1, 1500*400, odczytTerenu);
+	FILE* odczytTerenu = fopen("tx\\1_pelny.bmp", "r");
+	BYTE tablicaPikseli[5000*850];
+	fread(tablicaPikseli, 1, 5000*850, odczytTerenu);
 	fclose(odczytTerenu);
 
-	for (int w = 0; w < 400; w++)				// przepisz z wektra do tabeli pól i wykonaje pola specjalne
+	for (int k = 0; k < 5000; k++)				// przepisz z wektra do tabeli pól i wykonaje pola specjalne
 	{
-		for (int k = 0; k < 1500; k++)
+		for (int w = 0; w < 850; k++)
 		{
-			unsigned char pole = tablicaPikseli[(399-w)*1500 + k];
+			unsigned char pole = tablicaPikseli[w*5000 + k];
+
+			if (pole == POLE_TLO) continue;
+
 			switch (pole)
 			{
 			case POLE_GRACZ:
 				{
-					cBohater* nowyBohater = new cBohater(TabDoX(k), TabDoY(w));
+					cBohater * nowyBohater = new cBohater(TabDoX(k), TabDoY(w));
 					tabBohaterow.push_back(nowyBohater);
 				}
 				pole = POLE_TLO;
@@ -409,36 +412,11 @@ void cPlansza::WczytajTeren()
 
 			case POLE_PUNKT_STABILNY: 
 				DodajPunktStabilny(TabDoX(k), TabDoY(w));
-				pole = tabPol[w][k-1];
-				
-				break;
-			case POLE_SKRZYNKA_Z_NAGRODA_1:
-
 				pole = POLE_TLO;
-				break;
-			case POLE_SKRZYNKA_Z_NAGRODA_2:
-
-				pole = POLE_TLO;
-				break;
 			}
+			if (pole == POLE_TLO) continue;
 
-			tabPol[w][k] = pole;
-		}
-	}
-
-
-	for (int k = 0; k < 1500; k++)
-	{
-		int ileObsiac = 20;
-
-		for (int w = 0; w < 400; w++)
-		{
-			if (!ileObsiac) break;
-			if (tabPol[w][k] == POLE_ZIEMIA)
-			{
-				tabPol[w][k] = POLE_TRAWA;
-				ileObsiac--;
-			}
+			tabPol[k] = TabDoY(w);
 		}
 	}
 }
@@ -655,21 +633,21 @@ void cPlansza::_KlawiszeSpecjalne(int key, int x, int y)
 
 float cPlansza::TabDoX(int k)
 {
-	return (-300 + 0.4*k);
+	return (-1000 + 0.4*k);
 }
 
 float cPlansza::TabDoY(int w)
 {
-	return (-w*0.4);
+	return (0.4*w - 170);
 }
 
 int cPlansza::XDoTab(float x)
 {
-	return ((x + 300) / 0.4);
+	return ((x + 1000) / 0.4);
 }
 
 int cPlansza::YDoTab(float y)
 {
-	return (-y / 0.4);
+	return ((y+170) / 0.4);
 }
 
