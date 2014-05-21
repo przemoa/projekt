@@ -57,42 +57,6 @@ cPlansza::~cPlansza(void)
 
 }
 
-void cPlansza::RysujSzescian()
-{
-	glEnable(GL_DEPTH_TEST);
-	float rozm = 10;
-	glBegin(GL_LINE_LOOP);
-			glVertex3f(rozm, rozm, 0);
-			glVertex3f(-rozm, rozm, 0);
-			glVertex3f(-rozm, -rozm, 0);
-			glVertex3f(rozm, -rozm, 0);
-		glEnd();
-
-		glColor3f(1, 0, 0);
-		glBegin(GL_LINE_LOOP);
-			glVertex3f(rozm, rozm, -5);
-			glVertex3f(-rozm, rozm, -5);
-			glVertex3f(-rozm, -rozm, -5);
-			glVertex3f(rozm, -rozm, -5);
-		glEnd();
-
-
-		glColor3f(0, 1, 0);
-		glBegin(GL_LINES);
-		glVertex3f(rozm, rozm, 0);
-			glVertex3f(rozm, rozm, -5);
-
-			glVertex3f(-rozm, rozm, 0);
-			glVertex3f(-rozm, rozm, -5);
-
-			glVertex3f(-rozm, -rozm, 0);
-			glVertex3f(-rozm, -rozm, -5);
-
-			glVertex3f(rozm, -rozm, 0);
-			glVertex3f(rozm, -rozm, -5);
-		glEnd();
-	glDisable(GL_DEPTH_TEST);
-}
 
 void cPlansza::_Dzialaj(int value)
 {
@@ -404,7 +368,7 @@ void cPlansza::WczytajTeren()
 				kolor.b = 0.9;
 				kolor.r = 1;
 				kolor.g = 1;
-				{cPalma* nowaPalma = new cPalma(TEKSTURA_PALMA1, 5+rand()%4, -5+rand()%10, TabDoX(k), TabDoY(w), -0.1);
+				{cPalma* nowaPalma = new cPalma(TEKSTURA_PALMA1, 5+rand()%4, -5+rand()%10, TabDoX(k), TabDoY(w), -0.9);
 				tabPalm.push_back(nowaPalma);}
 				pole = POLE_TLO;
 				break;
