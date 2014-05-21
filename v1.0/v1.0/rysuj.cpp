@@ -56,7 +56,7 @@ void cPlansza::_Przerysuj(void)
 
 		
 
-		RysujPola();
+		RysujTeren();
 
 		
 			glPushMatrix();
@@ -148,48 +148,9 @@ void cPlansza::RysujPodloze()
 
 }
 
-void cPlansza::RysujPola()
+void cPlansza::RysujTeren()
 {
 	glPushMatrix();
-		glTranslatef(-300.0, 0, 0);
-		
-		
-
-		for (int w = 0; w < 400; w++)
-		{
-			glTranslatef(0, -0.4, 0);
-			glPushMatrix();
-			glBegin(GL_QUADS);
-				for (int k = 0; k < 1500; k++)
-				{
-					//glTranslatef(0.4, 0, 0);
-					if (tabPol[w][k] == POLE_TLO) continue; 
-					if (tabPol[w][k] == POLE_SKALA) continue;
-					
-					switch (tabPol[w][k])
-					{
-					case POLE_SKALA:
-						glColor3f(0.3, 0.3, 0.3);
-						break;
-					case POLE_ZIEMIA:
-						glColor4f(0.6, 0.4, 0.2, 0.5);
-						break;
-					case POLE_TRAWA:
-						glColor3f(0.2, 0.8, 0.2);
-						break;
-					}
-						//glVertex2f(0, 0);
-						//glVertex2f(0.4, 0);
-						//glVertex2f(0.4, 0.4);
-						//glVertex2f(0, 0.4);
-						glVertex2f(0 + 0.4*k, 0);
-						glVertex2f(0.4 + 0.4*k, 0);
-						glVertex2f(0.4 + 0.4*k, 0.4);
-						glVertex2f(0 + 0.4*k, 0.4);
-				}
-			glEnd();
-			glPopMatrix();
-		}
 		
 	glPopMatrix();
 }

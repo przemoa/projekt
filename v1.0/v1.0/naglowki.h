@@ -45,6 +45,8 @@ extern cPlansza* Plansza;
 #define TEKSTURA_PALMA1 3
 #define TEKSTURA_TRAWA1 4
 #define TEKSTURA_BOHATER 5
+#define TEKSTURA_MAPA_TERENU 6
+
 
 #define POLE_WODA 0xFC
 #define POLE_GRACZ 0xF9

@@ -65,7 +65,7 @@ public:
 
 	void RysujPodloze();
 	void RysujTlo();
-	void RysujPola();
+	void RysujTeren();
 
 
 	float testowy;
