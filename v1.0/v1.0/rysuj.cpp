@@ -55,7 +55,6 @@ void cPlansza::_Przerysuj(void)
 		}
 
 		
-
 		RysujTeren();
 
 		
@@ -83,7 +82,7 @@ void cPlansza::_Przerysuj(void)
 			tabPunktStab[i]->Rysuj();
 		}
 
-		//for (int i = 0; i < tabBohaterow.size(); i++)
+		for (int i = 0; i < tabBohaterow.size(); i++)
 		{
 			tabBohaterow[0]->Rysuj();
 		}
@@ -128,8 +127,6 @@ void cPlansza::RysujTlo()
 void cPlansza::RysujPodloze()
 {
 
-
-
 	glBegin(GL_POLYGON);
 		glColor3f(0.3, 0.8, 0);
 		glVertex2f(500, -30);
@@ -151,6 +148,15 @@ void cPlansza::RysujPodloze()
 void cPlansza::RysujTeren()
 {
 	glPushMatrix();
-		
+		glBindTexture(GL_TEXTURE_2D, TEKSTURA_MAPA_TERENU);
+		glEnable(GL_TEXTURE_2D);
+		glColor4f(1, 1, 1, 1);
+		glBegin(GL_QUADS);
+			glTexCoord2f(0.0f, 0.0f); glVertex2f(-1000, -170);
+			glTexCoord2f(1.0f, 0.0f); glVertex2f(1000, -170);
+			glTexCoord2f(1.0f, 1.0f); glVertex2f(1000, 170);
+			glTexCoord2f(0.0f, 1.0f); glVertex2f(-1000, 170);
+		glEnd();
+		glDisable(GL_TEXTURE_2D);
 	glPopMatrix();
 }

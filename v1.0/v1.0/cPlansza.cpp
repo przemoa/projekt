@@ -42,12 +42,9 @@ cPlansza::cPlansza(void)
 	}
 
 	// wczytaj plansze
-	for (int w = 0; w < 400; w++)
+	for (int k = 0; k < 5000; k++)
 	{
-		for (int k = 0; k < 1500; k++)
-		{
-			tabPol[w][k] = 0xFF;
-		}
+		tabPol[k] = 0;
 	}
 	WczytajTeren();
 
@@ -377,14 +374,14 @@ void cPlansza::PrzesunKamere(float dx, float dy)
 
 void cPlansza::WczytajTeren()
 {
-	FILE* odczytTerenu = fopen("tx\\1_pelny.bmp", "r");
-	BYTE tablicaPikseli[5000*850];
+	FILE* odczytTerenu = fopen("tx\\1.bin", "r");
+	BYTE* tablicaPikseli = new BYTE[5000*850];
 	fread(tablicaPikseli, 1, 5000*850, odczytTerenu);
 	fclose(odczytTerenu);
 
 	for (int k = 0; k < 5000; k++)				// przepisz z wektra do tabeli pól i wykonaje pola specjalne
 	{
-		for (int w = 0; w < 850; k++)
+		for (int w = 849; w >= 0; w--)
 		{
 			unsigned char pole = tablicaPikseli[w*5000 + k];
 
@@ -419,6 +416,7 @@ void cPlansza::WczytajTeren()
 			tabPol[k] = TabDoY(w);
 		}
 	}
+	delete [] tablicaPikseli;
 }
 
 
@@ -599,8 +597,8 @@ void cPlansza::TworzTekstury()
 	SOIL_load_OGL_texture("tx\\chmura1.png", SOIL_LOAD_AUTO, TEKSTURA_CHMURA1, SOIL_FLAG_INVERT_Y);
 	SOIL_load_OGL_texture("tx\\chmura2.png", SOIL_LOAD_AUTO, TEKSTURA_CHMURA2, SOIL_FLAG_INVERT_Y);
 	SOIL_load_OGL_texture("tx\\palma1.png", SOIL_LOAD_AUTO, TEKSTURA_PALMA1, SOIL_FLAG_INVERT_Y);
-	SOIL_load_OGL_texture("tx\\trawa2.png", SOIL_LOAD_AUTO, TEKSTURA_TRAWA1, SOIL_FLAG_INVERT_Y);
-	SOIL_load_OGL_texture("tx\\1_tlo.png", SOIL_LOAD_AUTO, TEKSTURA_MAPA_TERENU, SOIL_FLAG_INVERT_Y);
+//	SOIL_load_OGL_texture("tx\\trawa2.png", SOIL_LOAD_AUTO, TEKSTURA_TRAWA1, SOIL_FLAG_INVERT_Y);
+	SOIL_load_OGL_texture("tx\\1tlo.png", SOIL_LOAD_AUTO, TEKSTURA_MAPA_TERENU, SOIL_FLAG_INVERT_Y);
 
 	SOIL_load_OGL_texture("tx\\Przemek.png", SOIL_LOAD_AUTO, 77, SOIL_FLAG_INVERT_Y);
 }
