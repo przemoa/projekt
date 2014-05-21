@@ -20,8 +20,7 @@ cBohater::cBohater(float _x, float _y)
 	kat = 0;
 	rozmiar = 2;
 	kat = 30;
-	fazaKol = atan2(BOHATER_PROMIEN1-BOHATER_PROMIEN2, BOHATER_POZYCJA_KOLA);
-
+	fazaKol = atan2(BOHATER_PROMIEN1 - BOHATER_PROMIEN2, BOHATER_POZYCJA_KOLA);
 	cBohater::UstawX2(); 
 	cBohater::UstawY2();
 
@@ -30,7 +29,7 @@ cBohater::cBohater(float _x, float _y)
 void cBohater::Rysuj()
 {
 	glPushMatrix();
-		glTranslatef(x, y, z);
+		glTranslatef(x, y + BOHATER_PROMIEN1, z);
 		glRotatef(kat, 0, 0, 1);
 		glColor3f(1,0,0);  //todo
 		glCallList(LISTA_BOHATER);
@@ -47,34 +46,50 @@ bool cBohater::CzyKliknieto(float px, float py)
 void cBohater::Ruszaj(float dx)
 {
 	x += dx;
+	x2 += dx;
 }
 
 void cBohater::Opadaj()
 {
-	int k = Plansza->XDoTab(x - KROK_BOHATERA);
+	int k = Plansza->XDoTab(x);
 	bool b1;
-	if (y - KROK_BOHATERA >= Plansza->tabPol[k]) b1 = true;	// czy wolno spadac kolu 1
-	else b1 = false;
+	if (y - BOHATER_PROMIEN1 - KROK_BOHATERA > Plansza->tabPol[k]) 
+		b1 = true;	// czy wolno spadac kolu 1
+	else 
+		b1 = false;
 
-	k = Plansza->XDoTab(x2 - KROK_BOHATERA);
+	k = Plansza->XDoTab(x2);
 	bool b2;
-	if (y2 - KROK_BOHATERA >= Plansza->tabPol[k]) b2 = true;// czy wolno spadac kolu 2
-	else b2 = false;
+	if (y2 - BOHATER_PROMIEN2 - KROK_BOHATERA > Plansza->tabPol[k]) 
+		b2 = true;// czy wolno spadac kolu 2
+	else 
+		b2 = false;
 
-	if (!b1 && !b2) return;
-	if (b1 && b2) Przesun(0, -KROK_BOHATERA);
-	else if (b1) 
+	cout << y2 << " " << Plansza->tabPol[k] << " " << b2 << endl;
+
+	if (!b1 && !b2) 
+		return;
+	if (b1 && b2) 
+	{
+		Przesun(0, -KROK_BOHATERA);
+		UstawX2();
+		UstawY2();
+		return;
+	}
+	else if (b1 && (!(b2))) 
 		{
 			Przesun(0, -KROK_BOHATERA);
-			float nowyKat = asin(cos(fazaKol) * (y2 - y) / BOHATER_POZYCJA_KOLA) - fazaKol;
+			float nowyKat = asin(cos(fazaKol) * (y2 - y) / BOHATER_POZYCJA_KOLA) + fazaKol;
 			x = x2 - BOHATER_POZYCJA_KOLA / cos(fazaKol) * cos(nowyKat - fazaKol);
-			ZmienKat(nowyKat * 180 / 3.1416);
+			ZmienKat(nowyKat * 180 / 3.1416 - kat);
+			cout << "opada tyl" << endl;
 		}
-	else if (b2) 
+	else if (b2 && (!(b1))) 
 		{
-			x2 -= KROK_BOHATERA;
+			y2 -= KROK_BOHATERA;
 			float nowyKat = asin(cos(fazaKol) * (y2 - y) / BOHATER_POZYCJA_KOLA) - fazaKol;
-			ZmienKat(nowyKat * 180 / 3.1416);
+			ZmienKat(nowyKat * 180 / 3.1416 - kat);
+			cout << "opada przod" << endl;
 		}
 
 	
