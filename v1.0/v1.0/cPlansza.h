@@ -48,7 +48,7 @@ public:
 	void OdswiezKamere();
 	void PrzesunKamere(float dx, float dy);
 	void WczytajTeren();
-
+	
 	void UtworzListy();
 
 	void TworzTekstury();

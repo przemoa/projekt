@@ -672,3 +672,4 @@ int cPlansza::YDoTab(float y)
 {
 	return (-y / 0.4);
 }
+
