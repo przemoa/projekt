@@ -22,8 +22,8 @@ cBohater::cBohater(float _x, float _y)
 	kat = 30;
 	fazaKol = atan2(BOHATER_PROMIEN1-BOHATER_PROMIEN2, BOHATER_POZYCJA_KOLA);
 
-	x2 = 
-	y2 = y + BOHATER_POZYCJA_KOLA * sin((+kat)*3.1415/180 - fazaKol);
+	cBohater::UstawX2(); 
+	cBohater::UstawY2();
 
 }
 
@@ -74,14 +74,16 @@ void cBohater::ZmienKat(float dkat)
 	kat += dkat;
 	if (kat < -90) kat = 360 - kat;
 	if (kat > 270) kat = 360 - kat;
+	cBohater::UstawX2();
+	cBohater::UstawY2();
 }
 
 void cBohater::UstawX2()
 {
-
+	x2 = x + BOHATER_POZYCJA_KOLA * cos((+kat)*3.1415/180 - fazaKol);
 }
 
 void cBohater::UstawY2()
 {
-
+	y2 = y + BOHATER_POZYCJA_KOLA * sin((+kat)*3.1415/180 - fazaKol);
 }
