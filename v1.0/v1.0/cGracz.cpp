@@ -3,11 +3,13 @@
 
 cGracz::cGracz(void)
 {
+
 }
 
 
 cGracz::~cGracz(void)
 {
+
 }
 
 cGracz::cGracz(float _x, float _y)
@@ -21,8 +23,9 @@ cGracz::cGracz(float _x, float _y)
 	kolor.r = 1;
 	kolor.g = 0;
 	kolor.b = 0;
-}
 
+	DodajZamek(_x, 60);
+}
 
 void cGracz::Dzialaj()
 {
@@ -47,4 +50,32 @@ void cGracz::Rysuj()
 	{
 		tabBohaterow[i]->Rysuj();
 	}
+
+	for (int i = 0; i < tabZamkow.size(); i++)
+	{
+		tabZamkow[i]->Rysuj();
+	}
 }
+
+
+void cGracz::DodajZamek(float _x, float _y)
+{
+	cZamek* nowyZamek = new cZamek(_x, _y);
+	tabZamkow.push_back(nowyZamek);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
