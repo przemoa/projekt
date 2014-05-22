@@ -1,29 +1,36 @@
 #pragma once
 #include "naglowki.h"
 
-enum eTYPWIEZY {KAMIEN = 1, LUK = 2, OGIEN = 3, POCISK = 4, LASER = 5};
+
 
 struct sWIEZA
 {
-	eTYPWIEZY typWiezy;
+	int typWiezy;			// TEKSTURA_WIEZA1 TEKSTURA_WIEZA2 itd jak tekstury
 	int pozycja;			// 100*kolumna + wiersz, liczac od lewej dolnej strony
+	float obrazenia;
+	float zasieg;
 };
 
 
 class cZamek
 {
 public:
+	float zycie;
+
 	cZamek(void);
 	cZamek(float _x, float _y);
 	~cZamek(void);
 	void Rysuj();
+
+	float rozmiar;
+	float rozmiarWiezy;
 
 	float x;	// srodek zamq
 	float y;	// spod zamq
 
 	vector < sWIEZA > tabWiez;
 
-	void DodajWieze(eTYPWIEZY _typWiezy, int pozycja);			// pozycja = 100, 200, lub 300
+	void DodajWieze(int _typWiezy, int pozycja);			// pozycja = 100, 200, lub 300
 
 };
 

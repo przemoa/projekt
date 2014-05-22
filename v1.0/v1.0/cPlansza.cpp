@@ -566,7 +566,15 @@ void cPlansza::TworzTekstury()
 //	SOIL_load_OGL_texture("tx\\trawa2.png", SOIL_LOAD_AUTO, TEKSTURA_TRAWA1, SOIL_FLAG_INVERT_Y);
 	SOIL_load_OGL_texture("tx\\1tlo.png", SOIL_LOAD_AUTO, TEKSTURA_MAPA_TERENU, SOIL_FLAG_INVERT_Y);
 
-	SOIL_load_OGL_texture("tx\\Przemek.png", SOIL_LOAD_AUTO, 77, SOIL_FLAG_INVERT_Y);
+//	SOIL_load_OGL_texture("tx\\Przemek.png", SOIL_LOAD_AUTO, 77, SOIL_FLAG_INVERT_Y);
+
+	
+	SOIL_load_OGL_texture("tx\\zamek1.png", SOIL_LOAD_AUTO, TEKSTURA_ZAMEK, SOIL_FLAG_INVERT_Y);
+	SOIL_load_OGL_texture("tx\\wieza1.png", SOIL_LOAD_AUTO, TEKSTURA_WIEZA1, SOIL_FLAG_INVERT_Y);
+	SOIL_load_OGL_texture("tx\\wieza2.png", SOIL_LOAD_AUTO, TEKSTURA_WIEZA2, SOIL_FLAG_INVERT_Y);
+	SOIL_load_OGL_texture("tx\\wieza3.png", SOIL_LOAD_AUTO, TEKSTURA_WIEZA3, SOIL_FLAG_INVERT_Y);
+	SOIL_load_OGL_texture("tx\\wieza4.png", SOIL_LOAD_AUTO, TEKSTURA_WIEZA4, SOIL_FLAG_INVERT_Y);
+	SOIL_load_OGL_texture("tx\\wieza5.png", SOIL_LOAD_AUTO, TEKSTURA_WIEZA5, SOIL_FLAG_INVERT_Y);
 }
 
 

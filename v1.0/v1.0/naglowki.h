@@ -46,6 +46,12 @@ extern cPlansza* Plansza;
 #define TEKSTURA_TRAWA1 4
 #define TEKSTURA_BOHATER 5
 #define TEKSTURA_MAPA_TERENU 6
+#define TEKSTURA_ZAMEK 7
+#define TEKSTURA_WIEZA1 11
+#define TEKSTURA_WIEZA2 12
+#define TEKSTURA_WIEZA3 13
+#define TEKSTURA_WIEZA4 14
+#define TEKSTURA_WIEZA5 15
 
 
 #define POLE_WODA 0xFC
@@ -64,6 +70,8 @@ extern cPlansza* Plansza;
 
 
 #define ROZMIAR_PUNKTUSTABILNEGO 2
+
+
 #define BOHATER_PROMIEN1 1.5
 #define BOHATER_PROMIEN2 1.2
 #define BOHATER_POZYCJA_KOLA 6

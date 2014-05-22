@@ -24,7 +24,7 @@ cGracz::cGracz(float _x, float _y)
 	kolor.g = 0;
 	kolor.b = 0;
 
-	DodajZamek(_x, 60);
+	DodajZamek(_x+35, 62);
 }
 
 void cGracz::Dzialaj()
