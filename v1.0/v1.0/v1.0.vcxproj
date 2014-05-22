@@ -83,6 +83,7 @@
     <ClCompile Include="cPalma.cpp" />
     <ClCompile Include="cPlansza.cpp" />
     <ClCompile Include="cPunktStabilny.cpp" />
+    <ClCompile Include="Element.cpp" />
     <ClCompile Include="image_DXT.c" />
     <ClCompile Include="image_helper.c" />
     <ClCompile Include="main.cpp" />
@@ -98,6 +99,7 @@
     <ClInclude Include="cPalma.h" />
     <ClInclude Include="cPlansza.h" />
     <ClInclude Include="cPunktStabilny.h" />
+    <ClInclude Include="Element.h" />
     <ClInclude Include="image_DXT.h" />
     <ClInclude Include="image_helper.h" />
     <ClInclude Include="naglowki.h" />
