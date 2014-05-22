@@ -17,6 +17,10 @@ cBohater::cBohater(float _x, float _y)
 	x = _x;
 	y = _y;
 	z = 0;
+	Vx = 0;
+	Vy = 0;
+	Vkatowa = 0;
+
 	kat = 0;
 	rozmiar = 2;
 	kat = 30;
@@ -43,15 +47,8 @@ bool cBohater::CzyKliknieto(float px, float py)
 }
 
 
-void cBohater::Ruszaj(float dx)
+void cBohater::Ruszaj(float dx)			// realizacja prêdkoœci
 {
-	x += dx;
-	x2 += dx;
-}
-
-void cBohater::Opadaj()
-{
-
 	int k = Plansza->XDoTab(x);
 	bool b1;
 	if (y - BOHATER_PROMIEN1 - KROK_BOHATERA > Plansza->tabPol[k]) 
@@ -89,8 +86,18 @@ void cBohater::Opadaj()
 			float nowyKat = asin(cos(fazaKol) * (y2 - y) / BOHATER_POZYCJA_KOLA) - fazaKol;
 			ZmienKat(nowyKat * 180 / 3.1416 - kat);
 		}
+}
 
-	
+
+void cBohater::Opadaj()
+{
+	Vy += KROK_PRZYSPIESZANIA_BOHATERA;
+}
+
+void cBohater::Przyspieszaj(float dVx, float dVy)
+{
+	Vx += dVx;
+	Vy += dVy;
 }
 
 void cBohater::ZmienKat(float dkat)

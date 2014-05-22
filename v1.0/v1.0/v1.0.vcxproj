@@ -78,6 +78,7 @@
   <ItemGroup>
     <ClCompile Include="cBohater.cpp" />
     <ClCompile Include="cChmura.cpp" />
+    <ClCompile Include="cGracz.cpp" />
     <ClCompile Include="cIstota.cpp" />
     <ClCompile Include="cObiekt.cpp" />
     <ClCompile Include="cPalma.cpp" />
@@ -93,6 +94,7 @@
   <ItemGroup>
     <ClInclude Include="cBohater.h" />
     <ClInclude Include="cChmura.h" />
+    <ClInclude Include="cGracz.h" />
     <ClInclude Include="cIstota.h" />
     <ClInclude Include="cObiekt.h" />
     <ClInclude Include="cPalma.h" />

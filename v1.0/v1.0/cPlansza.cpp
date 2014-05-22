@@ -26,7 +26,7 @@ cPlansza::cPlansza(void)
 	glutTimerFunc(20, Dzialaj, TIMER_KAMERA_PRZESUN_Y);
 	glutTimerFunc(20, Dzialaj, TIMER_KAMERA_SCROLL);
 
-	wybranyBohater = 0;
+
 
 
 	TworzTekstury();
@@ -148,9 +148,9 @@ void cPlansza::_Dzialaj(int value)
 
 	if (value == TIMER_20)
 	{
-		//for (int i = 0; i < tabBohaterow.size(); i++)
+		for (int i = 0; i < tabGraczy.size(); i++)
 		{
-			tabBohaterow[0]->Opadaj();
+			tabGraczy[i]->Dzialaj();
 		}
 		glutTimerFunc(20, Dzialaj, TIMER_20);
 	}
@@ -180,11 +180,11 @@ void cPlansza::_Klawiatura(unsigned char key, int x, int y)
 		break;
 
 	case 'a':
-		tabBohaterow[wybranyBohater]->Ruszaj(-KROK_BOHATERA*10);
+		tabGraczy[0]->RuszajBohatera(-KROK_PRZYSPIESZANIA_BOHATERA, 0);
 		break;
 
 	case 'd':
-		tabBohaterow[wybranyBohater]->Ruszaj(KROK_BOHATERA*10);
+		tabGraczy[0]->RuszajBohatera(KROK_PRZYSPIESZANIA_BOHATERA, 0);
 		break;
 	case '-':
 		kamera.zakresCel *= SZYBKOSC_SCROLLOWANIA;
@@ -357,8 +357,8 @@ void cPlansza::WczytajTeren()
 			{
 			case POLE_GRACZ:
 				{
-					cBohater * nowyBohater = new cBohater(TabDoX(k), TabDoY(w));
-					tabBohaterow.push_back(nowyBohater);
+					cGracz* nowyGracz = new cGracz(TabDoX(k), TabDoY(w));
+					tabGraczy.push_back(nowyGracz);
 				}
 				pole = POLE_TLO;
 				break;
