@@ -9,6 +9,8 @@ public:
 	~cGracz(void);
 	cGracz(float _x, float _y);
 	
+	sKOLOR kolor;
+
 	float x;
 	float y;
 

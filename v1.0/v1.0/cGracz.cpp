@@ -17,6 +17,10 @@ cGracz::cGracz(float _x, float _y)
 
 	x = _x;
 	y = _y;
+
+	kolor.r = 1;
+	kolor.g = 0;
+	kolor.b = 0;
 }
 
 
