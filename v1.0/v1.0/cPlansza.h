@@ -28,6 +28,13 @@ struct sKAMERA
 	int przesuwajy;
 };
 
+struct sRAMKA
+{
+	char nazwa[64];
+	float zycie;
+	char opis[256];
+	bool czyWidoczna;
+};
 
 class cPlansza
 {
@@ -66,6 +73,11 @@ public:
 	void RysujPodloze();
 	void RysujTlo();
 	void RysujTeren();
+
+	sRAMKA ramkaOpisu;
+	void RysujRamkeOpisu();
+	
+
 
 
 	float testowy;
