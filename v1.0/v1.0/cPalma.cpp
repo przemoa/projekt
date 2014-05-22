@@ -17,7 +17,6 @@ cPalma::cPalma(int _typPalmy, float _rozmiar, float _kat, float _x, float _y, fl
 	UstawPozycje(_x, _y, _z);
 	UstawKat(_kat);
 	rozmiar = _rozmiar;
-
 }
 
 

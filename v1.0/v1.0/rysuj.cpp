@@ -9,9 +9,7 @@ void cPlansza::_Przerysuj(void)
 	glPushMatrix();
 	glEnable (GL_BLEND);
 	
-
 		RysujTlo();
-		RysujTeren();
 
 		//RysujPodloze();
 
@@ -53,7 +51,7 @@ void cPlansza::_Przerysuj(void)
 			tabPalm[i]->Rysuj();
 		}
 
-		
+		RysujTeren();
 		
 
 	// napis przemek
@@ -75,17 +73,17 @@ void cPlansza::_Przerysuj(void)
 			//	glDisable(GL_TEXTURE_2D);
 			//glPopMatrix();
 
-
+		for (int i = 0; i < tabGraczy.size(); i++)
+		{
+			tabGraczy[i]->Rysuj();
+		}
 
 		for (int i = 0; i < tabPunktStab.size(); i++)
 		{
 			tabPunktStab[i]->Rysuj();
 		}
 
-		for (int i = 0; i < tabBohaterow.size(); i++)
-		{
-			tabBohaterow[0]->Rysuj();
-		}
+
 	
 
 	glPopMatrix();

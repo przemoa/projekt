@@ -3,7 +3,7 @@
 #include "cChmura.h"
 #include "cPalma.h"
 #include "cPunktStabilny.h"
-#include "cBohater.h"
+#include "cGracz.h"
 
 
 struct sROZMIAROKNA
@@ -55,8 +55,8 @@ public:
 	cChmura* tabChmur[ILOSC_CHMUR];
 	vector < cPalma* > tabPalm;
 	vector < cPunktStabilny* > tabPunktStab;
-	vector < cBohater* > tabBohaterow;
-	int wybranyBohater;
+
+	vector < cGracz* > tabGraczy;
 
 
 	float tabPol[5000];
