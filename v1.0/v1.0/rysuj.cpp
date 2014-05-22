@@ -8,10 +8,10 @@ void cPlansza::_Przerysuj(void)
 
 	glPushMatrix();
 	glEnable (GL_BLEND);
-
+	
 
 		RysujTlo();
-
+		RysujTeren();
 
 		//RysujPodloze();
 
@@ -54,7 +54,7 @@ void cPlansza::_Przerysuj(void)
 		}
 
 		
-		RysujTeren();
+		
 
 	// napis przemek
 			//glPushMatrix();

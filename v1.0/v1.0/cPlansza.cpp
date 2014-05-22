@@ -379,7 +379,7 @@ void cPlansza::WczytajTeren()
 			}
 			if (pole == POLE_TLO) continue;
 
-			if (tabPol[k] == -7777) tabPol[k] = TabDoY(w);
+			if (tabPol[k] == -7777) tabPol[k] = TabDoY(w) + 0.65;
 		}
 	}
 	delete [] tablicaPikseli;
@@ -607,11 +607,11 @@ float cPlansza::TabDoY(int w)
 
 int cPlansza::XDoTab(float x)
 {
-	return ((x + 1000) / 0.4);
+	return ((x + 1000) / 0.4) + 0.5;
 }
 
 int cPlansza::YDoTab(float y)
 {
-	return ((y+170) / 0.4);
+	return ((y+170) / 0.4) + 0.5;
 }
 

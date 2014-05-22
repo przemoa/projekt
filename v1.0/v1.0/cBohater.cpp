@@ -29,7 +29,7 @@ cBohater::cBohater(float _x, float _y)
 void cBohater::Rysuj()
 {
 	glPushMatrix();
-		glTranslatef(x, y + BOHATER_PROMIEN1, z);
+		glTranslatef(x, y, z);
 		glRotatef(kat, 0, 0, 1);
 		glColor3f(1,0,0);  //todo
 		glCallList(LISTA_BOHATER);
@@ -51,6 +51,7 @@ void cBohater::Ruszaj(float dx)
 
 void cBohater::Opadaj()
 {
+
 	int k = Plansza->XDoTab(x);
 	bool b1;
 	if (y - BOHATER_PROMIEN1 - KROK_BOHATERA > Plansza->tabPol[k]) 
@@ -65,7 +66,6 @@ void cBohater::Opadaj()
 	else 
 		b2 = false;
 
-	cout << y2 << " " << Plansza->tabPol[k] << " " << b2 << endl;
 
 	if (!b1 && !b2) 
 		return;
@@ -82,14 +82,12 @@ void cBohater::Opadaj()
 			float nowyKat = asin(cos(fazaKol) * (y2 - y) / BOHATER_POZYCJA_KOLA) + fazaKol;
 			x = x2 - BOHATER_POZYCJA_KOLA / cos(fazaKol) * cos(nowyKat - fazaKol);
 			ZmienKat(nowyKat * 180 / 3.1416 - kat);
-			cout << "opada tyl" << endl;
 		}
 	else if (b2 && (!(b1))) 
 		{
 			y2 -= KROK_BOHATERA;
 			float nowyKat = asin(cos(fazaKol) * (y2 - y) / BOHATER_POZYCJA_KOLA) - fazaKol;
 			ZmienKat(nowyKat * 180 / 3.1416 - kat);
-			cout << "opada przod" << endl;
 		}
 
 	
