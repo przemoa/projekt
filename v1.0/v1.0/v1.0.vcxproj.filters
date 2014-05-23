@@ -66,6 +66,9 @@
     <ClCompile Include="cZamek.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="cStworek.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cPlansza.h">
@@ -117,6 +120,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="cZamek.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cStworek.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

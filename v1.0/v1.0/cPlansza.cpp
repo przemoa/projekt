@@ -58,7 +58,6 @@ cPlansza::~cPlansza(void)
 
 }
 
-
 void cPlansza::_Dzialaj(int value)
 {
 	// Plynne przewijanie kamery
@@ -197,6 +196,9 @@ void cPlansza::_Klawiatura(unsigned char key, int x, int y)
 		if (kamera.zakresCel < KAMERA_MIN_ZAKRES) kamera.zakresCel = KAMERA_MIN_ZAKRES;
 		glutTimerFunc(20, Dzialaj, TIMER_KAMERA_SCROLL);
 		break;
+
+	case 'o':
+		tabGraczy[0]->DodajStworka(-900, LISTA_STWOREK_KULA);
 
 
 
@@ -338,7 +340,6 @@ void cPlansza::PrzesunKamere(float dx, float dy)
 	}
 }
 
-
 void cPlansza::WczytajTeren()
 {
 	FILE* odczytTerenu = fopen("tx\\1.bin", "r");
@@ -362,7 +363,8 @@ void cPlansza::WczytajTeren()
 			{
 			case POLE_GRACZ:
 				{
-					cGracz* nowyGracz = new cGracz(TabDoX(k*10), TabDoY(w));
+					int kierunek = 1 - 2*tabGraczy.size();
+					cGracz* nowyGracz = new cGracz(TabDoX(k*10), TabDoY(w), kierunek);
 					tabGraczy.push_back(nowyGracz);
 				}
 				pole = POLE_TLO;
@@ -403,13 +405,11 @@ void cPlansza::WczytajTeren()
 
 }
 
-
 void cPlansza::DodajPunktStabilny(float _x, float _y)
 {
 	cPunktStabilny* nowyPunkt = new cPunktStabilny(_x, _y, 0);
 	tabPunktStab.push_back(nowyPunkt);
 }
-
 
 void cPlansza::UtworzListy()
 {
@@ -570,11 +570,23 @@ void cPlansza::UtworzListy()
 				glVertex2f(0.55 * BOHATER_PROMIEN2 * sin(6.2832*i/33), 0.55 * BOHATER_PROMIEN2 * cos(6.2832*i/33));
 			}		
 		glEnd();
-
 	glEndList();
 
-}
 
+	// STWOREK KULA
+	glGenLists(LISTA_STWOREK_KULA);
+	glNewList(LISTA_STWOREK_KULA, GL_COMPILE);
+	glBegin(GL_POLYGON);
+		for (int i = 0; i < 33; i++)
+		{
+			glVertex2f(ROMIAR_STWORKA_KULA * sin(6.2832*i/33), ROMIAR_STWORKA_KULA * cos(6.2832*i/33));
+		}
+		glEnd();
+	glEndList();
+	
+
+
+}
 
 void cPlansza::TworzTekstury()
 {
@@ -594,7 +606,6 @@ void cPlansza::TworzTekstury()
 	SOIL_load_OGL_texture("tx\\wieza4.png", SOIL_LOAD_AUTO, TEKSTURA_WIEZA4, SOIL_FLAG_INVERT_Y);
 	SOIL_load_OGL_texture("tx\\wieza5.png", SOIL_LOAD_AUTO, TEKSTURA_WIEZA5, SOIL_FLAG_INVERT_Y);
 }
-
 
 void cPlansza::_KlawiszeSpecjalne(int key, int x, int y)
 {
@@ -616,8 +627,6 @@ void cPlansza::_KlawiszeSpecjalne(int key, int x, int y)
 		break;
 	}
 }
-
-
 
 float cPlansza::TabDoX(int k)
 {

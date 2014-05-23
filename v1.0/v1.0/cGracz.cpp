@@ -12,24 +12,43 @@ cGracz::~cGracz(void)
 
 }
 
-cGracz::cGracz(float _x, float _y)
+cGracz::cGracz(float _x, float _y, int _kierunek)
 {
 	wybranyBohater = -1;
 	DodajBohatera(_x, _y);
 
 	x = _x;
 	y = _y;
+	kierunek = _kierunek;
 
 	kolor.r = 1;
 	kolor.g = 0;
 	kolor.b = 0;
 
-	DodajZamek(_x+35, 62);
+	DodajZamek(_x, 62);
+
+	
+
+
+}
+
+void cGracz::DodajStworka(float _x, int _typStworka)
+{
+	cStworek* nowyStworek = new cStworek(_x, -0.5, LISTA_STWOREK_KWADRAT, kierunek);
+	tabStworkow.push_back(nowyStworek);
 }
 
 void cGracz::Dzialaj()
 {
-	tabBohaterow[wybranyBohater]->Opadaj();
+	for (int i  = 0; i < tabBohaterow.size(); i++)
+	{
+		tabBohaterow[i]->Opadaj();
+	}
+
+	for (int i = 0; i < tabStworkow.size(); i++)
+	{
+		tabStworkow[i]->Ruszaj();
+	}
 }
 
 void cGracz::DodajBohatera(float _x, float _y)
@@ -54,6 +73,11 @@ void cGracz::Rysuj()
 	for (int i = 0; i < tabZamkow.size(); i++)
 	{
 		tabZamkow[i]->Rysuj();
+	}
+
+	for (int i = 0; i < tabStworkow.size(); i++)
+	{
+		tabStworkow[i]->Rysuj();
 	}
 }
 

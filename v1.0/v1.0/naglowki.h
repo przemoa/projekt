@@ -70,10 +70,11 @@ extern cPlansza* Plansza;
 
 #define LISTA_PUNKT_STABILNY 1
 #define LISTA_BOHATER 2
-
+#define LISTA_STWOREK_KULA 3
+#define LISTA_STWOREK_KWADRAT 4
 
 #define ROZMIAR_PUNKTUSTABILNEGO 2
-
+#define ROMIAR_STWORKA_KULA 3
 
 #define BOHATER_PROMIEN1 1.5
 #define BOHATER_PROMIEN2 1.2
@@ -86,7 +87,7 @@ extern cPlansza* Plansza;
 
 #define SELEKCJA_ZAMEK 100
 #define SELEKCJA_BOHATER 200
-#define SELEKCJA_ZAMEK 300
+#define SELEKCJA_STWOREK 300
 
 
 
