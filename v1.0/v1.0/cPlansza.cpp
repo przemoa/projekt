@@ -44,7 +44,7 @@ cPlansza::cPlansza(void)
 	}
 
 	// wczytaj plansze
-	for (int k = 0; k < 5000; k++)
+	for (int k = 0; k < 50000; k+=10)
 	{
 		tabPol[k] = -7777;
 	}
@@ -347,6 +347,10 @@ void cPlansza::WczytajTeren()
 
 	for (int k = 0; k < 5000; k++)				// przepisz z wektra do tabeli pól i wykonaje pola specjalne
 	{
+		if (k == 1020)
+		{
+			int a = k;
+		}
 		for (int w = 849; w >= 0; w--)
 		{
 			unsigned char pole = tablicaPikseli[w*5000 + k];
@@ -379,10 +383,22 @@ void cPlansza::WczytajTeren()
 			}
 			if (pole == POLE_TLO) continue;
 
-			if (tabPol[k] == -7777) tabPol[k*10] = TabDoY(w) + 0.65;
+			if (tabPol[k*10] == -7777)
+			{
+				float wynik = TabDoY(w) + 0.65;
+				tabPol[k*10] = wynik;
+			}
 		}
 	}
 	delete [] tablicaPikseli;
+
+	for (int k = 0; k < 50000; k++)
+	{
+		if (k%10 == 0) continue;
+		int ktory = k % 10;
+		tabPol[k] = tabPol[k - ktory] + ktory/10*(tabPol[k - ktory] - tabPol[k - ktory + 10]);
+	}
+
 }
 
 
