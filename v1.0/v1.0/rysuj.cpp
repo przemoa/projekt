@@ -148,17 +148,56 @@ void cPlansza::RysujTeren()
 	
 	glColor4f(0, 0.7, 0, 0.5);
 	glBegin(GL_LINES);
-		for (int i = 0; i < 50000; i+= 100)
+	
+	int ostatniTypPola = -1;
+
+		for (int i = 0; i < 50000; i+= 10)		// tylko co 10
 		{
+			if (tabTypowPol[i] != -7777 && tabTypowPol[i] != ostatniTypPola)
+			{
+				ostatniTypPola = tabTypowPol[i];
+				switch(ostatniTypPola)
+				{
+				case POLE_WODA:
+					glColor4f(0, 0, 1, 0.8);
+					break;
+				case POLE_ZIEMIA:
+					glColor4f(0.2, 0.1, 0.05, 0.8);
+					break;
+				case POLE_TRAWA:
+					glColor4f(0, 1, 0, 0.8);
+					break;
+
+				}
+			}
+
 			glVertex3f(TabDoX(i), tabPol[i], 0);
 			glVertex3f(TabDoX(i), tabPol[i], -2);
 		}
 	glEnd();
 
-
+	ostatniTypPola = -1;
 	glBegin(GL_LINE_STRIP);
-		for (int i = 0; i < 50000; i+= 100)
+		for (int i = 0; i < 50000; i+= 20)
 		{
+			if (tabTypowPol[i] != -7777 && tabTypowPol[i] != ostatniTypPola)
+			{
+				ostatniTypPola = tabTypowPol[i];
+				switch(ostatniTypPola)
+				{
+				case POLE_WODA:
+					glColor4f(0, 0, 1, 0.8);
+					break;
+				case POLE_ZIEMIA:
+					glColor4f(0.2, 0.1, 0.05, 0.8);
+					break;
+				case POLE_TRAWA:
+					glColor4f(0, 1, 0, 0.8);
+					break;
+
+				}
+			}
+
 			glVertex3f(TabDoX(i), tabPol[i], -2);
 		}
 	glEnd();
@@ -221,4 +260,32 @@ void cPlansza::RysujSzescian()
 			glVertex3f(rozm, -rozm, -5);
 		glEnd();
 	glDisable(GL_DEPTH_TEST);
+}
+
+void cPlansza::RysujRamkeOpisu()
+{
+}
+
+void cPlansza::RysujPasekZycia(float _x, float _y, float _rozmiar, float poziomZycia)
+{
+	glPushMatrix();
+		poziomZycia  = 50;
+		glColor3f(0.1,0.1,0.1);
+		glBegin(GL_POLYGON);
+			glVertex2f(0, -0.1*_rozmiar);
+			glVertex2f( _rozmiar*2, -0.1*_rozmiar);
+			glVertex2f( _rozmiar*2,  0.1*_rozmiar);
+			glVertex2f(0,  0.1*_rozmiar);
+		glEnd();
+		
+		glColor3f(1-poziomZycia/100, poziomZycia/100, 0.0);
+		glBegin(GL_POLYGON);
+			glVertex2f(0.05*_rozmiar, -0.08*_rozmiar);
+			glVertex2f( _rozmiar*1.95*poziomZycia/100, -0.08*_rozmiar);
+			glVertex2f( _rozmiar*1.95*poziomZycia/100,  0.08*_rozmiar);
+			glVertex2f(0.05*_rozmiar,  0.08*_rozmiar);
+		glEnd();
+
+
+	glPopMatrix();
 }

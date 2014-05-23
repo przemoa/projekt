@@ -47,6 +47,7 @@ cPlansza::cPlansza(void)
 	for (int k = 0; k < 50000; k+=10)
 	{
 		tabPol[k] = -7777;
+		tabTypowPol[k] = -7777;
 	}
 	WczytajTeren();
 
@@ -347,7 +348,7 @@ void cPlansza::WczytajTeren()
 
 	for (int k = 0; k < 5000; k++)				// przepisz z wektra do tabeli pól i wykonaje pola specjalne
 	{
-		if (k == 1020)
+		if (k == 464)
 		{
 			int a = k;
 		}
@@ -387,6 +388,7 @@ void cPlansza::WczytajTeren()
 			{
 				float wynik = TabDoY(w) + 0.65;
 				tabPol[k*10] = wynik;
+				tabTypowPol[k*10] = pole;
 			}
 		}
 	}
@@ -615,35 +617,6 @@ void cPlansza::_KlawiszeSpecjalne(int key, int x, int y)
 	}
 }
 
-void cPlansza::RysujPasekZycia(float _x, float _y, float _rozmiar, float poziomZycia)
-{
-	glPushMatrix();
-
-		glTranslatef(_x - _rozmiar, _y, 0);
-		
-
-
-
-
-		glColor3f(0.1,0.1,0.1);
-		glBegin(GL_POLYGON);
-			glVertex2f(0, -0.1*_rozmiar);
-			glVertex2f( _rozmiar*2, -0.1*_rozmiar);
-			glVertex2f( _rozmiar*2,  0.1*_rozmiar);
-			glVertex2f(0,  0.1*_rozmiar);
-		glEnd();
-		
-				glColor3f(1, 0.0, 0.0);
-		glBegin(GL_POLYGON);
-			glVertex2f(0.05*_rozmiar, -0.08*_rozmiar);
-			glVertex2f( _rozmiar*1.95*poziomZycia/100, -0.08*_rozmiar);
-			glVertex2f( _rozmiar*1.95*poziomZycia/100,  0.08*_rozmiar);
-			glVertex2f(0.05*_rozmiar,  0.08*_rozmiar);
-		glEnd();
-
-
-	glPopMatrix();
-}
 
 
 float cPlansza::TabDoX(int k)

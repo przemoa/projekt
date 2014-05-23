@@ -59,6 +59,9 @@ extern cPlansza* Plansza;
 #define POLE_PALMA 0x18
 #define POLE_PUNKT_STABILNY 0x67
 #define POLE_TLO 0xFF
+#define POLE_ZIEMIA 0x0A
+#define POLE_TRAWA 0x71
+
 
 #define POLE_SKRZYNKA_Z_NAGRODA_1 0x00
 #define POLE_SKRZYNKA_Z_NAGRODA_2 0x00
