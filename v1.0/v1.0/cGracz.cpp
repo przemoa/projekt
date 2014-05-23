@@ -34,7 +34,7 @@ cGracz::cGracz(float _x, float _y, int _kierunek)
 
 void cGracz::DodajStworka(float _x, int _typStworka)
 {
-	cStworek* nowyStworek = new cStworek(_x, -0.5, LISTA_STWOREK_KWADRAT, kierunek);
+	cStworek* nowyStworek = new cStworek(_x, -0.5, _typStworka, kierunek);
 	tabStworkow.push_back(nowyStworek);
 }
 
