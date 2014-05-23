@@ -269,6 +269,8 @@ void cPlansza::RysujRamkeOpisu()
 void cPlansza::RysujPasekZycia(float _x, float _y, float _rozmiar, float poziomZycia)
 {
 	glPushMatrix();
+
+		glTranslatef(_x - _rozmiar, _y, 0);
 		poziomZycia  = 50;
 		glColor3f(0.1,0.1,0.1);
 		glBegin(GL_POLYGON);

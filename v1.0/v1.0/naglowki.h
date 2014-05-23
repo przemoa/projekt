@@ -83,6 +83,13 @@ extern cPlansza* Plansza;
 #define KROK_PRZYSPIESZANIA_BOHATERA 0.01
 
 
+
+#define SELEKCJA_ZAMEK 100
+#define SELEKCJA_BOHATER 200
+#define SELEKCJA_ZAMEK 300
+
+
+
 struct sKOLOR
 {
 	float r;
