@@ -66,7 +66,7 @@ public:
 	vector < cGracz* > tabGraczy;
 
 
-	float tabPol[5000];
+	float tabPol[50000];
 
 	void DodajPunktStabilny(float _x, float _y);
 
@@ -76,7 +76,7 @@ public:
 
 	sRAMKA ramkaOpisu;
 	void RysujRamkeOpisu();
-	
+	void RysujPasekZycia(float _x, float _y, float _rozmiar, float poziomZycia);
 
 
 

@@ -148,17 +148,17 @@ void cPlansza::RysujTeren()
 	
 	glColor4f(0, 0.7, 0, 0.5);
 	glBegin(GL_LINES);
-	for (int i = 0; i < 5000; i+= 15)
+	for (int i = 0; i < 50000; i+= 150)
 	{
-			glVertex3f(-1000+i*0.4, tabPol[i], 0);
-			glVertex3f(-1000+i*0.4, tabPol[i], -2);
+			glVertex3f(TabDoX(i), tabPol[i], 0);
+			glVertex3f(TabDoX(i), tabPol[i], -2);
 	}
 	glEnd();
 
 	glBegin(GL_LINE_STRIP);
-		for (int i = 0; i < 5000; i+= 15)
+		for (int i = 0; i < 50000; i+= 150)
 		{
-			glVertex3f(-1000+i*0.4, tabPol[i], -2);
+			glVertex3f(TabDoX(i), tabPol[i], -2);
 		}
 	glEnd();
 	

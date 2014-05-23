@@ -1,5 +1,5 @@
 #include "cZamek.h"
-
+#include "cPlansza.h"
 
 cZamek::cZamek(void)
 {
@@ -73,8 +73,6 @@ void cZamek::Rysuj()
 		}
 
 
-
-		
 		glBindTexture(GL_TEXTURE_2D, TEKSTURA_ZAMEK);
 		glEnable(GL_TEXTURE_2D);
 		glBegin(GL_QUADS);
@@ -85,6 +83,8 @@ void cZamek::Rysuj()
 		glEnd();
 		glDisable(GL_TEXTURE_2D);
 	glPopMatrix();
+
+	Plansza->RysujPasekZycia(x, y - 6, rozmiar, zycie);
 
 
 }

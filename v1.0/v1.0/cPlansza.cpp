@@ -357,7 +357,7 @@ void cPlansza::WczytajTeren()
 			{
 			case POLE_GRACZ:
 				{
-					cGracz* nowyGracz = new cGracz(TabDoX(k), TabDoY(w));
+					cGracz* nowyGracz = new cGracz(TabDoX(k*10), TabDoY(w));
 					tabGraczy.push_back(nowyGracz);
 				}
 				pole = POLE_TLO;
@@ -368,18 +368,18 @@ void cPlansza::WczytajTeren()
 				kolor.b = 0.9;
 				kolor.r = 1;
 				kolor.g = 1;
-				{cPalma* nowaPalma = new cPalma(TEKSTURA_PALMA1, 5+rand()%4, -5+rand()%10, TabDoX(k), TabDoY(w), -0.9);
+				{cPalma* nowaPalma = new cPalma(TEKSTURA_PALMA1, 5+rand()%4, -5+rand()%10, TabDoX(k*10), TabDoY(w), -0.9);
 				tabPalm.push_back(nowaPalma);}
 				pole = POLE_TLO;
 				break;
 
 			case POLE_PUNKT_STABILNY: 
-				DodajPunktStabilny(TabDoX(k), TabDoY(w));
+				DodajPunktStabilny(TabDoX(k*10), TabDoY(w));
 				pole = POLE_TLO;
 			}
 			if (pole == POLE_TLO) continue;
 
-			if (tabPol[k] == -7777) tabPol[k] = TabDoY(w) + 0.65;
+			if (tabPol[k] == -7777) tabPol[k*10] = TabDoY(w) + 0.65;
 		}
 	}
 	delete [] tablicaPikseli;
@@ -597,15 +597,42 @@ void cPlansza::_KlawiszeSpecjalne(int key, int x, int y)
 		PrzesunKamere(-przesu, 0);
 		break;
 	}
-	
-
-
-		
 }
+
+void cPlansza::RysujPasekZycia(float _x, float _y, float _rozmiar, float poziomZycia)
+{
+	glPushMatrix();
+
+		glTranslatef(_x - _rozmiar, _y, 0);
+		
+
+
+
+
+		glColor3f(0.1,0.1,0.1);
+		glBegin(GL_POLYGON);
+			glVertex2f(0, -0.1*_rozmiar);
+			glVertex2f( _rozmiar*2, -0.1*_rozmiar);
+			glVertex2f( _rozmiar*2,  0.1*_rozmiar);
+			glVertex2f(0,  0.1*_rozmiar);
+		glEnd();
+		
+				glColor3f(1, 0.0, 0.0);
+		glBegin(GL_POLYGON);
+			glVertex2f(0.05*_rozmiar, -0.08*_rozmiar);
+			glVertex2f( _rozmiar*1.95*poziomZycia/100, -0.08*_rozmiar);
+			glVertex2f( _rozmiar*1.95*poziomZycia/100,  0.08*_rozmiar);
+			glVertex2f(0.05*_rozmiar,  0.08*_rozmiar);
+		glEnd();
+
+
+	glPopMatrix();
+}
+
 
 float cPlansza::TabDoX(int k)
 {
-	return (-1000 + 0.4*k);
+	return (-1000 + 0.4*k / 10);
 }
 
 float cPlansza::TabDoY(int w)
@@ -615,7 +642,7 @@ float cPlansza::TabDoY(int w)
 
 int cPlansza::XDoTab(float x)
 {
-	return ((x + 1000) / 0.4) + 0.5;
+	return ((x + 1000) / 0.4 * 10) + 0.5;
 }
 
 int cPlansza::YDoTab(float y)
