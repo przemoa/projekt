@@ -275,11 +275,24 @@ void cPlansza::DrawString(int x, int y, const unsigned char * string, float skal
 		glLoadIdentity();
 		glTranslatef(x, y, 0);
 		glScalef(skala/1000, skala/1000, skala/1000);
+		glPushMatrix();
+			
 
-		for(const unsigned char* p = string; *p; p++)
-		{
-			glutStrokeCharacter(GLUT_STROKE_ROMAN, *p);
-		}
+			for(const unsigned char* p = string; *p; p++)
+			{
+				if (*p == 10)
+				{
+					glPopMatrix();
+					glTranslatef(0, -180, 0);
+					glPushMatrix();
+					continue;
+				}
+				glutStrokeCharacter(GLUT_STROKE_ROMAN, *p);
+			}
+		glPopMatrix();
+
+
+
 	glPopMatrix();
 
 
@@ -308,7 +321,9 @@ void cPlansza::RysujRamkeOpisu()
 		glPushMatrix();
 			glLoadIdentity();
 
-			glBegin(GL_POLYGON);			// RAMKA
+
+			// TLO RAMKI
+			glBegin(GL_POLYGON);			
 				glColor4f(0, 0, 0.15, 1);
 				glVertex2f(37,0);
 
@@ -352,23 +367,65 @@ void cPlansza::RysujRamkeOpisu()
 				glVertex2f(0,30);
 			glEnd();
 				
+			// KRESKI ROZDZIELCZE
+			glColor4f(0.4, 0.4, 0.7, 0.5);
+			glBegin(GL_POLYGON);
+				glVertex2f(23, 4);
+				glVertex2f(23, 29);
+				glVertex2f(23.5, 28);
+				glVertex2f(23.5, 3);
+			glEnd();
+
+			glBegin(GL_POLYGON);
+				glVertex2f(2, 22);
+				glVertex2f(22, 22);
+				glVertex2f(23, 22.5);
+				glVertex2f(3, 22.5);
+			glEnd();
 
 
-			
+			// IKONKA
+			glBindTexture(GL_TEXTURE_2D, Plansza->ramkaOpisu.ikona);			
+			glEnable(GL_TEXTURE_2D);
+			glColor4f(1, 1, 1, 0.9);
+			glBegin(GL_QUADS);
+				glTexCoord2f(0.0f, 0.0f); glVertex2f(27, 20);
+				glTexCoord2f(1.0f, 0.0f); glVertex2f(35, 20);
+				glTexCoord2f(1.0f, 1.0f); glVertex2f(35,  28);
+				glTexCoord2f(0.0f, 1.0f); glVertex2f(27,  28);
+			glEnd();
+			glDisable(GL_TEXTURE_2D);
+
+
+			// PASEK ZYCIA
+			glPushMatrix();
+				glTranslatef(24.5, 18, 0);
+				float rozmiar = 6;
+				glColor3f(0.15, 0.15, 0.15);
+				glBegin(GL_POLYGON);
+					glVertex2f(0, -0.1*rozmiar);
+					glVertex2f( rozmiar*2, -0.1*rozmiar);
+					glVertex2f( rozmiar*2,  0.1*rozmiar);
+					glVertex2f(0,  0.1*rozmiar);
+				glEnd();
+		
+				glColor3f(1-Plansza->ramkaOpisu.poziomZycia/100, Plansza->ramkaOpisu.poziomZycia/100, 0.0);
+				glBegin(GL_POLYGON);
+					glVertex2f(0.05*rozmiar, -0.08*rozmiar);
+					glVertex2f( rozmiar*1.95*Plansza->ramkaOpisu.poziomZycia/100, -0.08*rozmiar);
+					glVertex2f( rozmiar*1.95*Plansza->ramkaOpisu.poziomZycia/100,  0.08*rozmiar);
+					glVertex2f(0.05*rozmiar,  0.08*rozmiar);
+				glEnd();
+			glPopMatrix();
 
 
 			glColor3f(0.1, 0.5, 0.8);
 
-			glColor4f(0.7, 0.7, 0.9, 0.7);
-			DrawString(3, 26, (unsigned char*) Plansza->ramkaOpisu.nazwa.c_str(), 18);
-			
 
-			glBegin(GL_POLYGON);
-				glVertex2f(3, 23);
-				glVertex2f(25, 23);
-				glVertex2f(25, 24);
-				glVertex2f(3, 24);
-			glEnd();
+
+			glColor4f(0.7, 0.7, 0.9, 0.7);
+			DrawString(3, 25, (unsigned char*) Plansza->ramkaOpisu.nazwa.c_str(), 18);
+			DrawString(3, 19, (unsigned char*) Plansza->ramkaOpisu.opis.c_str(), 12);
 
 
 			glLineWidth(2);
