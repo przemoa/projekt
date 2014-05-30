@@ -127,6 +127,23 @@ bool cStworek::CzyKliknieto(float px, float py)
 }
 void cStworek::AktualizujRamke()
 {
+	Plansza->ramkaOpisu.id = id;
+	Plansza->ramkaOpisu.typ = STWOREK;
+	Plansza->ramkaOpisu.ikona = typStworka;
+	Plansza->ramkaOpisu.poziomZycia = poziomZycia;
+
+	stringstream ssNazwa;
+	ssNazwa << "STWOREK " << (typStworka - 120) << "  (id " << id << ")";
+	Plansza->ramkaOpisu.nazwa = ssNazwa.str();
+
+	stringstream ssOpis;
+	ssOpis	<< "Poziom zycia:  " << (int) poziomZycia << endl
+			<< "Rozmiar:      " << (int) rozmiar << endl
+			<< "Obrazenia:   " << (int) obrazenia<< endl
+			<< "Zasieg:    " << (int) zasieg << endl
+			<< "Predkosc:   " << predkosc ;
+	Plansza->ramkaOpisu.opis = ssOpis.str();
+	Plansza->ramkaOpisu.ikonaBudowy = false;
 }
 void cStworek::Atakuj()
 {

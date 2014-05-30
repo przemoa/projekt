@@ -130,8 +130,13 @@ void cZamek::AktualizujRamke()
 	Plansza->ramkaOpisu.nazwa = ssNazwa.str();
 
 	stringstream ssOpis;
-	ssOpis << "to jest se zamek" << endl << "ladny zamek" << endl << "nawet bardzo";
+	ssOpis	<< "Poziom zycia:  " << (int) poziomZycia << endl
+			<< "Rozmiar:      " << (int) rozmiar << endl
+			<< "to jest se zamek" << endl
+			<< "ladny zamek" << endl
+			<< "nawet bardzo";
 	Plansza->ramkaOpisu.opis = ssOpis.str();
+	Plansza->ramkaOpisu.ikonaBudowy = true;
 
 }
 

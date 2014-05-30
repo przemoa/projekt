@@ -309,7 +309,7 @@ void cPlansza::DrawString(int x, int y, const unsigned char * string, float skal
 
 void cPlansza::RysujRamkeOpisu()
 {
-	if (Plansza->ramkaOpisu.czyWidoczna == false) return;
+	if (ramkaOpisu.czyWidoczna == false) return;
 
 	glLineWidth(2);
 
@@ -368,11 +368,11 @@ void cPlansza::RysujRamkeOpisu()
 			glEnd();
 				
 			// KRESKI ROZDZIELCZE
-			glColor4f(0.4, 0.4, 0.7, 0.5);
+			glColor4f(0.7, 0.7, 0.7, 0.5);
 			glBegin(GL_POLYGON);
 				glVertex2f(23, 4);
-				glVertex2f(23, 29);
-				glVertex2f(23.5, 28);
+				glVertex2f(23, 21.5);
+				glVertex2f(23.5, 22);
 				glVertex2f(23.5, 3);
 			glEnd();
 
@@ -385,21 +385,38 @@ void cPlansza::RysujRamkeOpisu()
 
 
 			// IKONKA
-			glBindTexture(GL_TEXTURE_2D, Plansza->ramkaOpisu.ikona);			
+			glBindTexture(GL_TEXTURE_2D, ramkaOpisu.ikona);			
 			glEnable(GL_TEXTURE_2D);
 			glColor4f(1, 1, 1, 0.9);
 			glBegin(GL_QUADS);
-				glTexCoord2f(0.0f, 0.0f); glVertex2f(27, 20);
-				glTexCoord2f(1.0f, 0.0f); glVertex2f(35, 20);
-				glTexCoord2f(1.0f, 1.0f); glVertex2f(35,  28);
-				glTexCoord2f(0.0f, 1.0f); glVertex2f(27,  28);
+				glTexCoord2f(0.0f, 0.0f); glVertex2f(26, 13);
+				glTexCoord2f(1.0f, 0.0f); glVertex2f(35, 13);
+				glTexCoord2f(1.0f, 1.0f); glVertex2f(35,  23);
+				glTexCoord2f(0.0f, 1.0f); glVertex2f(26,  23);
 			glEnd();
 			glDisable(GL_TEXTURE_2D);
+
+			// IKONA BUDOWY
+			if (ramkaOpisu.ikonaBudowy)
+			{
+				glBindTexture(GL_TEXTURE_2D, TEKSTURA_IKONA_BUDOWY);			
+				glEnable(GL_TEXTURE_2D);
+				glColor4f(1, 1, 1, 0.9);
+				glBegin(GL_QUADS);
+					glTexCoord2f(0.0f, 0.0f); glVertex2f(24, 0);
+					glTexCoord2f(1.0f, 0.0f); glVertex2f(37, 0);
+					glTexCoord2f(1.0f, 1.0f); glVertex2f(37,  11);
+					glTexCoord2f(0.0f, 1.0f); glVertex2f(24,  11);
+				glEnd();
+				glDisable(GL_TEXTURE_2D);
+			}
+
+
 
 
 			// PASEK ZYCIA
 			glPushMatrix();
-				glTranslatef(24.5, 18, 0);
+				glTranslatef(24.5, 12, 0);
 				float rozmiar = 6;
 				glColor3f(0.15, 0.15, 0.15);
 				glBegin(GL_POLYGON);
@@ -424,7 +441,10 @@ void cPlansza::RysujRamkeOpisu()
 
 
 			glColor4f(0.7, 0.7, 0.9, 0.7);
-			DrawString(3, 25, (unsigned char*) Plansza->ramkaOpisu.nazwa.c_str(), 18);
+			DrawString(3, 25.5, (unsigned char*) Plansza->ramkaOpisu.nazwa.c_str(), 18);
+
+			glColor4f(0.4, 0.4, 0.9, 0.7);
+			glLineWidth(1);
 			DrawString(3, 19, (unsigned char*) Plansza->ramkaOpisu.opis.c_str(), 12);
 
 

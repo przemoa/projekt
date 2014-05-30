@@ -53,7 +53,7 @@ extern cPlansza* Plansza;
 #define TEKSTURA_WIEZA3 13
 #define TEKSTURA_WIEZA4 14
 #define TEKSTURA_WIEZA5 15
-
+#define TEKSTURA_IKONA_BUDOWY 31
 
 #define POLE_WODA 0xFC
 #define POLE_GRACZ 0xF9
@@ -67,12 +67,14 @@ extern cPlansza* Plansza;
 #define POLE_SKRZYNKA_Z_NAGRODA_1 0x00
 #define POLE_SKRZYNKA_Z_NAGRODA_2 0x00
 
-#define ZAKRES_KLIKNIECIE 1.6   
+#define ZAKRES_KLIKNIECIE 3.5   
 
 #define LISTA_PUNKT_STABILNY 1
 #define LISTA_BOHATER 2
-#define LISTA_STWOREK_KULA 3
-#define LISTA_STWOREK_KWADRAT 4
+#define LISTA_STWOREK_KULA 121
+#define LISTA_STWOREK_KWADRAT 122
+
+
 
 #define ROZMIAR_PUNKTUSTABILNEGO 2
 #define ROMIAR_STWORKA_KULA 3
@@ -84,11 +86,6 @@ extern cPlansza* Plansza;
 #define KROK_OBROTU_BOHATERA 0.1
 #define KROK_PRZYSPIESZANIA_BOHATERA 0.3
 
-
-
-#define SELEKCJA_ZAMEK 100
-#define SELEKCJA_BOHATER 200
-#define SELEKCJA_STWOREK 300
 
 //parametry bohatera
 #define KROK_CZASOWY 0.01
@@ -104,6 +101,10 @@ extern cPlansza* Plansza;
 #define IKONA_WIEZA4 114
 #define IKONA_WIEZA5 115
 #define IKONA_BOHATER1 116
+
+#define IKONA_STWOREK1 121
+#define IKONA_STWOREK2 122
+
 
 
 
@@ -152,5 +153,6 @@ struct sRAMKAOPISU
 	float poziomZycia;
 	bool czyWidoczna;
 	string opis;
+	bool ikonaBudowy;
 	
 };
