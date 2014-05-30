@@ -35,8 +35,6 @@ cBohater::cBohater(float _x, float _y, int _wlascicel)
 	UstawXs();
 	UstawYs();
 	katPoprzedni = 0;
-
-
 }
 
 void cBohater::Rysuj()
@@ -53,13 +51,6 @@ void cBohater::Rysuj()
 
 void cBohater::Ruszaj()
 {
-
-	cout << "Vx = " << Vx << endl;
-	cout << "Vy = " << Vy << endl;
-	cout << "Vg = " << Vg << endl;
-	cout << "kat terenu= " << katTerenu << endl;
-				cout << sin(kat * 3.1416 / 180 - fazaKol) << endl;
-			cout << sin(katTerenu * 3.1416 / 180) << endl;
 	int b1, b2;			// 0 - bez zmian, 1 - podnosi siê do góry, -1 - opada w dó³
 
 	Przesun(Vx * KROK_CZASOWY, 0);
