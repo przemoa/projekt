@@ -150,7 +150,7 @@ bool cBohater::CzyKliknieto(float px, float py)
 {
 	return false;
 }
-void cBohater::AktualizujRamke(sRAMKAOPISU &ramkaOpisu)
+void cBohater::AktualizujRamke()
 {
 }
 void cBohater::Atakuj()

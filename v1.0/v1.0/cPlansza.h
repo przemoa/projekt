@@ -49,7 +49,7 @@ public:
 	sRAMKAOPISU ramkaOpisu;
 	void RysujRamkeOpisu();
 
-	void DrawString(int x, int y, const char * string);
+	void DrawString(int x, int y, const unsigned char * string, float skala);
 
 
 	float testowy;

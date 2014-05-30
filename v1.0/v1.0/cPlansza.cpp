@@ -10,7 +10,7 @@ cPlansza::cPlansza(void)
 	testowy2 = 0;
 	//licznikPunktow = 0;
 
-	rozmiarOkna.x = 800;
+	rozmiarOkna.x = 1000;
 	rozmiarOkna.y = 600;
 	rozmiarOkna.proporcja = (float) rozmiarOkna.x / rozmiarOkna.y;
 
@@ -245,7 +245,7 @@ void cPlansza::_MyszKlawisz(int button, int state, int x, int y)
 			float px = ((float) x / rozmiarOkna.x * 2 * kamera.zakres - kamera.zakres) * rozmiarOkna.proporcja + kamera.x;
 			float py = - ((float) y / rozmiarOkna.y * 2 * kamera.zakres - kamera.zakres) + kamera.y;
 
-			tabGraczy[0]->WybierzJednostke(px, py);
+			ramkaOpisu.czyWidoczna = tabGraczy[0]->WybierzJednostke(px, py);
 		}
 	}
 

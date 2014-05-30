@@ -125,7 +125,7 @@ bool cStworek::CzyKliknieto(float px, float py)
 
 	return false;
 }
-void cStworek::AktualizujRamke(sRAMKAOPISU &ramkaOpisu)
+void cStworek::AktualizujRamke()
 {
 }
 void cStworek::Atakuj()

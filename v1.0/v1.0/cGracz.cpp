@@ -88,7 +88,7 @@ void cGracz::DodajZamek(float _x, float _y)
 	tabZamkow.push_back(nowyZamek);
 }
 
-void cGracz::WybierzJednostke(float px, float py)
+bool cGracz::WybierzJednostke(float px, float py)
 {
 	int id = 0;
 
@@ -97,6 +97,7 @@ void cGracz::WybierzJednostke(float px, float py)
 		if (tabZamkow[i]->CzyKliknieto(px, py))
 		{
 			id = tabZamkow[i]->GetId();
+			tabZamkow[i]->AktualizujRamke();
 		}
 	}
 
@@ -107,6 +108,8 @@ void cGracz::WybierzJednostke(float px, float py)
 			id = tabStworkow[i]->GetId();
 		}
 	}
+
+	if (id == 0) return false;
 }
 
 

@@ -59,7 +59,7 @@ int main(int argc, char **argv)
 {
 	srand(time(NULL));
 
-	glutInitWindowSize (800, 600);
+	glutInitWindowSize (1000, 600);
 	glutInitWindowPosition (11, 11);
 	glutInit (&argc, argv);	
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH | GLUT_MULTISAMPLE);
@@ -99,6 +99,9 @@ int main(int argc, char **argv)
 	glutTimerFunc(20, Dzialaj, TIMER_ANIMACJI_TLA);
 	glutTimerFunc(2000, Dzialaj, TIMER_CO_DWASEKUNDOWY);
 	glutTimerFunc(20, Dzialaj, TIMER_20);
+
+	glLineWidth(2);
+
 
 	glutMainLoop();
 	return EXIT_SUCCESS;

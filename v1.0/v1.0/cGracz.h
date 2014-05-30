@@ -30,7 +30,7 @@ public:
 
 	void DodajZamek(float _x, float _y);
 	void DodajStworka(float _x, int _typStworka);
-	void WybierzJednostke(float px, float py);
+	bool WybierzJednostke(float px, float py);
 
 
 

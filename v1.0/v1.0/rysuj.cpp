@@ -156,7 +156,7 @@ void cPlansza::RysujTeren()
 	
 	int ostatniTypPola = -1;
 
-		for (int i = 0; i < 50000; i+= 10)		// tylko co 10
+		for (int i = 0; i < 50000; i+= 30)		// tylko co 10
 		{
 			if (tabTypowPol[i] != -7777 && tabTypowPol[i] != ostatniTypPola)
 			{
@@ -172,7 +172,6 @@ void cPlansza::RysujTeren()
 				case POLE_TRAWA:
 					glColor4f(0, 1, 0, 0.8);
 					break;
-
 				}
 			}
 
@@ -183,7 +182,7 @@ void cPlansza::RysujTeren()
 
 	ostatniTypPola = -1;
 	glBegin(GL_LINE_STRIP);
-		for (int i = 0; i < 50000; i+= 20)
+		for (int i = 0; i < 50000; i+= 30)
 		{
 			if (tabTypowPol[i] != -7777 && tabTypowPol[i] != ostatniTypPola)
 			{
@@ -268,27 +267,41 @@ void cPlansza::RysujSzescian()
 }
 
 
-void cPlansza::DrawString(int x, int y, const char * string)
+void cPlansza::DrawString(int x, int y, const unsigned char * string, float skala)
 {
-    //DrawString(kamera.x, kamera.y, "tttsefaeafwe");
-	// po³o¿enie napisu
-    glRasterPos2i( x, y );
-    
-    // wyœwietlenie napisu
-    int len = strlen( string );
-    for (int i = 0; i < len; i++)
-         glutBitmapCharacter(GLUT_BITMAP_9_BY_15, string[i]);
+	
+	glMatrixMode(GL_MODELVIEW);
+		glPushMatrix();
+		glLoadIdentity();
+		glTranslatef(x, y, 0);
+		glScalef(skala/1000, skala/1000, skala/1000);
+
+		for(const unsigned char* p = string; *p; p++)
+		{
+			glutStrokeCharacter(GLUT_STROKE_ROMAN, *p);
+		}
+	glPopMatrix();
+
+
+
+
+	//glRasterPos2i( x, y );
+	//glutBitmapString(GLUT_BITMAP_TIMES_ROMAN_24, string);
+
+    //int len = strlen( string );
+    //for (int i = 0; i < len; i++)
+    //     glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, string[i]);
     
 }
 
 void cPlansza::RysujRamkeOpisu()
 {
-	
+	glLineWidth(2);
 
 	glMatrixMode(GL_PROJECTION);
 	glPushMatrix();
 		glLoadIdentity();
-		glOrtho(0, 90, 0, 90, -10, 10);
+		glOrtho(0, 75*rozmiarOkna.proporcja, 0, 75, -10, 10);
 		glMatrixMode(GL_MODELVIEW);
 		glPushMatrix();
 			glLoadIdentity();
@@ -339,12 +352,12 @@ void cPlansza::RysujRamkeOpisu()
 				
 
 
-			glScalef(23, 1, 1);
+			
 			glColor3f(0.1, 0.5, 0.8);
-			DrawString(1, 29, "ppp\npp");
+			DrawString(3, 27, (unsigned char*) "ppp\npp", 30);
+			
 
-
-
+			glLineWidth(2);
 		glPopMatrix();
 		glMatrixMode(GL_PROJECTION);
 	glPopMatrix();

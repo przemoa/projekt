@@ -22,7 +22,7 @@ public:
 	static int aktualneId;
 	virtual void Rysuj() = 0;
 	virtual bool CzyKliknieto(float px, float py) = 0;
-	virtual void AktualizujRamke(sRAMKAOPISU &ramkaOpisu) = 0;
+	virtual void AktualizujRamke() = 0;
 	virtual void RysujPasekZycia() = 0;
 	virtual void Atakuj() = 0;
 	int GetId();

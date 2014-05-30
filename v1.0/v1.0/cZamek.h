@@ -21,7 +21,7 @@ public:
 
 	void Rysuj();
 	bool CzyKliknieto(float px, float py);
-	void AktualizujRamke(sRAMKAOPISU &ramkaOpisu);
+	void AktualizujRamke();
 	void RysujPasekZycia();
 	void Atakuj();
 	float rozmiarWiezy;

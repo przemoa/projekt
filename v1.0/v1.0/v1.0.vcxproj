@@ -86,7 +86,6 @@
     <ClCompile Include="cPunktStabilny.cpp" />
     <ClCompile Include="cStworek.cpp" />
     <ClCompile Include="cZamek.cpp" />
-    <ClCompile Include="Element.cpp" />
     <ClCompile Include="image_DXT.c" />
     <ClCompile Include="image_helper.c" />
     <ClCompile Include="main.cpp" />
@@ -105,7 +104,6 @@
     <ClInclude Include="cPunktStabilny.h" />
     <ClInclude Include="cStworek.h" />
     <ClInclude Include="cZamek.h" />
-    <ClInclude Include="Element.h" />
     <ClInclude Include="image_DXT.h" />
     <ClInclude Include="image_helper.h" />
     <ClInclude Include="naglowki.h" />

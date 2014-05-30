@@ -123,7 +123,7 @@ bool cZamek::CzyKliknieto(float px, float py)
 	if ((px > x - rozmiar) && (px < x + rozmiar) && (py > y) && (py < y + 1.24*rozmiar)) return true;
 	return false;
 }
-void cZamek::AktualizujRamke(sRAMKAOPISU &ramkaOpisu)
+void cZamek::AktualizujRamke()
 {
 }
 void cZamek::Atakuj()
