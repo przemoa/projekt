@@ -126,7 +126,7 @@ void cZamek::AktualizujRamke()
 	Plansza->ramkaOpisu.poziomZycia = poziomZycia;
 
 	stringstream ssNazwa;
-	ssNazwa << "ZAMEK  (id " << id << ")";
+	ssNazwa << "ZAMEK (id " << id << ")";
 	Plansza->ramkaOpisu.nazwa = ssNazwa.str();
 
 	stringstream ssOpis;

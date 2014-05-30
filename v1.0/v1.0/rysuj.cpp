@@ -359,9 +359,17 @@ void cPlansza::RysujRamkeOpisu()
 
 			glColor3f(0.1, 0.5, 0.8);
 
-			glColor3f(0.7, 0.7, 0.9);
-			DrawString(3, 27, (unsigned char*) Plansza->ramkaOpisu.nazwa.c_str(), 30);
+			glColor4f(0.7, 0.7, 0.9, 0.7);
+			DrawString(3, 26, (unsigned char*) Plansza->ramkaOpisu.nazwa.c_str(), 18);
 			
+
+			glBegin(GL_POLYGON);
+				glVertex2f(3, 23);
+				glVertex2f(25, 23);
+				glVertex2f(25, 24);
+				glVertex2f(3, 24);
+			glEnd();
+
 
 			glLineWidth(2);
 		glPopMatrix();

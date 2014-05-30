@@ -42,7 +42,7 @@ void cGracz::Dzialaj()
 {
 	for (int i  = 0; i < tabBohaterow.size(); i++)
 	{
-		tabBohaterow[i]->Opadaj();
+		tabBohaterow[i]->Ruszaj();
 	}
 
 	for (int i = 0; i < tabStworkow.size(); i++)
@@ -60,6 +60,7 @@ void cGracz::DodajBohatera(float _x, float _y)
 
 void cGracz::RuszajBohatera(float dVx, float dVy)
 {
+
 	tabBohaterow[wybranyBohater]->Przyspieszaj(dVx, dVy);
 }
 

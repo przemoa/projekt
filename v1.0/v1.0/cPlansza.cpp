@@ -149,9 +149,9 @@ void cPlansza::_Dzialaj(int value)
 
 	if (value == TIMER_20)
 	{
-		for (int i = 0; i < tabGraczy.size(); i++)
+		//for (int i = 0; i < tabGraczy.size(); i++)
 		{
-			tabGraczy[i]->Dzialaj();
+			tabGraczy[0]->Dzialaj();
 		}
 		glutTimerFunc(20, Dzialaj, TIMER_20);
 	}
@@ -181,11 +181,11 @@ void cPlansza::_Klawiatura(unsigned char key, int x, int y)
 		break;
 
 	case 'a':
-		tabGraczy[0]->RuszajBohatera(-KROK_PRZYSPIESZANIA_BOHATERA, 0);
+		tabGraczy[0]->RuszajBohatera(25*-KROK_PRZYSPIESZANIA_BOHATERA, 0);
 		break;
 
 	case 'd':
-		tabGraczy[0]->RuszajBohatera(KROK_PRZYSPIESZANIA_BOHATERA, 0);
+		tabGraczy[0]->RuszajBohatera(25*KROK_PRZYSPIESZANIA_BOHATERA, 0);
 		break;
 	case '-':
 		kamera.zakresCel *= SZYBKOSC_SCROLLOWANIA;
