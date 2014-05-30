@@ -621,6 +621,16 @@ void cPlansza::TworzTekstury()
 	SOIL_load_OGL_texture("tx\\wieza3.png", SOIL_LOAD_AUTO, TEKSTURA_WIEZA3, SOIL_FLAG_INVERT_Y);
 	SOIL_load_OGL_texture("tx\\wieza4.png", SOIL_LOAD_AUTO, TEKSTURA_WIEZA4, SOIL_FLAG_INVERT_Y);
 	SOIL_load_OGL_texture("tx\\wieza5.png", SOIL_LOAD_AUTO, TEKSTURA_WIEZA5, SOIL_FLAG_INVERT_Y);
+
+	SOIL_load_OGL_texture("tx\\ikona_zamek1.png", SOIL_LOAD_AUTO, IKONA_ZAMEK, SOIL_FLAG_INVERT_Y);
+	SOIL_load_OGL_texture("tx\\ikona_wieza1.png", SOIL_LOAD_AUTO, IKONA_WIEZA1, SOIL_FLAG_INVERT_Y);
+	SOIL_load_OGL_texture("tx\\ikona_wieza2.png", SOIL_LOAD_AUTO, IKONA_WIEZA2, SOIL_FLAG_INVERT_Y);
+	SOIL_load_OGL_texture("tx\\ikona_wieza3.png", SOIL_LOAD_AUTO, IKONA_WIEZA3, SOIL_FLAG_INVERT_Y);
+	SOIL_load_OGL_texture("tx\\ikona_wieza4.png", SOIL_LOAD_AUTO, IKONA_WIEZA4, SOIL_FLAG_INVERT_Y);
+	SOIL_load_OGL_texture("tx\\ikona_wieza5.png", SOIL_LOAD_AUTO, IKONA_WIEZA5, SOIL_FLAG_INVERT_Y);
+	SOIL_load_OGL_texture("tx\\ikona_bohater1.png", SOIL_LOAD_AUTO, IKONA_BOHATER1, SOIL_FLAG_INVERT_Y);
+	
+
 }
 
 void cPlansza::_KlawiszeSpecjalne(int key, int x, int y)

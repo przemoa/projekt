@@ -97,6 +97,15 @@ extern cPlansza* Plansza;
 #define SILA_OPORU 1
 
 
+#define IKONA_ZAMEK 101
+#define IKONA_WIEZA1 111
+#define IKONA_WIEZA2 112
+#define IKONA_WIEZA3 113
+#define IKONA_WIEZA4 114
+#define IKONA_WIEZA5 115
+#define IKONA_BOHATER1 116
+
+
 
 struct sKOLOR
 {
