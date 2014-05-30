@@ -8,6 +8,7 @@
 #include <cmath>
 #include "SOIL.h"
 #include <vector>
+#include <sstream>
 
 
 using namespace std;
@@ -126,14 +127,21 @@ struct sKAMERA
 	int przesuwajy;
 };
 
+
+enum eTYP
+{
+	ZAMEK = 1, BOHATER1 = 2, STWOREK = 4, WIEZA = 5
+};
+
 struct sRAMKAOPISU
 {
-	int typ;
+	eTYP typ;			
+	int ikona;		// nr listy, tesktury
+
 	int id;
-	char nazwa[64];
+	string nazwa;
 	float poziomZycia;
 	bool czyWidoczna;
-	char opis[256];
-	int ikona; // nr listy/tekstury ikony
+	string opis;
 	
 };

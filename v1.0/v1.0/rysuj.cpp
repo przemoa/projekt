@@ -296,6 +296,8 @@ void cPlansza::DrawString(int x, int y, const unsigned char * string, float skal
 
 void cPlansza::RysujRamkeOpisu()
 {
+	if (Plansza->ramkaOpisu.czyWidoczna == false) return;
+
 	glLineWidth(2);
 
 	glMatrixMode(GL_PROJECTION);
@@ -353,8 +355,12 @@ void cPlansza::RysujRamkeOpisu()
 
 
 			
+
+
 			glColor3f(0.1, 0.5, 0.8);
-			DrawString(3, 27, (unsigned char*) "ppp\npp", 30);
+
+			glColor3f(0.7, 0.7, 0.9);
+			DrawString(3, 27, (unsigned char*) Plansza->ramkaOpisu.nazwa.c_str(), 30);
 			
 
 			glLineWidth(2);

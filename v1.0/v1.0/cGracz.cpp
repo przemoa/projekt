@@ -106,10 +106,12 @@ bool cGracz::WybierzJednostke(float px, float py)
 		if (tabStworkow[i]->CzyKliknieto(px, py))
 		{
 			id = tabStworkow[i]->GetId();
+			tabStworkow[i]->AktualizujRamke();
 		}
 	}
 
 	if (id == 0) return false;
+	else return true;
 }
 
 

@@ -89,13 +89,9 @@ void cZamek::Rysuj()
 	RysujPasekZycia();
 }
 
-
-
-
 void cZamek::RysujPasekZycia()
 {
 	glPushMatrix();
-
 		glTranslatef(x - rozmiar, y-rozmiar/3, 0);
 		glColor3f(0.15, 0.15, 0.15);
 		glBegin(GL_POLYGON);
@@ -113,19 +109,32 @@ void cZamek::RysujPasekZycia()
 			glVertex2f(0.05*rozmiar,  0.08*rozmiar);
 		glEnd();
 
-
 	glPopMatrix();
 }
-
 
 bool cZamek::CzyKliknieto(float px, float py)
 {
 	if ((px > x - rozmiar) && (px < x + rozmiar) && (py > y) && (py < y + 1.24*rozmiar)) return true;
 	return false;
 }
+
 void cZamek::AktualizujRamke()
 {
+	Plansza->ramkaOpisu.id = id;
+	Plansza->ramkaOpisu.typ = ZAMEK;
+	Plansza->ramkaOpisu.ikona = TEKSTURA_ZAMEK;
+	Plansza->ramkaOpisu.poziomZycia = poziomZycia;
+
+	stringstream ssNazwa;
+	ssNazwa << "ZAMEK  (id " << id << ")";
+	Plansza->ramkaOpisu.nazwa = ssNazwa.str();
+
+	stringstream ssOpis;
+	ssOpis << "to jest se zamek" << endl << "ladny zamek";
+	Plansza->ramkaOpisu.opis = ssOpis.str();
+
 }
+
 void cZamek::Atakuj()
 {
 }
