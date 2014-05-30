@@ -79,7 +79,7 @@
     <ClCompile Include="cBohater.cpp" />
     <ClCompile Include="cChmura.cpp" />
     <ClCompile Include="cGracz.cpp" />
-    <ClCompile Include="cIstota.cpp" />
+    <ClCompile Include="cJednostka.cpp" />
     <ClCompile Include="cObiekt.cpp" />
     <ClCompile Include="cPalma.cpp" />
     <ClCompile Include="cPlansza.cpp" />
@@ -98,7 +98,7 @@
     <ClInclude Include="cBohater.h" />
     <ClInclude Include="cChmura.h" />
     <ClInclude Include="cGracz.h" />
-    <ClInclude Include="cIstota.h" />
+    <ClInclude Include="cJednostka.h" />
     <ClInclude Include="cObiekt.h" />
     <ClInclude Include="cPalma.h" />
     <ClInclude Include="cPlansza.h" />

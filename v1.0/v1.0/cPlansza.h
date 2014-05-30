@@ -6,35 +6,6 @@
 #include "cGracz.h"
 
 
-struct sROZMIAROKNA
-{
-	int x;			// szerokosc
-	int y;			// wysokosc
-	float proporcja;
-};
-
-struct sKAMERA
-{
-	float zakres;			// aktualny zakres patrzenia kamery
-	float zakresCel;		// zakres ktory ma byc osiagniety
-
-	float x;
-	float xCel;
-
-	float y;
-	float yCel;
-
-	int przesuwajx;			// czy przesuwac kamere z powodu bycia myszy na krawedzi
-	int przesuwajy;
-};
-
-struct sRAMKA
-{
-	char nazwa[64];
-	float zycie;
-	char opis[256];
-	bool czyWidoczna;
-};
 
 class cPlansza
 {
@@ -62,7 +33,6 @@ public:
 	cChmura* tabChmur[ILOSC_CHMUR];
 	vector < cPalma* > tabPalm;
 	vector < cPunktStabilny* > tabPunktStab;
-
 	vector < cGracz* > tabGraczy;
 
 
@@ -76,10 +46,10 @@ public:
 	void RysujTlo();
 	void RysujTeren();
 
-	sRAMKA ramkaOpisu;
+	sRAMKAOPISU ramkaOpisu;
 	void RysujRamkeOpisu();
-	void RysujPasekZycia(float _x, float _y, float _rozmiar, float poziomZycia);
 
+	void DrawString(int x, int y, const char * string);
 
 
 	float testowy;

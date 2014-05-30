@@ -9,10 +9,10 @@ class cGracz
 public:
 	cGracz(void);
 	~cGracz(void);
-	cGracz(float _x, float _y, int _kierunek);
+	cGracz(float _x, float _y, int _wlascicel);
 	
 	sKOLOR kolor;
-	int kierunek;		// 1 w prawo, -1 w lewo
+	int wlascicel;		// 1 w prawo (gracz1), -1 w lewo (gracz2)
 
 	float x;
 	float y;
@@ -30,7 +30,7 @@ public:
 
 	void DodajZamek(float _x, float _y);
 	void DodajStworka(float _x, int _typStworka);
-
+	void WybierzJednostke(float px, float py);
 
 
 

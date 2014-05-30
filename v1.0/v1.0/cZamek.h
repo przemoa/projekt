@@ -1,9 +1,9 @@
 #pragma once
 #include "naglowki.h"
+#include "cJednostka.h"
 
 
-
-struct sWIEZA
+struct sWIEZA 
 {
 	int typWiezy;			// TEKSTURA_WIEZA1 TEKSTURA_WIEZA2 itd jak tekstury
 	int pozycja;			// 100*kolumna + wiersz, liczac od lewej dolnej strony
@@ -12,21 +12,23 @@ struct sWIEZA
 };
 
 
-class cZamek
+class cZamek : public cJednostka
 {
 public:
-	float zycie;
-
 	cZamek(void);
-	cZamek(float _x, float _y);
+	cZamek(float _x, float _y, int _wlascicel);
 	~cZamek(void);
-	void Rysuj();
 
-	float rozmiar;
+	void Rysuj();
+	bool CzyKliknieto(float px, float py);
+	void AktualizujRamke(sRAMKAOPISU &ramkaOpisu);
+	void RysujPasekZycia();
+	void Atakuj();
 	float rozmiarWiezy;
 
-	float x;	// srodek zamq
-	float y;	// spod zamq
+
+	//x;	 srodek zamq
+	//y;	 spod zamq
 
 	vector < sWIEZA > tabWiez;
 

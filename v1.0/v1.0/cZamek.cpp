@@ -12,13 +12,15 @@ cZamek::~cZamek(void)
 
 
 
-cZamek::cZamek(float _x, float _y)
+cZamek::cZamek(float _x, float _y, int _wlasciciel)
 {
 	x = _x;
 	y = _y;
 	rozmiar = 25;
 	rozmiarWiezy = rozmiar/4.2;
-	zycie = 100;
+	poziomZycia = 100;
+
+	wlasciciel = _wlasciciel;
 
 	DodajWieze(11, 100);
 	DodajWieze(12, 100);
@@ -84,7 +86,46 @@ void cZamek::Rysuj()
 		glDisable(GL_TEXTURE_2D);
 	glPopMatrix();
 
-	Plansza->RysujPasekZycia(x, y - 6, rozmiar, zycie);
+	RysujPasekZycia();
+}
 
 
+
+
+void cZamek::RysujPasekZycia()
+{
+	glPushMatrix();
+
+		glTranslatef(x - rozmiar, y-rozmiar/3, 0);
+		glColor3f(0.15, 0.15, 0.15);
+		glBegin(GL_POLYGON);
+			glVertex2f(0, -0.1*rozmiar);
+			glVertex2f( rozmiar*2, -0.1*rozmiar);
+			glVertex2f( rozmiar*2,  0.1*rozmiar);
+			glVertex2f(0,  0.1*rozmiar);
+		glEnd();
+		
+		glColor3f(1-poziomZycia/100, poziomZycia/100, 0.0);
+		glBegin(GL_POLYGON);
+			glVertex2f(0.05*rozmiar, -0.08*rozmiar);
+			glVertex2f( rozmiar*1.95*poziomZycia/100, -0.08*rozmiar);
+			glVertex2f( rozmiar*1.95*poziomZycia/100,  0.08*rozmiar);
+			glVertex2f(0.05*rozmiar,  0.08*rozmiar);
+		glEnd();
+
+
+	glPopMatrix();
+}
+
+
+bool cZamek::CzyKliknieto(float px, float py)
+{
+	if ((px > x - rozmiar) && (px < x + rozmiar) && (py > y) && (py < y + 1.24*rozmiar)) return true;
+	return false;
+}
+void cZamek::AktualizujRamke(sRAMKAOPISU &ramkaOpisu)
+{
+}
+void cZamek::Atakuj()
+{
 }

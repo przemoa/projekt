@@ -6,9 +6,9 @@
 #include <iostream>
 #include <time.h>
 #include <cmath>
-#include "cObiekt.h"
 #include "SOIL.h"
 #include <vector>
+
 
 using namespace std;
 
@@ -66,7 +66,7 @@ extern cPlansza* Plansza;
 #define POLE_SKRZYNKA_Z_NAGRODA_1 0x00
 #define POLE_SKRZYNKA_Z_NAGRODA_2 0x00
 
-   
+#define ZAKRES_KLIKNIECIE 1.6   
 
 #define LISTA_PUNKT_STABILNY 1
 #define LISTA_BOHATER 2
@@ -96,4 +96,38 @@ struct sKOLOR
 	float r;
 	float g;
 	float b;
+};
+
+struct sROZMIAROKNA
+{
+	int x;			// szerokosc
+	int y;			// wysokosc
+	float proporcja;
+};
+
+struct sKAMERA
+{
+	float zakres;			// aktualny zakres patrzenia kamery
+	float zakresCel;		// zakres ktory ma byc osiagniety
+
+	float x;
+	float xCel;
+
+	float y;
+	float yCel;
+
+	int przesuwajx;			// czy przesuwac kamere z powodu bycia myszy na krawedzi
+	int przesuwajy;
+};
+
+struct sRAMKAOPISU
+{
+	int typ;
+	int id;
+	char nazwa[64];
+	float poziomZycia;
+	bool czyWidoczna;
+	char opis[256];
+	int ikona; // nr listy/tekstury ikony
+	
 };

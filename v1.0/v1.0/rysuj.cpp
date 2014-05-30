@@ -1,6 +1,8 @@
 #include "cPlansza.h"
 #include "naglowki.h"
 
+
+
 void cPlansza::_Przerysuj(void)
 {	
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -10,6 +12,9 @@ void cPlansza::_Przerysuj(void)
 	glEnable (GL_BLEND);
 	
 		RysujTlo();
+		
+
+
 
 		//RysujPodloze();
 
@@ -84,7 +89,7 @@ void cPlansza::_Przerysuj(void)
 		}
 
 
-	
+		RysujRamkeOpisu();
 
 	glPopMatrix();
 	glutSwapBuffers();
@@ -262,32 +267,86 @@ void cPlansza::RysujSzescian()
 	glDisable(GL_DEPTH_TEST);
 }
 
-void cPlansza::RysujRamkeOpisu()
+
+void cPlansza::DrawString(int x, int y, const char * string)
 {
+    //DrawString(kamera.x, kamera.y, "tttsefaeafwe");
+	// po³o¿enie napisu
+    glRasterPos2i( x, y );
+    
+    // wyœwietlenie napisu
+    int len = strlen( string );
+    for (int i = 0; i < len; i++)
+         glutBitmapCharacter(GLUT_BITMAP_9_BY_15, string[i]);
+    
 }
 
-void cPlansza::RysujPasekZycia(float _x, float _y, float _rozmiar, float poziomZycia)
+void cPlansza::RysujRamkeOpisu()
 {
+	
+
+	glMatrixMode(GL_PROJECTION);
 	glPushMatrix();
+		glLoadIdentity();
+		glOrtho(0, 90, 0, 90, -10, 10);
+		glMatrixMode(GL_MODELVIEW);
+		glPushMatrix();
+			glLoadIdentity();
 
-		glTranslatef(_x - _rozmiar, _y, 0);
-		poziomZycia  = 50;
-		glColor3f(0.1,0.1,0.1);
-		glBegin(GL_POLYGON);
-			glVertex2f(0, -0.1*_rozmiar);
-			glVertex2f( _rozmiar*2, -0.1*_rozmiar);
-			glVertex2f( _rozmiar*2,  0.1*_rozmiar);
-			glVertex2f(0,  0.1*_rozmiar);
-		glEnd();
-		
-		glColor3f(1-poziomZycia/100, poziomZycia/100, 0.0);
-		glBegin(GL_POLYGON);
-			glVertex2f(0.05*_rozmiar, -0.08*_rozmiar);
-			glVertex2f( _rozmiar*1.95*poziomZycia/100, -0.08*_rozmiar);
-			glVertex2f( _rozmiar*1.95*poziomZycia/100,  0.08*_rozmiar);
-			glVertex2f(0.05*_rozmiar,  0.08*_rozmiar);
-		glEnd();
+			glBegin(GL_POLYGON);			// RAMKA
+				glColor4f(0, 0, 0.15, 1);
+				glVertex2f(37,0);
+
+				glColor4f(0, 0, 0.15, 0);
+				glVertex2f(39,0);
+
+				glColor4f(0.15, 0, 0, 0);
+				glVertex2f(39, 32);
+
+				glColor4f(0.15, 0, 0, 1);
+				glVertex2f(37, 30);
+			glEnd();
 
 
+			glBegin(GL_POLYGON);
+				glColor4f(0.15, 0.02, 0.02, 1);
+				glVertex2f(37, 30);
+
+				glColor4f(0.15, 0.02, 0.02, 0);
+				glVertex2f(39, 32);
+
+				glColor4f(0.02, 0.02, 0.15, 0);
+				glVertex2f(0,32);
+
+				glColor4f(0.02, 0.02, 0.15, 1);
+				glVertex2f(0,30);
+			glEnd();
+
+
+			glBegin(GL_POLYGON);
+				glColor4f(0.0, 0.15, 0.0, 1);
+				glVertex2f(0,0);
+
+				glColor4f(0.02, 0.02, 0.15, 1);
+				glVertex2f(37,0);
+
+				glColor4f(0.15, 0.02, 0.02, 1);
+				glVertex2f(37, 30);
+
+				glColor4f(0.02, 0.02, 0.15, 1);
+				glVertex2f(0,30);
+			glEnd();
+				
+
+
+			glScalef(23, 1, 1);
+			glColor3f(0.1, 0.5, 0.8);
+			DrawString(1, 29, "ppp\npp");
+
+
+
+		glPopMatrix();
+		glMatrixMode(GL_PROJECTION);
 	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW);
 }

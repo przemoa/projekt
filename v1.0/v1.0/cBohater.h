@@ -1,31 +1,34 @@
 #pragma once
-#include "cIstota.h"
+#include "cJednostka.h"
 
-class cBohater : public cIstota
+class cBohater : public cJednostka
 {
 public:
+	cBohater(void);
+	cBohater(float _x, float _y, int _wlascicel);
+	~cBohater(void);
+
+	void Rysuj();
+	bool CzyKliknieto(float px, float py);
+	void AktualizujRamke(sRAMKAOPISU &ramkaOpisu);
+	void RysujPasekZycia();
+	void Atakuj();
+	void Ruszaj();
+	
+
+
+
+
 	float x2;			// wspolrzedne mniejszego kola
 	float y2;			
 	float Vx;
 	float Vy;
 	float Vkatowa;
 	
-	
 	float fazaKol;		// kat miedzy kolami w poziomie
-
-
-
-	sKOLOR kolor;
-	float rozmiar;
-	cBohater(void);
-	cBohater(float _x, float _y);
-	~cBohater(void);
-	void Rysuj();
-	bool CzyKliknieto(float px, float py);
-
+	float kat;
 	void Przyspieszaj(float dVx, float dVy);
 	
-
 	void Ruszaj(float dx);
 	void Opadaj();
 	void ZmienKat(float dkat);

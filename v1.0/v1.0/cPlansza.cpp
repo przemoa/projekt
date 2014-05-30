@@ -26,6 +26,7 @@ cPlansza::cPlansza(void)
 	glutTimerFunc(20, Dzialaj, TIMER_KAMERA_PRZESUN_Y);
 	glutTimerFunc(20, Dzialaj, TIMER_KAMERA_SCROLL);
 
+	ramkaOpisu.czyWidoczna = false;
 
 
 
@@ -199,6 +200,10 @@ void cPlansza::_Klawiatura(unsigned char key, int x, int y)
 
 	case 'o':
 		tabGraczy[0]->DodajStworka(-900, LISTA_STWOREK_KULA);
+		break;
+	case 'p':
+		tabGraczy[0]->DodajStworka(-900, LISTA_STWOREK_KWADRAT);
+		break;
 
 
 
@@ -230,6 +235,17 @@ void cPlansza::_MyszKlawisz(int button, int state, int x, int y)
 			//tabPunktow[licznikPunktow++][1] = testowy2;
 
 			cout << "(" << testowy << " ; " << testowy2 << ") " << endl;
+		}
+	}
+
+	if (button == GLUT_RIGHT_BUTTON)
+	{
+		if (state == GLUT_DOWN)
+		{		
+			float px = ((float) x / rozmiarOkna.x * 2 * kamera.zakres - kamera.zakres) * rozmiarOkna.proporcja + kamera.x;
+			float py = - ((float) y / rozmiarOkna.y * 2 * kamera.zakres - kamera.zakres) + kamera.y;
+
+			tabGraczy[0]->WybierzJednostke(px, py);
 		}
 	}
 
@@ -647,4 +663,7 @@ int cPlansza::YDoTab(float y)
 {
 	return ((y+170) / 0.4) + 0.5;
 }
+
+
+
 

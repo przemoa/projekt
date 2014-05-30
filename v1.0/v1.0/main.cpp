@@ -1,14 +1,18 @@
 #include "naglowki.h"
 #include "cPlansza.h"
-
+#include "cJednostka.h"
 
 cPlansza* Plansza = 0;
+int cJednostka::aktualneId = 0;
+
 
 
 
 void Przerysuj(void)
 {	
+
 	Plansza->_Przerysuj();
+	
 }
 void Dzialaj(int value)
 {

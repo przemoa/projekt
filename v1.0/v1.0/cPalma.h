@@ -1,5 +1,5 @@
 #pragma once
-#include "cobiekt.h"
+#include "cObiekt.h"
 #include "naglowki.h"
 
 class cPalma : public cObiekt

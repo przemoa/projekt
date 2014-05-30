@@ -12,7 +12,7 @@ cBohater::~cBohater(void)
 {
 }
 
-cBohater::cBohater(float _x, float _y)
+cBohater::cBohater(float _x, float _y, int _wlascicel)
 {
 	x = _x;
 	y = _y;
@@ -21,7 +21,8 @@ cBohater::cBohater(float _x, float _y)
 	Vy = 0;
 	Vkatowa = 0;
 
-	kat = 0;
+	wlasciciel = _wlascicel;
+
 	rozmiar = 2;
 	kat = 30;
 	fazaKol = atan2(BOHATER_PROMIEN1 - BOHATER_PROMIEN2, BOHATER_POZYCJA_KOLA);
@@ -34,18 +35,13 @@ void cBohater::Rysuj()
 {
 	glPushMatrix();
 		glTranslatef(x, y, z);
+		RysujPasekZycia();
 		glRotatef(kat, 0, 0, 1);
 		glColor3f(1,0,0);  //todo
 		glCallList(LISTA_BOHATER);
 	glPopMatrix();
 
 }
-
-bool cBohater::CzyKliknieto(float px, float py)
-{
-	return false;
-}
-
 
 void cBohater::Ruszaj(float dx)			// realizacja prêdkoœci
 {
@@ -88,7 +84,6 @@ void cBohater::Ruszaj(float dx)			// realizacja prêdkoœci
 		}
 }
 
-
 void cBohater::Opadaj()
 {
 	Vy += KROK_PRZYSPIESZANIA_BOHATERA;
@@ -123,4 +118,41 @@ void cBohater::Przesun(float dx, float dy)
 {
 	x += dx;
 	y += dy;
+}
+
+
+
+void cBohater::RysujPasekZycia()
+{
+	glPushMatrix();
+		glTranslatef(-3*rozmiar, 6*rozmiar, 0);
+		poziomZycia  = 50;
+		glColor3f(0.1,0.1,0.1);
+		glBegin(GL_POLYGON);
+			glVertex2f(0, -0.4*rozmiar);
+			glVertex2f( rozmiar*8, -0.4*rozmiar);
+			glVertex2f( rozmiar*8,  0.4*rozmiar);
+			glVertex2f(0,  0.4*rozmiar);
+		glEnd();
+		
+		glColor3f(1-poziomZycia/100, poziomZycia/100, 0.0);
+		glBegin(GL_POLYGON);
+			glVertex2f(0.2*rozmiar, -0.32*rozmiar);
+			glVertex2f( rozmiar*4*1.95*poziomZycia/100, -0.32*rozmiar);
+			glVertex2f( rozmiar*4*1.95*poziomZycia/100,  0.32*rozmiar);
+			glVertex2f(0.2*rozmiar,  0.32*rozmiar);
+		glEnd();
+	glPopMatrix();
+}
+
+
+bool cBohater::CzyKliknieto(float px, float py)
+{
+	return false;
+}
+void cBohater::AktualizujRamke(sRAMKAOPISU &ramkaOpisu)
+{
+}
+void cBohater::Atakuj()
+{
 }
