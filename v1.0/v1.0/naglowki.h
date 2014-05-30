@@ -89,6 +89,12 @@ extern cPlansza* Plansza;
 #define SELEKCJA_BOHATER 200
 #define SELEKCJA_STWOREK 300
 
+//parametry bohatera
+#define KROK_CZASOWY 0.01
+#define PRZYSPIESZENIE_GRAWITACYJNE 1000
+#define WSP_TARCIA 0.2
+#define SILA_OPORU 1
+
 
 
 struct sKOLOR
