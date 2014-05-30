@@ -15,7 +15,7 @@ cBohater::~cBohater(void)
 cBohater::cBohater(float _x, float _y, int _wlascicel)
 {
 	wlasciciel = _wlascicel;
-		x = _x;
+	x = _x;
 	y = _y;
 	y = BOHATER_PROMIEN1 + 60;
 	z = 0;
