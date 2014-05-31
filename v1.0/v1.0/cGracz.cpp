@@ -108,6 +108,7 @@ bool cGracz::WybierzJednostke(float px, float py)
 		{
 			id = tabStworkow[i]->GetId();
 			tabStworkow[i]->AktualizujRamke();
+
 		}
 	}
 
