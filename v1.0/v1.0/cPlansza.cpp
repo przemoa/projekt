@@ -474,26 +474,26 @@ void cPlansza::UtworzListy()
 	glEndList();
 
 
-
+	
 	// bohater LISTA_BOHATER_A1
 	
-	glGenLists(LISTA_BOHATER_A1);
-	glNewList(LISTA_BOHATER_A1, GL_COMPILE);
+	glGenLists(LISTA_BOHATER2);
+	glNewList(LISTA_BOHATER2, GL_COMPILE);
 	
 	float maxZ = -1;
 
 
-
+	
 
 		glPushMatrix();			// tylne kolo
-			glTranslatef(0, BOHATER_PROMIEN1,  maxZ);	
+			glTranslatef(0, BOHATER2_ROZMIAR,  maxZ);	
 			glBegin(GL_POLYGON);
 				glColor4f(0,0,0, 0.7);
-				for (int i = 0; i < 33; i++)	glVertex2f(BOHATER_PROMIEN1 * sin(6.2832*i/33), BOHATER_PROMIEN1 * cos(6.2832*i/33));
+				for (int i = 0; i < 33; i++)	glVertex2f(BOHATER2_ROZMIAR * sin(6.2832*i/33), BOHATER2_ROZMIAR * cos(6.2832*i/33));
 			glEnd();
 			glColor4f(1,1,0, 0.7);
 			glBegin(GL_POLYGON);
-				for (int i = 0; i < 33; i++)	glVertex2f(0.55 * BOHATER_PROMIEN1 * sin(6.2832*i/33), 0.55 * BOHATER_PROMIEN1 * cos(6.2832*i/33));
+				for (int i = 0; i < 33; i++)	glVertex2f(0.55 * BOHATER2_ROZMIAR * sin(6.2832*i/33), 0.55 * BOHATER2_ROZMIAR * cos(6.2832*i/33));
 			glEnd();
 		glPopMatrix();
 
@@ -502,65 +502,172 @@ void cPlansza::UtworzListy()
 				
 			glColor4f(0.6, 0.05, 0.3, 0.8);			// dolny prostokat
 			glBegin(GL_POLYGON);
-				glVertex3f(-0.8*BOHATER_PROMIEN1, 0.8*BOHATER_PROMIEN1, 0);
-				glVertex3f(+0.8*BOHATER_PROMIEN1, 0.8*BOHATER_PROMIEN1, 0);
-				glVertex3f(+0.8*BOHATER_PROMIEN1, 0.8*BOHATER_PROMIEN1, maxZ);
-				glVertex3f(-0.8*BOHATER_PROMIEN1, 0.8*BOHATER_PROMIEN1, maxZ);
+				glVertex3f(-0.8*BOHATER2_ROZMIAR, 0.8*BOHATER2_ROZMIAR, 0);
+				glVertex3f(+0.8*BOHATER2_ROZMIAR, 0.8*BOHATER2_ROZMIAR, 0);
+				glVertex3f(+0.8*BOHATER2_ROZMIAR, 0.8*BOHATER2_ROZMIAR, maxZ);
+				glVertex3f(-0.8*BOHATER2_ROZMIAR, 0.8*BOHATER2_ROZMIAR, maxZ);
 			glEnd();
 
 			glColor4f(0.6, 0.05, 0.3, 0.8);
 			glBegin(GL_POLYGON);
-				glVertex3f(+0.8*BOHATER_PROMIEN1, 0.8*BOHATER_PROMIEN1, maxZ/2);
-				glVertex3f(+0.8*BOHATER_PROMIEN1, 5*BOHATER_PROMIEN1, maxZ/2);
-				glVertex3f(+0.5*BOHATER_PROMIEN1, 5*BOHATER_PROMIEN1, maxZ/2);
-				glVertex3f(+0.5*BOHATER_PROMIEN1, 0.8*BOHATER_PROMIEN1, maxZ/2);
+				glVertex3f(+0.8*BOHATER2_ROZMIAR, 0.8*BOHATER2_ROZMIAR, maxZ/2);
+				glVertex3f(+0.8*BOHATER2_ROZMIAR, 5*BOHATER2_ROZMIAR, maxZ/2);
+				glVertex3f(+0.5*BOHATER2_ROZMIAR, 5*BOHATER2_ROZMIAR, maxZ/2);
+				glVertex3f(+0.5*BOHATER2_ROZMIAR, 0.8*BOHATER2_ROZMIAR, maxZ/2);
 			glEnd();
 
 			glColor4f(0.6, 0.05, 0.3, 0.9);
 			glBegin(GL_POLYGON);
-				glVertex3f(+0.8*BOHATER_PROMIEN1, 0.8*BOHATER_PROMIEN1, maxZ/1.5);
-				glVertex3f(+0.8*BOHATER_PROMIEN1, 5*BOHATER_PROMIEN1, maxZ/1.5);
-				glVertex3f(+0.8*BOHATER_PROMIEN1, 5*BOHATER_PROMIEN1, maxZ/2.7);
-				glVertex3f(+0.8*BOHATER_PROMIEN1, 0.8*BOHATER_PROMIEN1, maxZ/2.7);
+				glVertex3f(+0.8*BOHATER2_ROZMIAR, 0.8*BOHATER2_ROZMIAR, maxZ/1.5);
+				glVertex3f(+0.8*BOHATER2_ROZMIAR, 5*BOHATER2_ROZMIAR, maxZ/1.5);
+				glVertex3f(+0.8*BOHATER2_ROZMIAR, 5*BOHATER2_ROZMIAR, maxZ/2.7);
+				glVertex3f(+0.8*BOHATER2_ROZMIAR, 0.8*BOHATER2_ROZMIAR, maxZ/2.7);
 			glEnd();
 
 			glColor4f(0.6, 0.9, 0.3, 0.9);
 			glBegin(GL_POLYGON);
-				glVertex3f(+0.4*BOHATER_PROMIEN1, 5*BOHATER_PROMIEN1, maxZ*0.2);
-				glVertex3f(+0.9*BOHATER_PROMIEN1, 5*BOHATER_PROMIEN1, maxZ*0.2);
-				glVertex3f(+0.9*BOHATER_PROMIEN1, 5*BOHATER_PROMIEN1, maxZ*0.8);
-				glVertex3f(+0.4*BOHATER_PROMIEN1, 5*BOHATER_PROMIEN1, maxZ*0.8);
+				glVertex3f(+0.4*BOHATER2_ROZMIAR, 5*BOHATER2_ROZMIAR, maxZ*0.2);
+				glVertex3f(+0.9*BOHATER2_ROZMIAR, 5*BOHATER2_ROZMIAR, maxZ*0.2);
+				glVertex3f(+0.9*BOHATER2_ROZMIAR, 5*BOHATER2_ROZMIAR, maxZ*0.8);
+				glVertex3f(+0.4*BOHATER2_ROZMIAR, 5*BOHATER2_ROZMIAR, maxZ*0.8);
 			glEnd();
 
 			glColor4f(0.6, 0.9, 0.3, 0.9);
 			glBegin(GL_POLYGON);
-				glVertex3f(+0.65*BOHATER_PROMIEN1, 4.9*BOHATER_PROMIEN1, maxZ*0.2);
-				glVertex3f(+0.65*BOHATER_PROMIEN1, 5.2*BOHATER_PROMIEN1, maxZ*0.2);
-				glVertex3f(+0.65*BOHATER_PROMIEN1, 5.2*BOHATER_PROMIEN1, maxZ*0.8);
-				glVertex3f(+0.65*BOHATER_PROMIEN1, 4.9*BOHATER_PROMIEN1, maxZ*0.8);
+				glVertex3f(+0.65*BOHATER2_ROZMIAR, 4.9*BOHATER2_ROZMIAR, maxZ*0.2);
+				glVertex3f(+0.65*BOHATER2_ROZMIAR, 5.2*BOHATER2_ROZMIAR, maxZ*0.2);
+				glVertex3f(+0.65*BOHATER2_ROZMIAR, 5.2*BOHATER2_ROZMIAR, maxZ*0.8);
+				glVertex3f(+0.65*BOHATER2_ROZMIAR, 4.9*BOHATER2_ROZMIAR, maxZ*0.8);
 			glEnd();
 
 
 
 		glPushMatrix();				// przednie kolo
-			glTranslatef(0, BOHATER_PROMIEN1,  0);	
+			glTranslatef(0, BOHATER2_ROZMIAR,  0);	
 			glBegin(GL_POLYGON);
 				glColor4f(0,0,0,1);
-				for (int i = 0; i < 33; i++)	glVertex2f(BOHATER_PROMIEN1 * sin(6.2832*i/33), BOHATER_PROMIEN1 * cos(6.2832*i/33));
+				for (int i = 0; i < 33; i++)	glVertex2f(BOHATER2_ROZMIAR * sin(6.2832*i/33), BOHATER2_ROZMIAR * cos(6.2832*i/33));
 			glEnd();
 			glColor4f(1,1,0,1);
 			glBegin(GL_POLYGON);
-				for (int i = 0; i < 33; i++)	glVertex2f(0.55 * BOHATER_PROMIEN1 * sin(6.2832*i/33), 0.55 * BOHATER_PROMIEN1 * cos(6.2832*i/33));
+				for (int i = 0; i < 33; i++)	glVertex2f(0.55 * BOHATER2_ROZMIAR * sin(6.2832*i/33), 0.55 * BOHATER2_ROZMIAR * cos(6.2832*i/33));
 			glEnd();
 		glPopMatrix();
 
+	glEndList();
+
+
+	// bohater
+
+	glGenLists(LISTA_BOHATER1);
+	glNewList(LISTA_BOHATER1, GL_COMPILE);
+
+		glBegin(GL_POLYGON);
+			glVertex2f(	0	,	0	);
+			glVertex2f(	-1.444444444	,	0	);
+			glVertex2f(	-2.444444444	,	-0.444444444	);
+			glVertex2f(	-2.444444444	,	0.222222222	);
+			glVertex2f(	-1.777777778	,	1	);
+			glVertex2f(	-1	,	1.222222222	);
+			glVertex2f(	-0.555555556	,	1.555555556	);
+			glVertex2f(	-0.333333333	,	5.333333333	);
+			glVertex2f(	1.222222222	,	5.555555556	);
+			glVertex2f(	3	,	5.444444444	);
+			glVertex2f(	3.777777778	,	4.222222222	);
+			glVertex2f(	3.888888889	,	2	);
+			glVertex2f(	6.111111111	,	2.555555556	);
+			glVertex2f(	8	,	2.555555556	);
+			glVertex2f(	8.444444444	,	2.111111111	);
+			glVertex2f(	8.888888889	,	1.666666667	);
+			glVertex2f(	9.222222222	,	0.666666667	);
+			glVertex2f(	9.444444444	,	0.444444444	);
+			glVertex2f(	9.444444444	,	0	);
+		glEnd();
+
+
+
+		//glColor4f(0,0,0,0.3);
+
+		glBegin(GL_LINES);
+			glVertex2f(	0	,	0	);		glVertex3f(	0	,	0	,	-1.5	);
+			glVertex2f(	-1.444444444	,	0	);		glVertex3f(	-1.444444444	,	0	,	-1.5	);
+			glVertex2f(	-2.444444444	,	-0.444444444	);		glVertex3f(	-2.444444444	,	-0.444444444	,	-1.5	);
+			glVertex2f(	-2.444444444	,	0.222222222	);		glVertex3f(	-2.444444444	,	0.222222222	,	-1.5	);
+			glVertex2f(	-1.777777778	,	1	);		glVertex3f(	-1.777777778	,	1	,	-1.5	);
+			glVertex2f(	-1	,	1.222222222	);		glVertex3f(	-1	,	1.222222222	,	-1.5	);
+			glVertex2f(	-0.555555556	,	1.555555556	);		glVertex3f(	-0.555555556	,	1.555555556	,	-1.5	);
+			glVertex2f(	-0.333333333	,	5.333333333	);		glVertex3f(	-0.333333333	,	5.333333333	,	-1.5	);
+			glVertex2f(	1.222222222	,	5.555555556	);		glVertex3f(	1.222222222	,	5.555555556	,	-1.5	);
+			glVertex2f(	3	,	5.444444444	);		glVertex3f(	3	,	5.444444444	,	-1.5	);
+			glVertex2f(	3.777777778	,	4.222222222	);		glVertex3f(	3.777777778	,	4.222222222	,	-1.5	);
+			glVertex2f(	3.888888889	,	2	);		glVertex3f(	3.888888889	,	2	,	-1.5	);
+			glVertex2f(	6.111111111	,	2.555555556	);		glVertex3f(	6.111111111	,	2.555555556	,	-1.5	);
+			glVertex2f(	8	,	2.555555556	);		glVertex3f(	8	,	2.555555556	,	-1.5	);
+			glVertex2f(	8.444444444	,	2.111111111	);		glVertex3f(	8.444444444	,	2.111111111	,	-1.5	);
+			glVertex2f(	8.888888889	,	1.666666667	);		glVertex3f(	8.888888889	,	1.666666667	,	-1.5	);
+			glVertex2f(	9.222222222	,	0.666666667	);		glVertex3f(	9.222222222	,	0.666666667	,	-1.5	);
+			glVertex2f(	9.444444444	,	0.444444444	);		glVertex3f(	9.444444444	,	0.444444444	,	-1.5	);
+			glVertex2f(	9.444444444	,	0	);		glVertex3f(	9.444444444	,	0	,	-1.5	);
+		glEnd();
+
+		glBegin(GL_LINE_LOOP);
+			glVertex3f(	0	,	0	,	-1.5	);
+			glVertex3f(	-1.444444444	,	0	,	-1.5	);
+			glVertex3f(	-2.444444444	,	-0.444444444	,	-1.5	);
+			glVertex3f(	-2.444444444	,	0.222222222	,	-1.5	);
+			glVertex3f(	-1.777777778	,	1	,	-1.5	);
+			glVertex3f(	-1	,	1.222222222	,	-1.5	);
+			glVertex3f(	-0.555555556	,	1.555555556	,	-1.5	);
+			glVertex3f(	-0.333333333	,	5.333333333	,	-1.5	);
+			glVertex3f(	1.222222222	,	5.555555556	,	-1.5	);
+			glVertex3f(	3	,	5.444444444	,	-1.5	);
+			glVertex3f(	3.777777778	,	4.222222222	,	-1.5	);
+			glVertex3f(	3.888888889	,	2	,	-1.5	);
+			glVertex3f(	6.111111111	,	2.555555556	,	-1.5	);
+			glVertex3f(	8	,	2.555555556	,	-1.5	);
+			glVertex3f(	8.444444444	,	2.111111111	,	-1.5	);
+			glVertex3f(	8.888888889	,	1.666666667	,	-1.5	);
+			glVertex3f(	9.222222222	,	0.666666667	,	-1.5	);
+			glVertex3f(	9.444444444	,	0.444444444	,	-1.5	);
+			glVertex3f(	9.444444444	,	0	,	-1.5	);
+		glEnd();
 
 
 
 
+		glBegin(GL_POLYGON);
+			glColor4f(0,0,0,1);
+			for (int i = 0; i < 33; i++)
+			{
+				glVertex2f(BOHATER_PROMIEN1 * sin(6.2832*i/33), BOHATER_PROMIEN1 * cos(6.2832*i/33));
+			}		
+		glEnd();
 
+		glColor4f(1,1,0,1);
+		glBegin(GL_POLYGON);
+			for (int i = 0; i < 33; i++)
+			{
+				glVertex2f(0.55 * BOHATER_PROMIEN1 * sin(6.2832*i/33), 0.55 * BOHATER_PROMIEN1 * cos(6.2832*i/33));
+			}		
+		glEnd();
 
+		glTranslatef(BOHATER_POZYCJA_KOLA, BOHATER_PROMIEN2 - BOHATER_PROMIEN1, 0);
 
+		glBegin(GL_POLYGON);
+			glColor4f(0,0,0,1);
+			for (int i = 0; i < 33; i++)
+			{
+				glVertex2f(BOHATER_PROMIEN2 * sin(6.2832*i/33), BOHATER_PROMIEN2 * cos(6.2832*i/33));
+			}		
+		glEnd();
+
+		glBegin(GL_POLYGON);
+			glColor4f(1,1,0,1);
+			for (int i = 0; i < 33; i++)
+			{
+				glVertex2f(0.55 * BOHATER_PROMIEN2 * sin(6.2832*i/33), 0.55 * BOHATER_PROMIEN2 * cos(6.2832*i/33));
+			}		
+		glEnd();
 	glEndList();
 
 

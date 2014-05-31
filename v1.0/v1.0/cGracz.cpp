@@ -1,5 +1,6 @@
 #include "cGracz.h"
-
+#include "cBohater2.h"
+#include "cBohater1.h"
 
 cGracz::cGracz(void)
 {
@@ -54,7 +55,10 @@ void cGracz::Dzialaj()
 void cGracz::DodajBohatera(float _x, float _y)
 {
 	if (wybranyBohater == -1) wybranyBohater = 0;
-	cBohater * nowyBohater = new cBohater(_x, _y, wlascicel);
+	cBohater * nowyBohater = new cBohater1(_x, _y, wlascicel);
+	tabBohaterow.push_back(nowyBohater);
+
+	nowyBohater = new cBohater2(_x+10, _y, wlascicel);
 	tabBohaterow.push_back(nowyBohater);
 }
 
@@ -62,6 +66,7 @@ void cGracz::PrzyspieszajBohatera(float dVx, float dVy)
 {
 
 	tabBohaterow[wybranyBohater]->Przyspieszaj(dVx, dVy);
+	tabBohaterow[1]->Przyspieszaj(dVx, dVy);
 }
 
 void cGracz::Rysuj()

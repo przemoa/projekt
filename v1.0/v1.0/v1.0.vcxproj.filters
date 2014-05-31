@@ -16,6 +16,12 @@
     <Filter Include="SOIL">
       <UniqueIdentifier>{4a9b5eb3-e7aa-4b64-9b9b-ab2338f5d005}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\jednostki">
+      <UniqueIdentifier>{65a95b31-1f7b-4d8b-bdc4-031b020db1b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\jednostki">
+      <UniqueIdentifier>{8610fbd6-bf7a-42ff-baff-ec7756ffc790}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -51,20 +57,26 @@
     <ClCompile Include="cPunktStabilny.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="cBohater.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="cGracz.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="cZamek.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="cBohater.cpp">
+      <Filter>Source Files\jednostki</Filter>
     </ClCompile>
-    <ClCompile Include="cStworek.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="cBohater2.cpp">
+      <Filter>Source Files\jednostki</Filter>
     </ClCompile>
     <ClCompile Include="cJednostka.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\jednostki</Filter>
+    </ClCompile>
+    <ClCompile Include="cStworek.cpp">
+      <Filter>Source Files\jednostki</Filter>
+    </ClCompile>
+    <ClCompile Include="cZamek.cpp">
+      <Filter>Source Files\jednostki</Filter>
+    </ClCompile>
+    <ClCompile Include="cBohater1.cpp">
+      <Filter>Source Files\jednostki</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -104,20 +116,26 @@
     <ClInclude Include="cPunktStabilny.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="cBohater.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="cGracz.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="cZamek.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="cBohater.h">
+      <Filter>Header Files\jednostki</Filter>
     </ClInclude>
-    <ClInclude Include="cStworek.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="cBohater2.h">
+      <Filter>Header Files\jednostki</Filter>
     </ClInclude>
     <ClInclude Include="cJednostka.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\jednostki</Filter>
+    </ClInclude>
+    <ClInclude Include="cStworek.h">
+      <Filter>Header Files\jednostki</Filter>
+    </ClInclude>
+    <ClInclude Include="cZamek.h">
+      <Filter>Header Files\jednostki</Filter>
+    </ClInclude>
+    <ClInclude Include="cBohater1.h">
+      <Filter>Header Files\jednostki</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

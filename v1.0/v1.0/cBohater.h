@@ -5,28 +5,20 @@ class cBohater : public cJednostka
 {
 public:
 	cBohater(void);
-	cBohater(float _x, float _y, int _wlascicel);
 	~cBohater(void);
 
-	void Rysuj();
-	bool CzyKliknieto(float px, float py);
-	void AktualizujRamke();
-	void RysujPasekZycia();
-	void Atakuj();
-	void Ruszaj();
-	void ZmienKat(float dkat);
+	virtual void Rysuj() = 0;
+	virtual bool CzyKliknieto(float px, float py) = 0;
+	virtual void AktualizujRamke() = 0;
+	virtual void RysujPasekZycia() = 0;
+	virtual void Atakuj() = 0;
+	virtual void Ruszaj() = 0;
 
-	void Przyspieszaj(float dVx, float dVy);
+	virtual void Przyspieszaj(float dVx, float dVy) = 0;
 	
-	float kat;
-	float energia;
-	int kierunek;			// 1 lub -1
-	float mocSilnika;
-	float Vy;
-	float VyCel;
-	bool odbity;			// czy odbil sie od ziemi
 
-	float yCel;
+	int kierunek;			// aktualny kierunek ruchu 1 lub -1
+	float mocSilnika;		// moc silnika
 
 };
 

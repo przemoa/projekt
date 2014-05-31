@@ -77,6 +77,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="cBohater.cpp" />
+    <ClCompile Include="cBohater1.cpp" />
+    <ClCompile Include="cBohater2.cpp" />
     <ClCompile Include="cChmura.cpp" />
     <ClCompile Include="cGracz.cpp" />
     <ClCompile Include="cJednostka.cpp" />
@@ -95,6 +97,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cBohater.h" />
+    <ClInclude Include="cBohater1.h" />
+    <ClInclude Include="cBohater2.h" />
     <ClInclude Include="cChmura.h" />
     <ClInclude Include="cGracz.h" />
     <ClInclude Include="cJednostka.h" />
