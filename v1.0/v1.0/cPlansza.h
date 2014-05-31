@@ -63,5 +63,6 @@ public:
 	float TabDoY(int w);
 	int XDoTab(float x);
 	int YDoTab(float y);
+	float Wysokosc(float x);		// wysokosc poziomu mapy
 };
 

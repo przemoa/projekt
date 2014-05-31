@@ -17,24 +17,15 @@ cBohater::cBohater(float _x, float _y, int _wlascicel)
 	wlasciciel = _wlascicel;
 	x = _x;
 	y = _y;
-	y = BOHATER_PROMIEN1 + 60;
 	z = 0;
-	Vx = 0;
-	Vy = 0;
-	Vx2 = 0;
-	Vy2 = 0;
-	Vg = 0;
-	Vg2 = 0;
-	Vkatowa = 0;
-	rozmiar = 2;
 	kat = 0;
-	mocSilnika = 6;
-	fazaKol = atan2(BOHATER_PROMIEN1 - BOHATER_PROMIEN2, BOHATER_POZYCJA_KOLA);
-	x2 = x + BOHATER_POZYCJA_KOLA / cos(fazaKol) * cos((kat)*3.1415/180 - fazaKol);
-	y2 = y + BOHATER_POZYCJA_KOLA / cos(fazaKol) * sin((kat)*3.1415/180 - fazaKol);
-	UstawXs();
-	UstawYs();
-	katPoprzedni = 0;
+	Vy = 0;
+	yCel = y;
+	VyCel = Vy;
+	odbity = false;
+	mocSilnika = 10;
+	energia = 0;
+	kierunek = 1;
 }
 
 void cBohater::Rysuj()
@@ -43,222 +34,121 @@ void cBohater::Rysuj()
 		glTranslatef(x, y, z);
 		RysujPasekZycia();
 		glRotatef(kat, 0, 0, 1);
-		glColor3f(1,0,0);  //todo
-		glCallList(LISTA_BOHATER);
+		glColor4f(1,0,0, 1);  //todo
+		glCallList(LISTA_BOHATER_A1);
 	glPopMatrix();
 
 }
 
 void cBohater::Ruszaj()
 {
-	int b1, b2;			// 0 - bez zmian, 1 - podnosi siê do góry, -1 - opada w dó³
+	cout << energia << endl;
+	float poziomZiemi = Plansza->Wysokosc(x);
 
-	Przesun(Vx * KROK_CZASOWY, 0);
+	yCel += VyCel;
+	y += 0.15*(yCel - y);
+	Vy += 0.15*(VyCel - Vy);
+	
 
-	//wyznacznie ktore kolo moze opadac
-	int k = Plansza->XDoTab(x);
-	if (k < 0)
-		k = 0;
-	if (y - BOHATER_PROMIEN1 - KROK_BOHATERA > Plansza->tabPol[k])
+	if (energia != 0)
 	{
-		b1 = -1;
-	}
-	else 
-	{
-		if(y - BOHATER_PROMIEN1 - KROK_BOHATERA == Plansza->tabPol[k])
-		{
-			b1 = 0;
-		}
+		float dx = sqrt(energia)*kierunek / 20;
+		float poziomZiemi2 = Plansza->Wysokosc(x+dx);
+		
+		if (y - 0.11 > poziomZiemi && y - 0.11 > poziomZiemi2) x += dx;
 		else
 		{
-			b1 = 1;
+			float dE = (poziomZiemi - poziomZiemi2) * 20;
+			float energia2 = energia + dE;
+			
+			if (energia2 > 0)
+			{
+				x += dx;	
+				yCel += poziomZiemi2 - poziomZiemi;
+				energia = energia2;
+			}
+			else { energia = 0; kierunek = 0; }
 		}
 	}
 
-	int k2 = Plansza->XDoTab(x2);
-	if (k2 < 0)
-		k2 = 0;
-	if (y2 - BOHATER_PROMIEN2 - KROK_BOHATERA > Plansza->tabPol[k2])
+	
+
+	if (odbity)
 	{
-		b2 = -1;
+		if (y - 6 > poziomZiemi)
+			odbity = false;
 	}
-	else 
+	else
 	{
-		if(y2 - BOHATER_PROMIEN2 - KROK_BOHATERA == Plansza->tabPol[k2])
+		if (y < poziomZiemi)
 		{
-			b2 = 0;
-		}
-		else
-		{
-			b2 = 1;
+			Vy = - Vy;
+			VyCel = -VyCel;
+			odbity = true;
 		}
 	}
-
-
-
-	katTerenu = atan((Plansza->tabPol[k2] - Plansza->tabPol[k])/(x2 - x)) * 180 / 3.1416;
-
-	float nVx = Vx;
-	float nVx2 = Vx2;
-
-	//jesli tylne kolo jest na ziemi
-	if ((b1 == 1) || (b1 == 0))
+	if (y - 0.05 > poziomZiemi)
 	{
-		y = BOHATER_PROMIEN1 + KROK_BOHATERA + Plansza->tabPol[k];
-
-		if ((nVx > 0) && (katTerenu <= katPoprzedni))
-		{
-		}
-
-		if ((nVx > 0) && (katTerenu > katPoprzedni))
-		{
-			Vg = sqrt(Vx * Vx + Vy * Vy);
-			Vx = Vg * cos(kat * 3.1416 / 180 - fazaKol);
-			Vy = -Vg * sin(kat * 3.1416 / 180 - fazaKol);
-			cout << "przeliczono 1.1" << endl;
-		}
-
-		if ((nVx < 0) && (katTerenu < katPoprzedni))
-		{
-			Vg = sqrt(Vx * Vx + Vy * Vy);
-			Vx = -Vg * cos(kat * 3.1416 / 180 - fazaKol);
-			Vy = Vg * sin(kat * 3.1416 / 180 - fazaKol);
-			cout << "przeliczono 1.2" << endl;
-		}
-		if ((nVx < 0) && (katTerenu >= katPoprzedni))
-		{
-		}
-		Vy += PRZYSPIESZENIE_GRAWITACYJNE * sin (katTerenu * 3.1416 / 180) * sin(katTerenu * 3.1416 / 180) * KROK_CZASOWY;
+		VyCel -= PRZYSPIESZENIE_GRAWITACYJNE;
+		if (VyCel > 0) VyCel -= 0.12;
 	}
-
-	if((b2 == 1) || (b2 == 0))
+	if (odbity == true && Vy < 0 && y - 0.2 < poziomZiemi)
 	{
-		y2 = BOHATER_PROMIEN2 + KROK_BOHATERA + Plansza->tabPol[k2];
-
-		if ((nVx2 > 0) && (katTerenu <= katPoprzedni))
-		{
-		}
-		if ((nVx2 > 0) && (katTerenu > katPoprzedni))
-		{
-			Vg2 = sqrt(Vx2 * Vx2 + Vy2 * Vy2);
-			Vx2 = Vg2 * cos(katTerenu * 3.1416 / 180);
-			Vy2 = -Vg2 * sin(katTerenu * 3.1416 / 180);
-			cout << "przeliczono 2.1" << endl;
-		}
-		if ((nVx2 < 0) && (katTerenu < katPoprzedni))
-		{
-			Vg2 = sqrt(Vx2 * Vx2 + Vy2 * Vy2);
-			Vx2 = -Vg2 * cos(katTerenu * 3.1416 / 180);
-			Vy2 = Vg2 * sin(katTerenu * 3.1416 / 180);
-			cout << "przeliczono 2.2" << endl;
-		}
-		if ((nVx2 < 0) && (katTerenu >= katPoprzedni))
-		{
-		}
-		Vy2 += PRZYSPIESZENIE_GRAWITACYJNE * sin (katTerenu * 3.1416 / 180) * sin(katTerenu * 3.1416 / 180) * KROK_CZASOWY;
+		VyCel = 0;
+		yCel = poziomZiemi;
 	}
 
-	if (b1 == -1)
+	if (energia == 0)
 	{
-		if (y - BOHATER_PROMIEN1 - KROK_BOHATERA - Vy * KROK_CZASOWY >= Plansza->tabPol[k])
+		float poziomZiemi2 = Plansza->Wysokosc(x + 2);
+		if (poziomZiemi2 - poziomZiemi > 1)
 		{
-			y -= Vy * KROK_CZASOWY;
-			Vy += PRZYSPIESZENIE_GRAWITACYJNE * KROK_CZASOWY;
+			kierunek = -1;
+			energia = 15;
 		}
-		else
-		{
-			y = BOHATER_PROMIEN1 + KROK_BOHATERA + Plansza->tabPol[k];
-		}
-	}
 
-	if (b2 == -1)
-	{
-		if (y - BOHATER_PROMIEN2 - KROK_BOHATERA - Vy2 * KROK_CZASOWY >= Plansza->tabPol[k2])
+		poziomZiemi2 = Plansza->Wysokosc(x - 2);
+		if (poziomZiemi2 - poziomZiemi > 1)
 		{
-			y2 -= Vy2 * KROK_CZASOWY;
-			Vy2 += PRZYSPIESZENIE_GRAWITACYJNE * KROK_CZASOWY;
-		}
-		else
-		{
-			y2 = BOHATER_PROMIEN2 + KROK_BOHATERA + Plansza->tabPol[k2];
+			kierunek = 1;
+			energia = 15;
 		}
 	}
 
-	//zmiana Vx w wyniku dzialania grawitacji
-	if (((b1 == 1) || (b1 == 0) || (b2 == 1) || (b2 == 0)))
-	{
-		Vx -= PRZYSPIESZENIE_GRAWITACYJNE * sin (katTerenu * 3.1416 / 180) * cos(katTerenu * 3.1416 / 180) * KROK_CZASOWY;
-		Vx2 -=PRZYSPIESZENIE_GRAWITACYJNE * sin (katTerenu * 3.1416 / 180) * cos(katTerenu * 3.1416 / 180) * KROK_CZASOWY;
-	}
-
-	UstawKat();
-	UstawXs();
-	UstawYs();
-	UstawX();
-	UstawX2();
-	katPoprzedni = katTerenu;
-
-	if (((b1 == 1) || (b1 == 0)) || ((b2 == 1) || (b2 == 0)) && ((katTerenu >= -3) && (katTerenu <= 3)))
-	{
-		//Vy = 0;
-		//Vy2 = 0;
-	}
-
-	cout << "b1 = " << b1 << "   " << "b2 = " << b2 << endl;
+	if (y + 0.1 < poziomZiemi) y = poziomZiemi;
+	VyCel *= 0.99;
+	energia *= 0.998;
+	energia -= 0.3;
+	if (energia < 0) { energia = 0; kierunek = 0; }
 }
 
-void cBohater::Opadaj()
-{
-	Vy += KROK_PRZYSPIESZANIA_BOHATERA;
-}
 
 void cBohater::Przyspieszaj(float dVx, float dVy)
 {
-	int b1;
-	int b2;
-	int k = Plansza->XDoTab(x);
-	if (k < 0)
-		k = 0;
-	if (y - BOHATER_PROMIEN1 - 5 * KROK_BOHATERA > Plansza->tabPol[k])
+	int zwrot = abs(dVx)/dVx;
+
+	if (energia < 5*mocSilnika*abs(dVx))
 	{
-		b1 = -1;
-	}
-	else 
-	{
-		if(y - BOHATER_PROMIEN1 - 5 * KROK_BOHATERA == Plansza->tabPol[k])
+		int tabX = Plansza->XDoTab(x);
+		if (Plansza->tabPol[tabX + zwrot*60] -Plansza->tabPol[tabX] < 1.2)
 		{
-			b1 = 0;
+			energia = 6*mocSilnika*abs(dVx);
+		}
+		else return;
+
+		if (kierunek == -zwrot)
+		{
+			kierunek = 0;
+			energia = 0;
 		}
 		else
-		{
-			b1 = 1;
-		}
+			kierunek = zwrot;
 	}
+	else if (kierunek == zwrot) energia += mocSilnika*abs(dVx);
+	else if (kierunek != zwrot) energia -= mocSilnika*3*abs(dVx);
 
-	int k2 = Plansza->XDoTab(x2);
-	if (k2 < 0)
-		k2 = 0;
-	if (y2 - BOHATER_PROMIEN2 - 5 * KROK_BOHATERA > Plansza->tabPol[k2])
-	{
-		b2 = -1;
-	}
-	else 
-	{
-		if(y2 - BOHATER_PROMIEN2 - 5 * KROK_BOHATERA == Plansza->tabPol[k2])
-		{
-			b2 = 0;
-		}
-		else
-		{
-			b2 = 1;
-		}
-	}
+	if (energia < 0) energia = 0;
 
-	if ((b1 == 0) || (b1 == 1) || (b2 == 0) || (b2 == 1))
-	{
-		Vx += dVx * cos(katTerenu * 3.1416 / 180);
-		Vx2 += dVx * cos(katTerenu * 3.1416 / 180);
-	}
 }
 
 void cBohater::ZmienKat(float dkat)
@@ -266,54 +156,10 @@ void cBohater::ZmienKat(float dkat)
 	kat += dkat;
 	if (kat < -90) kat = 360 - kat;
 	if (kat > 270) kat = -(360 - kat);
-	UstawX2();
-	UstawY2();
 }
 
-void cBohater::UstawX()
-{
-	x = xs - 0.5 * BOHATER_POZYCJA_KOLA / cos(fazaKol) * cos((kat)*3.1415/180 - fazaKol);
-	y = ys - 0.5 * BOHATER_POZYCJA_KOLA / cos(fazaKol) * sin((kat)*3.1415/180 - fazaKol);
-}
 
-void cBohater::UstawX2()
-{
-	x2 = xs + 0.5 * BOHATER_POZYCJA_KOLA / cos(fazaKol) * cos((kat)*3.1415/180 - fazaKol);
-	y2 = ys + 0.5 * BOHATER_POZYCJA_KOLA / cos(fazaKol) * sin((kat)*3.1415/180 - fazaKol);
-}
 
-void cBohater::UstawY2()
-{
-	y2 = y + BOHATER_POZYCJA_KOLA * sin((+kat)*3.1415/180 - fazaKol);
-}
-
-void cBohater::Przesun(float dx, float dy)
-{
-	x += dx;
-	x2 += dx;
-	y += dy;
-}
-
-void cBohater::UstawXs()
-{
-	xs = 0.5 * (x + x2);
-}
-
-void cBohater::UstawYs()
-{
-	ys = 0.5 * (y + y2);
-}
-
-void cBohater::UstawKat()
-{
-	kat = (atan((y2 - y)/(x2 - x)) + fazaKol) * 180 / 3.1416;
-
-	if (kat < -80) 
-		kat = -80;
-	if (kat > 80) 
-		kat = 80;
-
-}
 
 void cBohater::RysujPasekZycia()
 {

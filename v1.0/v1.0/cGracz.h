@@ -23,7 +23,7 @@ public:
 
 	void Dzialaj();			// wywolywana timerem co 20ms
 	void DodajBohatera(float _x, float _y);
-	void RuszajBohatera(float dVx, float dVy);
+	void PrzyspieszajBohatera(float dVx, float dVy);
 	void Rysuj();
 
 	int wybranyBohater;

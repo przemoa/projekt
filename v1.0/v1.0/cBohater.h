@@ -14,36 +14,19 @@ public:
 	void RysujPasekZycia();
 	void Atakuj();
 	void Ruszaj();
-	
-	float x2;			// wspolrzedne mniejszego kola
-	float y2;
-	float xs;
-	float ys;
-	float Vx;
-	float Vy;
-	float Vx2;
-	float Vy2;
-	float Vkatowa;
-	float mocSilnika;
-	float katTerenu;
-	float Vg;
-	float Vg2;
-	float katPoprzedni;
-	float fazaKol;		// kat miedzy kolami w poziomie
-	float rozmiar;
-	
-	float kat;
+	void ZmienKat(float dkat);
+
 	void Przyspieszaj(float dVx, float dVy);
 	
-	void Opadaj();
-	void ZmienKat(float dkat);
-	void UstawX2();
-	void UstawY2();
-	void Przesun(float dx, float dy);
-	sKOLOR kolor;
-	void UstawX();
-	void UstawXs();
-	void UstawYs();
-	void UstawKat();
+	float kat;
+	float energia;
+	int kierunek;			// 1 lub -1
+	float mocSilnika;
+	float Vy;
+	float VyCel;
+	bool odbity;			// czy odbil sie od ziemi
+
+	float yCel;
+
 };
 

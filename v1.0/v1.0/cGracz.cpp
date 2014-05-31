@@ -15,7 +15,7 @@ cGracz::~cGracz(void)
 cGracz::cGracz(float _x, float _y, int _wlascicel)
 {
 	wybranyBohater = -1;
-	DodajBohatera(_x + _wlascicel*50, _y);
+	DodajBohatera(_x + _wlascicel*50, 122);
 
 	x = _x;
 	y = _y;
@@ -58,7 +58,7 @@ void cGracz::DodajBohatera(float _x, float _y)
 	tabBohaterow.push_back(nowyBohater);
 }
 
-void cGracz::RuszajBohatera(float dVx, float dVy)
+void cGracz::PrzyspieszajBohatera(float dVx, float dVy)
 {
 
 	tabBohaterow[wybranyBohater]->Przyspieszaj(dVx, dVy);
