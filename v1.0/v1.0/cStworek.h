@@ -21,7 +21,7 @@ public:
 	float yCel;
 
 	float wysokosc;			// wysokosc nad poziomem powierzchni
-	int typStworka;
+	int typStworka;			// 
 
 	float obrazenia;
 	float zasieg;

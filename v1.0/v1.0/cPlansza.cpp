@@ -475,15 +475,12 @@ void cPlansza::UtworzListy()
 
 
 	
-	// bohater LISTA_BOHATER_A1
+	// bohater LISTA_BOHATER2
 	
 	glGenLists(LISTA_BOHATER2);
 	glNewList(LISTA_BOHATER2, GL_COMPILE);
 	
 	float maxZ = -1;
-
-
-	
 
 		glPushMatrix();			// tylne kolo
 			glTranslatef(0, BOHATER2_ROZMIAR,  maxZ);	
@@ -712,11 +709,17 @@ void cPlansza::TworzTekstury()
 	SOIL_load_OGL_texture("tx\\ikona_wieza4.png", SOIL_LOAD_AUTO, IKONA_WIEZA4, SOIL_FLAG_INVERT_Y);
 	SOIL_load_OGL_texture("tx\\ikona_wieza5.png", SOIL_LOAD_AUTO, IKONA_WIEZA5, SOIL_FLAG_INVERT_Y);
 	SOIL_load_OGL_texture("tx\\ikona_bohater1.png", SOIL_LOAD_AUTO, IKONA_BOHATER1, SOIL_FLAG_INVERT_Y);
+	SOIL_load_OGL_texture("tx\\ikona_bohater2.png", SOIL_LOAD_AUTO, IKONA_BOHATER2, SOIL_FLAG_INVERT_Y);
 	
 	SOIL_load_OGL_texture("tx\\ikona_stworek1.png", SOIL_LOAD_AUTO, IKONA_STWOREK1, SOIL_FLAG_INVERT_Y);
 	SOIL_load_OGL_texture("tx\\ikona_stworek2.png", SOIL_LOAD_AUTO, IKONA_STWOREK2, SOIL_FLAG_INVERT_Y);
 
-	SOIL_load_OGL_texture("tx\\ikony_budowy.png", SOIL_LOAD_AUTO, TEKSTURA_IKONA_BUDOWY, SOIL_FLAG_INVERT_Y);
+
+
+	SOIL_load_OGL_texture("tx\\menu_zamek.png", SOIL_LOAD_AUTO, TEKSTURA_MENU_ZAMEK, SOIL_FLAG_INVERT_Y);
+	SOIL_load_OGL_texture("tx\\menu_wieza.png", SOIL_LOAD_AUTO, TEKSTURA_MENU_WIEZA, SOIL_FLAG_INVERT_Y);
+	SOIL_load_OGL_texture("tx\\menu_bohater.png", SOIL_LOAD_AUTO, TEKSTURA_MENU_BOHATER, SOIL_FLAG_INVERT_Y);
+
 }
 
 void cPlansza::_KlawiszeSpecjalne(int key, int x, int y)

@@ -397,9 +397,9 @@ void cPlansza::RysujRamkeOpisu()
 			glDisable(GL_TEXTURE_2D);
 
 			// IKONA BUDOWY
-			if (ramkaOpisu.ikonaBudowy)
+			if (ramkaOpisu.rodzajMenu)
 			{
-				glBindTexture(GL_TEXTURE_2D, TEKSTURA_IKONA_BUDOWY);			
+				glBindTexture(GL_TEXTURE_2D, ramkaOpisu.rodzajMenu);			
 				glEnable(GL_TEXTURE_2D);
 				glColor4f(1, 1, 1, 0.9);
 				glBegin(GL_QUADS);

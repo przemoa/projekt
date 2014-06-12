@@ -24,6 +24,9 @@ cBohater2::cBohater2(float _x, float _y, int _wlascicel)
 	mocSilnika = 5;
 	energia = 0;
 	kierunek = 1;
+	rozmiar = 2;
+	level = 1;
+	doswiadczenie = 0;
 }
 
 
@@ -39,12 +42,12 @@ void cBohater2::Rysuj()
 
 void cBohater2::Ruszaj()
 {
-	cout << energia << endl;
+	//cout << energia << endl;
 	float poziomZiemi = Plansza->Wysokosc(x);
 
 	yCel += VyCel;
-	y += 0.15*(yCel - y);
-	Vy += 0.15*(VyCel - Vy);
+	y += 0.1*(yCel - y);
+	Vy += 0.1*(VyCel - Vy);
 	
 
 	if (energia != 0)
@@ -170,7 +173,7 @@ void cBohater2::Przyspieszaj(float dVx, float dVy)
 void cBohater2::RysujPasekZycia()
 {
 	glPushMatrix();
-		glTranslatef(-3*rozmiar, 6*rozmiar, 0);
+		glTranslatef(-4*rozmiar, 8*rozmiar, 0);
 		poziomZycia  = 50;
 		glColor3f(0.1,0.1,0.1);
 		glBegin(GL_POLYGON);
@@ -193,11 +196,35 @@ void cBohater2::RysujPasekZycia()
 
 bool cBohater2::CzyKliknieto(float px, float py)
 {
+	//if ((px-x)*(px-x)+(py-y)*(py-y) < ZAKRES_KLIKNIECIE*rozmiar*rozmiar) return true;
+	if (abs(x-px) < BOHATER2_ZAKRES_KLIKNIECIE*BOHATER2_ROZMIAR &&
+		abs(y+2.5*BOHATER2_ROZMIAR-py) < BOHATER2_ZAKRES_KLIKNIECIE*2.5*BOHATER2_ROZMIAR) return true;
+
 	return false;
 }
 void cBohater2::AktualizujRamke()
 {
+	Plansza->ramkaOpisu.id = id;
+	Plansza->ramkaOpisu.typ = BOHATER2;
+	Plansza->ramkaOpisu.ikona = IKONA_BOHATER2;
+	Plansza->ramkaOpisu.poziomZycia = poziomZycia;
+
+	stringstream ssNazwa;
+	ssNazwa << "BOHATER 1 " << "  (id " << id << ")";
+	Plansza->ramkaOpisu.nazwa = ssNazwa.str();
+
+	stringstream ssOpis;
+	ssOpis	<< "Poziom zycia:  " << (int) poziomZycia << endl
+			<< "Rozmiar:      " << (int) rozmiar << endl
+			<< "Obrazenia:   " << (int) obrazenia << endl
+			<< "Zasieg:    " << (int) zasieg << endl
+			<< "Moc Silnika:    " << (int) mocSilnika << endl
+			<< "Level:    " << (int) level << " (" << doswiadczenie << "/5)" << endl
+			<< "Energia:   " << energia ;
+	Plansza->ramkaOpisu.opis = ssOpis.str();
+	Plansza->ramkaOpisu.rodzajMenu = TEKSTURA_MENU_BOHATER;
 }
+
 void cBohater2::Atakuj()
 {
 }

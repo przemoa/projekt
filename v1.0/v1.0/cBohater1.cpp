@@ -114,7 +114,7 @@ void cBohater1::Ruszaj()
 			Vg = sqrt(Vx * Vx + Vy * Vy);
 			Vx = Vg * cos(kat * 3.1416 / 180 - fazaKol);
 			Vy = -Vg * sin(kat * 3.1416 / 180 - fazaKol);
-			cout << "przeliczono 1.1" << endl;
+			//cout << "przeliczono 1.1" << endl;
 		}
 
 		if ((nVx < 0) && (katTerenu < katPoprzedni))
@@ -122,7 +122,7 @@ void cBohater1::Ruszaj()
 			Vg = sqrt(Vx * Vx + Vy * Vy);
 			Vx = -Vg * cos(kat * 3.1416 / 180 - fazaKol);
 			Vy = Vg * sin(kat * 3.1416 / 180 - fazaKol);
-			cout << "przeliczono 1.2" << endl;
+			//cout << "przeliczono 1.2" << endl;
 		}
 		if ((nVx < 0) && (katTerenu >= katPoprzedni))
 		{
@@ -142,14 +142,14 @@ void cBohater1::Ruszaj()
 			Vg2 = sqrt(Vx2 * Vx2 + Vy2 * Vy2);
 			Vx2 = Vg2 * cos(katTerenu * 3.1416 / 180);
 			Vy2 = -Vg2 * sin(katTerenu * 3.1416 / 180);
-			cout << "przeliczono 2.1" << endl;
+			//cout << "przeliczono 2.1" << endl;
 		}
 		if ((nVx2 < 0) && (katTerenu < katPoprzedni))
 		{
 			Vg2 = sqrt(Vx2 * Vx2 + Vy2 * Vy2);
 			Vx2 = -Vg2 * cos(katTerenu * 3.1416 / 180);
 			Vy2 = Vg2 * sin(katTerenu * 3.1416 / 180);
-			cout << "przeliczono 2.2" << endl;
+			//cout << "przeliczono 2.2" << endl;
 		}
 		if ((nVx2 < 0) && (katTerenu >= katPoprzedni))
 		{
@@ -203,7 +203,7 @@ void cBohater1::Ruszaj()
 		//Vy2 = 0;
 	}
 
-	cout << "b1 = " << b1 << "   " << "b2 = " << b2 << endl;
+	//cout << "b1 = " << b1 << "   " << "b2 = " << b2 << endl;
 }
 
 void cBohater1::Opadaj()
@@ -340,10 +340,29 @@ void cBohater1::RysujPasekZycia()
 
 bool cBohater1::CzyKliknieto(float px, float py)
 {
+	if ((px-x)*(px-x)+(py-y)*(py-y) < ZAKRES_KLIKNIECIE*rozmiar*rozmiar) return true;
 	return false;
 }
 void cBohater1::AktualizujRamke()
 {
+	Plansza->ramkaOpisu.id = id;
+	Plansza->ramkaOpisu.typ = BOHATER1;
+	Plansza->ramkaOpisu.ikona = IKONA_BOHATER1;
+	Plansza->ramkaOpisu.poziomZycia = poziomZycia;
+
+	stringstream ssNazwa;
+	ssNazwa << "BOHATER 1 " << "  (id " << id << ")";
+	Plansza->ramkaOpisu.nazwa = ssNazwa.str();
+
+	stringstream ssOpis;
+	ssOpis	<< "Poziom zycia:  " << (int) poziomZycia << endl
+			<< "Rozmiar:      " << (int) rozmiar << endl
+			<< "Obrazenia:   " << (int) obrazenia << endl
+			<< "Zasieg:    " << (int) zasieg << endl
+			<< "Moc Silnika:    " << (int) mocSilnika << endl
+			<< "Vx:   " << Vx ;
+	Plansza->ramkaOpisu.opis = ssOpis.str();
+	Plansza->ramkaOpisu.rodzajMenu = 0;
 }
 void cBohater1::Atakuj()
 {

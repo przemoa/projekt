@@ -18,6 +18,8 @@ cZamek::cZamek(float _x, float _y, int _wlasciciel)
 	y = _y;
 	rozmiar = 25;
 	rozmiarWiezy = rozmiar/4.2;
+	wysokoscWiezy = 3*rozmiarWiezy;
+
 	poziomZycia = 100;
 
 	wlasciciel = _wlasciciel;
@@ -45,6 +47,10 @@ void cZamek::DodajWieze(int _typWiezy, int pozycja)
 
 	nowaWieza.pozycja = pozycja;
 	nowaWieza.typWiezy = _typWiezy;
+	nowaWieza.level = 1;
+	nowaWieza.doswiadczenie = 0;
+	nowaWieza.poziomZycia = 100;
+	nowaWieza.szybkoscAtaku = 5;
 
 	tabWiez.insert(tabWiez.begin(), nowaWieza);
 
@@ -56,7 +62,7 @@ void cZamek::Rysuj()
 	glPushMatrix();
 		glTranslatef(x, y, 0);
 
-		float wysokosc = 3*rozmiarWiezy;
+		
 		
 		for (int i = 0; i < tabWiez.size(); i++)
 		{
@@ -66,10 +72,10 @@ void cZamek::Rysuj()
 			glBindTexture(GL_TEXTURE_2D, tabWiez[i].typWiezy);
 			glEnable(GL_TEXTURE_2D);
 			glBegin(GL_QUADS);
-				glTexCoord2f(0.0f, 0.0f); glVertex2f((-7+3*kolumna)*rozmiarWiezy, 1.04*rozmiar + wiersz*wysokosc);
-				glTexCoord2f(1.0f, 0.0f); glVertex2f( (-5+3*kolumna)*rozmiarWiezy, 1.04*rozmiar + wiersz*wysokosc);
-				glTexCoord2f(1.0f, 1.0f); glVertex2f( (-5+3*kolumna)*rozmiarWiezy,  1.04*rozmiar + (wiersz+1.6)*wysokosc);
-				glTexCoord2f(0.0f, 1.0f); glVertex2f((-7+3*kolumna)*rozmiarWiezy,  1.04*rozmiar + (wiersz+1.6)*wysokosc);
+				glTexCoord2f(0.0f, 0.0f); glVertex2f((-7+3*kolumna)*rozmiarWiezy, 1.04*rozmiar + wiersz*wysokoscWiezy);
+				glTexCoord2f(1.0f, 0.0f); glVertex2f( (-5+3*kolumna)*rozmiarWiezy, 1.04*rozmiar + wiersz*wysokoscWiezy);
+				glTexCoord2f(1.0f, 1.0f); glVertex2f( (-5+3*kolumna)*rozmiarWiezy,  1.04*rozmiar + (wiersz+1.6)*wysokoscWiezy);
+				glTexCoord2f(0.0f, 1.0f); glVertex2f((-7+3*kolumna)*rozmiarWiezy,  1.04*rozmiar + (wiersz+1.6)*wysokoscWiezy);
 			glEnd();
 			glDisable(GL_TEXTURE_2D);
 		}
@@ -114,29 +120,95 @@ void cZamek::RysujPasekZycia()
 
 bool cZamek::CzyKliknieto(float px, float py)
 {
-	if ((px > x - rozmiar) && (px < x + rozmiar) && (py > y) && (py < y + 1.24*rozmiar)) return true;
+	int kolumna = 0;
+	int wiersz = 0;
+	if (abs(x-3*rozmiarWiezy-px) < rozmiarWiezy) kolumna = 1;
+	if (abs(x-px) < rozmiarWiezy) kolumna = 2;
+	if (abs(x+3*rozmiarWiezy-px) < rozmiarWiezy) kolumna = 3;
+	wiersz = (py-y-1.04*rozmiar)/wysokoscWiezy + 1;
+	if (wiersz < 0 || wiersz > 99) wiersz = 0;
+
+	int kliknietaWieza = kolumna * 100 + wiersz;
+
+
+	for (int i = 0; i < tabWiez.size(); i++)
+	{
+		if (tabWiez[i].pozycja == kliknietaWieza)
+		{
+			wybranaWiez = kliknietaWieza;
+			return true;
+		}
+	}
+
+	if ((px > x - rozmiar) && (px < x + rozmiar) && (py > y) && (py < y + 1.24*rozmiar))
+	{
+		wybranaWiez = 0;
+		return true;
+	}
 	return false;
 }
 
 void cZamek::AktualizujRamke()
 {
-	Plansza->ramkaOpisu.id = id;
-	Plansza->ramkaOpisu.typ = ZAMEK;
-	Plansza->ramkaOpisu.ikona = IKONA_ZAMEK;
-	Plansza->ramkaOpisu.poziomZycia = poziomZycia;
+	bool sprawdzWieze = false;
+	int nrWiezy = 0;
+	for (int i = 0; i < tabWiez.size(); i++)
+	{
+		if (tabWiez[i].pozycja == wybranaWiez)
+		{
+			sprawdzWieze = true;
+			nrWiezy = i;
+		}
+	}
 
-	stringstream ssNazwa;
-	ssNazwa << "ZAMEK (id " << id << ")";
-	Plansza->ramkaOpisu.nazwa = ssNazwa.str();
+	wybranaWiez *= sprawdzWieze;
 
-	stringstream ssOpis;
-	ssOpis	<< "Poziom zycia:  " << (int) poziomZycia << endl
-			<< "Rozmiar:      " << (int) rozmiar << endl
-			<< "to jest se zamek" << endl
-			<< "ladny zamek" << endl
-			<< "nawet bardzo";
-	Plansza->ramkaOpisu.opis = ssOpis.str();
-	Plansza->ramkaOpisu.ikonaBudowy = true;
+	if (wybranaWiez)
+	{
+		Plansza->ramkaOpisu.id = id;
+		Plansza->ramkaOpisu.typ = WIEZA;
+		Plansza->ramkaOpisu.ikona = tabWiez[nrWiezy].typWiezy + 100;	// nr tekstury + 100 daje nr ikony wiezy
+		Plansza->ramkaOpisu.poziomZycia = tabWiez[nrWiezy].poziomZycia;
+
+		stringstream ssNazwa;
+		ssNazwa << "Wieza zamku (id " << id << ")";
+		Plansza->ramkaOpisu.nazwa = ssNazwa.str();
+
+		stringstream ssOpis;
+		ssOpis	<< "Poziom zycia:  " << (int) poziomZycia << endl
+				<< "Typ Wiezy:      " << (int) tabWiez[nrWiezy].typWiezy << endl
+				<< "Pozycja:      " << (int) tabWiez[nrWiezy].pozycja << endl
+				<< "Obrazenia:      " << (int) tabWiez[nrWiezy].obrazenia << endl
+				<< "Szybkosc ataku:   " << (int) tabWiez[nrWiezy].szybkoscAtaku << endl
+				<< "Zasieg:      " << (int) tabWiez[nrWiezy].zasieg << endl
+				<< "Level:      " << (int) tabWiez[nrWiezy].level << " (" << tabWiez[nrWiezy].doswiadczenie << "/10)" << endl;
+				
+
+		Plansza->ramkaOpisu.opis = ssOpis.str();
+		Plansza->ramkaOpisu.rodzajMenu = TEKSTURA_MENU_WIEZA;
+	}
+
+
+	else
+	{
+		Plansza->ramkaOpisu.id = id;
+		Plansza->ramkaOpisu.typ = ZAMEK;
+		Plansza->ramkaOpisu.ikona = IKONA_ZAMEK;
+		Plansza->ramkaOpisu.poziomZycia = poziomZycia;
+
+		stringstream ssNazwa;
+		ssNazwa << "ZAMEK (id " << id << ")";
+		Plansza->ramkaOpisu.nazwa = ssNazwa.str();
+
+		stringstream ssOpis;
+		ssOpis	<< "Poziom zycia:  " << (int) poziomZycia << endl
+				<< "Rozmiar:      " << (int) rozmiar << endl
+				<< "to jest se zamek" << endl
+				<< "ladny zamek" << endl
+				<< "nawet bardzo";
+		Plansza->ramkaOpisu.opis = ssOpis.str();
+		Plansza->ramkaOpisu.rodzajMenu = TEKSTURA_MENU_ZAMEK;
+	}
 
 }
 

@@ -14,6 +14,8 @@ protected:
 	int wlasciciel;			// 1: gracz 1		-1: gracz 2
 	sKOLOR kolor;
 	int id;
+	int level;
+	int doswiadczenie;
 
 public:
 	cJednostka(void);

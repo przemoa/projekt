@@ -117,6 +117,15 @@ bool cGracz::WybierzJednostke(float px, float py)
 		}
 	}
 
+	for (int i = 0; i < tabBohaterow.size(); i++)
+	{
+		if (tabBohaterow[i]->CzyKliknieto(px, py))
+		{
+			id = tabBohaterow[i]->GetId();
+			tabBohaterow[i]->AktualizujRamke();
+		}
+	}
+
 	if (id == 0) return false;
 	else return true;
 }

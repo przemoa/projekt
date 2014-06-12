@@ -9,6 +9,10 @@ struct sWIEZA
 	int pozycja;			// 100*kolumna + wiersz, liczac od lewej dolnej strony
 	float obrazenia;
 	float zasieg;
+	float poziomZycia;
+	int doswiadczenie;
+	int level;
+	int szybkoscAtaku;
 };
 
 
@@ -25,7 +29,9 @@ public:
 	void RysujPasekZycia();
 	void Atakuj();
 	float rozmiarWiezy;
+	float wysokoscWiezy;
 
+	int wybranaWiez;
 
 	//x;	 srodek zamq
 	//y;	 spod zamq

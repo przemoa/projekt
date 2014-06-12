@@ -37,7 +37,7 @@ extern cPlansza* Plansza;
 #define KAMERA_MIN_POLOZENIE_Y -200
 #define KAMERA_PRZESUWANIE_MYSZA 60
 
-#define ILOSC_CHMUR 28
+#define ILOSC_CHMUR 22
 #define SZYBKOSC_CHMUR 120.0
 
 
@@ -53,7 +53,11 @@ extern cPlansza* Plansza;
 #define TEKSTURA_WIEZA3 13
 #define TEKSTURA_WIEZA4 14
 #define TEKSTURA_WIEZA5 15
-#define TEKSTURA_IKONA_BUDOWY 31
+
+#define TEKSTURA_MENU_ZAMEK 31
+#define TEKSTURA_MENU_BOHATER 32
+#define TEKSTURA_MENU_WIEZA 33
+
 
 #define POLE_WODA 0xFC
 #define POLE_GRACZ 0xF9
@@ -96,7 +100,7 @@ extern cPlansza* Plansza;
 #define BOHATER2_ROZMIAR 2.5
 #define KROK_PRZYSPIESZANIA_BOHATERA2 0.5
 #define PRZYSPIESZENIE_GRAWITACYJNE2 0.07
-
+#define BOHATER2_ZAKRES_KLIKNIECIE 1.5
 
 
 
@@ -108,6 +112,7 @@ extern cPlansza* Plansza;
 #define IKONA_WIEZA4 114
 #define IKONA_WIEZA5 115
 #define IKONA_BOHATER1 116
+#define IKONA_BOHATER2 117
 
 #define IKONA_STWOREK1 121
 #define IKONA_STWOREK2 122
@@ -147,19 +152,22 @@ struct sKAMERA
 
 enum eTYP
 {
-	ZAMEK = 1, BOHATER1 = 2, STWOREK = 4, WIEZA = 5
+	ZAMEK = 1, BOHATER1 = 2, BOHATER2 = 3,  STWOREK = 4, WIEZA = 5
 };
+
+
 
 struct sRAMKAOPISU
 {
 	eTYP typ;			
-	int ikona;		// nr listy, tesktury
+	int ikona;		// nr tesktury
 
 	int id;
 	string nazwa;
 	float poziomZycia;
 	bool czyWidoczna;
 	string opis;
-	bool ikonaBudowy;
 	
+	int rodzajMenu;		// nr tekstury bedacej menu
+
 };

@@ -143,7 +143,7 @@ void cStworek::AktualizujRamke()
 			<< "Zasieg:    " << (int) zasieg << endl
 			<< "Predkosc:   " << predkosc ;
 	Plansza->ramkaOpisu.opis = ssOpis.str();
-	Plansza->ramkaOpisu.ikonaBudowy = false;
+	Plansza->ramkaOpisu.rodzajMenu = 0;
 }
 void cStworek::Atakuj()
 {
