@@ -27,6 +27,8 @@ cBohater2::cBohater2(float _x, float _y, int _wlascicel)
 	rozmiar = 2;
 	level = 1;
 	doswiadczenie = 0;
+	mnoznikZycia = 5.5;
+	poziomZycia = 100;
 }
 
 
@@ -174,7 +176,6 @@ void cBohater2::RysujPasekZycia()
 {
 	glPushMatrix();
 		glTranslatef(-4*rozmiar, 8*rozmiar, 0);
-		poziomZycia  = 50;
 		glColor3f(0.1,0.1,0.1);
 		glBegin(GL_POLYGON);
 			glVertex2f(0, -0.4*rozmiar);
@@ -214,8 +215,7 @@ void cBohater2::AktualizujRamke()
 	Plansza->ramkaOpisu.nazwa = ssNazwa.str();
 
 	stringstream ssOpis;
-	ssOpis	<< "Poziom zycia:  " << (int) poziomZycia << endl
-			<< "Rozmiar:      " << (int) rozmiar << endl
+	ssOpis	<< "Poziom zycia:  " << (int) (mnoznikZycia*poziomZycia) << endl
 			<< "Obrazenia:   " << (int) obrazenia << endl
 			<< "Zasieg:    " << (int) zasieg << endl
 			<< "Moc Silnika:    " << (int) mocSilnika << endl

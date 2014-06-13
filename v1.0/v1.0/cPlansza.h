@@ -25,16 +25,19 @@ public:
 	void _KlawiszeSpecjalne(int key, int x, int y);
 	void OdswiezKamere();
 	void PrzesunKamere(float dx, float dy);
+	void AktualizujRamke();
+	void FocusujKamere();
 	void WczytajTeren();
 	
 	void UtworzListy();
-
 	void TworzTekstury();
+
 	cChmura* tabChmur[ILOSC_CHMUR];
 	vector < cPalma* > tabPalm;
 	vector < cPunktStabilny* > tabPunktStab;
 	vector < cGracz* > tabGraczy;
-
+	bool wybranyGracz;
+	bool czyFocusowac;		// czy ustawiac focus na wybrana jednostke
 
 	float tabPol[50000];
 	int tabTypowPol[50000];
@@ -43,7 +46,7 @@ public:
 	void DodajPunktStabilny(float _x, float _y);
 
 	void RysujPodloze();
-	void RysujTlo();
+	void RysujTloNiebo();
 	void RysujTeren();
 
 	sRAMKAOPISU ramkaOpisu;
@@ -56,8 +59,7 @@ public:
 	float testowy2;
 	void RysujSzescian();
 	
-	//int tabPunktow[200][2];
-	//int licznikPunktow;
+
 
 	float TabDoX(int k);
 	float TabDoY(int w);

@@ -8,14 +8,16 @@ protected:
 	float y;
 	float z;
 
-	float poziomZycia;
+	float poziomZycia;	// od 0 do 100
+	float mnoznikZycia;	// pomnozony przez poziom zycia daje aktualna liczbe HP
 	float rozmiar;			// promien jednostki
 
 	int wlasciciel;			// 1: gracz 1		-1: gracz 2
 	sKOLOR kolor;
+
 	int id;
 	int level;
-	int doswiadczenie;
+	int doswiadczenie;		// punkty za pokonanie przeciwnikow potrzebne do wzrostu levelu
 
 public:
 	cJednostka(void);
@@ -27,6 +29,8 @@ public:
 	virtual void AktualizujRamke() = 0;
 	virtual void RysujPasekZycia() = 0;
 	virtual void Atakuj() = 0;
-	int GetId();
+	int GetId()	{return id;}
+	float GetX() {return x;}
+	float GetY() {return y;}
 };
 

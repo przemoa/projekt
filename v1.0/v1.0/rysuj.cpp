@@ -11,7 +11,7 @@ void cPlansza::_Przerysuj(void)
 	glPushMatrix();
 	glEnable (GL_BLEND);
 	
-		RysujTlo();
+		RysujTloNiebo();
 		
 
 
@@ -96,8 +96,18 @@ void cPlansza::_Przerysuj(void)
 }
 
 
-void cPlansza::RysujTlo()
+void cPlansza::RysujTloNiebo()
 {
+
+	glBegin(GL_POLYGON);
+		glColor3f(0, 0, 0);
+		glVertex2f(3*KAMERA_MAX_POLOZENIE_X, 15*KAMERA_MAX_POLOZENIE_Y / 2.0);
+		glVertex2f(-3*KAMERA_MAX_POLOZENIE_X, 15*KAMERA_MAX_POLOZENIE_Y / 2.0);
+		glColor3f(0, 0, 0.3);
+		glVertex2f(-3*KAMERA_MAX_POLOZENIE_X, 5*KAMERA_MAX_POLOZENIE_Y / 2.0);
+		glVertex2f(3*KAMERA_MAX_POLOZENIE_X, 5*KAMERA_MAX_POLOZENIE_Y / 2.0);
+	glEnd();
+
 	glBegin(GL_POLYGON);
 		glColor3f(0, 0, 0.3);
 		glVertex2f(3*KAMERA_MAX_POLOZENIE_X, 5*KAMERA_MAX_POLOZENIE_Y / 2.0);

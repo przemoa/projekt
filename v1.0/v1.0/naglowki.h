@@ -26,15 +26,18 @@ extern cPlansza* Plansza;
 #define TIMER_ANIMACJI_TLA 8
 #define TIMER_CO_DWASEKUNDOWY 9
 #define TIMER_20 10
+#define TIMER_500 11
+#define TIMER_100 12
+
 
 #define SZYBKOSC_PRZESUWANIA 0.25
 #define SZYBKOSC_SCROLLOWANIA 1.3
 
-#define KAMERA_MAX_ZAKRES 1200
+#define KAMERA_MAX_ZAKRES 400
 #define KAMERA_MIN_ZAKRES 1
-#define KAMERA_MAX_POLOZENIE_X 1400
+#define KAMERA_MAX_POLOZENIE_X 975
 #define KAMERA_MAX_POLOZENIE_Y 200
-#define KAMERA_MIN_POLOZENIE_Y -200
+#define KAMERA_MIN_POLOZENIE_Y -100
 #define KAMERA_PRZESUWANIE_MYSZA 60
 
 #define ILOSC_CHMUR 22
@@ -139,8 +142,8 @@ struct sKAMERA
 	float zakres;			// aktualny zakres patrzenia kamery
 	float zakresCel;		// zakres ktory ma byc osiagniety
 
-	float x;
-	float xCel;
+	float x;				// aktualne polozenie kamery
+	float xCel;				// polozenie do ktorego dazy kamera
 
 	float y;
 	float yCel;

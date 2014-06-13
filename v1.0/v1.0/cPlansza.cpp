@@ -14,21 +14,24 @@ cPlansza::cPlansza(void)
 	rozmiarOkna.y = 600;
 	rozmiarOkna.proporcja = (float) rozmiarOkna.x / rozmiarOkna.y;
 
-	kamera.x = 950;
-	kamera.xCel = -950;
+	kamera.x = 900;
+	kamera.xCel = -900;
 	kamera.y = 110;
 	kamera.yCel = 110;
-	kamera.zakres = 1200;
+	kamera.zakres = 200;
 	kamera.zakresCel = 55;
 	kamera.przesuwajx = 0;
 	kamera.przesuwajy = 0;
+
 	glutTimerFunc(20, Dzialaj, TIMER_KAMERA_PRZESUN_X);
 	glutTimerFunc(20, Dzialaj, TIMER_KAMERA_PRZESUN_Y);
 	glutTimerFunc(20, Dzialaj, TIMER_KAMERA_SCROLL);
+	glutTimerFunc(500, Dzialaj, TIMER_500);
+	glutTimerFunc(100, Dzialaj, TIMER_100);
 
 	ramkaOpisu.czyWidoczna = false;
-
-
+	wybranyGracz = 0;
+	czyFocusowac = 1;
 
 	TworzTekstury();
 	UtworzListy();
@@ -64,7 +67,7 @@ void cPlansza::_Dzialaj(int value)
 	// Plynne przewijanie kamery
 	if (value == TIMER_KAMERA_SCROLL)
 	{
-		if (abs(kamera.zakres - kamera.zakresCel) > 0.1)
+		if (abs(kamera.zakres - kamera.zakresCel) > kamera.zakresCel / 150)
 		{
 			glutTimerFunc(20, Dzialaj, TIMER_KAMERA_SCROLL);
 			kamera.zakres += (kamera.zakresCel - kamera.zakres) / 35.0;
@@ -78,7 +81,7 @@ void cPlansza::_Dzialaj(int value)
 
 	if (value == TIMER_KAMERA_PRZESUN_X)
 	{
-		if (abs(kamera.x - kamera.xCel) > 0.05)
+		if (abs(kamera.x - kamera.xCel) > kamera.zakres/350.0)
 		{
 			glutTimerFunc(20, Dzialaj, TIMER_KAMERA_PRZESUN_X);
 			kamera.x += (kamera.xCel - kamera.x) / 35.0;
@@ -87,12 +90,13 @@ void cPlansza::_Dzialaj(int value)
 		else
 		{
 			kamera.x = kamera.xCel;
+			OdswiezKamere();
 		}
 	}
 
 	if (value == TIMER_KAMERA_PRZESUN_Y)
 	{
-		if (abs(kamera.y - kamera.yCel) > 0.05)
+		if (abs(kamera.y - kamera.yCel) > kamera.zakres/350.0)
 		{
 			glutTimerFunc(20, Dzialaj, TIMER_KAMERA_PRZESUN_Y);
 			kamera.y += (kamera.yCel - kamera.y) / 35.0;
@@ -101,6 +105,7 @@ void cPlansza::_Dzialaj(int value)
 		else
 		{
 			kamera.y = kamera.yCel;
+			OdswiezKamere();
 		}
 	}		
 
@@ -149,13 +154,24 @@ void cPlansza::_Dzialaj(int value)
 
 	if (value == TIMER_20)
 	{
-		//for (int i = 0; i < tabGraczy.size(); i++)
+		for (int i = 0; i < tabGraczy.size(); i++)
 		{
-			tabGraczy[0]->Dzialaj();
+			tabGraczy[i]->Dzialaj();
 		}
 		glutTimerFunc(20, Dzialaj, TIMER_20);
 	}
 
+	if (value == TIMER_500)
+	{
+		AktualizujRamke();
+		glutTimerFunc(500, Dzialaj, TIMER_500);
+	}
+
+	if (value == TIMER_100)
+	{
+		FocusujKamere();
+		glutTimerFunc(100, Dzialaj, TIMER_100);
+	}
 
 
 
@@ -181,11 +197,11 @@ void cPlansza::_Klawiatura(unsigned char key, int x, int y)
 		break;
 
 	case 'a':
-		tabGraczy[0]->PrzyspieszajBohatera(-KROK_PRZYSPIESZANIA_BOHATERA, 0);
+		tabGraczy[wybranyGracz]->PrzyspieszajBohatera(-KROK_PRZYSPIESZANIA_BOHATERA, 0);
 		break;
 
 	case 'd':
-		tabGraczy[0]->PrzyspieszajBohatera(KROK_PRZYSPIESZANIA_BOHATERA, 0);
+		tabGraczy[wybranyGracz]->PrzyspieszajBohatera(KROK_PRZYSPIESZANIA_BOHATERA, 0);
 		break;
 	case '-':
 		kamera.zakresCel *= SZYBKOSC_SCROLLOWANIA;
@@ -199,15 +215,23 @@ void cPlansza::_Klawiatura(unsigned char key, int x, int y)
 		break;
 
 	case 'o':
-		tabGraczy[0]->DodajStworka(-900, LISTA_STWOREK_KULA);
+		tabGraczy[wybranyGracz]->DodajStworka(-900+1800*wybranyGracz, LISTA_STWOREK_KULA);
 		break;
 	case 'p':
-		tabGraczy[0]->DodajStworka(-900, LISTA_STWOREK_KWADRAT);
+		tabGraczy[wybranyGracz]->DodajStworka(-900+1800*wybranyGracz, LISTA_STWOREK_KWADRAT);
 		break;
+	case 'x':
+		wybranyGracz = !wybranyGracz;
+		break;
+	case 'q':
+		int a = 32;
 
+		int b = a;
+		break;
 
 
 	}
+
 }
 
 void cPlansza::_ZmianaRozmiaruOkna(int width, int height)
@@ -245,7 +269,8 @@ void cPlansza::_MyszKlawisz(int button, int state, int x, int y)
 			float px = ((float) x / rozmiarOkna.x * 2 * kamera.zakres - kamera.zakres) * rozmiarOkna.proporcja + kamera.x;
 			float py = - ((float) y / rozmiarOkna.y * 2 * kamera.zakres - kamera.zakres) + kamera.y;
 
-			ramkaOpisu.czyWidoczna = tabGraczy[0]->WybierzJednostke(px, py);
+			czyFocusowac = 1;
+			ramkaOpisu.czyWidoczna = tabGraczy[wybranyGracz]->WybierzJednostke(px, py);
 		}
 	}
 
@@ -354,6 +379,16 @@ void cPlansza::PrzesunKamere(float dx, float dy)
 		if (kamera.xCel > KAMERA_MAX_POLOZENIE_X) kamera.xCel = KAMERA_MAX_POLOZENIE_X;
 		glutTimerFunc(20, Dzialaj, TIMER_KAMERA_PRZESUN_X);
 	}
+}
+
+void cPlansza::AktualizujRamke()
+{
+	tabGraczy[wybranyGracz]->AktualizujRamke();
+}
+
+void cPlansza::FocusujKamere()
+{
+	if (czyFocusowac) tabGraczy[wybranyGracz]->FocusujKamere();
 }
 
 void cPlansza::WczytajTeren()
@@ -730,15 +765,19 @@ void cPlansza::_KlawiszeSpecjalne(int key, int x, int y)
 	{
 	case GLUT_KEY_UP:
 		PrzesunKamere(0, przesu);
+		czyFocusowac = 0;
 		break;	
 	case GLUT_KEY_DOWN:
 		PrzesunKamere(0, -przesu);
+		czyFocusowac = 0;
 		break;
 	case GLUT_KEY_LEFT:
 		PrzesunKamere(przesu, 0);
+		czyFocusowac = 0;
 		break;
 	case GLUT_KEY_RIGHT:
 		PrzesunKamere(-przesu, 0);
+		czyFocusowac = 0;
 		break;
 	}
 }

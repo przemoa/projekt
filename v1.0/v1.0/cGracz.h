@@ -12,23 +12,27 @@ public:
 	cGracz(float _x, float _y, int _wlascicel);
 	
 	sKOLOR kolor;
-	int wlascicel;		// 1 w prawo (gracz1), -1 w lewo (gracz2)
+	int wlasciciel;		// 1 w prawo (gracz1), -1 w lewo (gracz2)
 
 	float x;
 	float y;
 
+	float zloto;
+
 	vector < cBohater* > tabBohaterow;
-	vector < cZamek* > tabZamkow;
+	cZamek* zamek;
 	vector < cStworek* > tabStworkow;
 
 	void Dzialaj();			// wywolywana timerem co 20ms
 	void DodajBohatera(float _x, float _y);
 	void PrzyspieszajBohatera(float dVx, float dVy);
 	void Rysuj();
+	void AktualizujRamke();
+	void FocusujKamere();
 
 	int wybranyBohater;
+	int idWybrane;
 
-	void DodajZamek(float _x, float _y);
 	void DodajStworka(float _x, int _typStworka);
 	bool WybierzJednostke(float px, float py);
 

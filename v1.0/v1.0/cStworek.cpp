@@ -66,12 +66,11 @@ void cStworek::Ruszaj()
 	{
 		dx = wlasciciel * predkosc;
 	}
-	else
+	else if (typStworka == LISTA_STWOREK_KULA)
 	{
 		dx = Plansza->tabPol[xTab-30] - Plansza->tabPol[xTab+30];
 
-		dx = predkosc + 10*dx;				// todo
-		dx *= wlasciciel;
+		dx = wlasciciel*predkosc + 10*dx;				// todo
 
 		switch (wlasciciel)
 		{ 

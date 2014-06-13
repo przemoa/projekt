@@ -11,8 +11,3 @@ cJednostka::cJednostka(void)
 cJednostka::~cJednostka(void)
 {
 }
-
-int cJednostka::GetId()
-{
-	return id;
-}
