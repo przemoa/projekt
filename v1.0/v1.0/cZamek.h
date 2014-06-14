@@ -12,6 +12,9 @@ struct sWIEZA
 	float zasieg;
 	int szybkoscAtaku;
 	int level;
+
+	float x;
+	float y;
 	
 };
 	//	TEKSTURA_WIEZA1	: luk, srednioszybka, male obrazenia, sredni zasieg
@@ -39,9 +42,14 @@ public:
 
 	float wydobycie;		// pozyskiwane zloto na sekunde
 	int wybranaWiez;
+	int typWybranejWiezy;
 
 	void Awansuj();
 
+	int dodawanaWieza;
+
+	void AwansujWieze();
+	int SprzedajWieze();
 	//x;	 srodek zamq
 	//y;	 spod zamq
 

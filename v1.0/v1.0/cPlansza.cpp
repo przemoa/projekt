@@ -318,6 +318,8 @@ void cPlansza::WykonajAkcje(int menu)
 	float zloto = tabGraczy[wybranyGracz]->zloto;
 	cGracz* gracz = tabGraczy[wybranyGracz];
 
+	int cenyWiez[8] = {300, 200, 450, 1200, 250, 800, 600, 0}; 
+
 	switch (ramkaOpisu.rodzajMenu)
 	{
 		case TEKSTURA_MENU_ZAMEK:
@@ -344,10 +346,11 @@ void cPlansza::WykonajAkcje(int menu)
 					gracz->tabBohaterow[gracz->wybranyBohater]->ZwiekszMoc();
 			break;
 		case TEKSTURA_MENU_WIEZA:
-			if (menu == 1) sprintf(ramkaOpisu.tekstPomocy, "Awansuj o jeden poziom (100$)");
-			if (menu == 2) sprintf(ramkaOpisu.tekstPomocy, "Sprzedaj");
-			if (menu == 3) sprintf(ramkaOpisu.tekstPomocy, "Zbuduj Bohatera");
-			if (menu == 4) sprintf(ramkaOpisu.tekstPomocy, "Zbuduj Stworka");
+			if (menu == 1)
+				if (gracz->ZaplacZlotem((int) (cenyWiez[tabGraczy[wybranyGracz]->zamek->typWybranejWiezy-11]/2.0)))
+					gracz->zamek->AwansujWieze();
+			if (menu == 2)
+				gracz->ZaplacZlotem(gracz->zamek->SprzedajWieze());
 			break;
 
 		case TEKSTURA_MENU_STWOREK:
@@ -363,8 +366,29 @@ void cPlansza::WykonajAkcje(int menu)
 
 		case TEKSTURA_MENU_BUDOWA_STWORKA:
 			if (gracz->ZaplacZlotem((menu == 1 ? 30 : (menu == 2 ? 35 : (menu == 3 ? 80 : 220)))))
-					gracz->DodajStworka(gracz->x, menu+LISTA_STWOREK_KULA);
+					gracz->DodajStworka(gracz->x, menu+LISTA_STWOREK_KULA-1);
 			break;
+			
+		case TEKSTURA_MENU_BUDOWA_WIEZY:
+			if (menu > 7) break;
+			if (gracz->ZaplacZlotem(cenyWiez[menu-1]))
+			{
+				gracz->ZaplacZlotem(-cenyWiez[menu-1]);
+				gracz->zamek->dodawanaWieza = menu;
+				ramkaOpisu.rodzajMenu = TEKSTURA_WYBOR_MIEJSCA;
+			}
+			break;
+
+		case TEKSTURA_WYBOR_MIEJSCA:
+			if (menu > 3) break;
+			if (gracz->ZaplacZlotem(cenyWiez[gracz->zamek->dodawanaWieza-1]))
+			{
+				gracz->zamek->DodajWieze(gracz->zamek->dodawanaWieza + 10, menu*100);
+				ramkaOpisu.rodzajMenu = TEKSTURA_MENU_ZAMEK;
+			}
+			break;			
+
+
 		}
 }
 
@@ -373,10 +397,13 @@ void cPlansza::TekstPomocy()
 	int menu = KliknieteMenu(mysz.x, mysz.y);
 	if (ramkaOpisu.czyWidoczna && menu && ramkaOpisu.rodzajMenu)
 	{
+		
+		int cenyWiez[8] = {300, 200, 450, 1200, 250, 800, 600, 0}; 
+
 		switch (ramkaOpisu.rodzajMenu)
 		{
 		case TEKSTURA_MENU_ZAMEK:
-			if (menu == 1) sprintf(ramkaOpisu.tekstPomocy, "Ulepsz Zamek (500$)");
+			if (menu == 1) sprintf(ramkaOpisu.tekstPomocy, "Ulepsz Zamek (800$)");
 			if (menu == 2) sprintf(ramkaOpisu.tekstPomocy, "Zbuduj Wieze");
 			if (menu == 3) sprintf(ramkaOpisu.tekstPomocy, "Zbuduj Bohatera");
 			if (menu == 4) sprintf(ramkaOpisu.tekstPomocy, "Zbuduj Stworka");
@@ -388,8 +415,8 @@ void cPlansza::TekstPomocy()
 			if (menu == 4) sprintf(ramkaOpisu.tekstPomocy, "");
 			break;
 		case TEKSTURA_MENU_WIEZA:
-			if (menu == 1) sprintf(ramkaOpisu.tekstPomocy, "Awansuj o jeden poziom (100$)");
-			if (menu == 2) sprintf(ramkaOpisu.tekstPomocy, "Sprzedaj");
+			if (menu == 1) sprintf(ramkaOpisu.tekstPomocy, "Awansuj o jeden poziom (%d$)", (int) (cenyWiez[tabGraczy[wybranyGracz]->zamek->typWybranejWiezy-11]/3.0));
+			if (menu == 2) sprintf(ramkaOpisu.tekstPomocy, "Sprzedaj (zrot czesci $)");
 			if (menu == 3) sprintf(ramkaOpisu.tekstPomocy, "");
 			if (menu == 4) sprintf(ramkaOpisu.tekstPomocy, "");
 			break;
@@ -414,6 +441,21 @@ void cPlansza::TekstPomocy()
 			if (menu == 3) sprintf(ramkaOpisu.tekstPomocy, "");
 			if (menu == 4) sprintf(ramkaOpisu.tekstPomocy, "");
 			break;
+		case TEKSTURA_MENU_BUDOWA_WIEZY:
+			if (menu == 1) sprintf(ramkaOpisu.tekstPomocy, "Wieza lucznicza (%d$)", cenyWiez[menu-1]);
+			if (menu == 2) sprintf(ramkaOpisu.tekstPomocy, "Wieza kamienna (%d$)", cenyWiez[menu-1]);
+			if (menu == 3) sprintf(ramkaOpisu.tekstPomocy, "Wieza strzelecka (%d$)", cenyWiez[menu-1]);
+			if (menu == 4) sprintf(ramkaOpisu.tekstPomocy, "Wieza laser-zaglady (%d$)", cenyWiez[menu-1]);
+			if (menu == 5) sprintf(ramkaOpisu.tekstPomocy, "Wieza ogniomiotna (%d$)", cenyWiez[menu-1]);
+			if (menu == 6) sprintf(ramkaOpisu.tekstPomocy, "Wieza wydobywajaca zloto (%d$)", cenyWiez[menu-1]);
+			if (menu == 7) sprintf(ramkaOpisu.tekstPomocy, "Wieza uzdrowiciela (%d$)", cenyWiez[menu-1]);
+			break;
+
+		case TEKSTURA_WYBOR_MIEJSCA:
+			if (menu == 1) sprintf(ramkaOpisu.tekstPomocy, "Wybuduj po lewej");
+			if (menu == 2) sprintf(ramkaOpisu.tekstPomocy, "Wybuduj po srodku");
+			if (menu == 3) sprintf(ramkaOpisu.tekstPomocy, "Wybuduj po prawej");
+			break;			
 		}
 	}
 	else ramkaOpisu.tekstPomocy[0] = 0;
@@ -430,7 +472,13 @@ int cPlansza::KliknieteMenu(int px, int py)
 
 	if (abs(lx-33.5) < 2.5 && abs(ly-5.5)<2.5) wynik=4;
 	if (abs(lx-33.5) < 2.5 && abs(ly-11.5)<2.5) wynik=2;
-	cout << wynik;
+
+	if (abs(lx-39.5) < 2.5 && abs(ly-5.5)<2.5) wynik=7;
+	if (abs(lx-39.5) < 2.5 && abs(ly-11.5)<2.5) wynik=5;
+
+	if (abs(lx-45.5) < 2.5 && abs(ly-5.5)<2.5) wynik=8;
+	if (abs(lx-45.5) < 2.5 && abs(ly-11.5)<2.5) wynik=6;
+
 	return wynik;
 }
 
@@ -905,8 +953,10 @@ void cPlansza::TworzTekstury()
 	SOIL_load_OGL_texture("tx\\menu_stworek.png", SOIL_LOAD_AUTO, TEKSTURA_MENU_STWOREK, SOIL_FLAG_INVERT_Y);
 
 	SOIL_load_OGL_texture("tx\\menu_budowa_bohatera.png", SOIL_LOAD_AUTO, TEKSTURA_MENU_BUDOWA_BOHATERA, SOIL_FLAG_INVERT_Y);
-	SOIL_load_OGL_texture("tx\\menu_budowa_stworka.png", SOIL_LOAD_AUTO, TEKSTURA_MENU_BUDOWA_STWORKA, SOIL_FLAG_INVERT_Y);
+	SOIL_load_OGL_texture("tx\\menu_budowa_wiezy.png", SOIL_LOAD_AUTO, TEKSTURA_MENU_BUDOWA_WIEZY, SOIL_FLAG_INVERT_Y);
 
+	SOIL_load_OGL_texture("tx\\menu_budowa_stworka.png", SOIL_LOAD_AUTO, TEKSTURA_MENU_BUDOWA_STWORKA, SOIL_FLAG_INVERT_Y);
+	SOIL_load_OGL_texture("tx\\menu_wybor_miejsca.png", SOIL_LOAD_AUTO, TEKSTURA_WYBOR_MIEJSCA, SOIL_FLAG_INVERT_Y);
 
 }
 

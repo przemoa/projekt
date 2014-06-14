@@ -29,13 +29,13 @@ cZamek::cZamek(float _x, float _y, int _wlasciciel)
 	DodajWieze(13, 300);
 	DodajWieze(14, 300);
 	DodajWieze(15, 300);
-	DodajWieze(16, 100);
+	DodajWieze(17, 100);
 	DodajWieze(16, 200);
 
 
 	mnoznikZycia = 15;
 	wydobycie = 10;
-
+	dodawanaWieza = 0;
 }
 
 void cZamek::DodajWieze(int _typWiezy, int pozycja)
@@ -55,6 +55,8 @@ void cZamek::DodajWieze(int _typWiezy, int pozycja)
 	nowaWieza.typWiezy = _typWiezy;
 	nowaWieza.level = 1;
 	nowaWieza.czyAtakuje = true;
+	nowaWieza.x = x + (pozycja/100 -2) * rozmiarWiezy * 3;
+	nowaWieza.y = y + 1.2*rozmiar + (pozycja%100) * wysokoscWiezy;
 
 	switch (_typWiezy)
 	{
@@ -134,6 +136,8 @@ void cZamek::Rysuj()
 	glPopMatrix();
 
 	RysujPasekZycia();
+
+
 }
 
 void cZamek::RysujPasekZycia()
@@ -177,6 +181,7 @@ bool cZamek::CzyKliknieto(float px, float py)
 		if (tabWiez[i].pozycja == kliknietaWieza)
 		{
 			wybranaWiez = kliknietaWieza;
+			typWybranejWiezy = tabWiez[i].typWiezy;
 			return true;
 		}
 	}
@@ -281,7 +286,7 @@ void cZamek::Atakuj()
 
 void cZamek::Awansuj()
 {
-	rozmiar += 2;
+	rozmiar += 1;
 	rozmiarWiezy = rozmiar/4.2;
 	wysokoscWiezy = 3*rozmiarWiezy;
 
@@ -290,4 +295,81 @@ void cZamek::Awansuj()
 
 	mnoznikZycia += 1;
 	wydobycie += 1;
+
+	for (int i = 0; i < tabWiez.size(); i++)
+	{
+		tabWiez[i].x = x + (tabWiez[i].pozycja/100 -2) * rozmiarWiezy * 3;
+		tabWiez[i].y = y + 1.2*rozmiar + (tabWiez[i].pozycja%100) * wysokoscWiezy;
+	}
+}
+
+void cZamek::AwansujWieze()
+{
+	for (int i = 0; i < tabWiez.size(); i++)
+	{
+		if (tabWiez[i].pozycja == wybranaWiez)
+		{
+			switch (tabWiez[i].typWiezy)
+			{
+			case TEKSTURA_WIEZA1:		// luk, srednioszybka, male obrazenia, sredni zasieg
+				tabWiez[i].obrazenia += 4;
+				tabWiez[i].zasieg += 20;
+				tabWiez[i].szybkoscAtaku += 6;
+				break;
+			case TEKSTURA_WIEZA2:		// kamien, malas szybkosc, srednie obrazenia, maly zasieg
+				tabWiez[i].obrazenia += 6;
+				tabWiez[i].zasieg += 12;
+				tabWiez[i].szybkoscAtaku += 4;
+				break;
+			case TEKSTURA_WIEZA3:		// pocisk, srednia szybkosc, srednie obrazenia, sredni zasieg
+				tabWiez[i].obrazenia += 6;
+				tabWiez[i].zasieg += 25;
+				tabWiez[i].szybkoscAtaku += 6;
+				break;
+			case TEKSTURA_WIEZA4:		// laser, malas szybkosc, duze obrazenia, duzy zasieg
+				tabWiez[i].obrazenia += 15;
+				tabWiez[i].zasieg += 35;
+				tabWiez[i].szybkoscAtaku += 2;
+				break;
+			case TEKSTURA_WIEZA5:		// ogien, mala szybkosc, duze obrazenia, maly zasieg
+				tabWiez[i].obrazenia += 6;
+				tabWiez[i].zasieg += 10;
+				tabWiez[i].szybkoscAtaku += 5;
+				break;
+			case TEKSTURA_WIEZA6:		// produkuje zloto
+				tabWiez[i].obrazenia += 2;
+				break;
+			case TEKSTURA_WIEZA7:		// leczy zamek
+				tabWiez[i].obrazenia += 2;
+				break;
+			}
+		}
+	}
+}
+
+int cZamek::SprzedajWieze()
+{
+
+	int maxPozycja = 0;
+	int nrDoUsuniecia;
+	for (int i = 0; i < tabWiez.size(); i++)
+	{
+		if (tabWiez[i].pozycja/100 == wybranaWiez/100  &&  maxPozycja < tabWiez[i].pozycja)
+			maxPozycja = tabWiez[i].pozycja;
+
+		if (tabWiez[i].pozycja == wybranaWiez)
+		{
+			nrDoUsuniecia = i;
+		}
+	}
+
+	if (tabWiez[nrDoUsuniecia].pozycja == maxPozycja)
+	{
+		int poziom = tabWiez[nrDoUsuniecia].level;
+		tabWiez.erase(tabWiez.begin() + nrDoUsuniecia);
+		wybranaWiez = 0;
+		Plansza->ramkaOpisu.rodzajMenu = TEKSTURA_MENU_ZAMEK;
+		return (-100*poziom); 
+	}
+	return 0;
 }

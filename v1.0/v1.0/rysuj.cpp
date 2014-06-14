@@ -89,6 +89,8 @@ void cPlansza::_Przerysuj(void)
 		}
 
 
+
+
 		RysujRamkeOpisu();
 
 	glPopMatrix();
@@ -505,7 +507,7 @@ void cPlansza::RysujRamkeOpisu()
 			glEnd();
 			glDisable(GL_TEXTURE_2D);
 				// IKONA menu
-				if (ramkaOpisu.rodzajMenu)
+				if (ramkaOpisu.rodzajMenu && ramkaOpisu.rodzajMenu != TEKSTURA_MENU_BUDOWA_WIEZY)
 				{
 					glBindTexture(GL_TEXTURE_2D, ramkaOpisu.rodzajMenu);			
 					glEnable(GL_TEXTURE_2D);
@@ -518,6 +520,22 @@ void cPlansza::RysujRamkeOpisu()
 					glEnd();
 					glDisable(GL_TEXTURE_2D);
 				}
+				if (ramkaOpisu.rodzajMenu == TEKSTURA_MENU_BUDOWA_WIEZY)
+				{
+					glBindTexture(GL_TEXTURE_2D, ramkaOpisu.rodzajMenu);			
+					glEnable(GL_TEXTURE_2D);
+					glColor4f(1, 1, 1, 0.9);
+					glBegin(GL_QUADS);
+						glTexCoord2f(0.0f, 0.0f); glVertex2f(25, 3);
+						glTexCoord2f(1.0f, 0.0f); glVertex2f(48, 3);
+						glTexCoord2f(1.0f, 1.0f); glVertex2f(48,  14);
+						glTexCoord2f(0.0f, 1.0f); glVertex2f(25,  14);
+					glEnd();
+					glDisable(GL_TEXTURE_2D);
+				}
+
+
+
 
 				// PASEK ZYCIA
 				glPushMatrix();
