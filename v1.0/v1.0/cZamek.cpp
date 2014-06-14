@@ -31,10 +31,16 @@ cZamek::cZamek(float _x, float _y, int _wlasciciel)
 	DodajWieze(15, 300);
 	DodajWieze(13, 100);
 	DodajWieze(14, 200);
+
+
+	mnoznikZycia = 15;
+	wydobycie = 10;
+
 }
 
 void cZamek::DodajWieze(int _typWiezy, int pozycja)
 {
+
 	sWIEZA nowaWieza;
 	for (int i = 0; i < tabWiez.size(); i++)
 	{
@@ -48,9 +54,35 @@ void cZamek::DodajWieze(int _typWiezy, int pozycja)
 	nowaWieza.pozycja = pozycja;
 	nowaWieza.typWiezy = _typWiezy;
 	nowaWieza.level = 1;
-	nowaWieza.doswiadczenie = 0;
-	nowaWieza.poziomZycia = 100;
-	nowaWieza.szybkoscAtaku = 5;
+
+	switch (_typWiezy)
+	{
+	case TEKSTURA_WIEZA1:		// luk, srednioszybka, male obrazenia, sredni zasieg
+		nowaWieza.obrazenia = 15;
+		nowaWieza.zasieg = 150;
+		nowaWieza.szybkoscAtaku = 35;
+		break;
+	case TEKSTURA_WIEZA2:		// kamien, malas szybkosc, srednie obrazenia, maly zasieg
+		nowaWieza.obrazenia = 25;
+		nowaWieza.zasieg = 100;
+		nowaWieza.szybkoscAtaku = 20;
+		break;
+	case TEKSTURA_WIEZA3:		// pocisk, srednia szybkosc, srednie obrazenia, sredni zasieg
+		nowaWieza.obrazenia = 35;
+		nowaWieza.zasieg = 250;
+		nowaWieza.szybkoscAtaku = 35;
+		break;
+	case TEKSTURA_WIEZA4:		// laser, malas szybkosc, duze obrazenia, duzy zasieg
+		nowaWieza.obrazenia = 95;
+		nowaWieza.zasieg = 350;
+		nowaWieza.szybkoscAtaku = 10;
+		break;
+	case TEKSTURA_WIEZA5:		// ogien, mala szybkosc, duze obrazenia, maly zasieg
+		nowaWieza.obrazenia = 40;
+		nowaWieza.zasieg = 80;
+		nowaWieza.szybkoscAtaku = 20;
+		break;
+	}
 
 	tabWiez.insert(tabWiez.begin(), nowaWieza);
 
@@ -168,20 +200,21 @@ void cZamek::AktualizujRamke()
 		Plansza->ramkaOpisu.id = id;
 		Plansza->ramkaOpisu.typ = WIEZA;
 		Plansza->ramkaOpisu.ikona = tabWiez[nrWiezy].typWiezy + 100;	// nr tekstury + 100 daje nr ikony wiezy
-		Plansza->ramkaOpisu.poziomZycia = tabWiez[nrWiezy].poziomZycia;
+		Plansza->ramkaOpisu.poziomZycia = poziomZycia;
+
+		sprintf(Plansza->ramkaOpisu.tekstId, "%d", id);
 
 		stringstream ssNazwa;
-		ssNazwa << "Wieza zamku (id " << id << ")";
+		ssNazwa << "Wieza zamku";
 		Plansza->ramkaOpisu.nazwa = ssNazwa.str();
 
 		stringstream ssOpis;
-		ssOpis	<< "Poziom zycia:  " << (int) poziomZycia << endl
-				<< "Typ Wiezy:      " << (int) tabWiez[nrWiezy].typWiezy << endl
+		ssOpis	<< "Typ Wiezy:      " << (int) tabWiez[nrWiezy].typWiezy << endl
 				<< "Pozycja:      " << (int) tabWiez[nrWiezy].pozycja << endl
+				<< "Level:      " << (int) tabWiez[nrWiezy].level  << endl
 				<< "Obrazenia:      " << (int) tabWiez[nrWiezy].obrazenia << endl
-				<< "Szybkosc ataku:   " << (int) tabWiez[nrWiezy].szybkoscAtaku << endl
 				<< "Zasieg:      " << (int) tabWiez[nrWiezy].zasieg << endl
-				<< "Level:      " << (int) tabWiez[nrWiezy].level << " (" << tabWiez[nrWiezy].doswiadczenie << "/10)" << endl;
+				<< "Szybkosc ataku:   " << (int) tabWiez[nrWiezy].szybkoscAtaku << endl;
 				
 
 		Plansza->ramkaOpisu.opis = ssOpis.str();
@@ -197,15 +230,18 @@ void cZamek::AktualizujRamke()
 		Plansza->ramkaOpisu.poziomZycia = poziomZycia;
 
 		stringstream ssNazwa;
-		ssNazwa << "ZAMEK (id " << id << ")";
+		ssNazwa << "ZAMEK";
 		Plansza->ramkaOpisu.nazwa = ssNazwa.str();
+		
+		sprintf(Plansza->ramkaOpisu.tekstId, "%d", id);
 
 		stringstream ssOpis;
-		ssOpis	<< "Poziom zycia:  " << (int) poziomZycia << endl
-				<< "Rozmiar:      " << (int) rozmiar << endl
-				<< "to jest se zamek" << endl
-				<< "ladny zamek" << endl
-				<< "nawet bardzo";
+		ssOpis	<< "To jest Zamek, strzez go!" << endl
+				<< "Poziom zycia:  " << (int) poziomZycia*mnoznikZycia << endl
+				<< "Level:    " << (int) level << " (" << doswiadczenie << "/25)" << endl
+				<< "Wdobycie zlota: " << (int) wydobycie << endl
+				<< "Ilosc wiez: " << tabWiez.size();
+
 		Plansza->ramkaOpisu.opis = ssOpis.str();
 		Plansza->ramkaOpisu.rodzajMenu = TEKSTURA_MENU_ZAMEK;
 	}

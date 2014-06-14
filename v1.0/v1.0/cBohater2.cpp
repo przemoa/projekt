@@ -21,14 +21,18 @@ cBohater2::cBohater2(float _x, float _y, int _wlascicel)
 	yCel = y;
 	VyCel = Vy;
 	odbity = false;
+
+
 	mocSilnika = 5;
 	energia = 0;
 	kierunek = 1;
 	rozmiar = 2;
-	level = 1;
-	doswiadczenie = 0;
+
 	mnoznikZycia = 5.5;
 	poziomZycia = 100;
+	zasieg = 250;
+	obrazenia = 25;
+	szybkoscAtaku = 15; 
 }
 
 
@@ -211,15 +215,18 @@ void cBohater2::AktualizujRamke()
 	Plansza->ramkaOpisu.poziomZycia = poziomZycia;
 
 	stringstream ssNazwa;
-	ssNazwa << "BOHATER 1 " << "  (id " << id << ")";
+	ssNazwa << "BOHATER 2 " << "  (id " << id << ")";
 	Plansza->ramkaOpisu.nazwa = ssNazwa.str();
+
+	sprintf(Plansza->ramkaOpisu.tekstId, "%d", id);
 
 	stringstream ssOpis;
 	ssOpis	<< "Poziom zycia:  " << (int) (mnoznikZycia*poziomZycia) << endl
+			<< "Level:    " << (int) level << " (" << doswiadczenie << "/5)" << endl
 			<< "Obrazenia:   " << (int) obrazenia << endl
 			<< "Zasieg:    " << (int) zasieg << endl
+			<< "Szybkosc ataku: " << szybkoscAtaku << endl
 			<< "Moc Silnika:    " << (int) mocSilnika << endl
-			<< "Level:    " << (int) level << " (" << doswiadczenie << "/5)" << endl
 			<< "Energia:   " << energia ;
 	Plansza->ramkaOpisu.opis = ssOpis.str();
 	Plansza->ramkaOpisu.rodzajMenu = TEKSTURA_MENU_BOHATER;

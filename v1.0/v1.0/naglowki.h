@@ -166,6 +166,7 @@ struct sRAMKAOPISU
 	int ikona;		// nr tesktury
 
 	int id;
+	char tekstId[5];
 	string nazwa;
 	float poziomZycia;
 	bool czyWidoczna;

@@ -12,7 +12,6 @@ cStworek::cStworek(float _x, float _z, int _typStworka, int _wlasciciel)
 	wlasciciel = _wlasciciel;
 	rozmiar = 3;	
 	typStworka = _typStworka;
-	poziomZycia = 100;
 	kolor.r = 1;
 	kolor.g = 0;
 	kolor.b = 0;
@@ -24,10 +23,18 @@ cStworek::cStworek(float _x, float _z, int _typStworka, int _wlasciciel)
 	case LISTA_STWOREK_KULA:
 		wysokosc = ROMIAR_STWORKA_KULA;
 		predkosc = 50;
+		mnoznikZycia = 0.6;
+		zasieg = 35;
+		obrazenia = 12;
+		szybkoscAtaku = 40;
 		break;
 	case LISTA_STWOREK_KWADRAT:
 		wysokosc = 35;
 		predkosc = 30;
+		mnoznikZycia = 0.4;
+		zasieg = 55;
+		obrazenia = 15;
+		szybkoscAtaku = 15; 
 		break;
 	}
 
@@ -135,11 +142,14 @@ void cStworek::AktualizujRamke()
 	ssNazwa << "STWOREK " << (typStworka - 120) << "  (id " << id << ")";
 	Plansza->ramkaOpisu.nazwa = ssNazwa.str();
 
+	sprintf(Plansza->ramkaOpisu.tekstId, "%d", id);
+
 	stringstream ssOpis;
-	ssOpis	<< "Poziom zycia:  " << (int) poziomZycia << endl
-			<< "Rozmiar:      " << (int) rozmiar << endl
+	ssOpis	<< "Poziom zycia:  " << (int) mnoznikZycia * poziomZycia << endl
+			<< "Level:    " << (int) level << " (" << doswiadczenie << "/5)" << endl
 			<< "Obrazenia:   " << (int) obrazenia<< endl
 			<< "Zasieg:    " << (int) zasieg << endl
+			<< "Szybkosc ataku: " << szybkoscAtaku << endl
 			<< "Predkosc:   " << predkosc ;
 	Plansza->ramkaOpisu.opis = ssOpis.str();
 	Plansza->ramkaOpisu.rodzajMenu = 0;

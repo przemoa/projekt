@@ -9,11 +9,16 @@ struct sWIEZA
 	int pozycja;			// 100*kolumna + wiersz, liczac od lewej dolnej strony
 	float obrazenia;
 	float zasieg;
-	float poziomZycia;
-	int doswiadczenie;
-	int level;
 	int szybkoscAtaku;
+
+	int level;
+	
 };
+	//	TEKSTURA_WIEZA1	: luk, srednioszybka, male obrazenia, sredni zasieg
+	//	TEKSTURA_WIEZA2	: kamien, malas szybkosc, srednie obrazenia, maly zasieg
+	//	TEKSTURA_WIEZA3	: pocisk, srednia szybkosc, srednie obrazenia, sredni zasieg
+	//	TEKSTURA_WIEZA4	: laser, malas szybkosc, duze obrazenia, duzy zasieg
+	//	TEKSTURA_WIEZA5	: ogien, mala szybkosc, duze obrazenia, maly zasieg
 
 
 class cZamek : public cJednostka
@@ -31,6 +36,7 @@ public:
 	float rozmiarWiezy;
 	float wysokoscWiezy;
 
+	float wydobycie;		// pozyskiwane zloto na sekunde
 	int wybranaWiez;
 
 	//x;	 srodek zamq

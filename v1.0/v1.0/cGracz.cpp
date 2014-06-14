@@ -85,7 +85,7 @@ void cGracz::FocusujKamere()
 			float odlegloscY = tabBohaterow[i]->GetY()-Plansza->kamera.yCel + Plansza->kamera.zakres/3.0;
 
 			if (abs(odlegloscX) > Plansza->kamera.zakres)
-				Plansza->PrzesunKamere(odlegloscX, 0);
+				Plansza->PrzesunKamere(1.3*odlegloscX, 0);
 			if (abs(odlegloscY) > Plansza->kamera.zakres / 2.0)
 				Plansza->PrzesunKamere(0, odlegloscY);
 
@@ -97,7 +97,13 @@ void cGracz::FocusujKamere()
 
 		if (tabStworkow[i]->GetId() == idWybrane)			
 		{
-			Plansza->PrzesunKamere(-tabStworkow[i]->GetX()+Plansza->kamera.xCel, tabStworkow[i]->GetY()-Plansza->kamera.yCel + Plansza->kamera.zakres/3.0 );
+			float odlegloscX = -tabStworkow[i]->GetX()+Plansza->kamera.xCel;
+			float odlegloscY = tabStworkow[i]->GetY()-Plansza->kamera.yCel + Plansza->kamera.zakres/3.0;
+
+			if (abs(odlegloscX) > Plansza->kamera.zakres)
+				Plansza->PrzesunKamere(1.3*odlegloscX, 0);
+			if (abs(odlegloscY) > Plansza->kamera.zakres / 2.0)
+				Plansza->PrzesunKamere(0, odlegloscY);
 		}
 	}
 

@@ -22,10 +22,7 @@ public:
 
 	float wysokosc;			// wysokosc nad poziomem powierzchni
 	int typStworka;			// 
-
-	float obrazenia;
-	float zasieg;
-	float predkosc;
+	float predkosc;			// predkosc ruchu stworka
 
 };
 

@@ -8,16 +8,23 @@ protected:
 	float y;
 	float z;
 
-	float poziomZycia;	// od 0 do 100
-	float mnoznikZycia;	// pomnozony przez poziom zycia daje aktualna liczbe HP
 	float rozmiar;			// promien jednostki
-
 	int wlasciciel;			// 1: gracz 1		-1: gracz 2
-	sKOLOR kolor;
-
 	int id;
+
+
+	float poziomZycia;	// od 0 do 100
 	int level;
 	int doswiadczenie;		// punkty za pokonanie przeciwnikow potrzebne do wzrostu levelu
+
+	float mnoznikZycia;	// pomnozony przez poziom zycia daje aktualna liczbe HP
+	float zasieg;			// zasieg strzalu
+	float obrazenia;		// zadawane obrazenia
+	int szybkoscAtaku;		// szybkosc z jaka atakuje		0.05*x=ilosc strzlow na sekunde
+
+	sKOLOR kolor;
+
+
 
 public:
 	cJednostka(void);

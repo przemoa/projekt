@@ -394,7 +394,7 @@ void cPlansza::RysujRamkeOpisu()
 			glEnd();
 
 
-			// IKONKA
+			// IKONKA jednostki
 			glBindTexture(GL_TEXTURE_2D, ramkaOpisu.ikona);			
 			glEnable(GL_TEXTURE_2D);
 			glColor4f(1, 1, 1, 0.9);
@@ -406,7 +406,7 @@ void cPlansza::RysujRamkeOpisu()
 			glEnd();
 			glDisable(GL_TEXTURE_2D);
 
-			// IKONA BUDOWY
+			// IKONA menu
 			if (ramkaOpisu.rodzajMenu)
 			{
 				glBindTexture(GL_TEXTURE_2D, ramkaOpisu.rodzajMenu);			
@@ -455,8 +455,10 @@ void cPlansza::RysujRamkeOpisu()
 
 			glColor4f(0.4, 0.4, 0.9, 0.7);
 			glLineWidth(1);
-			DrawString(3, 19, (unsigned char*) Plansza->ramkaOpisu.opis.c_str(), 12);
+			DrawString(2, 19, (unsigned char*) Plansza->ramkaOpisu.opis.c_str(), 12);
 
+			glColor4f(0.9, 0.4, 0.4, 0.7);
+			DrawString(2, 2, (const unsigned char*) (Plansza->ramkaOpisu.tekstId), 8);
 
 			glLineWidth(2);
 		glPopMatrix();

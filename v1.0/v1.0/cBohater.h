@@ -15,12 +15,9 @@ public:
 	virtual void Ruszaj() = 0;
 
 	virtual void Przyspieszaj(float dVx, float dVy) = 0;
-	
-
-
 	int kierunek;			// aktualny kierunek ruchu 1 lub -1
 	float mocSilnika;		// moc silnika
-	float zasieg;
-	float obrazenia;
+
+
 };
 
