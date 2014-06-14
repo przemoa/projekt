@@ -14,8 +14,8 @@ cBohater1::~cBohater1(void)
 cBohater1::cBohater1(float _x, float _y, int _wlascicel)
 {
 	wlasciciel = _wlascicel;
-	x = _x;
-	y = _y;
+	xBaz = x = _x;
+	yBaz = y = _y;
 	y = BOHATER_PROMIEN1 + 60;
 	z = 0;
 	Vx = 0;
@@ -366,4 +366,23 @@ void cBohater1::AktualizujRamke()
 }
 void cBohater1::Atakuj()
 {
+}
+
+void cBohater1::Awansuj()
+{
+	mnoznikZycia += 0.25;
+	poziomZycia = 100;
+	zasieg += 10;
+	obrazenia += 2;
+	szybkoscAtaku += 1; 
+}
+void cBohater1::ZwiekszMoc()
+{
+	mocSilnika += 1;
+}
+
+void cBohater1::Teleportuj()
+{
+	x = xBaz;
+	y = yBaz;
 }

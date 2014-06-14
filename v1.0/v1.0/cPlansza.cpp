@@ -38,13 +38,10 @@ cPlansza::cPlansza(void)
 
 	for (int i = 0; i < ILOSC_CHMUR; i++)
 	{
-		sKOLOR kolor;
-		kolor.b = 0.9;
-		kolor.r = 1 - i/20.0;
-		kolor.g = 1;
+
 		tabChmur[i] = new cChmura(((rand()%2) ? TEKSTURA_CHMURA1 : TEKSTURA_CHMURA2), 
-									-1000 + (2000.0 / ILOSC_CHMUR) * i + rand()%50, 80+rand()%50, -12,
-									kolor, 8+rand()%11, rand()%2*180-7+rand()%14, 15+rand()%25);
+									-1600 + (3200.0 / ILOSC_CHMUR) * i + rand()%50, 140+rand()%50,
+									14+rand()%8, rand()%2*180-7+rand()%14, 15+rand()%25);
 	}
 
 	// wczytaj plansze
@@ -55,6 +52,8 @@ cPlansza::cPlansza(void)
 	}
 	WczytajTeren();
 
+	mysz.x = 1;
+	mysz.y = 2;
 }
 
 cPlansza::~cPlansza(void)
@@ -163,6 +162,7 @@ void cPlansza::_Dzialaj(int value)
 
 	if (value == TIMER_500)
 	{
+		TekstPomocy();
 		AktualizujRamke();
 		glutTimerFunc(500, Dzialaj, TIMER_500);
 	}
@@ -223,6 +223,9 @@ void cPlansza::_Klawiatura(unsigned char key, int x, int y)
 	case 'x':
 		wybranyGracz = !wybranyGracz;
 		break;
+	case 'c':
+		tabGraczy[wybranyGracz];
+		break;
 	case 'q':
 		int a = 32;
 
@@ -269,8 +272,16 @@ void cPlansza::_MyszKlawisz(int button, int state, int x, int y)
 			float px = ((float) x / rozmiarOkna.x * 2 * kamera.zakres - kamera.zakres) * rozmiarOkna.proporcja + kamera.x;
 			float py = - ((float) y / rozmiarOkna.y * 2 * kamera.zakres - kamera.zakres) + kamera.y;
 
-			czyFocusowac = 1;
-			ramkaOpisu.czyWidoczna = tabGraczy[wybranyGracz]->WybierzJednostke(px, py);
+			if (ramkaOpisu.czyWidoczna && KliknieteMenu(x, y) && ramkaOpisu.rodzajMenu)
+			{
+				int menu = KliknieteMenu(x, y);
+				WykonajAkcje(menu);
+			}
+			else
+			{
+				czyFocusowac = 1;
+				ramkaOpisu.czyWidoczna = tabGraczy[wybranyGracz]->WybierzJednostke(px, py);
+			}
 		}
 	}
 
@@ -300,14 +311,133 @@ void cPlansza::_MyszKlawisz(int button, int state, int x, int y)
 		glutTimerFunc(20, Dzialaj, TIMER_KAMERA_PRZESUN_X);
 		glutTimerFunc(20, Dzialaj, TIMER_KAMERA_SCROLL);
 	}
+}
 
+void cPlansza::WykonajAkcje(int menu)
+{
+	float zloto = tabGraczy[wybranyGracz]->zloto;
+	cGracz* gracz = tabGraczy[wybranyGracz];
 
+	switch (ramkaOpisu.rodzajMenu)
+	{
+		case TEKSTURA_MENU_ZAMEK:
+			if (menu == 1)
+				if (gracz->ZaplacZlotem(500))
+					gracz->zamek->Awansuj();
+			if (menu == 2) 
+				ramkaOpisu.rodzajMenu = TEKSTURA_MENU_BUDOWA_WIEZY;
+			if (menu == 3)
+				ramkaOpisu.rodzajMenu = TEKSTURA_MENU_BUDOWA_BOHATERA;
+			if (menu == 4)
+				ramkaOpisu.rodzajMenu = TEKSTURA_MENU_BUDOWA_STWORKA;
+			break;
+		case TEKSTURA_MENU_BOHATER:
+			if (menu == 1)
+				if (gracz->ZaplacZlotem(30))
+					gracz->tabBohaterow[gracz->wybranyBohater]->Teleportuj();
+	
+			if (menu == 2)
+				if (gracz->ZaplacZlotem(200))
+					gracz->tabBohaterow[gracz->wybranyBohater]->Awansuj();
 
+			if (menu == 3) if (gracz->ZaplacZlotem(150))
+					gracz->tabBohaterow[gracz->wybranyBohater]->ZwiekszMoc();
+			break;
+		case TEKSTURA_MENU_WIEZA:
+			if (menu == 1) sprintf(ramkaOpisu.tekstPomocy, "Awansuj o jeden poziom (100$)");
+			if (menu == 2) sprintf(ramkaOpisu.tekstPomocy, "Sprzedaj");
+			if (menu == 3) sprintf(ramkaOpisu.tekstPomocy, "Zbuduj Bohatera");
+			if (menu == 4) sprintf(ramkaOpisu.tekstPomocy, "Zbuduj Stworka");
+			break;
 
+		case TEKSTURA_MENU_STWOREK:
+			if (menu == 1) 
+				if (gracz->ZaplacZlotem(400))
+					gracz->AwansujStworki();
+			break;
+
+		case TEKSTURA_MENU_BUDOWA_BOHATERA:
+				if (gracz->ZaplacZlotem((menu == 1 ? 400 : (menu == 2 ? 500 : (menu == 3 ? 900 : 3000)))))
+					gracz->DodajBohatera(gracz->x, gracz->y+100, menu);
+			break;
+
+		case TEKSTURA_MENU_BUDOWA_STWORKA:
+			if (gracz->ZaplacZlotem((menu == 1 ? 30 : (menu == 2 ? 35 : (menu == 3 ? 80 : 220)))))
+					gracz->DodajStworka(gracz->x, menu+LISTA_STWOREK_KULA);
+			break;
+		}
+}
+
+void cPlansza::TekstPomocy()
+{
+	int menu = KliknieteMenu(mysz.x, mysz.y);
+	if (ramkaOpisu.czyWidoczna && menu && ramkaOpisu.rodzajMenu)
+	{
+		switch (ramkaOpisu.rodzajMenu)
+		{
+		case TEKSTURA_MENU_ZAMEK:
+			if (menu == 1) sprintf(ramkaOpisu.tekstPomocy, "Ulepsz Zamek (500$)");
+			if (menu == 2) sprintf(ramkaOpisu.tekstPomocy, "Zbuduj Wieze");
+			if (menu == 3) sprintf(ramkaOpisu.tekstPomocy, "Zbuduj Bohatera");
+			if (menu == 4) sprintf(ramkaOpisu.tekstPomocy, "Zbuduj Stworka");
+			break;
+		case TEKSTURA_MENU_BOHATER:
+			if (menu == 1) sprintf(ramkaOpisu.tekstPomocy, "Teleportuj do zamku (30$)");
+			if (menu == 2) sprintf(ramkaOpisu.tekstPomocy, "Awansuj o jeden poziom (200$)");
+			if (menu == 3) sprintf(ramkaOpisu.tekstPomocy, "Zwieksz moc silnika (150$)");
+			if (menu == 4) sprintf(ramkaOpisu.tekstPomocy, "");
+			break;
+		case TEKSTURA_MENU_WIEZA:
+			if (menu == 1) sprintf(ramkaOpisu.tekstPomocy, "Awansuj o jeden poziom (100$)");
+			if (menu == 2) sprintf(ramkaOpisu.tekstPomocy, "Sprzedaj");
+			if (menu == 3) sprintf(ramkaOpisu.tekstPomocy, "");
+			if (menu == 4) sprintf(ramkaOpisu.tekstPomocy, "");
+			break;
+
+		case TEKSTURA_MENU_STWOREK:
+			if (menu == 1) sprintf(ramkaOpisu.tekstPomocy, "Ulepsz parametry (400$)");
+			if (menu == 2) sprintf(ramkaOpisu.tekstPomocy, "");
+			if (menu == 3) sprintf(ramkaOpisu.tekstPomocy, "");
+			if (menu == 4) sprintf(ramkaOpisu.tekstPomocy, "");
+			break;
+
+		case TEKSTURA_MENU_BUDOWA_BOHATERA:
+			if (menu == 1) sprintf(ramkaOpisu.tekstPomocy, "Boahter 1 (400$)");
+			if (menu == 2) sprintf(ramkaOpisu.tekstPomocy, "Bohater 2 (500$)");
+			if (menu == 3) sprintf(ramkaOpisu.tekstPomocy, "");
+			if (menu == 4) sprintf(ramkaOpisu.tekstPomocy, "");
+			break;
+
+		case TEKSTURA_MENU_BUDOWA_STWORKA:
+			if (menu == 1) sprintf(ramkaOpisu.tekstPomocy, "Stworek 1 (30$)");
+			if (menu == 2) sprintf(ramkaOpisu.tekstPomocy, "Stworek 2 (35$)");
+			if (menu == 3) sprintf(ramkaOpisu.tekstPomocy, "");
+			if (menu == 4) sprintf(ramkaOpisu.tekstPomocy, "");
+			break;
+		}
+	}
+	else ramkaOpisu.tekstPomocy[0] = 0;
+}
+
+int cPlansza::KliknieteMenu(int px, int py)
+{
+	int wynik = 0;
+	float lx = 75 * (px / (float) rozmiarOkna.x) * rozmiarOkna.proporcja;
+	float ly = 75 - 75 * py / (float) rozmiarOkna.y;
+	
+	if (abs(lx-27.5) < 2.5 && abs(ly-5.5)<2.5) wynik=3;
+	if (abs(lx-27.5) < 2.5 && abs(ly-11.5)<2.5) wynik=1;
+
+	if (abs(lx-33.5) < 2.5 && abs(ly-5.5)<2.5) wynik=4;
+	if (abs(lx-33.5) < 2.5 && abs(ly-11.5)<2.5) wynik=2;
+	cout << wynik;
+	return wynik;
 }
 
 void cPlansza::_MyszRuch(int x,int y)
 {
+	mysz.x = x;
+	mysz.y = y;
 
 	if (kamera.przesuwajx == 0)
 	{
@@ -398,6 +528,18 @@ void cPlansza::WczytajTeren()
 	fread(tablicaPikseli, 1, 5000*850, odczytTerenu);
 	fclose(odczytTerenu);
 
+	{		// palmy krañcowe
+		cPalma* nowaPalma = new cPalma(TEKSTURA_PALMA1, 35, 0, -1125, 61, -0.4);
+		tabPalm.push_back(nowaPalma);
+		nowaPalma = new cPalma(TEKSTURA_PALMA1, 25, 0, -1175, 61, -0.4);
+		tabPalm.push_back(nowaPalma);
+
+		nowaPalma = new cPalma(TEKSTURA_PALMA1, 35, 0, 1125, 61, -0.4);
+		tabPalm.push_back(nowaPalma);
+		nowaPalma = new cPalma(TEKSTURA_PALMA1, 25, 0, 1175, 61, -0.4);
+		tabPalm.push_back(nowaPalma);
+	}
+
 	for (int k = 0; k < 5000; k++)				// przepisz z wektra do tabeli pól i wykonaje pola specjalne
 	{
 		if (k == 464)
@@ -426,7 +568,7 @@ void cPlansza::WczytajTeren()
 				kolor.b = 0.9;
 				kolor.r = 1;
 				kolor.g = 1;
-				{cPalma* nowaPalma = new cPalma(TEKSTURA_PALMA1, 5+rand()%4, -5+rand()%10, TabDoX(k*10), TabDoY(w), -0.9);
+				{cPalma* nowaPalma = new cPalma(TEKSTURA_PALMA1, 15+rand()%9, -5+rand()%10, TabDoX(k*10), TabDoY(w), -0.4);
 				tabPalm.push_back(nowaPalma);}
 				pole = POLE_TLO;
 				break;
@@ -724,18 +866,22 @@ void cPlansza::TworzTekstury()
 {
 	SOIL_load_OGL_texture("tx\\chmura1.png", SOIL_LOAD_AUTO, TEKSTURA_CHMURA1, SOIL_FLAG_INVERT_Y);
 	SOIL_load_OGL_texture("tx\\chmura2.png", SOIL_LOAD_AUTO, TEKSTURA_CHMURA2, SOIL_FLAG_INVERT_Y);
-	SOIL_load_OGL_texture("tx\\palma1.png", SOIL_LOAD_AUTO, TEKSTURA_PALMA1, SOIL_FLAG_INVERT_Y);
+	SOIL_load_OGL_texture("tx\\palma3.png", SOIL_LOAD_AUTO, TEKSTURA_PALMA1, SOIL_FLAG_INVERT_Y);
 	SOIL_load_OGL_texture("tx\\1tlo.png", SOIL_LOAD_AUTO, TEKSTURA_MAPA_TERENU, SOIL_FLAG_INVERT_Y);
 
 //	SOIL_load_OGL_texture("tx\\Przemek.png", SOIL_LOAD_AUTO, 77, SOIL_FLAG_INVERT_Y);
 
-	
+	SOIL_load_OGL_texture("tx\\zlota_moneta.png", SOIL_LOAD_AUTO, TEKSTURA_MONETA, SOIL_FLAG_INVERT_Y);
+
+
 	SOIL_load_OGL_texture("tx\\zamek1.png", SOIL_LOAD_AUTO, TEKSTURA_ZAMEK, SOIL_FLAG_INVERT_Y);
 	SOIL_load_OGL_texture("tx\\wieza1.png", SOIL_LOAD_AUTO, TEKSTURA_WIEZA1, SOIL_FLAG_INVERT_Y);
 	SOIL_load_OGL_texture("tx\\wieza2.png", SOIL_LOAD_AUTO, TEKSTURA_WIEZA2, SOIL_FLAG_INVERT_Y);
 	SOIL_load_OGL_texture("tx\\wieza3.png", SOIL_LOAD_AUTO, TEKSTURA_WIEZA3, SOIL_FLAG_INVERT_Y);
 	SOIL_load_OGL_texture("tx\\wieza4.png", SOIL_LOAD_AUTO, TEKSTURA_WIEZA4, SOIL_FLAG_INVERT_Y);
 	SOIL_load_OGL_texture("tx\\wieza5.png", SOIL_LOAD_AUTO, TEKSTURA_WIEZA5, SOIL_FLAG_INVERT_Y);
+	SOIL_load_OGL_texture("tx\\wieza6.png", SOIL_LOAD_AUTO, TEKSTURA_WIEZA6, SOIL_FLAG_INVERT_Y);
+	SOIL_load_OGL_texture("tx\\wieza7.png", SOIL_LOAD_AUTO, TEKSTURA_WIEZA7, SOIL_FLAG_INVERT_Y);
 
 	SOIL_load_OGL_texture("tx\\ikona_zamek1.png", SOIL_LOAD_AUTO, IKONA_ZAMEK, SOIL_FLAG_INVERT_Y);
 	SOIL_load_OGL_texture("tx\\ikona_wieza1.png", SOIL_LOAD_AUTO, IKONA_WIEZA1, SOIL_FLAG_INVERT_Y);
@@ -743,6 +889,8 @@ void cPlansza::TworzTekstury()
 	SOIL_load_OGL_texture("tx\\ikona_wieza3.png", SOIL_LOAD_AUTO, IKONA_WIEZA3, SOIL_FLAG_INVERT_Y);
 	SOIL_load_OGL_texture("tx\\ikona_wieza4.png", SOIL_LOAD_AUTO, IKONA_WIEZA4, SOIL_FLAG_INVERT_Y);
 	SOIL_load_OGL_texture("tx\\ikona_wieza5.png", SOIL_LOAD_AUTO, IKONA_WIEZA5, SOIL_FLAG_INVERT_Y);
+	SOIL_load_OGL_texture("tx\\ikona_wieza6.png", SOIL_LOAD_AUTO, IKONA_WIEZA6, SOIL_FLAG_INVERT_Y);
+	SOIL_load_OGL_texture("tx\\ikona_wieza7.png", SOIL_LOAD_AUTO, IKONA_WIEZA7, SOIL_FLAG_INVERT_Y);
 	SOIL_load_OGL_texture("tx\\ikona_bohater1.png", SOIL_LOAD_AUTO, IKONA_BOHATER1, SOIL_FLAG_INVERT_Y);
 	SOIL_load_OGL_texture("tx\\ikona_bohater2.png", SOIL_LOAD_AUTO, IKONA_BOHATER2, SOIL_FLAG_INVERT_Y);
 	
@@ -754,6 +902,11 @@ void cPlansza::TworzTekstury()
 	SOIL_load_OGL_texture("tx\\menu_zamek.png", SOIL_LOAD_AUTO, TEKSTURA_MENU_ZAMEK, SOIL_FLAG_INVERT_Y);
 	SOIL_load_OGL_texture("tx\\menu_wieza.png", SOIL_LOAD_AUTO, TEKSTURA_MENU_WIEZA, SOIL_FLAG_INVERT_Y);
 	SOIL_load_OGL_texture("tx\\menu_bohater.png", SOIL_LOAD_AUTO, TEKSTURA_MENU_BOHATER, SOIL_FLAG_INVERT_Y);
+	SOIL_load_OGL_texture("tx\\menu_stworek.png", SOIL_LOAD_AUTO, TEKSTURA_MENU_STWOREK, SOIL_FLAG_INVERT_Y);
+
+	SOIL_load_OGL_texture("tx\\menu_budowa_bohatera.png", SOIL_LOAD_AUTO, TEKSTURA_MENU_BUDOWA_BOHATERA, SOIL_FLAG_INVERT_Y);
+	SOIL_load_OGL_texture("tx\\menu_budowa_stworka.png", SOIL_LOAD_AUTO, TEKSTURA_MENU_BUDOWA_STWORKA, SOIL_FLAG_INVERT_Y);
+
 
 }
 

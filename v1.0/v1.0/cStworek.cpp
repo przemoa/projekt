@@ -5,7 +5,7 @@ cStworek::cStworek(void)
 {
 }
 
-cStworek::cStworek(float _x, float _z, int _typStworka, int _wlasciciel)
+cStworek::cStworek(float _x, float _z, int _typStworka, int _wlasciciel, int levelStworkow)
 {
 	x = _x;
 	z = _z;
@@ -37,6 +37,12 @@ cStworek::cStworek(float _x, float _z, int _typStworka, int _wlasciciel)
 		szybkoscAtaku = 15; 
 		break;
 	}
+
+	predkosc *= levelStworkow/5.0;
+	mnoznikZycia *= levelStworkow/5.0;
+	zasieg *= levelStworkow/5.0;
+	obrazenia *= levelStworkow/5.0;
+	szybkoscAtaku *= levelStworkow/5.0;
 
 	y = Plansza->tabPol[Plansza->XDoTab(x)] + wysokosc;
 	yCel = y;
@@ -139,7 +145,7 @@ void cStworek::AktualizujRamke()
 	Plansza->ramkaOpisu.poziomZycia = poziomZycia;
 
 	stringstream ssNazwa;
-	ssNazwa << "STWOREK " << (typStworka - 120) << "  (id " << id << ")";
+	ssNazwa << "STWOREK " << (typStworka - 120);
 	Plansza->ramkaOpisu.nazwa = ssNazwa.str();
 
 	sprintf(Plansza->ramkaOpisu.tekstId, "%d", id);
@@ -152,7 +158,7 @@ void cStworek::AktualizujRamke()
 			<< "Szybkosc ataku: " << szybkoscAtaku << endl
 			<< "Predkosc:   " << predkosc ;
 	Plansza->ramkaOpisu.opis = ssOpis.str();
-	Plansza->ramkaOpisu.rodzajMenu = 0;
+	Plansza->ramkaOpisu.rodzajMenu = TEKSTURA_MENU_STWOREK;
 }
 void cStworek::Atakuj()
 {

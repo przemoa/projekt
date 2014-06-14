@@ -38,9 +38,9 @@ extern cPlansza* Plansza;
 #define KAMERA_MAX_POLOZENIE_X 975
 #define KAMERA_MAX_POLOZENIE_Y 200
 #define KAMERA_MIN_POLOZENIE_Y -100
-#define KAMERA_PRZESUWANIE_MYSZA 60
+#define KAMERA_PRZESUWANIE_MYSZA 20
 
-#define ILOSC_CHMUR 22
+#define ILOSC_CHMUR 16
 #define SZYBKOSC_CHMUR 120.0
 
 
@@ -51,15 +51,25 @@ extern cPlansza* Plansza;
 #define TEKSTURA_BOHATER 5
 #define TEKSTURA_MAPA_TERENU 6
 #define TEKSTURA_ZAMEK 7
+#define TEKSTURA_MONETA 8
+
 #define TEKSTURA_WIEZA1 11
 #define TEKSTURA_WIEZA2 12
 #define TEKSTURA_WIEZA3 13
 #define TEKSTURA_WIEZA4 14
 #define TEKSTURA_WIEZA5 15
+#define TEKSTURA_WIEZA6 16
+#define TEKSTURA_WIEZA7 17
+
 
 #define TEKSTURA_MENU_ZAMEK 31
 #define TEKSTURA_MENU_BOHATER 32
 #define TEKSTURA_MENU_WIEZA 33
+#define TEKSTURA_MENU_STWOREK 34
+#define TEKSTURA_MENU_BUDOWA_STWORKA 35
+#define TEKSTURA_MENU_BUDOWA_BOHATERA 37
+#define TEKSTURA_MENU_BUDOWA_WIEZY 38
+
 
 
 #define POLE_WODA 0xFC
@@ -79,6 +89,8 @@ extern cPlansza* Plansza;
 #define LISTA_PUNKT_STABILNY 1
 #define LISTA_STWOREK_KULA 121
 #define LISTA_STWOREK_KWADRAT 122
+#define LISTA_STWOREK_TRZY 123
+#define LISTA_STWOREK_CZTERY 124
 #define LISTA_BOHATER1 2
 #define LISTA_BOHATER2 3
 
@@ -114,11 +126,13 @@ extern cPlansza* Plansza;
 #define IKONA_WIEZA3 113
 #define IKONA_WIEZA4 114
 #define IKONA_WIEZA5 115
-#define IKONA_BOHATER1 116
-#define IKONA_BOHATER2 117
+#define IKONA_WIEZA6 116
+#define IKONA_WIEZA7 117
+#define IKONA_BOHATER1 121
+#define IKONA_BOHATER2 122
 
-#define IKONA_STWOREK1 121
-#define IKONA_STWOREK2 122
+#define IKONA_STWOREK1 123
+#define IKONA_STWOREK2 124
 
 
 
@@ -152,6 +166,13 @@ struct sKAMERA
 	int przesuwajy;
 };
 
+struct sMYSZ
+{
+	int x;		// aktualne wspolrzedne myszy
+	int y;
+
+};
+
 
 enum eTYP
 {
@@ -173,5 +194,5 @@ struct sRAMKAOPISU
 	string opis;
 	
 	int rodzajMenu;		// nr tekstury bedacej menu
-
+	char tekstPomocy[128];
 };

@@ -14,17 +14,19 @@ public:
 	sKOLOR kolor;
 	int wlasciciel;		// 1 w prawo (gracz1), -1 w lewo (gracz2)
 
+	int levelStworkow;
 	float x;
 	float y;
 
 	float zloto;
+	char napisZloto[8];
 
 	vector < cBohater* > tabBohaterow;
 	cZamek* zamek;
 	vector < cStworek* > tabStworkow;
 
 	void Dzialaj();			// wywolywana timerem co 20ms
-	void DodajBohatera(float _x, float _y);
+	void DodajBohatera(float _x, float _y, int ktory);
 	void PrzyspieszajBohatera(float dVx, float dVy);
 	void Rysuj();
 	void AktualizujRamke();
@@ -35,8 +37,8 @@ public:
 
 	void DodajStworka(float _x, int _typStworka);
 	bool WybierzJednostke(float px, float py);
-
-
+	bool ZaplacZlotem(int ile);
+	void AwansujStworki();
 
 };
 

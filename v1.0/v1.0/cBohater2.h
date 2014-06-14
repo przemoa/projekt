@@ -15,6 +15,9 @@ public:
 	void Atakuj();
 	void Ruszaj();
 	void Przyspieszaj(float dVx, float dVy);
+	void Awansuj();
+	void ZwiekszMoc();
+	void Teleportuj();
 
 	float energia;
 	float Vy;

@@ -6,7 +6,7 @@ class cStworek : public cJednostka
 {
 public:
 	cStworek(void);
-	cStworek(float _x, float _z, int _typStworka, int _wlasciciel);
+	cStworek(float _x, float _z, int _typStworka, int _wlasciciel, int levelStworkow);
 	~cStworek(void);
 
 	void Rysuj();

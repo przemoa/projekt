@@ -14,8 +14,8 @@ cBohater2::~cBohater2(void)
 cBohater2::cBohater2(float _x, float _y, int _wlascicel)
 {
 	wlasciciel = _wlascicel;
-	x = _x;
-	y = _y;
+	xBaz = x = _x;
+	yBaz = y = _y;
 	z = 0;
 	Vy = 0;
 	yCel = y;
@@ -48,6 +48,15 @@ void cBohater2::Rysuj()
 
 void cBohater2::Ruszaj()
 {
+	if (abs(x) > 920)
+	{
+
+		x = kierunek * (919.9);
+		kierunek *= -1;
+		energia *= 0.05;
+	}
+
+
 	//cout << energia << endl;
 	float poziomZiemi = Plansza->Wysokosc(x);
 
@@ -158,7 +167,7 @@ void cBohater2::Przyspieszaj(float dVx, float dVy)
 
 	else if (kierunek == zwrot)			// przyspieszaj w kierunku ruchu
 	{
-		energia *= 1.02;
+		energia *= 1.0005;
 		energia += mocSilnika*abs(dVx);
 	}
 	else if (kierunek != zwrot)			// hamuj 
@@ -215,7 +224,7 @@ void cBohater2::AktualizujRamke()
 	Plansza->ramkaOpisu.poziomZycia = poziomZycia;
 
 	stringstream ssNazwa;
-	ssNazwa << "BOHATER 2 " << "  (id " << id << ")";
+	ssNazwa << "BOHATER 2";
 	Plansza->ramkaOpisu.nazwa = ssNazwa.str();
 
 	sprintf(Plansza->ramkaOpisu.tekstId, "%d", id);
@@ -234,4 +243,27 @@ void cBohater2::AktualizujRamke()
 
 void cBohater2::Atakuj()
 {
+}
+
+void cBohater2::Awansuj()
+{
+	mnoznikZycia += 0.25;
+	poziomZycia = 100;
+	zasieg += 10;
+	obrazenia += 2;
+	szybkoscAtaku += 1; 
+	level += 1;
+}
+void cBohater2::ZwiekszMoc()
+{
+	mocSilnika += 1;
+}
+
+void cBohater2::Teleportuj()
+{
+	x = xBaz;
+	yCel = y = yBaz;
+	energia = 0;
+	kierunek = 0;
+	Vy = VyCel = 0;
 }

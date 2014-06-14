@@ -17,7 +17,6 @@ cGracz::~cGracz(void)
 cGracz::cGracz(float _x, float _y, int _wlascicel)
 {
 	wybranyBohater = -1;
-	DodajBohatera(_x + _wlascicel*50, 122);
 
 	x = _x;
 	y = _y;
@@ -28,16 +27,18 @@ cGracz::cGracz(float _x, float _y, int _wlascicel)
 	kolor.b = 0;
 
 	zamek = new cZamek(_x, 62 + ((wlasciciel==-1) ? 40 : 0), wlasciciel);
-	zloto = 500;
+	zloto = 5000;		//500
+	sprintf(napisZloto, "x %d", (int) zloto);
+
 	idWybrane = 0;
-	
+	levelStworkow = 0;
 
 
 }
 
 void cGracz::DodajStworka(float _x, int _typStworka)
 {
-	cStworek* nowyStworek = new cStworek(_x, -0.5, _typStworka, wlasciciel);
+	cStworek* nowyStworek = new cStworek(_x+40*wlasciciel, -0.5, _typStworka, wlasciciel, levelStworkow);
 	tabStworkow.push_back(nowyStworek);
 }
 
@@ -110,14 +111,17 @@ void cGracz::FocusujKamere()
 
 }
 
-void cGracz::DodajBohatera(float _x, float _y)
+void cGracz::DodajBohatera(float _x, float _y, int ktory)
 {
-	//if (wybranyBohater == -1) wybranyBohater = 0;
-	cBohater * nowyBohater = new cBohater2(_x+10, _y, wlasciciel);
+	
+	cBohater * nowyBohater;
+
+	if (ktory == 1) nowyBohater = new cBohater1(_x+60*wlasciciel, _y, wlasciciel);
+	if (ktory == 2) nowyBohater = new cBohater2(_x+60*wlasciciel, _y, wlasciciel);
+
 	tabBohaterow.push_back(nowyBohater);
 
-	//nowyBohater = new cBohater(_x, _y, wlascicel);
-	//tabBohaterow.push_back(nowyBohater);
+
 }
 
 void cGracz::PrzyspieszajBohatera(float dVx, float dVy)
@@ -178,7 +182,21 @@ bool cGracz::WybierzJednostke(float px, float py)
 	else return true;
 }
 
+bool cGracz::ZaplacZlotem(int ile)
+{
+	if (zloto >= ile)
+	{
+		zloto -= ile;
+		sprintf(napisZloto, "x %d", (int) zloto);
+		return true;
+	}
+	else return false;
+}
 
+void cGracz::AwansujStworki()
+{
+	levelStworkow += 1;
+}
 
 
 

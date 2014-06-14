@@ -15,6 +15,8 @@ public:
 
 	sROZMIAROKNA rozmiarOkna;
 	sKAMERA kamera;
+	sMYSZ mysz;
+
 	void _Przerysuj();
 	void _ZmianaRozmiaruOkna(int width, int height);
 	void _Dzialaj(int value);
@@ -52,7 +54,7 @@ public:
 	sRAMKAOPISU ramkaOpisu;
 	void RysujRamkeOpisu();
 
-	void DrawString(int x, int y, const unsigned char * string, float skala);
+	void DrawString(float x, float y, const unsigned char * string, float skala);
 
 
 	float testowy;
@@ -60,6 +62,9 @@ public:
 	void RysujSzescian();
 	
 
+	int KliknieteMenu(int px, int py);
+	void TekstPomocy();
+	void WykonajAkcje(int menu);
 
 	float TabDoX(int k);
 	float TabDoY(int w);

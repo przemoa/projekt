@@ -166,7 +166,7 @@ void cPlansza::RysujTeren()
 	
 	int ostatniTypPola = -1;
 
-		for (int i = 0; i < 50000; i+= 30)		// tylko co 10
+		for (int i = 0; i < 50000; i+= 30)		// tylko co 10 linia poprzeczna
 		{
 			if (tabTypowPol[i] != -7777 && tabTypowPol[i] != ostatniTypPola)
 			{
@@ -216,8 +216,86 @@ void cPlansza::RysujTeren()
 		}
 	glEnd();
 	
-
 	
+	// reszta podloza ziemi (brazowe poza tekstura)
+	//lewa
+	glBegin(GL_QUADS);			
+		glColor4f(0, 0, 0, 1);
+		glVertex2f(-1000, 61.5);
+		glVertex2f(-2000, 61.5);
+		glVertex2f(-2000, 56);
+		glVertex2f(-1000, 56);
+	glEnd();	
+	
+	glBegin(GL_QUADS);
+		glColor4f(0.04, 0.02, 0, 1);
+		glVertex2f(-1000, 56);
+		glVertex2f(-2000, 56);
+		glColor4f(0.25, 0.125, 0, 1);
+		glVertex2f(-2000, 49);
+		glVertex2f(-1000, 49);
+	glEnd();
+
+	glBegin(GL_QUADS);
+		glVertex2f(-1000, 49);
+		glVertex2f(-2000, 49);
+		glColor4f(0.216, 0.108, 0, 1);
+		glVertex2f(-2000, 44);
+		glVertex2f(-1000, 44);
+	glEnd();
+
+	glBegin(GL_QUADS);
+		glColor4f(0.216, 0.108, 0, 1);
+		glVertex2f(-1000, 44);
+		glVertex2f(-2000, 44);
+		glColor4f(0.22, 0.11, 0, 1);
+		glVertex2f(-2000, -400);
+		glVertex2f(-1000, -400);
+	glEnd();
+
+	//prawa
+	glBegin(GL_QUADS);			
+		glColor4f(0, 0, 0, 1);
+		glVertex2f(1000, 57.5);
+		glVertex2f(2000, 57.5);
+		glVertex2f(2000, 52);
+		glVertex2f(1000, 52);
+	glEnd();	
+	
+	glBegin(GL_QUADS);
+		glColor4f(0.04, 0.02, 0, 1);
+		glVertex2f(1000, 52);
+		glVertex2f(2000, 52);
+		glColor4f(0.25, 0.125, 0, 1);
+		glVertex2f(2000, 45);
+		glVertex2f(1000, 45);
+	glEnd();
+
+	glBegin(GL_QUADS);
+		glVertex2f(1000, 45);
+		glVertex2f(2000, 45);
+		glColor4f(0.216, 0.108, 0, 1);
+		glVertex2f(2000, 42);
+		glVertex2f(1000, 42);
+	glEnd();
+
+	glBegin(GL_QUADS);
+		glColor4f(0.216, 0.108, 0, 1);
+		glVertex2f(1000, 42);
+		glVertex2f(2000, 42);
+		glColor4f(0.22, 0.11, 0, 1);
+		glVertex2f(2000, -400);
+		glVertex2f(1000, -400);
+	glEnd();
+
+	glBegin(GL_QUADS);				// dolny proatokat ziemi
+		glColor4f(0, 0, 0, 1);
+		glVertex2f(-2000, -570);
+		glVertex2f(2000, -570);
+		glColor4f(0.22, 0.11, 0, 1);
+		glVertex2f(2000, -150);
+		glVertex2f(-2000, -150);
+	glEnd();
 
 
 	glPushMatrix();
@@ -277,7 +355,7 @@ void cPlansza::RysujSzescian()
 }
 
 
-void cPlansza::DrawString(int x, int y, const unsigned char * string, float skala)
+void cPlansza::DrawString(float x, float y, const unsigned char * string, float skala)
 {
 	
 	glMatrixMode(GL_MODELVIEW);
@@ -319,7 +397,6 @@ void cPlansza::DrawString(int x, int y, const unsigned char * string, float skal
 
 void cPlansza::RysujRamkeOpisu()
 {
-	if (ramkaOpisu.czyWidoczna == false) return;
 
 	glLineWidth(2);
 
@@ -331,9 +408,10 @@ void cPlansza::RysujRamkeOpisu()
 		glPushMatrix();
 			glLoadIdentity();
 
-
-			// TLO RAMKI
-			glBegin(GL_POLYGON);			
+			if (ramkaOpisu.czyWidoczna)
+			{
+				// TLO RAMKI
+																																	glBegin(GL_POLYGON);			
 				glColor4f(0, 0, 0.15, 1);
 				glVertex2f(37,0);
 
@@ -375,10 +453,9 @@ void cPlansza::RysujRamkeOpisu()
 
 				glColor4f(0.02, 0.02, 0.15, 1);
 				glVertex2f(0,30);
-			glEnd();
-				
-			// KRESKI ROZDZIELCZE
-			glColor4f(0.7, 0.7, 0.7, 0.5);
+			glEnd();	
+				// KRESKI ROZDZIELCZE
+																glColor4f(0.7, 0.7, 0.7, 0.5);
 			glBegin(GL_POLYGON);
 				glVertex2f(23, 4);
 				glVertex2f(23, 21.5);
@@ -392,73 +469,117 @@ void cPlansza::RysujRamkeOpisu()
 				glVertex2f(23, 22.5);
 				glVertex2f(3, 22.5);
 			glEnd();
+				// IKONKA jednostki
+						
+			glColor3f(0,0,0.4);		// ramka
+			glBegin(GL_QUADS);
+				glVertex2f(24.5, 18);
+				glVertex2f(36, 18);
+				glVertex2f(36,  18.5);
+				glVertex2f(24.5,  18.5);
 
+				glVertex2f(35.5, 18.5);
+				glVertex2f(36, 18.5);
+				glVertex2f(36,  29.5);
+				glVertex2f(35.5,  29.5);
 
-			// IKONKA jednostki
+				glVertex2f(35.5, 29);
+				glVertex2f(35.5, 29.5);
+				glVertex2f(24.5,  29.5);
+				glVertex2f(24.5,  29);
+
+				glVertex2f(24.5, 29.5);
+				glVertex2f(24.5, 18);
+				glVertex2f(25,  18);
+				glVertex2f(25,  29.5);
+			glEnd();
+
 			glBindTexture(GL_TEXTURE_2D, ramkaOpisu.ikona);			
 			glEnable(GL_TEXTURE_2D);
 			glColor4f(1, 1, 1, 0.9);
 			glBegin(GL_QUADS);
-				glTexCoord2f(0.0f, 0.0f); glVertex2f(26, 13);
-				glTexCoord2f(1.0f, 0.0f); glVertex2f(35, 13);
-				glTexCoord2f(1.0f, 1.0f); glVertex2f(35,  23);
-				glTexCoord2f(0.0f, 1.0f); glVertex2f(26,  23);
+				glTexCoord2f(0.0f, 0.0f); glVertex2f(25, 18.5);
+				glTexCoord2f(1.0f, 0.0f); glVertex2f(35.5, 18.5);
+				glTexCoord2f(1.0f, 1.0f); glVertex2f(35.5,  29);
+				glTexCoord2f(0.0f, 1.0f); glVertex2f(25,  29);
 			glEnd();
 			glDisable(GL_TEXTURE_2D);
+				// IKONA menu
+				if (ramkaOpisu.rodzajMenu)
+				{
+					glBindTexture(GL_TEXTURE_2D, ramkaOpisu.rodzajMenu);			
+					glEnable(GL_TEXTURE_2D);
+					glColor4f(1, 1, 1, 0.9);
+					glBegin(GL_QUADS);
+						glTexCoord2f(0.0f, 0.0f); glVertex2f(25, 3);
+						glTexCoord2f(1.0f, 0.0f); glVertex2f(36, 3);
+						glTexCoord2f(1.0f, 1.0f); glVertex2f(36,  14);
+						glTexCoord2f(0.0f, 1.0f); glVertex2f(25,  14);
+					glEnd();
+					glDisable(GL_TEXTURE_2D);
+				}
 
-			// IKONA menu
-			if (ramkaOpisu.rodzajMenu)
+				// PASEK ZYCIA
+				glPushMatrix();
+					glTranslatef(24.5, 17, 0);
+					float rozmiar = 6;
+					glColor3f(0.15, 0.15, 0.15);
+					glBegin(GL_POLYGON);
+						glVertex2f(0, -0.1*rozmiar);
+						glVertex2f( rozmiar*2, -0.1*rozmiar);
+						glVertex2f( rozmiar*2,  0.1*rozmiar);
+						glVertex2f(0,  0.1*rozmiar);
+					glEnd();
+		
+					glColor3f(1-Plansza->ramkaOpisu.poziomZycia/100, Plansza->ramkaOpisu.poziomZycia/100, 0.0);
+					glBegin(GL_POLYGON);
+						glVertex2f(0.05*rozmiar, -0.08*rozmiar);
+						glVertex2f( rozmiar*1.95*Plansza->ramkaOpisu.poziomZycia/100, -0.08*rozmiar);
+						glVertex2f( rozmiar*1.95*Plansza->ramkaOpisu.poziomZycia/100,  0.08*rozmiar);
+						glVertex2f(0.05*rozmiar,  0.08*rozmiar);
+					glEnd();
+				glPopMatrix();
+
+				// NAPISY
+				glColor3f(0.1, 0.5, 0.8);
+
+				glColor4f(0.7, 0.7, 0.9, 0.7);
+				DrawString(3, 25.5, (unsigned char*) Plansza->ramkaOpisu.nazwa.c_str(), 18);
+
+				glColor4f(0.4, 0.4, 0.9, 0.7);
+				glLineWidth(1);
+				DrawString(2, 19, (unsigned char*) Plansza->ramkaOpisu.opis.c_str(), 12);
+
+				glColor4f(0.9, 0.4, 0.4, 0.7);
+				DrawString(2, 2, (const unsigned char*) (Plansza->ramkaOpisu.tekstId), 8);
+			}
+
+			glColor4f(0.9, 0.2, 0.2, 0.9);
+			if(ramkaOpisu.tekstPomocy[0]) 
 			{
-				glBindTexture(GL_TEXTURE_2D, ramkaOpisu.rodzajMenu);			
-				glEnable(GL_TEXTURE_2D);
-				glColor4f(1, 1, 1, 0.9);
-				glBegin(GL_QUADS);
-					glTexCoord2f(0.0f, 0.0f); glVertex2f(24, 0);
-					glTexCoord2f(1.0f, 0.0f); glVertex2f(37, 0);
-					glTexCoord2f(1.0f, 1.0f); glVertex2f(37,  11);
-					glTexCoord2f(0.0f, 1.0f); glVertex2f(24,  11);
-				glEnd();
-				glDisable(GL_TEXTURE_2D);
+				DrawString(75 * (mysz.x / (float) rozmiarOkna.x) * rozmiarOkna.proporcja, 75 - 75 * mysz.y / (float) rozmiarOkna.y,
+							(const unsigned char*) ramkaOpisu.tekstPomocy, 25);
+				DrawString(75 * (mysz.x / (float) rozmiarOkna.x) * rozmiarOkna.proporcja+0.1, 75 - 75 * mysz.y / (float) rozmiarOkna.y,
+							(const unsigned char*) ramkaOpisu.tekstPomocy, 25);
 			}
 
 
+			// ile zlota
+	
+			glBindTexture(GL_TEXTURE_2D, TEKSTURA_MONETA);			
+			glEnable(GL_TEXTURE_2D);
+			glColor4f(1, 1, 1, 1);
+			glBegin(GL_QUADS);
+				glTexCoord2f(0.0f, 0.0f); glVertex2f(2, 69);
+				glTexCoord2f(1.0f, 0.0f); glVertex2f(6, 69);
+				glTexCoord2f(1.0f, 1.0f); glVertex2f(6,  74);
+				glTexCoord2f(0.0f, 1.0f); glVertex2f(2,  74);
+			glEnd();
+			glDisable(GL_TEXTURE_2D);
 
+			glColor4f(1, 1, 0.3, 1);
+			DrawString(8, 71, (unsigned char*) tabGraczy[wybranyGracz]->napisZloto, 16);
 
-			// PASEK ZYCIA
-			glPushMatrix();
-				glTranslatef(24.5, 12, 0);
-				float rozmiar = 6;
-				glColor3f(0.15, 0.15, 0.15);
-				glBegin(GL_POLYGON);
-					glVertex2f(0, -0.1*rozmiar);
-					glVertex2f( rozmiar*2, -0.1*rozmiar);
-					glVertex2f( rozmiar*2,  0.1*rozmiar);
-					glVertex2f(0,  0.1*rozmiar);
-				glEnd();
-		
-				glColor3f(1-Plansza->ramkaOpisu.poziomZycia/100, Plansza->ramkaOpisu.poziomZycia/100, 0.0);
-				glBegin(GL_POLYGON);
-					glVertex2f(0.05*rozmiar, -0.08*rozmiar);
-					glVertex2f( rozmiar*1.95*Plansza->ramkaOpisu.poziomZycia/100, -0.08*rozmiar);
-					glVertex2f( rozmiar*1.95*Plansza->ramkaOpisu.poziomZycia/100,  0.08*rozmiar);
-					glVertex2f(0.05*rozmiar,  0.08*rozmiar);
-				glEnd();
-			glPopMatrix();
-
-
-			glColor3f(0.1, 0.5, 0.8);
-
-
-
-			glColor4f(0.7, 0.7, 0.9, 0.7);
-			DrawString(3, 25.5, (unsigned char*) Plansza->ramkaOpisu.nazwa.c_str(), 18);
-
-			glColor4f(0.4, 0.4, 0.9, 0.7);
-			glLineWidth(1);
-			DrawString(2, 19, (unsigned char*) Plansza->ramkaOpisu.opis.c_str(), 12);
-
-			glColor4f(0.9, 0.4, 0.4, 0.7);
-			DrawString(2, 2, (const unsigned char*) (Plansza->ramkaOpisu.tekstId), 8);
 
 			glLineWidth(2);
 		glPopMatrix();

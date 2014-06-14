@@ -5,12 +5,12 @@
 
 struct sWIEZA 
 {
+	bool czyAtakuje;		// czy wieza walczaca (1-5) czy nie (6-7)
 	int typWiezy;			// TEKSTURA_WIEZA1 TEKSTURA_WIEZA2 itd jak tekstury
 	int pozycja;			// 100*kolumna + wiersz, liczac od lewej dolnej strony
-	float obrazenia;
+	float obrazenia;		// obrazenia wiezy lub parametr dla wiezy 6 i 7
 	float zasieg;
 	int szybkoscAtaku;
-
 	int level;
 	
 };
@@ -19,7 +19,8 @@ struct sWIEZA
 	//	TEKSTURA_WIEZA3	: pocisk, srednia szybkosc, srednie obrazenia, sredni zasieg
 	//	TEKSTURA_WIEZA4	: laser, malas szybkosc, duze obrazenia, duzy zasieg
 	//	TEKSTURA_WIEZA5	: ogien, mala szybkosc, duze obrazenia, maly zasieg
-
+	// TEKSTURA_WIEZA6 : wydobywajaca zloto
+	// TEKSTURA_WIEZA7 : lecznicza
 
 class cZamek : public cJednostka
 {
@@ -38,6 +39,8 @@ public:
 
 	float wydobycie;		// pozyskiwane zloto na sekunde
 	int wybranaWiez;
+
+	void Awansuj();
 
 	//x;	 srodek zamq
 	//y;	 spod zamq

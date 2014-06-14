@@ -29,8 +29,8 @@ cZamek::cZamek(float _x, float _y, int _wlasciciel)
 	DodajWieze(13, 300);
 	DodajWieze(14, 300);
 	DodajWieze(15, 300);
-	DodajWieze(13, 100);
-	DodajWieze(14, 200);
+	DodajWieze(16, 100);
+	DodajWieze(16, 200);
 
 
 	mnoznikZycia = 15;
@@ -54,6 +54,7 @@ void cZamek::DodajWieze(int _typWiezy, int pozycja)
 	nowaWieza.pozycja = pozycja;
 	nowaWieza.typWiezy = _typWiezy;
 	nowaWieza.level = 1;
+	nowaWieza.czyAtakuje = true;
 
 	switch (_typWiezy)
 	{
@@ -81,6 +82,14 @@ void cZamek::DodajWieze(int _typWiezy, int pozycja)
 		nowaWieza.obrazenia = 40;
 		nowaWieza.zasieg = 80;
 		nowaWieza.szybkoscAtaku = 20;
+		break;
+	case TEKSTURA_WIEZA6:		// produkuje zloto
+		nowaWieza.obrazenia = 5;
+		nowaWieza.czyAtakuje = false;
+		break;
+	case TEKSTURA_WIEZA7:		// leczy zamek
+		nowaWieza.obrazenia = 10;
+		nowaWieza.czyAtakuje = false;
 		break;
 	}
 
@@ -175,6 +184,7 @@ bool cZamek::CzyKliknieto(float px, float py)
 	if ((px > x - rozmiar) && (px < x + rozmiar) && (py > y) && (py < y + 1.24*rozmiar))
 	{
 		wybranaWiez = 0;
+		Plansza->ramkaOpisu.rodzajMenu = TEKSTURA_MENU_ZAMEK;
 		return true;
 	}
 	return false;
@@ -209,13 +219,30 @@ void cZamek::AktualizujRamke()
 		Plansza->ramkaOpisu.nazwa = ssNazwa.str();
 
 		stringstream ssOpis;
-		ssOpis	<< "Typ Wiezy:      " << (int) tabWiez[nrWiezy].typWiezy << endl
-				<< "Pozycja:      " << (int) tabWiez[nrWiezy].pozycja << endl
-				<< "Level:      " << (int) tabWiez[nrWiezy].level  << endl
-				<< "Obrazenia:      " << (int) tabWiez[nrWiezy].obrazenia << endl
-				<< "Zasieg:      " << (int) tabWiez[nrWiezy].zasieg << endl
-				<< "Szybkosc ataku:   " << (int) tabWiez[nrWiezy].szybkoscAtaku << endl;
-				
+		if (tabWiez[nrWiezy].czyAtakuje)
+		{
+			ssOpis	<< "Typ Wiezy:      " << (int) tabWiez[nrWiezy].typWiezy << endl
+					<< "Pozycja:      " << (int) tabWiez[nrWiezy].pozycja << endl
+					<< "Level:      " << (int) tabWiez[nrWiezy].level  << endl
+					<< "Obrazenia:      " << (int) tabWiez[nrWiezy].obrazenia << endl
+					<< "Zasieg:      " << (int) tabWiez[nrWiezy].zasieg << endl
+					<< "Szybkosc ataku:   " << (int) tabWiez[nrWiezy].szybkoscAtaku << endl;
+		}
+		else if (tabWiez[nrWiezy].typWiezy == TEKSTURA_WIEZA6)
+		{
+			ssOpis	<< "Typ Wiezy:      " << (int) tabWiez[nrWiezy].typWiezy << endl
+					<< "Pozycja:      " << (int) tabWiez[nrWiezy].pozycja << endl
+					<< "Level:      " << (int) tabWiez[nrWiezy].level  << endl
+					<< "Wydobycie zlota: " << (int) tabWiez[nrWiezy].obrazenia << endl;
+		}
+		else
+		{
+			ssOpis	<< "Typ Wiezy:      " << (int) tabWiez[nrWiezy].typWiezy << endl
+					<< "Pozycja:      " << (int) tabWiez[nrWiezy].pozycja << endl
+					<< "Level:      " << (int) tabWiez[nrWiezy].level  << endl
+					<< "Szybkosc leczenia: " << (int) tabWiez[nrWiezy].obrazenia << endl;
+		}
+
 
 		Plansza->ramkaOpisu.opis = ssOpis.str();
 		Plansza->ramkaOpisu.rodzajMenu = TEKSTURA_MENU_WIEZA;
@@ -243,11 +270,24 @@ void cZamek::AktualizujRamke()
 				<< "Ilosc wiez: " << tabWiez.size();
 
 		Plansza->ramkaOpisu.opis = ssOpis.str();
-		Plansza->ramkaOpisu.rodzajMenu = TEKSTURA_MENU_ZAMEK;
+		
 	}
 
 }
 
 void cZamek::Atakuj()
 {
+}
+
+void cZamek::Awansuj()
+{
+	rozmiar += 2;
+	rozmiarWiezy = rozmiar/4.2;
+	wysokoscWiezy = 3*rozmiarWiezy;
+
+	poziomZycia += 10;
+	if (poziomZycia > 100) poziomZycia = 100;
+
+	mnoznikZycia += 1;
+	wydobycie += 1;
 }
