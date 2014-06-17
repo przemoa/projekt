@@ -8,7 +8,6 @@ cGracz::cGracz(void)
 
 }
 
-
 cGracz::~cGracz(void)
 {
 

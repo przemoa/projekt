@@ -50,11 +50,11 @@ void cBohater1::Rysuj()
 
 void cBohater1::Ruszaj()
 {
-	int b1, b2;			// 0 - bez zmian, 1 - podnosi siê do góry, -1 - opada w dó³
+	int b1, b2;			// 0 - bez zmian, 1 - podnosi się do góry, -1 - opada w dół
 
 	Przesun(Vx * KROK_CZASOWY, 0);
 
-	//wyznacznie ktore kolo moze opadac
+	//wyznaczenie ktore kolo moze opadac
 	int k = Plansza->XDoTab(x);
 	if (k < 0)
 		k = 0;
@@ -94,7 +94,6 @@ void cBohater1::Ruszaj()
 	}
 
 
-
 	katTerenu = atan((Plansza->tabPol[k2] - Plansza->tabPol[k])/(x2 - x)) * 180 / 3.1416;
 
 	float nVx = Vx;
@@ -114,7 +113,6 @@ void cBohater1::Ruszaj()
 			Vg = sqrt(Vx * Vx + Vy * Vy);
 			Vx = Vg * cos(kat * 3.1416 / 180 - fazaKol);
 			Vy = -Vg * sin(kat * 3.1416 / 180 - fazaKol);
-			//cout << "przeliczono 1.1" << endl;
 		}
 
 		if ((nVx < 0) && (katTerenu < katPoprzedni))
@@ -122,7 +120,6 @@ void cBohater1::Ruszaj()
 			Vg = sqrt(Vx * Vx + Vy * Vy);
 			Vx = -Vg * cos(kat * 3.1416 / 180 - fazaKol);
 			Vy = Vg * sin(kat * 3.1416 / 180 - fazaKol);
-			//cout << "przeliczono 1.2" << endl;
 		}
 		if ((nVx < 0) && (katTerenu >= katPoprzedni))
 		{
@@ -142,14 +139,12 @@ void cBohater1::Ruszaj()
 			Vg2 = sqrt(Vx2 * Vx2 + Vy2 * Vy2);
 			Vx2 = Vg2 * cos(katTerenu * 3.1416 / 180);
 			Vy2 = -Vg2 * sin(katTerenu * 3.1416 / 180);
-			//cout << "przeliczono 2.1" << endl;
 		}
 		if ((nVx2 < 0) && (katTerenu < katPoprzedni))
 		{
 			Vg2 = sqrt(Vx2 * Vx2 + Vy2 * Vy2);
 			Vx2 = -Vg2 * cos(katTerenu * 3.1416 / 180);
 			Vy2 = Vg2 * sin(katTerenu * 3.1416 / 180);
-			//cout << "przeliczono 2.2" << endl;
 		}
 		if ((nVx2 < 0) && (katTerenu >= katPoprzedni))
 		{
@@ -196,19 +191,24 @@ void cBohater1::Ruszaj()
 	UstawX();
 	UstawX2();
 	katPoprzedni = katTerenu;
+	if ((katTerenu <= 1) && (katTerenu >= -1) && (b1 != -1) && (b2 != -1))
+	{
+		Vy = 0;
+		Vy2 = 0;
+	}
 
 	if (((b1 == 1) || (b1 == 0)) || ((b2 == 1) || (b2 == 0)) && ((katTerenu >= -3) && (katTerenu <= 3)))
 	{
 		//Vy = 0;
 		//Vy2 = 0;
 	}
-
-	//cout << "b1 = " << b1 << "   " << "b2 = " << b2 << endl;
+	cout << " Vy2 = " << Vy2 << endl;
 }
 
 void cBohater1::Opadaj()
 {
-	Vy += KROK_PRZYSPIESZANIA_BOHATERA;
+	//Vy += KROK_CZASOWY * PRZYSPIESZENIE_GRAWITACYJNE;
+	//Vy2 += KROK_CZASOWY * PRZYSPIESZENIE_GRAWITACYJNE;
 }
 
 void cBohater1::Przyspieszaj(float dVx, float dVy)
@@ -266,7 +266,7 @@ void cBohater1::ZmienKat(float dkat)
 	if (kat < -90) kat = 360 - kat;
 	if (kat > 270) kat = -(360 - kat);
 	UstawX2();
-	UstawY2();
+	//UstawY2();
 }
 
 void cBohater1::UstawX()
@@ -291,6 +291,7 @@ void cBohater1::Przesun(float dx, float dy)
 	x += dx;
 	x2 += dx;
 	y += dy;
+	y2 += dy;
 }
 
 void cBohater1::UstawXs()
@@ -307,11 +308,13 @@ void cBohater1::UstawKat()
 {
 	kat = (atan((y2 - y)/(x2 - x)) + fazaKol) * 180 / 3.1416;
 
-	if (kat < -80) 
+	if (kat < -80)
 		kat = -80;
-	if (kat > 80) 
+	if (kat > 80)
 		kat = 80;
-
+	ys = 0.5 * (y + y2);
+	y = ys;
+	y2 = ys;
 }
 
 void cBohater1::RysujPasekZycia()
