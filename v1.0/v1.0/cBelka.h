@@ -5,6 +5,7 @@ class cBelka :
 {
 public:
 	cBelka(void);
+	cBelka(float xp, float yp, float xk, float yk, float wytrzymalosc);
 	~cBelka(void);
+	void Rysuj();
 };
-
