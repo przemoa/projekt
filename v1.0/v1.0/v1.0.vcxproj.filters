@@ -78,6 +78,15 @@
     <ClCompile Include="cBohater1.cpp">
       <Filter>Source Files\jednostki</Filter>
     </ClCompile>
+    <ClCompile Include="cElement.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cBelka.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cTeownik.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cPlansza.h">
@@ -136,6 +145,15 @@
     </ClInclude>
     <ClInclude Include="cBohater1.h">
       <Filter>Header Files\jednostki</Filter>
+    </ClInclude>
+    <ClInclude Include="cElement.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cBelka.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cTeownik.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -78,10 +78,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="cBelka.cpp" />
     <ClCompile Include="cBohater.cpp" />
     <ClCompile Include="cBohater1.cpp" />
     <ClCompile Include="cBohater2.cpp" />
     <ClCompile Include="cChmura.cpp" />
+    <ClCompile Include="cElement.cpp" />
     <ClCompile Include="cGracz.cpp" />
     <ClCompile Include="cJednostka.cpp" />
     <ClCompile Include="cObiekt.cpp" />
@@ -89,6 +91,7 @@
     <ClCompile Include="cPlansza.cpp" />
     <ClCompile Include="cPunktStabilny.cpp" />
     <ClCompile Include="cStworek.cpp" />
+    <ClCompile Include="cTeownik.cpp" />
     <ClCompile Include="cZamek.cpp" />
     <ClCompile Include="image_DXT.c" />
     <ClCompile Include="image_helper.c" />
@@ -98,10 +101,12 @@
     <ClCompile Include="stb_image_aug.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="cBelka.h" />
     <ClInclude Include="cBohater.h" />
     <ClInclude Include="cBohater1.h" />
     <ClInclude Include="cBohater2.h" />
     <ClInclude Include="cChmura.h" />
+    <ClInclude Include="cElement.h" />
     <ClInclude Include="cGracz.h" />
     <ClInclude Include="cJednostka.h" />
     <ClInclude Include="cObiekt.h" />
@@ -109,6 +114,7 @@
     <ClInclude Include="cPlansza.h" />
     <ClInclude Include="cPunktStabilny.h" />
     <ClInclude Include="cStworek.h" />
+    <ClInclude Include="cTeownik.h" />
     <ClInclude Include="cZamek.h" />
     <ClInclude Include="image_DXT.h" />
     <ClInclude Include="image_helper.h" />

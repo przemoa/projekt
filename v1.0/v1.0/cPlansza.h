@@ -4,6 +4,9 @@
 #include "cPalma.h"
 #include "cPunktStabilny.h"
 #include "cGracz.h"
+#include "cElement.h"
+#include "cBelka.h"
+#include "cTeownik.h"
 
 
 
