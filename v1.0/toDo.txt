@@ -3,3 +3,111 @@ define kody pol
 
 
 http://fabiensanglard.net/
+
+
+#include <stdio.h> 
+#include <iostream>
+
+using namespace std;
+
+//int riguing = 3;
+//char** acters;
+//acters = new char*[3];
+//acters[0] = new char[10];
+//acters[1] = new char[10];
+//acters[2] = new char[10];
+//
+//sprintf (acters[0], "Bush");
+//sprintf (acters[1], "repub");
+//sprintf (acters[2], "demo");
+
+
+
+int main(int riguing, char**acters)
+{ 
+
+	//puts(1[acters - ~!(*(int*)1[acters] % 4796 % 275 % riguing)]);
+
+	//int ile =  ~!(*(int*)1[acters] % 4796 % 275 % riguing);				// -1  repub, -2  demo
+	//puts ((acters-ile)[1] );
+
+	//int ile2 =  !(*(int*)1[acters] % 4796 % 275 % riguing); // 0 repub, 1 demo
+
+
+	//int ile3 = *(int*)1[acters] % 4796 % 275 % riguing;		// 0 DEMO, 1 reupb
+
+
+
+
+	//int ile4 =  *(int*) acters[1] ;		// wartosc liczbowa prezydenta
+	//int np_il4 = *(int*) "Obamaaaaaa";		// 'a' + 0xFF*, + 0xFFFF*a + 0xFFFFFF*m ...
+	//
+
+	//int ile5 = ile4 % 4796 % 275 % 3;
+
+
+	////int np_il4 = *(int*) "a";
+	//
+
+
+	//cout << endl;
+	//system ("pause");
+
+	char** nap;
+	nap = new char*[10];
+	for (int i = 0; i < 10; i++)
+	{
+		nap[i] = new char[10];
+	}
+
+	sprintf(nap[0], "slon");
+	sprintf(nap[1], "zyrafa");
+	sprintf(nap[2], "arbuz");
+	sprintf(nap[3], "jablko");
+	sprintf(nap[4], "krowa");
+	sprintf(nap[5], "salata");
+	sprintf(nap[6], "pies");
+	sprintf(nap[7], "sliwka");
+	sprintf(nap[8], "gruszka");
+	sprintf(nap[9], "kucyk");
+
+	int tab[10];
+
+	for (int i = 0; i < 10; i++)
+	{
+		tab[i] = *(int*) nap[i];
+	}
+
+	int a = 1;
+	int b = 1;
+	int c = 1;
+
+
+	int tabwyn[10];
+
+	//while(1)
+	//{
+
+	//	a = rand()%5000+1;
+	//	b = rand()%500+1;
+	//	c = rand()%8+1;
+
+	//	for (int i = 0; i < 10; i++)
+	//	{
+	//		tabwyn[i] = tab[i] % a % b % c;
+	//	}
+
+	//	if (tabwyn[0] == 0 && tabwyn[1] == 0 && tabwyn[2] == 1  && tabwyn[3] == 1 && tabwyn[4] == 0 && tabwyn[5] == 1 && tabwyn[6] == 0 && tabwyn[7] == 1 && tabwyn[8] == 1  && tabwyn[9] == 0)
+	//	{
+	//		cout << a << " " << b << " " << c;
+	//		break;
+	//	}
+
+	//}
+
+	cout << acters[1+*(int*)acters[0]%3511%447%2];
+	cout << endl;
+	system ("pause");
+
+
+}
