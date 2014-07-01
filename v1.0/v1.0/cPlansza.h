@@ -40,6 +40,7 @@ public:
 	cChmura* tabChmur[ILOSC_CHMUR];
 	vector < cPalma* > tabPalm;
 	vector < cPunktStabilny* > tabPunktStab;
+	vector < cElement* > tabElementow;
 	vector < cGracz* > tabGraczy;
 	bool wybranyGracz;
 	bool czyFocusowac;		// czy ustawiac focus na wybrana jednostke
@@ -74,5 +75,6 @@ public:
 	int XDoTab(float x);
 	int YDoTab(float y);
 	float Wysokosc(float x);		// wysokosc poziomu mapy
+	void DodajElement(float x1, float x2, float y1, float y2);
 };
 

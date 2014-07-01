@@ -282,6 +282,14 @@ void cPlansza::_MyszKlawisz(int button, int state, int x, int y)
 				czyFocusowac = 1;
 				ramkaOpisu.czyWidoczna = tabGraczy[wybranyGracz]->WybierzJednostke(px, py);
 			}
+
+			for (auto iter = tabPunktStab.begin(); iter < tabPunktStab.end(); iter++)
+			{
+				if((px <= (*iter)->GetX() + ROZMIAR_PUNKTUSTABILNEGO) && (px >= (*iter)->GetX() - ROZMIAR_PUNKTUSTABILNEGO) && (py <= (*iter)->GetY() + ROZMIAR_PUNKTUSTABILNEGO) && (py >= (*iter)->GetY() - ROZMIAR_PUNKTUSTABILNEGO))
+				{
+
+				}
+			}
 		}
 	}
 
@@ -1015,7 +1023,12 @@ float cPlansza::Wysokosc(float x)
 	//float wynik = y1 + (y2 - y1) * (xWTab - x2);
 	float wynik = tabPol[(int) xWTab]; + ((tabPol[((int) xWTab) + 1] - tabPol[(int) xWTab]) * (xWTab - (int) xWTab));
 	return wynik;
+}
 
+void cPlansza::DodajElement(float x1, float x2, float y1, float y2)
+{
+	cBelka *nowa = new cBelka(x1, y1, x2, y2, 1);
+	tabElementow.push_back(nowa);
 }
 
 

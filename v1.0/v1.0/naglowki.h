@@ -134,9 +134,6 @@ extern cPlansza* Plansza;
 #define IKONA_STWOREK1 123
 #define IKONA_STWOREK2 124
 
-
-
-
 struct sKOLOR
 {
 	float r;
@@ -196,3 +193,5 @@ struct sRAMKAOPISU
 	int rodzajMenu;		// nr tekstury bedacej menu
 	char tekstPomocy[128];
 };
+
+extern bool dodawanieBelki;
