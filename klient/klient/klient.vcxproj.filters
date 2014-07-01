@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\jednostki">
+      <UniqueIdentifier>{4195d909-cdc5-4219-af1f-b481cba0f159}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\jednostki">
+      <UniqueIdentifier>{7e1e38f2-5448-41b3-aaa8-fbbbab45a2f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\elementy">
+      <UniqueIdentifier>{389ffd4a-32d2-44ed-8ef1-7bd62c383ce8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\elementy">
+      <UniqueIdentifier>{bd80a451-4792-47c2-97b0-8ad3fbebae68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SOIL">
+      <UniqueIdentifier>{58da60d7-9aac-47db-a6b4-632abe8c286a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="cChmura.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cObiekt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cPalma.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cPlansza.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="rysuj.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cZamek.cpp">
+      <Filter>Source Files\jednostki</Filter>
+    </ClCompile>
+    <ClCompile Include="cStworek.cpp">
+      <Filter>Source Files\jednostki</Filter>
+    </ClCompile>
+    <ClCompile Include="cJednostka.cpp">
+      <Filter>Source Files\jednostki</Filter>
+    </ClCompile>
+    <ClCompile Include="cGracz.cpp">
+      <Filter>Source Files\jednostki</Filter>
+    </ClCompile>
+    <ClCompile Include="cBohater2.cpp">
+      <Filter>Source Files\jednostki</Filter>
+    </ClCompile>
+    <ClCompile Include="cBohater1.cpp">
+      <Filter>Source Files\jednostki</Filter>
+    </ClCompile>
+    <ClCompile Include="cBohater.cpp">
+      <Filter>Source Files\jednostki</Filter>
+    </ClCompile>
+    <ClCompile Include="cTeownik.cpp">
+      <Filter>Source Files\elementy</Filter>
+    </ClCompile>
+    <ClCompile Include="cElement.cpp">
+      <Filter>Source Files\elementy</Filter>
+    </ClCompile>
+    <ClCompile Include="cBelka.cpp">
+      <Filter>Source Files\elementy</Filter>
+    </ClCompile>
+    <ClCompile Include="cPunktStabilny.cpp">
+      <Filter>Source Files\elementy</Filter>
+    </ClCompile>
+    <ClCompile Include="stb_image_aug.c">
+      <Filter>SOIL</Filter>
+    </ClCompile>
+    <ClCompile Include="SOIL.c">
+      <Filter>SOIL</Filter>
+    </ClCompile>
+    <ClCompile Include="image_helper.c">
+      <Filter>SOIL</Filter>
+    </ClCompile>
+    <ClCompile Include="image_DXT.c">
+      <Filter>SOIL</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="cChmura.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cObiekt.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cPalma.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cPlansza.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="naglowki.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cBelka.h">
+      <Filter>Header Files\elementy</Filter>
+    </ClInclude>
+    <ClInclude Include="cBohater.h">
+      <Filter>Header Files\jednostki</Filter>
+    </ClInclude>
+    <ClInclude Include="cBohater1.h">
+      <Filter>Header Files\jednostki</Filter>
+    </ClInclude>
+    <ClInclude Include="cBohater2.h">
+      <Filter>Header Files\jednostki</Filter>
+    </ClInclude>
+    <ClInclude Include="cElement.h">
+      <Filter>Header Files\elementy</Filter>
+    </ClInclude>
+    <ClInclude Include="cGracz.h">
+      <Filter>Header Files\jednostki</Filter>
+    </ClInclude>
+    <ClInclude Include="cJednostka.h">
+      <Filter>Header Files\jednostki</Filter>
+    </ClInclude>
+    <ClInclude Include="cStworek.h">
+      <Filter>Header Files\jednostki</Filter>
+    </ClInclude>
+    <ClInclude Include="cZamek.h">
+      <Filter>Header Files\jednostki</Filter>
+    </ClInclude>
+    <ClInclude Include="cTeownik.h">
+      <Filter>Header Files\elementy</Filter>
+    </ClInclude>
+    <ClInclude Include="cPunktStabilny.h">
+      <Filter>Header Files\elementy</Filter>
+    </ClInclude>
+    <ClInclude Include="image_DXT.h">
+      <Filter>SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="image_helper.h">
+      <Filter>SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="SOIL.h">
+      <Filter>SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="stb_image_aug.h">
+      <Filter>SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="stbi_DDS_aug.h">
+      <Filter>SOIL</Filter>
+    </ClInclude>
+    <ClInclude Include="stbi_DDS_aug_c.h">
+      <Filter>SOIL</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
