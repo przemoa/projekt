@@ -313,7 +313,10 @@ void cPlansza::RysujTeren()
 		glDisable(GL_TEXTURE_2D);
 	glPopMatrix();
 
-
+	for (int i = 0; i < tabElementow.size(); i++)
+	{
+		tabElementow[i]->Rysuj();
+	}
 
 }
 

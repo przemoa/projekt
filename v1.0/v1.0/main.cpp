@@ -53,7 +53,11 @@ void KlawiszeSpecjalne(int key, int x, int y)
 
 
 
-bool dodawanieBelki;
+bool dodawanieBelki = 0;
+float a = -10000;
+float b = -10000;
+float c = -10000;
+float d = -10000;
 
 int main(int argc, char **argv)
 {

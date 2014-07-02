@@ -287,7 +287,19 @@ void cPlansza::_MyszKlawisz(int button, int state, int x, int y)
 			{
 				if((px <= (*iter)->GetX() + ROZMIAR_PUNKTUSTABILNEGO) && (px >= (*iter)->GetX() - ROZMIAR_PUNKTUSTABILNEGO) && (py <= (*iter)->GetY() + ROZMIAR_PUNKTUSTABILNEGO) && (py >= (*iter)->GetY() - ROZMIAR_PUNKTUSTABILNEGO))
 				{
-
+					if (dodawanieBelki == 0)
+					{
+						a = (*iter)->GetX();
+						b = (*iter)->GetY();
+					}
+					else
+					{
+						c = (*iter)->GetX();
+						d = (*iter)->GetY();
+						DodajElement(a, c, b, d);
+					}
+					dodawanieBelki = !dodawanieBelki;
+					break;
 				}
 			}
 		}

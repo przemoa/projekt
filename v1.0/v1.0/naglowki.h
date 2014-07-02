@@ -195,3 +195,7 @@ struct sRAMKAOPISU
 };
 
 extern bool dodawanieBelki;
+extern float a;
+extern float b;
+extern float c;
+extern float d;
