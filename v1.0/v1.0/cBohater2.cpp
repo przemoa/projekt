@@ -56,9 +56,12 @@ void cBohater2::Ruszaj()
 		energia *= 0.05;
 	}
 
-
+	float poziomZiemi;
 	//cout << energia << endl;
-	float poziomZiemi = Plansza->Wysokosc(x);
+	if (Plansza->ZnajdzBelke(x) > Plansza->Wysokosc(x))
+		poziomZiemi = Plansza->ZnajdzBelke(x);
+	else
+		poziomZiemi = Plansza->Wysokosc(x);
 
 	yCel += VyCel;
 	y += 0.1*(yCel - y);
@@ -68,7 +71,11 @@ void cBohater2::Ruszaj()
 	if (energia != 0)
 	{
 		float dx = sqrt(energia)*kierunek / 20;				// zmiana x przy aktualnej energii
-		float poziomZiemi2 = Plansza->Wysokosc(x+dx);		// poziom ziemi przy przesuniecu o dx
+		float poziomZiemi2;		// poziom ziemi przy przesuniecu o dx
+		if (Plansza->ZnajdzBelke(x+dx) > Plansza->Wysokosc(x+dx))
+			poziomZiemi2 = Plansza->ZnajdzBelke(x+dx);
+		else
+			poziomZiemi2 = Plansza->Wysokosc(x+dx);
 
 		
 		if (y - 0.11 > poziomZiemi && y - 0.11 > poziomZiemi2) x += dx;			// jesli jest w powietrzu i za dx bêdzie w powietrzu to przeun o dx
@@ -117,14 +124,21 @@ void cBohater2::Ruszaj()
 
 	if (energia == 0)							// gdy nachylenie duze a sie nie rusza to rozpoczyna sie staczanie
 	{
-		float poziomZiemi2 = Plansza->Wysokosc(x + 2);
+		float poziomZiemi2;
+		if (Plansza->ZnajdzBelke(x + 2) > Plansza->Wysokosc(x + 2))
+			float poziomZiemi2 = Plansza->ZnajdzBelke(x + 2);
+		else
+			poziomZiemi2 = Plansza->Wysokosc(x + 2);
 		if (poziomZiemi2 - poziomZiemi > 1)							// w lewo
 		{
 			kierunek = -1;
 			energia = 15;
 		}
 
-		poziomZiemi2 = Plansza->Wysokosc(x - 2);
+		if (Plansza->ZnajdzBelke(x - 2) > Plansza->Wysokosc(x - 2))
+			float poziomZiemi2 = Plansza->ZnajdzBelke(x - 2);
+		else
+			poziomZiemi2 = Plansza->Wysokosc(x - 2);
 		if (poziomZiemi2 - poziomZiemi > 1)						// i prawo
 		{
 			kierunek = 1;
@@ -142,7 +156,11 @@ void cBohater2::Ruszaj()
 
 void cBohater2::Przyspieszaj(float dVx, float dVy)
 {
-	float poziomZiemi = Plansza->Wysokosc(x);
+	float poziomZiemi;
+	if (Plansza->ZnajdzBelke(x) > Plansza->Wysokosc(x))
+		poziomZiemi = Plansza->ZnajdzBelke(x);
+	else
+		poziomZiemi = Plansza->Wysokosc(x);
 	if (y - 4 > poziomZiemi) return;				// jesli wisi w powietrzu to nie mozna przyspieszac
 
 
