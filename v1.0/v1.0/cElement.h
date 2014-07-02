@@ -2,7 +2,7 @@
 #include "naglowki.h"
 class cElement
 {
-protected:
+public:
 	float wytrzymalosc;
 	float grubosc;
 	float dlugosc;

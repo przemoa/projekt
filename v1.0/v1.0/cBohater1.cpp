@@ -58,13 +58,20 @@ void cBohater1::Ruszaj()
 	int k = Plansza->XDoTab(x);
 	if (k < 0)
 		k = 0;
-	if (y - BOHATER_PROMIEN1 - KROK_BOHATERA > Plansza->tabPol[k])
+	float poziomTerenu1;
+	if(Plansza->ZnajdzBelke(x) > Plansza->tabPol[k])
+		poziomTerenu1 = Plansza->ZnajdzBelke(x);
+	else
+		poziomTerenu1 = Plansza->tabPol[k];
+	
+	
+	if (y - BOHATER_PROMIEN1 - KROK_BOHATERA > poziomTerenu1)
 	{
 		b1 = -1;
 	}
 	else 
 	{
-		if(y - BOHATER_PROMIEN1 - KROK_BOHATERA == Plansza->tabPol[k])
+		if(y - BOHATER_PROMIEN1 - KROK_BOHATERA == poziomTerenu1)
 		{
 			b1 = 0;
 		}
@@ -77,13 +84,18 @@ void cBohater1::Ruszaj()
 	int k2 = Plansza->XDoTab(x2);
 	if (k2 < 0)
 		k2 = 0;
-	if (y2 - BOHATER_PROMIEN2 - KROK_BOHATERA > Plansza->tabPol[k2])
+	float poziomTerenu2;
+	if(Plansza->ZnajdzBelke(x2) > Plansza->tabPol[k2])
+		poziomTerenu2 = Plansza->ZnajdzBelke(x2);
+	else
+		poziomTerenu2 = Plansza->tabPol[k2];
+	if (y2 - BOHATER_PROMIEN2 - KROK_BOHATERA > poziomTerenu2)
 	{
 		b2 = -1;
 	}
 	else 
 	{
-		if(y2 - BOHATER_PROMIEN2 - KROK_BOHATERA == Plansza->tabPol[k2])
+		if(y2 - BOHATER_PROMIEN2 - KROK_BOHATERA == poziomTerenu2)
 		{
 			b2 = 0;
 		}
@@ -94,7 +106,7 @@ void cBohater1::Ruszaj()
 	}
 
 
-	katTerenu = atan((Plansza->tabPol[k2] - Plansza->tabPol[k])/(x2 - x)) * 180 / 3.1416;
+	katTerenu = atan((poziomTerenu2 - poziomTerenu1)/(x2 - x)) * 180 / 3.1416;
 
 	float nVx = Vx;
 	float nVx2 = Vx2;
@@ -102,7 +114,7 @@ void cBohater1::Ruszaj()
 	//jesli tylne kolo jest na ziemi
 	if ((b1 == 1) || (b1 == 0))
 	{
-		y = BOHATER_PROMIEN1 + KROK_BOHATERA + Plansza->tabPol[k];
+		y = BOHATER_PROMIEN1 + KROK_BOHATERA + poziomTerenu1;
 
 		if ((nVx > 0) && (katTerenu <= katPoprzedni))
 		{
@@ -129,7 +141,7 @@ void cBohater1::Ruszaj()
 
 	if((b2 == 1) || (b2 == 0))
 	{
-		y2 = BOHATER_PROMIEN2 + KROK_BOHATERA + Plansza->tabPol[k2];
+		y2 = BOHATER_PROMIEN2 + KROK_BOHATERA + poziomTerenu2;
 
 		if ((nVx2 > 0) && (katTerenu <= katPoprzedni))
 		{
@@ -154,27 +166,27 @@ void cBohater1::Ruszaj()
 
 	if (b1 == -1)
 	{
-		if (y - BOHATER_PROMIEN1 - KROK_BOHATERA - Vy * KROK_CZASOWY >= Plansza->tabPol[k])
+		if (y - BOHATER_PROMIEN1 - KROK_BOHATERA - Vy * KROK_CZASOWY >= poziomTerenu1)
 		{
 			y -= Vy * KROK_CZASOWY;
 			Vy += PRZYSPIESZENIE_GRAWITACYJNE * KROK_CZASOWY;
 		}
 		else
 		{
-			y = BOHATER_PROMIEN1 + KROK_BOHATERA + Plansza->tabPol[k];
+			y = BOHATER_PROMIEN1 + KROK_BOHATERA + poziomTerenu1;
 		}
 	}
 
 	if (b2 == -1)
 	{
-		if (y - BOHATER_PROMIEN2 - KROK_BOHATERA - Vy2 * KROK_CZASOWY >= Plansza->tabPol[k2])
+		if (y - BOHATER_PROMIEN2 - KROK_BOHATERA - Vy2 * KROK_CZASOWY >= poziomTerenu2)
 		{
 			y2 -= Vy2 * KROK_CZASOWY;
 			Vy2 += PRZYSPIESZENIE_GRAWITACYJNE * KROK_CZASOWY;
 		}
 		else
 		{
-			y2 = BOHATER_PROMIEN2 + KROK_BOHATERA + Plansza->tabPol[k2];
+			y2 = BOHATER_PROMIEN2 + KROK_BOHATERA + poziomTerenu2;
 		}
 	}
 
@@ -218,13 +230,18 @@ void cBohater1::Przyspieszaj(float dVx, float dVy)
 	int k = Plansza->XDoTab(x);
 	if (k < 0)
 		k = 0;
-	if (y - BOHATER_PROMIEN1 - 5 * KROK_BOHATERA > Plansza->tabPol[k])
+	float poziomTerenu1;
+	if(Plansza->ZnajdzBelke(x) > Plansza->tabPol[k])
+		poziomTerenu1 = Plansza->ZnajdzBelke(x);
+	else
+		poziomTerenu1 = Plansza->tabPol[k];
+	if (y - BOHATER_PROMIEN1 - 5 * KROK_BOHATERA > poziomTerenu1)
 	{
 		b1 = -1;
 	}
 	else 
 	{
-		if(y - BOHATER_PROMIEN1 - 5 * KROK_BOHATERA == Plansza->tabPol[k])
+		if(y - BOHATER_PROMIEN1 - 5 * KROK_BOHATERA == poziomTerenu1)
 		{
 			b1 = 0;
 		}
@@ -237,13 +254,18 @@ void cBohater1::Przyspieszaj(float dVx, float dVy)
 	int k2 = Plansza->XDoTab(x2);
 	if (k2 < 0)
 		k2 = 0;
-	if (y2 - BOHATER_PROMIEN2 - 5 * KROK_BOHATERA > Plansza->tabPol[k2])
+	float poziomTerenu2;
+	if(Plansza->ZnajdzBelke(x2) > Plansza->tabPol[k2])
+		poziomTerenu2 = Plansza->ZnajdzBelke(x2);
+	else
+		poziomTerenu2 = Plansza->tabPol[k2];
+	if (y2 - BOHATER_PROMIEN2 - 5 * KROK_BOHATERA > poziomTerenu2)
 	{
 		b2 = -1;
 	}
 	else 
 	{
-		if(y2 - BOHATER_PROMIEN2 - 5 * KROK_BOHATERA == Plansza->tabPol[k2])
+		if(y2 - BOHATER_PROMIEN2 - 5 * KROK_BOHATERA == poziomTerenu2)
 		{
 			b2 = 0;
 		}
