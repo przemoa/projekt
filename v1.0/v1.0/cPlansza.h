@@ -76,5 +76,6 @@ public:
 	int YDoTab(float y);
 	float Wysokosc(float x);		// wysokosc poziomu mapy
 	void DodajElement(float x1, float x2, float y1, float y2);
+	float ZnajdzBelke(float x);
 };
 

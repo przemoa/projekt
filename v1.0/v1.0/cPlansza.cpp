@@ -1043,6 +1043,19 @@ void cPlansza::DodajElement(float x1, float x2, float y1, float y2)
 	tabElementow.push_back(nowa);
 }
 
-
+float cPlansza::ZnajdzBelke(float x)
+{
+	float poziom_max;
+	for (auto iter = tabElementow.begin(); iter <= tabElementow.end(); iter++)
+	{
+		if(((x >= (*iter)->x_poczatku) && (x <= (*iter)->x_konca)) || ((x >= (*iter)->x_konca) && (x <= (*iter)->x_poczatku)))
+		{
+			poziom_max = ((*iter)->y_konca - (*iter)->y_poczatku) / ((*iter)->x_konca - (*iter)->x_poczatku) * x + (*iter)->y_poczatku - ((*iter)->y_konca - (*iter)->y_poczatku) / ((*iter)->x_konca - (*iter)->x_poczatku) * (*iter)->x_poczatku;
+			poziom_max += (*iter)->grubosc / 2 * abs(cos(atan2((*iter)->y_konca - (*iter)->y_poczatku, (*iter)->x_konca - (*iter)->x_poczatku)));
+			break;
+		}
+	}
+	return poziom_max;
+}
 
 
