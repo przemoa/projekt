@@ -1045,8 +1045,8 @@ void cPlansza::DodajElement(float x1, float x2, float y1, float y2)
 
 float cPlansza::ZnajdzBelke(float x)
 {
-	float poziom_max;
-	for (auto iter = tabElementow.begin(); iter <= tabElementow.end(); iter++)
+	float poziom_max = -1000;
+	for (auto iter = tabElementow.begin(); iter < tabElementow.end(); iter++)
 	{
 		if(((x >= (*iter)->x_poczatku) && (x <= (*iter)->x_konca)) || ((x >= (*iter)->x_konca) && (x <= (*iter)->x_poczatku)))
 		{
