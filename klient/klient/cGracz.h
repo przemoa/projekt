@@ -21,7 +21,7 @@ public:
 	float zloto;
 	char napisZloto[8];
 
-	vector < cBohater* > tabBohaterow;
+	cBohater* tabBohaterow[3];
 	cZamek* zamek;
 	vector < cStworek* > tabStworkow;
 

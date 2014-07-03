@@ -18,20 +18,20 @@ public:
 	float x;
 	float y;
 
-	float zloto;
+    int zloto;
 
-	vector < cBohater* > tabBohaterow;
+    cBohater* tabBohaterow[3];
 	cZamek* zamek;
 	vector < cStworek* > tabStworkow;
 
     void Dzialaj();
-	void DodajBohatera(float _x, float _y, int ktory);
+    void DodajBohatera(int ktory);
 	void PrzyspieszajBohatera(float dVx, float dVy);
 
 	int wybranyBohater;
 	int idWybrane;
 
-	void DodajStworka(float _x, int _typStworka);
+    void DodajStworka(int _typStworka);
 	bool ZaplacZlotem(int ile);
 	void AwansujStworki();
 

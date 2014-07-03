@@ -8,19 +8,102 @@ cSerwerClient::cSerwerClient(SOCKET _socket, int _ID)
     this->socketUsed = _socket;
     this->ID = _ID;
 
-    this->flagNewDataRecv = false;
-    this->flagNewDataSend = false;
+    this->bajtyOdebrane = 0;
+    this->bajtyDoWyslania = 0;
 
-    memset(this->recvBuffer, 0, this->bufferSize);
-    memset(this->sendBuffer, 0, this->bufferSize);
+    memset(this->buforOdbioru, 0, ROZMIAR_BUFORA_ODBIORU);
+    memset(this->buforWysylania, 0, ROZMIAR_BUFORA_WYSYLANIA);
 }
 
 
-bool cSerwerClient::Receive(void)
+
+void cSerwerClient::DodajBajty(char pierwszy, char drugi , char trzeci, char czwarty, char piaty)
+{
+
+    buforWysylania[bajtyDoWyslania] = pierwszy;
+    bajtyDoWyslania++;
+
+    buforWysylania[bajtyDoWyslania] = drugi;
+    bajtyDoWyslania++;
+
+    buforWysylania[bajtyDoWyslania] = trzeci;
+    bajtyDoWyslania++;
+
+    buforWysylania[bajtyDoWyslania] = czwarty;
+    bajtyDoWyslania++;
+
+    buforWysylania[bajtyDoWyslania] = piaty;
+    bajtyDoWyslania++;
+}
+
+void cSerwerClient::DodajBajty(char pierwszy, char drugi , char trzeci, char czwarty)
+{
+
+    buforWysylania[bajtyDoWyslania] = pierwszy;
+    bajtyDoWyslania++;
+
+    buforWysylania[bajtyDoWyslania] = drugi;
+    bajtyDoWyslania++;
+
+    buforWysylania[bajtyDoWyslania] = trzeci;
+    bajtyDoWyslania++;
+
+    buforWysylania[bajtyDoWyslania] = czwarty;
+    bajtyDoWyslania++;
+}
+
+void cSerwerClient::DodajBajty(char pierwszy, char drugi , char trzeci)
+{
+
+    buforWysylania[bajtyDoWyslania] = pierwszy;
+    bajtyDoWyslania++;
+
+    buforWysylania[bajtyDoWyslania] = drugi;
+    bajtyDoWyslania++;
+
+    buforWysylania[bajtyDoWyslania] = trzeci;
+    bajtyDoWyslania++;
+}
+
+void cSerwerClient::DodajBajty(char pierwszy, char drugi)
+{
+
+    buforWysylania[bajtyDoWyslania] = pierwszy;
+    bajtyDoWyslania++;
+
+    buforWysylania[bajtyDoWyslania] = drugi;
+    bajtyDoWyslania++;
+}
+
+void cSerwerClient::DodajBajty(char pierwszy)
+{
+
+    buforWysylania[bajtyDoWyslania] = pierwszy;
+    bajtyDoWyslania++;
+}
+
+
+void cSerwerClient::DodajInt(int dodaj)
+{
+    memcpy(buforWysylania+bajtyDoWyslania, &dodaj, 4);
+    bajtyDoWyslania += 4;
+}
+
+void cSerwerClient::DodajFloat(float dodaj)
+{
+    memcpy(buforWysylania+bajtyDoWyslania, &dodaj, 4);
+    bajtyDoWyslania += 4;
+}
+
+
+
+
+
+bool cSerwerClient::Odbierz(void)
 {
     bool flagClientConnected = true;
 
-    int bytesRecv = recv(this->socketUsed, this->recvBuffer, this->bufferSize, 0);
+    int bytesRecv = recv(this->socketUsed, this->buforOdbioru, ROZMIAR_BUFORA_ODBIORU, 0);
     int nError = WSAGetLastError();
     if (nError != WSAEWOULDBLOCK && nError != WSAENOTSOCK && nError != 0)
     {
@@ -42,36 +125,36 @@ bool cSerwerClient::Receive(void)
     {
         if (bytesRecv > 0)
         {
-            this->flagNewDataRecv = true;
+            bajtyOdebrane = bytesRecv;
         }
         else
         {
-            this->flagNewDataRecv = false;
+            bajtyOdebrane = 0;
         }
     }
 
     return flagClientConnected;
 }
 
-void cSerwerClient::PrepareResponse()
-{
-    if (this->flagNewDataRecv)
-    {
-        strcpy_s(this->sendBuffer, this->bufferSize, "nom");
+//void cSerwerClient::PrepareResponse()
+//{
+//    if (this->flagNewDataRecv)
+//    {
+//        strcpy_s(this->sendBuffer, this->bufferSize, "nom");
 
-        memset(this->recvBuffer, 0, this->bufferSize);
-        this->flagNewDataRecv = false;
-        this->flagNewDataSend = true;
-    }
-}
+//        memset(this->recvBuffer, 0, this->bufferSize);
+//        this->flagNewDataRecv = false;
+//        this->flagNewDataSend = true;
+//    }
+//}
 
-void cSerwerClient::Send(void)
+void cSerwerClient::Wyslij(void)
 {
-    if (this->flagNewDataSend)
+    if (bajtyDoWyslania)
     {
-        send(this->socketUsed, this->sendBuffer, this->bufferSize, 0);
-        memset(this->sendBuffer, 0, this->bufferSize);
-        this->flagNewDataSend = false;
+        send(this->socketUsed, this->buforWysylania, bajtyDoWyslania, 0);
+        memset(this->buforWysylania, 0, ROZMIAR_BUFORA_WYSYLANIA);
+        bajtyDoWyslania = 0;
     }
 }
 
@@ -138,12 +221,12 @@ void cSerwer::AcceptNewClients(void)
 
             if (gracz1 == NULL)
             {
-                gracz1 = new cSerwerClient(newClientSocket, 0);
+                gracz1 = new cSerwerClient(newClientSocket, 1);
                 wiadomosc += "gracz1 polaczony ";
             }
             else
             {
-                gracz2 = new cSerwerClient(newClientSocket, 1);
+                gracz2 = new cSerwerClient(newClientSocket, 2);
                 wiadomosc += "gracz2 polaczony ";
             }
         }
@@ -152,53 +235,69 @@ void cSerwer::AcceptNewClients(void)
 
 void cSerwer::ReceiveData(void)
 {
+
     // for all available clients receive the data, in case of disconnection remove client from the list
+
     if (gracz1)
     {
-        bool flagClientConnected = (*gracz1).Receive();
-        if (!flagClientConnected)
+        gracz1->bajtyOdebrane = 0;
+        while(!gracz1->bajtyOdebrane)
         {
-            wiadomosc += "Gracz1 rozlaczony";
-            gracz1 = NULL;
+            bool flagClientConnected = (*gracz1).Odbierz();
+            if (!flagClientConnected)
+            {
+                wiadomosc += "Gracz1 rozlaczony";
+                gracz1 = NULL;
+                return;
+            }
         }
     }
+
 
     if (gracz2)
     {
-        bool flagClientConnected = (*gracz2).Receive();
-        if (!flagClientConnected)
+        while(!gracz2->bajtyOdebrane)
         {
-            wiadomosc += "Gracz2 rozlaczony";
-            gracz2 = NULL;
+            gracz2->bajtyOdebrane = 0;
+            bool flagClientConnected = (*gracz2).Odbierz();
+            if (!flagClientConnected)
+            {
+                wiadomosc += "Gracz2 rozlaczony";
+                gracz2 = NULL;
+                return;
+            }
         }
+
     }
+
+
 }
 
 
-void cSerwer::PrepareResponse()
-{
-    if(gracz1)
-    {
-        (*gracz1).PrepareResponse();
-    }
+//void cSerwer::PrepareResponse()
+//{
+//    if(gracz1)
+//    {
+//        (*gracz1).PrepareResponse();
+//    }
 
-    if(gracz2)
-    {
-        (*gracz2).PrepareResponse();
-    }
-}
+//    if(gracz2)
+//    {
+//        (*gracz2).PrepareResponse();
+//    }
+//}
 
 void cSerwer::SendData(void)
 {
     // for all available clients send the prepared data
     if(gracz1)
     {
-        (*gracz1).Send();
+        gracz1->Wyslij();
     }
 
     if(gracz2)
     {
-        (*gracz2).Send();
+        gracz2->Wyslij();
     }
 }
 

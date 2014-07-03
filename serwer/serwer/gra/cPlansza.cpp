@@ -1,6 +1,6 @@
 #include "cPlansza.h"
 #include "naglowki.h"
-
+#include "qfile.h"
 
 
 cPlansza::cPlansza(void)
@@ -16,7 +16,7 @@ cPlansza::cPlansza(void)
 		tabTypowPol[k] = -7777;
 	}
 	WczytajTeren();
-
+    bajtyBuforuDodan = 0;
 
 }
 
@@ -24,6 +24,70 @@ cPlansza::~cPlansza(void)
 {
 
 }
+
+
+
+void cPlansza::DodajDodanie(char pierwszy, char drugi , char trzeci, char czwarty)
+{
+
+    buforDodan[bajtyBuforuDodan] = pierwszy;
+    bajtyBuforuDodan++;
+
+
+        buforDodan[bajtyBuforuDodan] = drugi;
+        bajtyBuforuDodan++;
+
+
+
+        buforDodan[bajtyBuforuDodan] = trzeci;
+        bajtyBuforuDodan++;
+
+
+
+        buforDodan[bajtyBuforuDodan] = czwarty;
+        bajtyBuforuDodan++;
+
+}
+
+void cPlansza::DodajDodanie(char pierwszy, char drugi , char trzeci)
+{
+
+    buforDodan[bajtyBuforuDodan] = pierwszy;
+    bajtyBuforuDodan++;
+
+
+        buforDodan[bajtyBuforuDodan] = drugi;
+        bajtyBuforuDodan++;
+
+
+
+        buforDodan[bajtyBuforuDodan] = trzeci;
+        bajtyBuforuDodan++;
+
+
+}
+
+void cPlansza::DodajDodanie(char pierwszy, char drugi)
+{
+
+    buforDodan[bajtyBuforuDodan] = pierwszy;
+    bajtyBuforuDodan++;
+
+
+        buforDodan[bajtyBuforuDodan] = drugi;
+        bajtyBuforuDodan++;
+
+}
+
+void cPlansza::DodajDodanie(char pierwszy)
+{
+
+    buforDodan[bajtyBuforuDodan] = pierwszy;
+    bajtyBuforuDodan++;
+
+}
+
+
 
 void cPlansza::_Dzialaj(int value)
 {
@@ -39,12 +103,15 @@ void cPlansza::_Dzialaj(int value)
 
 void cPlansza::WczytajTeren()
 {
-	FILE* odczytTerenu = fopen("tx\\1.bin", "r");
-    unsigned char* tablicaPikseli = new unsigned char[5000*850];
-	fread(tablicaPikseli, 1, 5000*850, odczytTerenu);
-	fclose(odczytTerenu);
+//	FILE* odczytTerenu = fopen("tx\\1.bin", "r");
+//    unsigned char* tablicaPikseli = new unsigned char[5000*850];
+//	fread(tablicaPikseli, 1, 5000*850, odczytTerenu);
+//	fclose(odczytTerenu);
 
-
+    QFile plik ("C:\\1.bin");
+    plik.open(QIODevice::ReadOnly);
+    QByteArray tablicaPikseli = plik.readAll();
+    plik.close();
 
 	for (int k = 0; k < 5000; k++)				// przepisz z wektra do tabeli pól i wykonaje pola specjalne
 	{
@@ -83,7 +150,7 @@ void cPlansza::WczytajTeren()
 			}
 		}
 	}
-	delete [] tablicaPikseli;
+    //delete [] tablicaPikseli;
 
 	for (int k = 0; k < 50000; k++)
 	{

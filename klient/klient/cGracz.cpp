@@ -26,26 +26,33 @@ cGracz::cGracz(float _x, float _y, int _wlascicel)
 	kolor.b = 0;
 
 	zamek = new cZamek(_x, 62 + ((wlasciciel==-1) ? 40 : 0), wlasciciel);
-	zloto = 5000;		//500
+	zloto = 0;		//0
 	sprintf(napisZloto, "x %d", (int) zloto);
 
 	idWybrane = 0;
 	levelStworkow = 0;
+
+	tabBohaterow[0] = NULL;
+	tabBohaterow[1] = NULL;
+	tabBohaterow[2] = NULL;
 
 
 }
 
 void cGracz::DodajStworka(float _x, int _typStworka)
 {
-	cStworek* nowyStworek = new cStworek(_x+40*wlasciciel, -0.5, _typStworka, wlasciciel, levelStworkow);
-	tabStworkow.push_back(nowyStworek);
+	//cStworek* nowyStworek = new cStworek(_x+40*wlasciciel, -0.5, _typStworka, wlasciciel, levelStworkow);
+	//tabStworkow.push_back(nowyStworek);
+	Plansza->DodajAkcje(0x07, _typStworka); 
+
 }
 
 void cGracz::AktualizujRamke()
 {
-
-	for (int i  = 0; i < tabBohaterow.size(); i++)
+	sprintf(napisZloto, "x %d", (int) zloto);
+	for (int i  = 0; i < 3; i++)
 	{
+		if (tabBohaterow[i] == NULL) continue;
 		if (tabBohaterow[i]->GetId() == idWybrane)
 			tabBohaterow[i]->AktualizujRamke();
 	}
@@ -60,14 +67,13 @@ void cGracz::AktualizujRamke()
 		zamek->AktualizujRamke();
 }
 
-
-
 void cGracz::FocusujKamere() 
 {
 	// sprawdzenie czy to aktualnie wybrana jednostka i ustawienie focusa kamery
 
-	for (int i  = 0; i < tabBohaterow.size(); i++)
+	for (int i  = 0; i < 3; i++)
 	{
+		if (tabBohaterow[i] == NULL) continue;
 		if (tabBohaterow[i]->GetId() == idWybrane)			
 		{
 			float odlegloscX = -tabBohaterow[i]->GetX()+Plansza->kamera.xCel;
@@ -101,13 +107,12 @@ void cGracz::FocusujKamere()
 
 void cGracz::DodajBohatera(float _x, float _y, int ktory)
 {
-	
-	cBohater * nowyBohater;
+	Plansza->DodajAkcje(0x04, ktory);
 
-	if (ktory == 1) nowyBohater = new cBohater1(_x+60*wlasciciel, _y, wlasciciel);
-	if (ktory == 2) nowyBohater = new cBohater2(_x+60*wlasciciel, _y, wlasciciel);
-
-	tabBohaterow.push_back(nowyBohater);
+	//cBohater * nowyBohater;
+	//if (ktory == 1) nowyBohater = new cBohater1(_x+60*wlasciciel, _y, wlasciciel);
+	//if (ktory == 2) nowyBohater = new cBohater2(_x+60*wlasciciel, _y, wlasciciel);
+	//tabBohaterow.push_back(nowyBohater);
 
 
 }
@@ -115,13 +120,18 @@ void cGracz::DodajBohatera(float _x, float _y, int ktory)
 void cGracz::PrzyspieszajBohatera(float dVx, float dVy)
 {
 	if (wybranyBohater < 0) return;
-	tabBohaterow[wybranyBohater]->Przyspieszaj(dVx, dVy);
+
+	if (Plansza->wcisnieteA) Plansza->DodajAkcje(0x20, wybranyBohater);
+	else if (Plansza->wcisnieteD) Plansza->DodajAkcje(0x21, wybranyBohater);
+
+	//tabBohaterow[wybranyBohater]->Przyspieszaj(dVx, dVy);
 }
 
 void cGracz::Rysuj()
 {
-	for (int i = 0; i < tabBohaterow.size(); i++)
+	for (int i = 0; i < 3; i++)
 	{
+		if (tabBohaterow[i] == NULL) continue;
 		tabBohaterow[i]->Rysuj();
 	}
 
@@ -156,8 +166,9 @@ bool cGracz::WybierzJednostke(float px, float py)
 	}
 
 	wybranyBohater = -1;
-	for (int i = 0; i < tabBohaterow.size(); i++)
+	for (int i = 0; i < 3; i++)
 	{
+		if (tabBohaterow[i] == NULL) continue;
 		if (tabBohaterow[i]->CzyKliknieto(px, py))
 		{
 			idWybrane = tabBohaterow[i]->GetId();
@@ -174,8 +185,8 @@ bool cGracz::ZaplacZlotem(int ile)
 {
 	if (zloto >= ile)
 	{
-		zloto -= ile;
-		sprintf(napisZloto, "x %d", (int) zloto);
+		/*zloto -= ile;
+		sprintf(napisZloto, "x %d", (int) zloto);*/
 		return true;
 	}
 	else return false;
@@ -183,7 +194,7 @@ bool cGracz::ZaplacZlotem(int ile)
 
 void cGracz::AwansujStworki()
 {
-	levelStworkow += 1;
+	Plansza->DodajAkcje(0x14);
 }
 
 

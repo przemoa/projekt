@@ -60,11 +60,11 @@ extern cPlansza* Plansza;
 #define TEKSTURA_WYBOR_MIEJSCA 39
 
 
-#define POLE_WODA 0xFC
-#define POLE_GRACZ 0xF9
+#define POLE_WODA 0xFC  // -4
+#define POLE_GRACZ 0xF9     //-7
 #define POLE_PALMA 0x18
 #define POLE_PUNKT_STABILNY 0x67
-#define POLE_TLO 0xFF
+#define POLE_TLO 0xFF       // -1
 #define POLE_ZIEMIA 0x0A
 #define POLE_TRAWA 0x71
 
@@ -75,10 +75,10 @@ extern cPlansza* Plansza;
 #define ZAKRES_KLIKNIECIE 3.5   
 
 #define LISTA_PUNKT_STABILNY 1
-#define LISTA_STWOREK_KULA 121
-#define LISTA_STWOREK_KWADRAT 122
-#define LISTA_STWOREK_TRZY 123
-#define LISTA_STWOREK_CZTERY 124
+#define LISTA_STWOREK_KULA 125
+#define LISTA_STWOREK_KWADRAT 126
+#define LISTA_STWOREK_TRZY 127
+#define LISTA_STWOREK_CZTERY 128
 #define LISTA_BOHATER1 2
 #define LISTA_BOHATER2 3
 
@@ -119,8 +119,8 @@ extern cPlansza* Plansza;
 #define IKONA_BOHATER1 121
 #define IKONA_BOHATER2 122
 
-#define IKONA_STWOREK1 123
-#define IKONA_STWOREK2 124
+#define IKONA_STWOREK1 125
+#define IKONA_STWOREK2 126
 
 
 

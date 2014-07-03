@@ -35,5 +35,15 @@ public:
 	int XDoTab(float x);
 	int YDoTab(float y);
 	float Wysokosc(float x);		// wysokosc poziomu mapy
+
+
+    void DodajDodanie(char pierwszy, char drugi, char trzeci, char czwarty);
+    void DodajDodanie(char pierwszy, char drugi, char trzeci);
+    void DodajDodanie(char pierwszy, char drugi);
+    void DodajDodanie(char pierwszy);
+    char buforDodan[1024];
+    int bajtyBuforuDodan;
+
+
 };
 

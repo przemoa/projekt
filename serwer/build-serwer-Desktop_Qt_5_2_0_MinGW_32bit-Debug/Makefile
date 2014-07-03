@@ -151,6 +151,7 @@ Makefile: ../serwer/serwer.pro ../../../../../../Qt/Qt5.2.0/5.2.0/mingw48_32/mks
 		../../../../../../Qt/Qt5.2.0/5.2.0/mingw48_32/mkspecs/features/resolve_config.prf \
 		../../../../../../Qt/Qt5.2.0/5.2.0/mingw48_32/mkspecs/features/exclusive_builds_post.prf \
 		../../../../../../Qt/Qt5.2.0/5.2.0/mingw48_32/mkspecs/features/default_post.prf \
+		../../../../../../Qt/Qt5.2.0/5.2.0/mingw48_32/mkspecs/features/win32/console.prf \
 		../../../../../../Qt/Qt5.2.0/5.2.0/mingw48_32/mkspecs/features/qml_debug.prf \
 		../../../../../../Qt/Qt5.2.0/5.2.0/mingw48_32/mkspecs/features/declarative_debug.prf \
 		../../../../../../Qt/Qt5.2.0/5.2.0/mingw48_32/mkspecs/features/win32/rtti.prf \
@@ -160,7 +161,6 @@ Makefile: ../serwer/serwer.pro ../../../../../../Qt/Qt5.2.0/5.2.0/mingw48_32/mks
 		../../../../../../Qt/Qt5.2.0/5.2.0/mingw48_32/mkspecs/features/moc.prf \
 		../../../../../../Qt/Qt5.2.0/5.2.0/mingw48_32/mkspecs/features/win32/opengl.prf \
 		../../../../../../Qt/Qt5.2.0/5.2.0/mingw48_32/mkspecs/features/uic.prf \
-		../../../../../../Qt/Qt5.2.0/5.2.0/mingw48_32/mkspecs/features/win32/windows.prf \
 		../../../../../../Qt/Qt5.2.0/5.2.0/mingw48_32/mkspecs/features/testcase_targets.prf \
 		../../../../../../Qt/Qt5.2.0/5.2.0/mingw48_32/mkspecs/features/exceptions.prf \
 		../../../../../../Qt/Qt5.2.0/5.2.0/mingw48_32/mkspecs/features/yacc.prf \
@@ -262,6 +262,7 @@ Makefile: ../serwer/serwer.pro ../../../../../../Qt/Qt5.2.0/5.2.0/mingw48_32/mks
 ../../../../../../Qt/Qt5.2.0/5.2.0/mingw48_32/mkspecs/features/resolve_config.prf:
 ../../../../../../Qt/Qt5.2.0/5.2.0/mingw48_32/mkspecs/features/exclusive_builds_post.prf:
 ../../../../../../Qt/Qt5.2.0/5.2.0/mingw48_32/mkspecs/features/default_post.prf:
+../../../../../../Qt/Qt5.2.0/5.2.0/mingw48_32/mkspecs/features/win32/console.prf:
 ../../../../../../Qt/Qt5.2.0/5.2.0/mingw48_32/mkspecs/features/qml_debug.prf:
 ../../../../../../Qt/Qt5.2.0/5.2.0/mingw48_32/mkspecs/features/declarative_debug.prf:
 ../../../../../../Qt/Qt5.2.0/5.2.0/mingw48_32/mkspecs/features/win32/rtti.prf:
@@ -271,7 +272,6 @@ Makefile: ../serwer/serwer.pro ../../../../../../Qt/Qt5.2.0/5.2.0/mingw48_32/mks
 ../../../../../../Qt/Qt5.2.0/5.2.0/mingw48_32/mkspecs/features/moc.prf:
 ../../../../../../Qt/Qt5.2.0/5.2.0/mingw48_32/mkspecs/features/win32/opengl.prf:
 ../../../../../../Qt/Qt5.2.0/5.2.0/mingw48_32/mkspecs/features/uic.prf:
-../../../../../../Qt/Qt5.2.0/5.2.0/mingw48_32/mkspecs/features/win32/windows.prf:
 ../../../../../../Qt/Qt5.2.0/5.2.0/mingw48_32/mkspecs/features/testcase_targets.prf:
 ../../../../../../Qt/Qt5.2.0/5.2.0/mingw48_32/mkspecs/features/exceptions.prf:
 ../../../../../../Qt/Qt5.2.0/5.2.0/mingw48_32/mkspecs/features/yacc.prf:

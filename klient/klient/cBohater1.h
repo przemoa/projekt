@@ -13,9 +13,7 @@ public:
 	void AktualizujRamke();
 	void RysujPasekZycia();
 	void Przyspieszaj(float dVx, float dVy);
-	void Awansuj();
-	void ZwiekszMoc();
-	void Teleportuj();
+
 
 	float x2;			// wspolrzedne mniejszego kola
 	float y2;

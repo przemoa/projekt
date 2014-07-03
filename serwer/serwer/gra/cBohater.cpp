@@ -5,11 +5,15 @@
 
 cBohater::cBohater(void)
 {
+    zywy = true;
+    energia = 0;
 }
 
 
 cBohater::~cBohater(void)
 {
 }
+
+
 
 

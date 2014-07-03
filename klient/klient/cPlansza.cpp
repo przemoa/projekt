@@ -54,6 +54,15 @@ cPlansza::cPlansza(void)
 
 	mysz.x = 1;
 	mysz.y = 2;
+
+	etapGry = LACZENIE;
+	bajtyOdebrane = -1;
+	bajtyDoWyslania = 1;
+	daneDoWyslania[0] = 0x01;
+	PolaczZSerwerem();
+
+	wcisnieteA = 0;
+	wcisnieteD = 0;
 }
 
 cPlansza::~cPlansza(void)
@@ -172,6 +181,63 @@ void cPlansza::_Dzialaj(int value)
 		FocusujKamere();
 		glutTimerFunc(100, Dzialaj, TIMER_100);
 	}
+
+
+
+
+
+
+
+	if (value == TIMER_2)
+	{
+
+		if (etapGry == LACZENIE)
+		{
+			if(PolaczZSerwerem())
+			{
+				etapGry == OCZEKIWANIE_NA_WARUNKI;
+				glutTimerFunc(2, Dzialaj, TIMER_2);
+			}
+			else
+			{
+				glutTimerFunc(4000, Dzialaj, TIMER_2);
+			}
+			return;
+		}
+			
+		if (etapGry == UTRACONO_POLACZENIE) return;
+
+
+		glutTimerFunc(2, Dzialaj, TIMER_2);
+		OdbierzDane();
+
+		if (etapGry == OCZEKIWANIE_NA_WARUNKI)
+		{
+			CzekajNaRozpoczenie();
+		}
+
+		if (etapGry == OCZEKIWANIE_NA_ROZPOCZECIE)
+		{
+			if (bajtyOdebrane > 0) etapGry = GRA;
+			else return;
+		}
+
+		if (etapGry == GRA && (bajtyOdebrane > 0))
+		{
+			PrzetworzDane();
+			tabGraczy[0]->PrzyspieszajBohatera(0,0);
+			//DodajAkcjeDoWyslania();
+			//DodajWiadomoscDoWyslania();
+			WyslijDane();
+			bajtyDoWyslania = 1;
+			daneDoWyslania[0] = 0x01;
+		}
+	}
+
+
+
+
+
 }
 
 void cPlansza::_Idle(void)
@@ -194,11 +260,11 @@ void cPlansza::_Klawiatura(unsigned char key, int x, int y)
 		break;
 
 	case 'a':
-		tabGraczy[wybranyGracz]->PrzyspieszajBohatera(-KROK_PRZYSPIESZANIA_BOHATERA, 0);
+		wcisnieteA = 1;
 		break;
 
 	case 'd':
-		tabGraczy[wybranyGracz]->PrzyspieszajBohatera(KROK_PRZYSPIESZANIA_BOHATERA, 0);
+		wcisnieteD = 1;
 		break;
 	case '-':
 		kamera.zakresCel *= SZYBKOSC_SCROLLOWANIA;
@@ -234,6 +300,20 @@ void cPlansza::_Klawiatura(unsigned char key, int x, int y)
 
 }
 
+void cPlansza::_KlawiszPusc(unsigned char key, int x, int y)
+{
+	switch(key)
+	{
+	case 'a':
+		wcisnieteA = 0;
+		break;
+
+	case 'd':
+		wcisnieteD = 0;
+		break;
+	}
+}
+
 void cPlansza::_ZmianaRozmiaruOkna(int width, int height)
 {
 	rozmiarOkna.x = width;
@@ -264,6 +344,8 @@ void cPlansza::_MyszKlawisz(int button, int state, int x, int y)
 
 	if (button == GLUT_RIGHT_BUTTON)
 	{
+		if (!etapGry==GRA) return;
+
 		if (state == GLUT_DOWN)
 		{		
 			float px = ((float) x / rozmiarOkna.x * 2 * kamera.zakres - kamera.zakres) * rozmiarOkna.proporcja + kamera.x;
@@ -609,9 +691,9 @@ void cPlansza::WczytajTeren()
 			{
 			case POLE_GRACZ:
 				{
-					/*int kierunek = 1 - 2*tabGraczy.size();
+					int kierunek = 1 - 2*tabGraczy.size();
 					cGracz* nowyGracz = new cGracz(TabDoX(k*10), TabDoY(w), kierunek);
-					tabGraczy.push_back(nowyGracz);*/
+					tabGraczy.push_back(nowyGracz);
 				}
 				pole = POLE_TLO;
 				break;
@@ -627,7 +709,8 @@ void cPlansza::WczytajTeren()
 				break;
 
 			case POLE_PUNKT_STABILNY: 
-				//DodajPunktStabilny(TabDoX(k*10), TabDoY(w));
+				cPunktStabilny* nowyPunkt = new cPunktStabilny(TabDoX(k*10), TabDoY(w), 0);
+				tabPunktStab.push_back(nowyPunkt);
 				pole = POLE_TLO;
 			}
 			if (pole == POLE_TLO) continue;

@@ -49,5 +49,5 @@ HEADERS  += glowneokno.h \
 FORMS    += glowneokno.ui
 
 
-
+CONFIG += console
 LIBS += -lws2_32

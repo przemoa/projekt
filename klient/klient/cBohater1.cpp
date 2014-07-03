@@ -212,21 +212,3 @@ void cBohater1::AktualizujRamke()
 }
 
 
-void cBohater1::Awansuj()
-{
-	mnoznikZycia += 0.25;
-	poziomZycia = 100;
-	zasieg += 10;
-	obrazenia += 2;
-	szybkoscAtaku += 1; 
-}
-void cBohater1::ZwiekszMoc()
-{
-	mocSilnika += 1;
-}
-
-void cBohater1::Teleportuj()
-{
-	x = xBaz;
-	y = yBaz;
-}

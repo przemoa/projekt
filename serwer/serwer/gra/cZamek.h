@@ -37,16 +37,15 @@ public:
 	float rozmiarWiezy;
 	float wysokoscWiezy;
 
-	float wydobycie;		// pozyskiwane zloto na sekunde
+    int wydobycie;		// pozyskiwane zloto na sekunde
 	int wybranaWiez;
 	int typWybranejWiezy;
 
 	void Awansuj();
 
-	int dodawanaWieza;
 
-	void AwansujWieze();
-	int SprzedajWieze();
+    void AwansujWieze(int i);
+    void SprzedajWieze(int i);
 	//x;	 srodek zamq
 	//y;	 spod zamq
 

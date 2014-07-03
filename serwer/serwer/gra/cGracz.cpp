@@ -28,20 +28,42 @@ cGracz::cGracz(float _x, float _y, int _wlascicel)
 	idWybrane = 0;
 	levelStworkow = 0;
 
-
+    tabBohaterow[0] = NULL;
+    tabBohaterow[1] = NULL;
+    tabBohaterow[2] = NULL;
 }
 
-void cGracz::DodajStworka(float _x, int _typStworka)
+void cGracz::DodajStworka(int _typStworka)
 {
-	cStworek* nowyStworek = new cStworek(_x+40*wlasciciel, -0.5, _typStworka, wlasciciel, levelStworkow);
+    switch (_typStworka)
+    {
+    case LISTA_STWOREK_KULA:
+        if(!ZaplacZlotem(30)) return;
+        break;
+    case LISTA_STWOREK_KWADRAT:
+        if(!ZaplacZlotem(35)) return;
+        break;
+    case LISTA_STWOREK_TRZY:
+        if(!ZaplacZlotem(80)) return;
+        break;
+    case LISTA_STWOREK_CZTERY:
+        if(!ZaplacZlotem(220)) return;
+        break;
+    }
+
+    cStworek* nowyStworek = new cStworek(x+40*wlasciciel, -0.5, _typStworka, wlasciciel, levelStworkow);
 	tabStworkow.push_back(nowyStworek);
+
+    Plansza->DodajDodanie(0x60, ((wlasciciel==1)?0:1), _typStworka);
+
 }
 
 
 void cGracz::Dzialaj()
 {
-	for (int i  = 0; i < tabBohaterow.size(); i++)
+    for (int i  = 0; i < 3; i++)
 	{
+        if (tabBohaterow[i] == NULL) continue;
 		tabBohaterow[i]->Ruszaj();
 	}
 
@@ -52,15 +74,31 @@ void cGracz::Dzialaj()
 }
 
 
-void cGracz::DodajBohatera(float _x, float _y, int ktory)
+void cGracz::DodajBohatera(int ktory)
 {
-	
-	cBohater * nowyBohater;
 
-	if (ktory == 1) nowyBohater = new cBohater1(_x+60*wlasciciel, _y, wlasciciel);
-	if (ktory == 2) nowyBohater = new cBohater2(_x+60*wlasciciel, _y, wlasciciel);
+    if (tabBohaterow[ktory-1]) if (tabBohaterow[ktory-1]->zywy) return;
 
-	tabBohaterow.push_back(nowyBohater);
+    if (ktory == 1) if (ZaplacZlotem(400))
+    {
+        if (tabBohaterow[0] == NULL)
+            tabBohaterow[0] = new cBohater1(x+60*wlasciciel, y, wlasciciel);
+        else tabBohaterow[0]->zywy = true;
+
+    }
+    else return;
+
+    if (ktory == 2) if (ZaplacZlotem(500))
+    {
+        if (tabBohaterow[1] == NULL)
+            tabBohaterow[1] = new cBohater2(x+60*wlasciciel, y, wlasciciel);
+        else tabBohaterow[1]->zywy = true;
+    }
+    else return;
+
+    Plansza->DodajDodanie(0x61, ((wlasciciel==1)?0:1), ktory);
+
+
 
 
 }
@@ -84,7 +122,10 @@ bool cGracz::ZaplacZlotem(int ile)
 
 void cGracz::AwansujStworki()
 {
-	levelStworkow += 1;
+    if (ZaplacZlotem(400))
+        levelStworkow += 1;
+
+    Plansza->DodajDodanie(0x70, ((wlasciciel==1)?0:1));
 }
 
 

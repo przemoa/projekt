@@ -15,3 +15,6 @@ int main(int argc, char *argv[])
 
     return a.exec();
 }
+
+// PAMIETAC O LOKALIZACJI MAPY!
+// IP i PORT!

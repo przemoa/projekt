@@ -20,6 +20,8 @@ public:
 
 	float xBaz;
 	float yBaz;
+    bool zywy;
+    float energia;
 
 };
 

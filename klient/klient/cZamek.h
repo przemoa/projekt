@@ -40,7 +40,7 @@ public:
 	float rozmiarWiezy;
 	float wysokoscWiezy;
 
-	float wydobycie;		// pozyskiwane zloto na sekunde
+	int wydobycie;		// pozyskiwane zloto na sekunde
 	int wybranaWiez;
 	int typWybranejWiezy;
 

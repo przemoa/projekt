@@ -93,6 +93,9 @@
     <ClCompile Include="image_DXT.c">
       <Filter>SOIL</Filter>
     </ClCompile>
+    <ClCompile Include="klient.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cChmura.h">

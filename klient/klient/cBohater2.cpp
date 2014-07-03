@@ -148,26 +148,3 @@ void cBohater2::AktualizujRamke()
 	Plansza->ramkaOpisu.rodzajMenu = TEKSTURA_MENU_BOHATER;
 }
 
-
-void cBohater2::Awansuj()
-{
-	mnoznikZycia += 0.25;
-	poziomZycia = 100;
-	zasieg += 10;
-	obrazenia += 2;
-	szybkoscAtaku += 1; 
-	level += 1;
-}
-void cBohater2::ZwiekszMoc()
-{
-	mocSilnika += 1;
-}
-
-void cBohater2::Teleportuj()
-{
-	x = xBaz;
-	yCel = y = yBaz;
-	energia = 0;
-	kierunek = 0;
-	Vy = VyCel = 0;
-}

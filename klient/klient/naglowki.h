@@ -28,6 +28,7 @@ extern cPlansza* Plansza;
 #define TIMER_20 10
 #define TIMER_500 11
 #define TIMER_100 12
+#define TIMER_2 13
 
 
 #define SZYBKOSC_PRZESUWANIA 0.25
@@ -38,7 +39,7 @@ extern cPlansza* Plansza;
 #define KAMERA_MAX_POLOZENIE_X 975
 #define KAMERA_MAX_POLOZENIE_Y 200
 #define KAMERA_MIN_POLOZENIE_Y -100
-#define KAMERA_PRZESUWANIE_MYSZA 20
+#define KAMERA_PRZESUWANIE_MYSZA -5		// 20	
 
 #define ILOSC_CHMUR 16
 #define SZYBKOSC_CHMUR 120.0
@@ -87,10 +88,10 @@ extern cPlansza* Plansza;
 #define ZAKRES_KLIKNIECIE 3.5   
 
 #define LISTA_PUNKT_STABILNY 1
-#define LISTA_STWOREK_KULA 121
-#define LISTA_STWOREK_KWADRAT 122
-#define LISTA_STWOREK_TRZY 123
-#define LISTA_STWOREK_CZTERY 124
+#define LISTA_STWOREK_KULA 125
+#define LISTA_STWOREK_KWADRAT 126
+#define LISTA_STWOREK_TRZY 127
+#define LISTA_STWOREK_CZTERY 128
 #define LISTA_BOHATER1 2
 #define LISTA_BOHATER2 3
 
@@ -131,8 +132,8 @@ extern cPlansza* Plansza;
 #define IKONA_BOHATER1 121
 #define IKONA_BOHATER2 122
 
-#define IKONA_STWOREK1 123
-#define IKONA_STWOREK2 124
+#define IKONA_STWOREK1 125
+#define IKONA_STWOREK2 126
 
 struct sKOLOR
 {
@@ -193,5 +194,16 @@ struct sRAMKAOPISU
 	int rodzajMenu;		// nr tekstury bedacej menu
 	char tekstPomocy[128];
 };
+
+enum eETAPGRY
+{
+	LACZENIE = 0, OCZEKIWANIE_NA_WARUNKI, OCZEKIWANIE_NA_ROZPOCZECIE, GRA, UTRACONO_POLACZENIE, TEST
+};
+
+
+
+
+
+
 
 extern bool dodawanieBelki;

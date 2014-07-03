@@ -24,13 +24,13 @@ cZamek::cZamek(float _x, float _y, int _wlasciciel)
 
 	wlasciciel = _wlasciciel;
 
-	DodajWieze(11, 100);
-	DodajWieze(12, 100);
-	DodajWieze(13, 300);
-	DodajWieze(14, 300);
-	DodajWieze(15, 300);
-	DodajWieze(17, 100);
-	DodajWieze(16, 200);
+	//DodajWieze(11, 100);
+	//DodajWieze(12, 100);
+	//DodajWieze(13, 300);
+	//DodajWieze(14, 300);
+	//DodajWieze(15, 300);
+	//DodajWieze(17, 100);
+	//DodajWieze(16, 200);
 
 
 	mnoznikZycia = 15;
@@ -40,6 +40,8 @@ cZamek::cZamek(float _x, float _y, int _wlasciciel)
 
 void cZamek::DodajWieze(int _typWiezy, int pozycja)
 {
+
+	Plansza->DodajAkcje(0x16, _typWiezy, pozycja/100);
 
 	//sWIEZA nowaWieza;
 	//for (int i = 0; i < tabWiez.size(); i++)
@@ -283,6 +285,8 @@ void cZamek::AktualizujRamke()
 
 void cZamek::Awansuj()
 {
+	Plansza->DodajAkcje(0x15);
+
 	//rozmiar += 1;
 	//rozmiarWiezy = rozmiar/4.2;
 	//wysokoscWiezy = 3*rozmiarWiezy;
@@ -302,6 +306,16 @@ void cZamek::Awansuj()
 
 void cZamek::AwansujWieze()
 {
+	for (int i = 0; i < tabWiez.size(); i++)
+	{
+		if (tabWiez[i].pozycja == wybranaWiez)
+		{
+			Plansza->DodajAkcje(0x1D, i);
+		}
+	}
+
+
+
 	//for (int i = 0; i < tabWiez.size(); i++)
 	//{
 	//	if (tabWiez[i].pozycja == wybranaWiez)
@@ -362,11 +376,12 @@ int cZamek::SprzedajWieze()
 
 	if (tabWiez[nrDoUsuniecia].pozycja == maxPozycja)
 	{
-		int poziom = tabWiez[nrDoUsuniecia].level;
-		tabWiez.erase(tabWiez.begin() + nrDoUsuniecia);
+		Plansza->DodajAkcje(0x1E, nrDoUsuniecia);
+		//int poziom = tabWiez[nrDoUsuniecia].level;
+		//tabWiez.erase(tabWiez.begin() + nrDoUsuniecia);
 		wybranaWiez = 0;
 		Plansza->ramkaOpisu.rodzajMenu = TEKSTURA_MENU_ZAMEK;
-		return (-100*poziom); 
+		//return (-100*poziom); 
 	}
 	return 0;
 }

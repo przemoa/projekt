@@ -3,7 +3,7 @@
 
 class cJednostka
 {
-protected:
+public:
 	float x;
 	float y;
 	float z;

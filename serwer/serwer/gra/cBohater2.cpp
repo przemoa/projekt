@@ -193,7 +193,7 @@ void cBohater2::Awansuj()
 }
 void cBohater2::ZwiekszMoc()
 {
-	mocSilnika += 1;
+    mocSilnika = mocSilnika *1.06 + 2;
 }
 
 void cBohater2::Teleportuj()

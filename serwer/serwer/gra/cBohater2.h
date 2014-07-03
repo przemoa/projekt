@@ -16,7 +16,6 @@ public:
 	void ZwiekszMoc();
 	void Teleportuj();
 
-	float energia;
 	float Vy;
 	float VyCel;
 	bool odbity;			// czy odbil sie od ziemi

@@ -7,6 +7,10 @@
 #include "cElement.h"
 #include "cBelka.h"
 #include "cTeownik.h"
+#include "winsock2.h"
+#ifdef WIN32
+#pragma comment(lib,"ws2_32")
+#endif
 
 
 
@@ -25,6 +29,7 @@ public:
 	void _Dzialaj(int value);
 	void _Idle();
 	void _Klawiatura(unsigned char key, int x, int y);
+	void _KlawiszPusc(unsigned char key, int x, int y);
 	void _MyszKlawisz(int button, int state, int x, int y);
 	void _MyszRuch(int x,int y);
 	void _KlawiszeSpecjalne(int key, int x, int y);
@@ -76,5 +81,36 @@ public:
 	int YDoTab(float y);
 	float Wysokosc(float x);		// wysokosc poziomu mapy
 	void DodajElement(float x1, float x2, float y1, float y2);
+
+
+
+
+
+
+
+
+	eETAPGRY etapGry;
+
+	char daneDoWyslania[512];
+	int bajtyDoWyslania;
+
+	char daneOdebrane[8192];
+	int bajtyOdebrane;
+
+	void DodajAkcje(char pierwszy, char drugi=0, char trzeci=0);
+
+	SOCKET m_socket;//socket
+	sockaddr_in clientService; // struktura zwiazana z serwerem - patrz connectToServer
+	bool PolaczZSerwerem();
+	void OdbierzDane();
+	void PrzetworzDane();
+	void CzekajNaRozpoczenie();
+	void WyslijDane();
+	void DodajAkcjeDoWyslania();
+//	void DodajWiadomoscDoWyslania();
+
+
+	bool wcisnieteA;
+	bool wcisnieteD;
 };
 

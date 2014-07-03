@@ -26,6 +26,13 @@ void Klawisz(unsigned char key, int x, int y)
 {
 	Plansza->_Klawiatura(key, x, y);
 }
+
+void KlawiszPusc(unsigned char key, int x, int y)
+{
+	Plansza->_KlawiszPusc(key, x, y);
+}
+
+
 void ZmienRozmiar(int width, int height)
 {
 	Plansza->_ZmianaRozmiaruOkna(width, height);
@@ -74,6 +81,7 @@ int main(int argc, char **argv)
 	
 	glutDisplayFunc(Przerysuj);
 	glutKeyboardFunc(Klawisz);
+	glutKeyboardUpFunc(KlawiszPusc);
 	glutReshapeFunc(ZmienRozmiar);
 	glutMouseFunc(Mysz);
 	glutPassiveMotionFunc(RuchMyszy);
@@ -99,6 +107,8 @@ int main(int argc, char **argv)
 	glutTimerFunc(20, Dzialaj, TIMER_ANIMACJI_TLA);
 	glutTimerFunc(2000, Dzialaj, TIMER_CO_DWASEKUNDOWY);
 	glutTimerFunc(20, Dzialaj, TIMER_20);
+	glutTimerFunc(2, Dzialaj, TIMER_2);
+
 
 	glLineWidth(2);
 

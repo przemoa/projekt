@@ -38,8 +38,11 @@ public slots:
     void OczekujNaGraczy();
     void SprawdzGraczy();
     void ZmienionoPokretla();
+    void WyslijWarunki();       // warunki poczatkowe gry (zloto)
 
-
+    void PrzygotujDaneDoWyslania(int ktoryGracz);
+    void PrzetworzOdebraneDane(int ktoryGracz);         //0 lub 1
+    void DzialajPlansze();
 
 private:
     Ui::GlowneOkno *ui;
