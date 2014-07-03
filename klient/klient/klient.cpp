@@ -74,6 +74,60 @@ void cPlansza::PrzetworzDane()
         char trzeciBajt = 0;
 		switch(daneOdebrane[licznik])
 		{
+		case 0x34:
+			{
+				int _level = 0;
+				int _doswiadczenie = 0;
+				int _wydobycie = 0;
+				float _poziomZycia = 0;
+				float _mnoznikZycia = 0;
+
+				memcpy(&_level, daneOdebrane+licznik+1, 4);
+				licznik += 4;
+				memcpy(&_doswiadczenie, daneOdebrane+licznik+1, 4);
+				licznik += 4;
+				memcpy(&_wydobycie, daneOdebrane+licznik+1, 4);
+				licznik += 4;
+				memcpy(&_poziomZycia, daneOdebrane+licznik+1, 4);
+				licznik += 4;
+				memcpy(&_mnoznikZycia, daneOdebrane+licznik+1, 4);
+				licznik += 4;
+
+				tabGraczy[0]->zamek->level = _level;
+				tabGraczy[0]->zamek->doswiadczenie = _doswiadczenie;
+				tabGraczy[0]->zamek->wydobycie = _wydobycie;
+				tabGraczy[0]->zamek->poziomZycia = _poziomZycia;
+				tabGraczy[0]->zamek->mnoznikZycia = _mnoznikZycia;
+			}
+			break;
+
+		case 0x35:
+			{
+				int _level = 0;
+				int _doswiadczenie = 0;
+				int _wydobycie = 0;
+				float _poziomZycia = 0;
+				float _mnoznikZycia = 0;
+
+				memcpy(&_level, daneOdebrane+licznik+1, 4);
+				licznik += 4;
+				memcpy(&_doswiadczenie, daneOdebrane+licznik+1, 4);
+				licznik += 4;
+				memcpy(&_wydobycie, daneOdebrane+licznik+1, 4);
+				licznik += 4;
+				memcpy(&_poziomZycia, daneOdebrane+licznik+1, 4);
+				licznik += 4;
+				memcpy(&_mnoznikZycia, daneOdebrane+licznik+1, 4);
+				licznik += 4;
+
+				tabGraczy[1]->zamek->level = _level;
+				tabGraczy[1]->zamek->doswiadczenie = _doswiadczenie;
+				tabGraczy[1]->zamek->wydobycie = _wydobycie;
+				tabGraczy[1]->zamek->poziomZycia = _poziomZycia;
+				tabGraczy[1]->zamek->mnoznikZycia = _mnoznikZycia;
+			}
+			break;
+
 		case 0x70:
 			licznik++;
 			drugiBajt = daneOdebrane[licznik];
@@ -189,6 +243,7 @@ void cPlansza::PrzetworzDane()
 							int _level = 0;
 							int _doswiadczenie = 0;
 							int _szybkosc = 0;
+							float _mnoznik = 0;
 						
 							memcpy(&_x, daneOdebrane+licznik+1, 4);
 							licznik += 4;
@@ -210,7 +265,8 @@ void cPlansza::PrzetworzDane()
 							licznik += 4;
 							memcpy(&_szybkosc, daneOdebrane+licznik+1, 4);
 							licznik += 4;
-
+							memcpy(&_mnoznik, daneOdebrane+licznik+1, 4);
+							licznik += 4;
 
 						
 							tabGraczy[0]->tabBohaterow[i]->x = _x;
@@ -223,7 +279,7 @@ void cPlansza::PrzetworzDane()
 							tabGraczy[0]->tabBohaterow[i]->level = _level;
 							tabGraczy[0]->tabBohaterow[i]->doswiadczenie = _doswiadczenie;
 							tabGraczy[0]->tabBohaterow[i]->szybkoscAtaku = _szybkosc;
-
+							tabGraczy[0]->tabBohaterow[i]->szybkoscAtaku = _mnoznik;
 						}
 					}
 
@@ -254,6 +310,7 @@ void cPlansza::PrzetworzDane()
 							float _level = 0;
 							float _doswiadczenie = 0;
 							float _szybkosc = 0;
+							float _mnoznik = 0;
 
 							memcpy(&_x, daneOdebrane+licznik+1, 4);
 							licznik += 4;
@@ -275,6 +332,8 @@ void cPlansza::PrzetworzDane()
 							licznik += 4;
 							memcpy(&_szybkosc, daneOdebrane+licznik+1, 4);
 							licznik += 4;
+							memcpy(&_mnoznik, daneOdebrane+licznik+1, 4);
+							licznik += 4;
 
 
 							tabGraczy[1]->tabBohaterow[i]->x = _x;
@@ -287,6 +346,7 @@ void cPlansza::PrzetworzDane()
 							tabGraczy[1]->tabBohaterow[i]->level = _level;
 							tabGraczy[1]->tabBohaterow[i]->doswiadczenie = _doswiadczenie;
 							tabGraczy[1]->tabBohaterow[i]->szybkoscAtaku = _szybkosc;
+							tabGraczy[1]->tabBohaterow[i]->szybkoscAtaku = _mnoznik;
 						}
 					}
 				}

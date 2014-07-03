@@ -249,6 +249,7 @@ void GlowneOkno::PrzygotujDaneDoWyslania(int ktoryGracz)
                 klient->DodajInt(kto1->tabBohaterow[i]->level);
                 klient->DodajInt(kto1->tabBohaterow[i]->doswiadczenie);
                 klient->DodajInt(kto1->tabBohaterow[i]->szybkoscAtaku);
+                klient->DodajFloat(kto1->tabBohaterow[i]->mnoznikZycia);
             }
         }
     }
@@ -274,11 +275,27 @@ void GlowneOkno::PrzygotujDaneDoWyslania(int ktoryGracz)
                 klient->DodajInt(kto2->tabBohaterow[i]->level);
                 klient->DodajInt(kto2->tabBohaterow[i]->doswiadczenie);
                 klient->DodajInt(kto2->tabBohaterow[i]->szybkoscAtaku);
+                klient->DodajFloat(kto2->tabBohaterow[i]->mnoznikZycia);
 
             }
         }
     }
 
+
+    klient->DodajBajty(0x34);
+    klient->DodajInt(kto1->zamek->level);
+    klient->DodajInt(kto1->zamek->doswiadczenie);
+    klient->DodajInt(kto1->zamek->wydobycie);
+    klient->DodajFloat(kto1->zamek->poziomZycia);
+    klient->DodajFloat(kto1->zamek->mnoznikZycia);
+
+
+    klient->DodajBajty(0x35);
+    klient->DodajInt(kto2->zamek->level);
+    klient->DodajInt(kto2->zamek->doswiadczenie);
+    klient->DodajInt(kto2->zamek->wydobycie);
+    klient->DodajFloat(kto2->zamek->poziomZycia);
+    klient->DodajFloat(kto2->zamek->mnoznikZycia);
 
 
     klient->DodajBajty(0, 0);

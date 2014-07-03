@@ -15,6 +15,7 @@ cStworek::cStworek(float _x, float _z, int _typStworka, int _wlasciciel, int lev
 	kolor.r = 1;
 	kolor.g = 0;
 	kolor.b = 0;
+	level = levelStworkow;
 
 	kat = 0;
 
@@ -118,7 +119,7 @@ void cStworek::AktualizujRamke()
 
 	stringstream ssOpis;
 	ssOpis	<< "Poziom zycia:  " << (int) mnoznikZycia * poziomZycia << endl
-			<< "Level:    " << (int) level << " (" << doswiadczenie << "/5)" << endl
+			<< "Level:    " << (int) level << endl
 			<< "Obrazenia:   " << (int) obrazenia<< endl
 			<< "Zasieg:    " << (int) zasieg << endl
 			<< "Szybkosc ataku: " << szybkoscAtaku << endl
