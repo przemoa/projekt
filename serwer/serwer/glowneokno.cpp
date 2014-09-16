@@ -99,6 +99,7 @@ void GlowneOkno::Dzialaj()
 
 void GlowneOkno::WykonajAkcje()
 {
+
     switch(etapGry)
     {
     case WYBOR_WARUNKOW:
@@ -296,6 +297,17 @@ void GlowneOkno::PrzygotujDaneDoWyslania(int ktoryGracz)
     klient->DodajInt(kto2->zamek->wydobycie);
     klient->DodajFloat(kto2->zamek->poziomZycia);
     klient->DodajFloat(kto2->zamek->mnoznikZycia);
+
+
+
+
+
+
+
+
+
+
+
 
 
     klient->DodajBajty(0, 0);

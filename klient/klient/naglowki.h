@@ -1,7 +1,6 @@
 #pragma once
 
 #include <GL/freeglut.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
 #include <time.h>

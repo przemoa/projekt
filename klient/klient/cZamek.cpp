@@ -313,47 +313,13 @@ void cZamek::AwansujWieze()
 			Plansza->DodajAkcje(0x1D, i);
 		}
 	}
-
-
+	
 
 	//for (int i = 0; i < tabWiez.size(); i++)
 	//{
 	//	if (tabWiez[i].pozycja == wybranaWiez)
 	//	{
-	//		switch (tabWiez[i].typWiezy)
-	//		{
-	//		case TEKSTURA_WIEZA1:		// luk, srednioszybka, male obrazenia, sredni zasieg
-	//			tabWiez[i].obrazenia += 4;
-	//			tabWiez[i].zasieg += 20;
-	//			tabWiez[i].szybkoscAtaku += 6;
-	//			break;
-	//		case TEKSTURA_WIEZA2:		// kamien, malas szybkosc, srednie obrazenia, maly zasieg
-	//			tabWiez[i].obrazenia += 6;
-	//			tabWiez[i].zasieg += 12;
-	//			tabWiez[i].szybkoscAtaku += 4;
-	//			break;
-	//		case TEKSTURA_WIEZA3:		// pocisk, srednia szybkosc, srednie obrazenia, sredni zasieg
-	//			tabWiez[i].obrazenia += 6;
-	//			tabWiez[i].zasieg += 25;
-	//			tabWiez[i].szybkoscAtaku += 6;
-	//			break;
-	//		case TEKSTURA_WIEZA4:		// laser, malas szybkosc, duze obrazenia, duzy zasieg
-	//			tabWiez[i].obrazenia += 15;
-	//			tabWiez[i].zasieg += 35;
-	//			tabWiez[i].szybkoscAtaku += 2;
-	//			break;
-	//		case TEKSTURA_WIEZA5:		// ogien, mala szybkosc, duze obrazenia, maly zasieg
-	//			tabWiez[i].obrazenia += 6;
-	//			tabWiez[i].zasieg += 10;
-	//			tabWiez[i].szybkoscAtaku += 5;
-	//			break;
-	//		case TEKSTURA_WIEZA6:		// produkuje zloto
-	//			tabWiez[i].obrazenia += 2;
-	//			break;
-	//		case TEKSTURA_WIEZA7:		// leczy zamek
-	//			tabWiez[i].obrazenia += 2;
-	//			break;
-	//		}
+	//		
 	//	}
 	//}
 }

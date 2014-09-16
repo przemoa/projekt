@@ -27,7 +27,7 @@ bool cPlansza::PolaczZSerwerem()
 	//(27015) do w³asnych celów nale¿y wykozystywaæ gniazda o numerze >1024. Adres IP
 	//127.0.0.1 odpowiada lokalnemu komputerowi (localhost)
 	clientService.sin_family = AF_INET;
-	clientService.sin_addr.s_addr = inet_addr( "192.168.0.100");
+	clientService.sin_addr.s_addr = inet_addr( "192.168.0.101");
 	clientService.sin_port = htons( 3000 );//htons( 27015 );
 	if ( connect( m_socket, (SOCKADDR*) &clientService, sizeof(clientService) ) == SOCKET_ERROR) {
 		printf( ":: Polaczenie nieudane\n" );
@@ -72,8 +72,124 @@ void cPlansza::PrzetworzDane()
 	{
 		char drugiBajt = 0;
         char trzeciBajt = 0;
+
+
 		switch(daneOdebrane[licznik])
 		{
+		case 0x63:
+			{
+				licznik++;
+				int _gracz = daneOdebrane[licznik];
+				licznik ++;
+				int _nrWiezy = daneOdebrane[licznik];
+
+				
+				Plansza->tabGraczy[_gracz]->zamek->tabWiez[_nrWiezy].level++;
+				switch (Plansza->tabGraczy[_gracz]->zamek->tabWiez[_nrWiezy].typWiezy)
+				{
+				case TEKSTURA_WIEZA1:		// luk, srednioszybka, male obrazenia, sredni zasieg
+					Plansza->tabGraczy[_gracz]->zamek->tabWiez[_nrWiezy].obrazenia += 4;
+					Plansza->tabGraczy[_gracz]->zamek->tabWiez[_nrWiezy].zasieg += 20;
+					Plansza->tabGraczy[_gracz]->zamek->tabWiez[_nrWiezy].szybkoscAtaku += 6;
+					break;
+				case TEKSTURA_WIEZA2:		// kamien, malas szybkosc, srednie obrazenia, maly zasieg
+					Plansza->tabGraczy[_gracz]->zamek->tabWiez[_nrWiezy].obrazenia += 6;
+					Plansza->tabGraczy[_gracz]->zamek->tabWiez[_nrWiezy].zasieg += 12;
+					Plansza->tabGraczy[_gracz]->zamek->tabWiez[_nrWiezy].szybkoscAtaku += 4;
+					break;
+				case TEKSTURA_WIEZA3:		// pocisk, srednia szybkosc, srednie obrazenia, sredni zasieg
+					Plansza->tabGraczy[_gracz]->zamek->tabWiez[_nrWiezy].obrazenia += 6;
+					Plansza->tabGraczy[_gracz]->zamek->tabWiez[_nrWiezy].zasieg += 25;
+					Plansza->tabGraczy[_gracz]->zamek->tabWiez[_nrWiezy].szybkoscAtaku += 6;
+					break;
+				case TEKSTURA_WIEZA4:		// laser, malas szybkosc, duze obrazenia, duzy zasieg
+					Plansza->tabGraczy[_gracz]->zamek->tabWiez[_nrWiezy].obrazenia += 15;
+					Plansza->tabGraczy[_gracz]->zamek->tabWiez[_nrWiezy].zasieg += 35;
+					Plansza->tabGraczy[_gracz]->zamek->tabWiez[_nrWiezy].szybkoscAtaku += 2;
+					break;
+				case TEKSTURA_WIEZA5:		// ogien, mala szybkosc, duze obrazenia, maly zasieg
+					Plansza->tabGraczy[_gracz]->zamek->tabWiez[_nrWiezy].obrazenia += 6;
+					Plansza->tabGraczy[_gracz]->zamek->tabWiez[_nrWiezy].zasieg += 10;
+					Plansza->tabGraczy[_gracz]->zamek->tabWiez[_nrWiezy].szybkoscAtaku += 5;
+					break;
+				case TEKSTURA_WIEZA6:		// produkuje zloto
+					Plansza->tabGraczy[_gracz]->zamek->tabWiez[_nrWiezy].obrazenia += 2;
+					break;
+				case TEKSTURA_WIEZA7:		// leczy zamek
+					Plansza->tabGraczy[_gracz]->zamek->tabWiez[_nrWiezy].obrazenia += 2;
+					break;
+				}
+			}
+			break;
+
+		case 0x64:
+			{
+				licznik++;
+				int _gracz = daneOdebrane[licznik];
+				licznik ++;
+				int _nrWiezy = daneOdebrane[licznik];
+				Plansza->tabGraczy[_gracz]->zamek->tabWiez.erase(Plansza->tabGraczy[_gracz]->zamek->tabWiez.begin() + _nrWiezy);
+			}
+			break;
+			
+
+		case 0x62:
+			{
+				
+				licznik++;
+				int _gracz = daneOdebrane[licznik];
+				licznik ++;
+				int _typWiezy = daneOdebrane[licznik];
+				licznik ++;
+				int pozycja = daneOdebrane[licznik] * 100;
+				licznik ++;
+				pozycja += daneOdebrane[licznik];
+
+				sWIEZA nowaWieza;
+				nowaWieza.pozycja = pozycja;
+				nowaWieza.typWiezy = _typWiezy;
+				nowaWieza.level = 1;
+				nowaWieza.czyAtakuje = true;
+				switch (_typWiezy)
+				{
+				case TEKSTURA_WIEZA1:		// luk, srednioszybka, male obrazenia, sredni zasieg
+					nowaWieza.obrazenia = 15;
+					nowaWieza.zasieg = 150;
+					nowaWieza.szybkoscAtaku = 35;
+					break;
+				case TEKSTURA_WIEZA2:		// kamien, malas szybkosc, srednie obrazenia, maly zasieg
+					nowaWieza.obrazenia = 25;
+					nowaWieza.zasieg = 100;
+					nowaWieza.szybkoscAtaku = 20;
+					break;
+				case TEKSTURA_WIEZA3:		// pocisk, srednia szybkosc, srednie obrazenia, sredni zasieg
+					nowaWieza.obrazenia = 35;
+					nowaWieza.zasieg = 250;
+					nowaWieza.szybkoscAtaku = 35;
+					break;
+				case TEKSTURA_WIEZA4:		// laser, malas szybkosc, duze obrazenia, duzy zasieg
+					nowaWieza.obrazenia = 95;
+					nowaWieza.zasieg = 350;
+					nowaWieza.szybkoscAtaku = 10;
+					break;
+				case TEKSTURA_WIEZA5:		// ogien, mala szybkosc, duze obrazenia, maly zasieg
+					nowaWieza.obrazenia = 40;
+					nowaWieza.zasieg = 80;
+					nowaWieza.szybkoscAtaku = 20;
+					break;
+				case TEKSTURA_WIEZA6:		// produkuje zloto
+					nowaWieza.obrazenia = 5;
+					nowaWieza.czyAtakuje = false;
+					break;
+				case TEKSTURA_WIEZA7:		// leczy zamek
+					nowaWieza.obrazenia = 10;
+					nowaWieza.czyAtakuje = false;
+					break;
+				}
+
+				Plansza->tabGraczy[_gracz]->zamek->tabWiez.insert(Plansza->tabGraczy[_gracz]->zamek->tabWiez.begin(), nowaWieza);
+			}
+			break;
 		case 0x34:
 			{
 				int _level = 0;

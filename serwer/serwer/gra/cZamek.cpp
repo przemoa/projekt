@@ -96,7 +96,8 @@ void cZamek::DodajWieze(int _typWiezy, int pozycja)
 	}
 
 	tabWiez.insert(tabWiez.begin(), nowaWieza);
-
+    Plansza->DodajDodanie(0x62, ((wlasciciel==1)?0:1), _typWiezy, pozycja/100);
+    Plansza->DodajDodanie(pozycja%100);
 }
 
 
@@ -160,9 +161,15 @@ void cZamek::AwansujWieze(int i)
         tabWiez[i].obrazenia += 2;
         break;
     }
+
+    tabWiez[i].level += 1;
+
+    Plansza->DodajDodanie(0x63, ((wlasciciel==1)?0:1), i);
+
 }
 
 void cZamek::SprzedajWieze(int i)
 {
     tabWiez.erase(tabWiez.begin() + i);
+    Plansza->DodajDodanie(0x64, ((wlasciciel==1)?0:1), i);
 }

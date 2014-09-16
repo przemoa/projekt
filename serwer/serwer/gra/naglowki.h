@@ -61,7 +61,7 @@ extern cPlansza* Plansza;
 
 
 #define POLE_WODA 0xFC  // -4
-#define POLE_GRACZ 0xF9     //-7
+#define POLE_GRACZ 0xF9     //!!!!!!!!!!!!
 #define POLE_PALMA 0x18
 #define POLE_PUNKT_STABILNY 0x67
 #define POLE_TLO 0xFF       // -1

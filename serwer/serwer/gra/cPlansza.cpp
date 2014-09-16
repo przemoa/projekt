@@ -120,9 +120,16 @@ void cPlansza::WczytajTeren()
 			unsigned char pole = tablicaPikseli[w*5000 + k];
 
 			if (pole == POLE_TLO) continue;
+            if (pole == 8)
+            {
+
+                int a = 99;
+                int b = a;
+                a = b;
+            }
 
 			switch (pole)
-			{
+            {
 			case POLE_GRACZ:
 				{
 					int kierunek = 1 - 2*tabGraczy.size();
