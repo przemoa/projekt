@@ -921,12 +921,24 @@ void cPlansza::UtworzListy()
 	glBegin(GL_POLYGON);
 		for (int i = 0; i < 33; i++)
 		{
-			glVertex2f(ROMIAR_STWORKA_KULA * sin(6.2832*i/33), ROMIAR_STWORKA_KULA * cos(6.2832*i/33));
+			glVertex2f(ROZMIAR_STWORKA_KULA * sin(6.2832*i/33), ROZMIAR_STWORKA_KULA * cos(6.2832*i/33));
 		}
 		glEnd();
 	glEndList();
 	
-
+	// STWOREK KWADRAT
+	glGenLists(LISTA_STWOREK_KWADRAT);
+	glNewList(LISTA_STWOREK_KWADRAT, GL_COMPILE);
+	glBegin(GL_POLYGON);
+		for (int i = 0; i < 33; i++)
+		{
+			glVertex2f(-ROZMIAR_STWORKA_KWADRAT,ROZMIAR_STWORKA_KWADRAT);
+			glVertex2f(ROZMIAR_STWORKA_KWADRAT,ROZMIAR_STWORKA_KWADRAT);
+			glVertex2f(ROZMIAR_STWORKA_KWADRAT,-ROZMIAR_STWORKA_KWADRAT);
+			glVertex2f(-ROZMIAR_STWORKA_KWADRAT,-ROZMIAR_STWORKA_KWADRAT);
+		}
+		glEnd();
+	glEndList();
 
 }
 

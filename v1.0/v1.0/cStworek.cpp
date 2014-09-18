@@ -21,7 +21,7 @@ cStworek::cStworek(float _x, float _z, int _typStworka, int _wlasciciel, int lev
 	switch(_typStworka)
 	{
 	case LISTA_STWOREK_KULA:
-		wysokosc = ROMIAR_STWORKA_KULA;
+		wysokosc = ROZMIAR_STWORKA_KULA;
 		predkosc = 50;
 		mnoznikZycia = 0.6;
 		zasieg = 35;

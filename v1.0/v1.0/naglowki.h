@@ -96,7 +96,8 @@ extern cPlansza* Plansza;
 
 
 #define ROZMIAR_PUNKTUSTABILNEGO 2
-#define ROMIAR_STWORKA_KULA 3
+#define ROZMIAR_STWORKA_KULA 3
+#define ROZMIAR_STWORKA_KWADRAT 3
 
 
 // bohater 1
