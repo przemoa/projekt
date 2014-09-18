@@ -17,12 +17,21 @@ cGracz::cGracz(float _x, float _y, int _wlascicel)
 {
 	wybranyBohater = -1;
 
-	x = _x;
-	y = _y;
+    if (_wlascicel == 1)
+    {
+        x = _x;
+        y = 62;
+    }
+    if (_wlascicel == -1)
+    {
+        x = _x + 200;
+        y = 57;
+    }
+
 	wlasciciel = _wlascicel;
 
 
-	zamek = new cZamek(_x, 62 + ((wlasciciel==-1) ? 40 : 0), wlasciciel);
+    zamek = new cZamek(x, y, wlasciciel);
 	zloto = 5000;		//500
 
 	idWybrane = 0;
@@ -69,8 +78,32 @@ void cGracz::Dzialaj()
 
 	for (int i = 0; i < tabStworkow.size(); i++)
 	{
-		tabStworkow[i]->Ruszaj();
+        if (!(tabStworkow[i]->Atakuj())) tabStworkow[i]->Ruszaj();
 	}
+
+
+
+
+
+    for (int i  = 0; i < 3; i++)
+    {
+        if (tabBohaterow[i])
+        {
+             if (!(tabBohaterow[i]->SprawdzZycie())) tabBohaterow[i]->zywy = false;
+        }
+    }
+
+    for (int i = 0; i < tabStworkow.size(); i++)
+    {
+        if (!(tabStworkow[i]->SprawdzZycie()))
+        {
+            tabStworkow.erase(tabStworkow.begin() + i);
+            Plansza->DodajDodanie(0x72, ((wlasciciel==1)?0:1), (unsigned char) (i));
+        }
+    }
+
+
+
 }
 
 

@@ -208,7 +208,7 @@ void cPlansza::_Dzialaj(int value)
 		if (etapGry == UTRACONO_POLACZENIE) return;
 
 
-		glutTimerFunc(2, Dzialaj, TIMER_2);
+		glutTimerFunc(10, Dzialaj, TIMER_2);
 		OdbierzDane();
 
 		if (etapGry == OCZEKIWANIE_NA_WARUNKI)
@@ -447,6 +447,7 @@ void cPlansza::WykonajAkcje(int menu)
 			break;
 
 		case TEKSTURA_MENU_BUDOWA_BOHATERA:
+				if (menu > 2) break;
 				if (gracz->ZaplacZlotem((menu == 1 ? 400 : (menu == 2 ? 500 : (menu == 3 ? 900 : 3000)))))
 					gracz->DodajBohatera(gracz->x, gracz->y+100, menu);
 			break;

@@ -31,6 +31,7 @@ public:
     void keyPressEvent(QKeyEvent *key);
     eETAPGRY etapGry;
     int iloscGraczy;
+    void SterujGraczem();
 
 public slots:
     void Dzialaj();

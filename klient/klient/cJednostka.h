@@ -35,6 +35,7 @@ public:
 	virtual bool CzyKliknieto(float px, float py) = 0;
 	virtual void AktualizujRamke() = 0;
 	virtual void RysujPasekZycia() = 0;
+
 	int GetId()	{return id;}
 	float GetX() {return x;}
 	float GetY() {return y;}

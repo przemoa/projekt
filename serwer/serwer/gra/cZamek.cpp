@@ -101,7 +101,7 @@ void cZamek::DodajWieze(int _typWiezy, int pozycja)
 }
 
 
-void cZamek::Atakuj()
+bool cZamek::Atakuj()
 {
 }
 
@@ -172,4 +172,10 @@ void cZamek::SprzedajWieze(int i)
 {
     tabWiez.erase(tabWiez.begin() + i);
     Plansza->DodajDodanie(0x64, ((wlasciciel==1)?0:1), i);
+}
+
+
+bool cZamek::SprawdzZycie()
+{
+
 }

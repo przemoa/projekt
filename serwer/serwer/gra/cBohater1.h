@@ -8,12 +8,13 @@ public:
 	cBohater1(float _x, float _y, int _wlascicel);
 	~cBohater1(void);
 
-	void Atakuj();
+    bool Atakuj();
 	void Ruszaj();
 	void Przyspieszaj(float dVx, float dVy);
 	void Awansuj();
 	void ZwiekszMoc();
 	void Teleportuj();
+    bool SprawdzZycie();
 
 	float x2;			// wspolrzedne mniejszego kola
 	float y2;

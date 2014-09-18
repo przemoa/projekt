@@ -10,8 +10,9 @@ public:
 	~cStworek(void);
 
 
-	void Atakuj();
+    bool Atakuj();
 	void Ruszaj();
+    bool SprawdzZycie();
 
 	float kat;
 

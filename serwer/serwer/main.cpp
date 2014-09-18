@@ -9,6 +9,7 @@ int cJednostka::aktualneId = 0;
 
 int main(int argc, char *argv[])
 {
+    srand(432);
     QApplication a(argc, argv);
     GlowneOkno w;
     w.show();
@@ -18,3 +19,5 @@ int main(int argc, char *argv[])
 
 // PAMIETAC O LOKALIZACJI MAPY!
 // IP i PORT!
+// usunac sleep!!!
+// czas timerow

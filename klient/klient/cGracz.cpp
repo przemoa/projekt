@@ -17,15 +17,25 @@ cGracz::cGracz(float _x, float _y, int _wlascicel)
 {
 	wybranyBohater = -1;
 
-	x = _x;
-	y = _y;
+	if (_wlascicel == 1)
+	{
+		x = _x;
+		y = 62;
+	}
+	if (_wlascicel == -1)
+	{
+		x = _x + 200;
+		y = 57;
+	}
+
+
 	wlasciciel = _wlascicel;
 
 	kolor.r = 1;
 	kolor.g = 0;
 	kolor.b = 0;
 
-	zamek = new cZamek(_x, 62 + ((wlasciciel==-1) ? 40 : 0), wlasciciel);
+	zamek = new cZamek(x, y, wlasciciel);
 	zloto = 0;		//0
 	sprintf(napisZloto, "x %d", (int) zloto);
 

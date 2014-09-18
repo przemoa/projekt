@@ -38,6 +38,7 @@ cBohater2::cBohater2(float _x, float _y, int _wlascicel)
 
 void cBohater2::Rysuj()
 {
+	if (!zywy) return;
 	glPushMatrix();
 		glTranslatef(x, y, z);
 		RysujPasekZycia();

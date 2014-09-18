@@ -20,7 +20,7 @@ public:
 	float mnoznikZycia;	// pomnozony przez poziom zycia daje aktualna liczbe HP
 	float zasieg;			// zasieg strzalu
 	float obrazenia;		// zadawane obrazenia
-	int szybkoscAtaku;		// szybkosc z jaka atakuje		0.05*x=ilosc strzlow na sekunde
+    int szybkoscAtaku;		// szybkosc z jaka atakuje		0.05*x=ilosc strzlow na sekunde
 
 
 
@@ -30,7 +30,9 @@ public:
 	~cJednostka(void);
 
 	static int aktualneId;
-	virtual void Atakuj() = 0;
+    virtual bool Atakuj() = 0;          // zwraca true jezeli jednostka atakuje
+    virtual bool SprawdzZycie() = 0;
+
 	int GetId()	{return id;}
 	float GetX() {return x;}
 	float GetY() {return y;}

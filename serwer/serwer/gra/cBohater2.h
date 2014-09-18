@@ -9,12 +9,13 @@ public:
 	~cBohater2(void);
 
 
-	void Atakuj();
+    bool Atakuj();
 	void Ruszaj();
 	void Przyspieszaj(float dVx, float dVy);
 	void Awansuj();
 	void ZwiekszMoc();
 	void Teleportuj();
+    bool SprawdzZycie();
 
 	float Vy;
 	float VyCel;

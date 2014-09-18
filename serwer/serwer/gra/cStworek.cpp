@@ -1,5 +1,7 @@
 #include "cStworek.h"
 #include "cPlansza.h"
+#include "cGracz.h"
+#include "cStworek.h"
 
 cStworek::cStworek(void)
 {
@@ -24,7 +26,7 @@ cStworek::cStworek(float _x, float _z, int _typStworka, int _wlasciciel, int lev
 		mnoznikZycia = 0.6;
 		zasieg = 35;
 		obrazenia = 12;
-		szybkoscAtaku = 40;
+        szybkoscAtaku = 30;
 		break;
 	case LISTA_STWOREK_KWADRAT:
 		wysokosc = 35;
@@ -54,6 +56,8 @@ cStworek::~cStworek(void)
 
 void cStworek::Ruszaj()
 {
+
+
 	int xTab = Plansza->XDoTab(x);
 	float dx = 0;
 
@@ -87,6 +91,64 @@ void cStworek::Ruszaj()
 	
 }
 
-void cStworek::Atakuj()
+bool cStworek::Atakuj()
 {
+
+
+    int nrKogo = ((wlasciciel == 1) ? 1 : 0); // ktorego gracza z tablicy stowrek ma atakowac
+    cGracz* kogo =  Plansza->tabGraczy[nrKogo];
+
+    float odlegloscMin = 99999;
+    int nrDoAtakowania = -1;
+    for (int i = 0; i < kogo->tabStworkow.size(); i++)
+    {
+        float odleglosc = abs(x - kogo->tabStworkow[i]->x);
+        if (odleglosc < odlegloscMin)
+        {
+            odlegloscMin = odleglosc;
+            nrDoAtakowania = i;
+        }
+    }
+
+    if (odlegloscMin < zasieg)          // jezeli w poblizu stworek - atakuj
+    {
+        if (rand()%1000 > szybkoscAtaku) return true;          // ograniczenie czestosci strzelania
+        kogo->tabStworkow[nrDoAtakowania]->poziomZycia -= obrazenia / kogo->tabStworkow[nrDoAtakowania]->mnoznikZycia;
+        return true;
+    }
+
+    for (int i = 0; i < 2; i++)
+    {
+        if (kogo->tabBohaterow[i] != NULL)
+        {
+            if (kogo->tabBohaterow[i]->zywy)
+            {
+                if (zasieg > abs(x - kogo->tabBohaterow[i]->x))
+                {
+                    if (rand()%1000 > szybkoscAtaku) return true;          // ograniczenie czestosci strzelania
+                    kogo->tabBohaterow[i]->poziomZycia -= obrazenia / kogo->tabBohaterow[i]->mnoznikZycia;
+                    return true;
+                }
+            }
+        }
+    }
+
+    if (abs(x - kogo->zamek->x) < zasieg)      // todo dodac rozmiar zamku
+    {
+        if (rand()%1000 > szybkoscAtaku) return true;          // ograniczenie czestosci strzelania
+        kogo->zamek->poziomZycia -= obrazenia / kogo->zamek->mnoznikZycia;
+        return true;
+    }
+
+
+
+
+    return false;
+}
+
+
+
+bool cStworek::SprawdzZycie()
+{
+
 }

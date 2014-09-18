@@ -256,9 +256,9 @@ void cSerwer::ReceiveData(void)
 
     if (gracz2)
     {
+        gracz2->bajtyOdebrane = 0;
         while(!gracz2->bajtyOdebrane)
         {
-            gracz2->bajtyOdebrane = 0;
             bool flagClientConnected = (*gracz2).Odbierz();
             if (!flagClientConnected)
             {

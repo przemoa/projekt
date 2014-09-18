@@ -32,7 +32,7 @@ cBohater2::cBohater2(float _x, float _y, int _wlascicel)
 	poziomZycia = 100;
 	zasieg = 250;
 	obrazenia = 25;
-	szybkoscAtaku = 15; 
+    szybkoscAtaku = 15;
 }
 
 
@@ -63,7 +63,7 @@ void cBohater2::Ruszaj()
 		float poziomZiemi2 = Plansza->Wysokosc(x+dx);		// poziom ziemi przy przesuniecu o dx
 
 		
-		if (y - 0.11 > poziomZiemi && y - 0.11 > poziomZiemi2) x += dx;			// jesli jest w powietrzu i za dx bêdzie w powietrzu to przeun o dx
+		if (y - 0.11 > poziomZiemi && y - 0.11 > poziomZiemi2) x += dx;			// jesli jest w powietrzu i za dx bï¿½dzie w powietrzu to przeun o dx
 		else
 		{
 			float dE = (poziomZiemi - poziomZiemi2) * 50;				// zmiana energii wynikajaca ze zmiany wysokosci
@@ -178,7 +178,7 @@ void cBohater2::Przyspieszaj(float dVx, float dVy)
 
 
 
-void cBohater2::Atakuj()
+bool cBohater2::Atakuj()
 {
 }
 
@@ -188,7 +188,7 @@ void cBohater2::Awansuj()
 	poziomZycia = 100;
 	zasieg += 10;
 	obrazenia += 2;
-	szybkoscAtaku += 1; 
+    szybkoscAtaku += 1;
 	level += 1;
 }
 void cBohater2::ZwiekszMoc()
@@ -203,4 +203,9 @@ void cBohater2::Teleportuj()
 	energia = 0;
 	kierunek = 0;
 	Vy = VyCel = 0;
+}
+
+bool cBohater2::SprawdzZycie()
+{
+
 }

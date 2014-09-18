@@ -10,7 +10,7 @@ struct sWIEZA
 	int pozycja;			// 100*kolumna + wiersz, liczac od lewej dolnej strony
 	float obrazenia;		// obrazenia wiezy lub parametr dla wiezy 6 i 7
 	float zasieg;
-	int szybkoscAtaku;
+    int szybkoscAtaku;
 	int level;
 
 	float x;
@@ -33,7 +33,9 @@ public:
 	~cZamek(void);
 
 
-	void Atakuj();
+    bool Atakuj();
+    bool SprawdzZycie();
+
 	float rozmiarWiezy;
 	float wysokoscWiezy;
 

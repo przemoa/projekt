@@ -307,7 +307,7 @@ void cBohater1::UstawKat()
 }
 
 
-void cBohater1::Atakuj()
+bool cBohater1::Atakuj()
 {
 }
 
@@ -317,7 +317,7 @@ void cBohater1::Awansuj()
 	poziomZycia = 100;
 	zasieg += 10;
 	obrazenia += 2;
-	szybkoscAtaku += 1; 
+    szybkoscAtaku += 1;
 }
 void cBohater1::ZwiekszMoc()
 {
@@ -328,4 +328,9 @@ void cBohater1::Teleportuj()
 {
 	x = xBaz;
 	y = yBaz;
+}
+
+bool cBohater1::SprawdzZycie()
+{
+
 }

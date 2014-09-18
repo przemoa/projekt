@@ -9,7 +9,7 @@ GlowneOkno::GlowneOkno(QWidget *parent) :
     ui->setupUi(this);
 
     serwer = new cSerwer();
-    serwer->Init(3000);
+    serwer->Init(27015);
 
     etapGry = WYBOR_WARUNKOW;
 
@@ -85,6 +85,7 @@ void GlowneOkno::Dzialaj()
 
     if(serwer->gracz1)    PrzetworzOdebraneDane(0);
     if(serwer->gracz2)    PrzetworzOdebraneDane(1);
+    else SterujGraczem();
 
     DzialajPlansze();
 
@@ -96,6 +97,46 @@ void GlowneOkno::Dzialaj()
 
 
 }
+
+void GlowneOkno::SterujGraczem()
+{
+
+    int losowa = rand() % (50*100);
+
+    if (losowa < 30)
+    {
+        Plansza->tabGraczy[1]->DodajStworka(rand()%2 + 125);
+    }
+
+    switch (losowa)
+    {
+    case 31:
+        Plansza->tabGraczy[1]->AwansujStworki();
+        break;
+
+    case 32:
+        Plansza->tabGraczy[1]->zamek->Awansuj();
+        break;
+
+    case 33:
+        Plansza->tabGraczy[1]->zamek->DodajWieze(11+rand()%7, (rand()%3 + 1)*100);
+        break;
+
+    case 34:
+        if (Plansza->tabGraczy[1]->zamek->tabWiez.size() > 0)
+        {
+            int ktora = rand() % (Plansza->tabGraczy[1]->zamek->tabWiez.size());
+            if (rand() % 45 == 1) Plansza->tabGraczy[1]->zamek->AwansujWieze(ktora);
+        }
+        break;
+    }
+}
+
+
+
+
+
+
 
 void GlowneOkno::WykonajAkcje()
 {
@@ -190,6 +231,9 @@ void GlowneOkno::WyslijWarunki()
         serwer->gracz2->buforWysylania[7] = 0x00;
     }
 }
+
+
+
 
 void GlowneOkno::PrzygotujDaneDoWyslania(int ktoryGracz)
 {
