@@ -92,8 +92,8 @@ void GlowneOkno::Dzialaj()
     if(serwer->gracz1)    PrzygotujDaneDoWyslania(0);
     if(serwer->gracz2)    PrzygotujDaneDoWyslania(1);
 
-
-
+    ui->lcdNumber_nrTury->display(Plansza->nrTury);
+    Plansza->nrTury++;
 
 
 }
@@ -132,12 +132,6 @@ void GlowneOkno::SterujGraczem()
     }
 }
 
-
-
-
-
-
-
 void GlowneOkno::WykonajAkcje()
 {
 
@@ -146,7 +140,7 @@ void GlowneOkno::WykonajAkcje()
     case WYBOR_WARUNKOW:
         etapGry = OCZEKIWANIE_NA_GRACZY;
         ui->dial_zlotoPoczatkowe->hide();
-        ui->dial_szybkoscGry->hide();
+        //ui->dial_szybkoscGry->hide();
         ui->radioButton_1gracz->setEnabled(false);
         ui->radioButton_2graczy->setEnabled(false);
         ui->label_StanGry->setText("Oczekiwanie na graczy");
@@ -231,9 +225,6 @@ void GlowneOkno::WyslijWarunki()
         serwer->gracz2->buforWysylania[7] = 0x00;
     }
 }
-
-
-
 
 void GlowneOkno::PrzygotujDaneDoWyslania(int ktoryGracz)
 {
@@ -468,6 +459,8 @@ void GlowneOkno::ZmienionoPokretla()
 {
     ui->lcdNumber_szybkoscGry->display(ui->dial_szybkoscGry->value());
     ui->lcdNumber_zlotoPoczatkowe->display(ui->dial_zlotoPoczatkowe->value());
+    okresTury = ui->dial_szybkoscGry->value();
+    timer->setInterval(okresTury);
 }
 
 void GlowneOkno::keyPressEvent(QKeyEvent *key)

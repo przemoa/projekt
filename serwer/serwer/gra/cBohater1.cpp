@@ -332,5 +332,6 @@ void cBohater1::Teleportuj()
 
 bool cBohater1::SprawdzZycie()
 {
-
+    if (poziomZycia < 0) return false;
+    else return true;
 }

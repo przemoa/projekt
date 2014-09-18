@@ -11,7 +11,7 @@ public:
 	float rozmiar;			// promien jednostki
 	int wlasciciel;			// 1: gracz 1		-1: gracz 2
 	int id;
-
+    int turDoAtaku;
 
 	float poziomZycia;	// od 0 do 100
 	int level;

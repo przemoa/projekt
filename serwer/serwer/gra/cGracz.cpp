@@ -15,6 +15,7 @@ cGracz::~cGracz(void)
 
 cGracz::cGracz(float _x, float _y, int _wlascicel)
 {
+    liczbaStworkow = 0;
 	wybranyBohater = -1;
 
     if (_wlascicel == 1)
@@ -62,7 +63,7 @@ void cGracz::DodajStworka(int _typStworka)
 
     cStworek* nowyStworek = new cStworek(x+40*wlasciciel, -0.5, _typStworka, wlasciciel, levelStworkow);
 	tabStworkow.push_back(nowyStworek);
-
+    liczbaStworkow++;
     Plansza->DodajDodanie(0x60, ((wlasciciel==1)?0:1), _typStworka);
 
 }
@@ -70,16 +71,22 @@ void cGracz::DodajStworka(int _typStworka)
 
 void cGracz::Dzialaj()
 {
+    if(Plansza->nrTury%100==99) zloto += zamek->wydobycie;
+
     for (int i  = 0; i < 3; i++)
 	{
         if (tabBohaterow[i] == NULL) continue;
 		tabBohaterow[i]->Ruszaj();
+        tabBohaterow[i]->Atakuj();
 	}
+
+    zamek->Atakuj();
 
 	for (int i = 0; i < tabStworkow.size(); i++)
 	{
         if (!(tabStworkow[i]->Atakuj())) tabStworkow[i]->Ruszaj();
 	}
+
 
 
 
@@ -99,6 +106,7 @@ void cGracz::Dzialaj()
         {
             tabStworkow.erase(tabStworkow.begin() + i);
             Plansza->DodajDodanie(0x72, ((wlasciciel==1)?0:1), (unsigned char) (i));
+            liczbaStworkow--;
         }
     }
 
@@ -116,7 +124,13 @@ void cGracz::DodajBohatera(int ktory)
     {
         if (tabBohaterow[0] == NULL)
             tabBohaterow[0] = new cBohater1(x+60*wlasciciel, y, wlasciciel);
-        else tabBohaterow[0]->zywy = true;
+        else
+        {
+            tabBohaterow[0]->zywy = true;
+            tabBohaterow[0]->poziomZycia = 100;
+            tabBohaterow[0]->x = tabBohaterow[0]->xBaz;
+            tabBohaterow[0]->y = tabBohaterow[0]->yBaz;
+        }
 
     }
     else return;
@@ -125,7 +139,13 @@ void cGracz::DodajBohatera(int ktory)
     {
         if (tabBohaterow[1] == NULL)
             tabBohaterow[1] = new cBohater2(x+60*wlasciciel, y, wlasciciel);
-        else tabBohaterow[1]->zywy = true;
+        else
+        {
+            tabBohaterow[1]->zywy = true;
+            tabBohaterow[1]->x = tabBohaterow[1]->xBaz;
+            tabBohaterow[1]->y = tabBohaterow[1]->yBaz;
+            tabBohaterow[1]->poziomZycia = 100;
+        }
     }
     else return;
 

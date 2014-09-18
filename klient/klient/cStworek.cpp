@@ -33,17 +33,17 @@ cStworek::cStworek(float _x, float _z, int _typStworka, int _wlasciciel, int lev
 		wysokosc = 35;
 		predkosc = 30;
 		mnoznikZycia = 0.4;
-		zasieg = 55;
+		zasieg = 65;
 		obrazenia = 15;
 		szybkoscAtaku = 15; 
 		break;
 	}
 
-	predkosc += predkosc*levelStworkow/5.0;
-	mnoznikZycia += mnoznikZycia*levelStworkow/5.0;
-	zasieg += zasieg*levelStworkow/5.0;
-	obrazenia += obrazenia*levelStworkow/5.0;
-	szybkoscAtaku += szybkoscAtaku*levelStworkow/5.0;
+	predkosc += predkosc*levelStworkow*1.03+1;
+	mnoznikZycia += mnoznikZycia*levelStworkow*1.03+2;
+	zasieg += zasieg*levelStworkow*1.03+2;
+	obrazenia += obrazenia*levelStworkow*1.03+2;
+	szybkoscAtaku += szybkoscAtaku*levelStworkow*1.03+3;
 
 	y = Plansza->tabPol[Plansza->XDoTab(x)] + wysokosc;
 	yCel = y;

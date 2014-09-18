@@ -5,7 +5,7 @@
 
 cPlansza::cPlansza(void)
 {
-	
+	moznaBudowac = true;
 	testowy = 0;
 	testowy2 = 0;
 	//licznikPunktow = 0;
@@ -153,12 +153,20 @@ void cPlansza::_Dzialaj(int value)
 
 	if (value == TIMER_CO_DWASEKUNDOWY)
 	{
+		moznaBudowac = true;
 		for (int i = 0; i < ILOSC_CHMUR; i++)
 		{
 			tabChmur[i]->SprawdzZasieg();
 		}
 		glutTimerFunc(2000, Dzialaj, TIMER_CO_DWASEKUNDOWY);
 	}
+
+	if (value == TIMER_BUDOWA_STWORKA)
+	{
+		moznaBudowac = true;
+		glutTimerFunc(5000, Dzialaj, TIMER_BUDOWA_STWORKA);
+	}
+
 
 	if (value == TIMER_20)
 	{
@@ -174,6 +182,7 @@ void cPlansza::_Dzialaj(int value)
 		TekstPomocy();
 		AktualizujRamke();
 		glutTimerFunc(500, Dzialaj, TIMER_500);
+		
 	}
 
 	if (value == TIMER_100)
@@ -208,7 +217,7 @@ void cPlansza::_Dzialaj(int value)
 		if (etapGry == UTRACONO_POLACZENIE) return;
 
 
-		glutTimerFunc(10, Dzialaj, TIMER_2);
+		glutTimerFunc(2, Dzialaj, TIMER_2);
 		OdbierzDane();
 
 		if (etapGry == OCZEKIWANIE_NA_WARUNKI)
@@ -454,7 +463,11 @@ void cPlansza::WykonajAkcje(int menu)
 
 		case TEKSTURA_MENU_BUDOWA_STWORKA:
 			if (gracz->ZaplacZlotem((menu == 1 ? 30 : (menu == 2 ? 35 : (menu == 3 ? 80 : 220)))))
+			{
+				if (moznaBudowac)
 					gracz->DodajStworka(gracz->x, menu+LISTA_STWOREK_KULA-1);
+				moznaBudowac = false;
+			}
 			break;
 			
 		case TEKSTURA_MENU_BUDOWA_WIEZY:
@@ -503,7 +516,7 @@ void cPlansza::TekstPomocy()
 			if (menu == 4) sprintf(ramkaOpisu.tekstPomocy, "");
 			break;
 		case TEKSTURA_MENU_WIEZA:
-			if (menu == 1) sprintf(ramkaOpisu.tekstPomocy, "Awansuj o jeden poziom (%d$)", (int) (cenyWiez[tabGraczy[wybranyGracz]->zamek->typWybranejWiezy-11]/3.0));
+			if (menu == 1) sprintf(ramkaOpisu.tekstPomocy, "Awansuj o jeden poziom (%d$)", (int) (cenyWiez[tabGraczy[wybranyGracz]->zamek->typWybranejWiezy-11]/2.0));
 			if (menu == 2) sprintf(ramkaOpisu.tekstPomocy, "Sprzedaj (zrot czesci $)");
 			if (menu == 3) sprintf(ramkaOpisu.tekstPomocy, "");
 			if (menu == 4) sprintf(ramkaOpisu.tekstPomocy, "");

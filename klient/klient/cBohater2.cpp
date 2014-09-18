@@ -30,7 +30,7 @@ cBohater2::cBohater2(float _x, float _y, int _wlascicel)
 
 	mnoznikZycia = 5.5;
 	poziomZycia = 100;
-	zasieg = 250;
+	zasieg = 120;
 	obrazenia = 25;
 	szybkoscAtaku = 15; 
 }

@@ -6,7 +6,7 @@
 cPlansza::cPlansza(void)
 {
 
-
+    nrTury = 0;
 
 
 	// wczytaj plansze

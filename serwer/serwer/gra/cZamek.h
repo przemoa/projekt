@@ -12,6 +12,7 @@ struct sWIEZA
 	float zasieg;
     int szybkoscAtaku;
 	int level;
+    int turDoAtaku;
 
 	float x;
 	float y;

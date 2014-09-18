@@ -21,7 +21,7 @@ void Dzialaj(int value)
 void idle(void)
 {
 	Plansza->_Idle();
-	Sleep(3);
+	Sleep(1);
 }
 void Klawisz(unsigned char key, int x, int y)
 {
@@ -109,7 +109,7 @@ int main(int argc, char **argv)
 	glutTimerFunc(2000, Dzialaj, TIMER_CO_DWASEKUNDOWY);
 	glutTimerFunc(20, Dzialaj, TIMER_20);
 	glutTimerFunc(2, Dzialaj, TIMER_2);
-
+	glutTimerFunc(5000, Dzialaj, TIMER_BUDOWA_STWORKA);
 
 	glLineWidth(2);
 

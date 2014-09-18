@@ -28,7 +28,7 @@ cBohater2::cBohater2(float _x, float _y, int _wlascicel)
 	kierunek = 1;
 	rozmiar = 2;
 
-	mnoznikZycia = 5.5;
+    mnoznikZycia = 7.5;
 	poziomZycia = 100;
 	zasieg = 250;
 	obrazenia = 25;
@@ -180,20 +180,115 @@ void cBohater2::Przyspieszaj(float dVx, float dVy)
 
 bool cBohater2::Atakuj()
 {
+    int nrKogo = ((wlasciciel == 1) ? 1 : 0); // ktorego gracza z tablicy stowrek ma atakowac
+    cGracz* kogo =  Plansza->tabGraczy[nrKogo];
+
+
+
+    for (int i = 0; i < 2; i++)
+    {
+        if (kogo->tabBohaterow[i] != NULL)
+        {
+            if (kogo->tabBohaterow[i]->zywy)
+            {
+                if (zasieg > abs(x - kogo->tabBohaterow[i]->x))
+                {
+                    if (turDoAtaku > 0)        // ograniczenie czestosci strzelania
+                    {
+                        turDoAtaku--;
+                        return true;
+                    }
+                    else
+                    {
+                        kogo->tabBohaterow[i]->poziomZycia -= obrazenia / kogo->tabBohaterow[i]->mnoznikZycia;
+                        if (kogo->tabBohaterow[i]->poziomZycia < 0) this->doswiadczenie++;
+                        if (doswiadczenie > 5)
+                        {
+                            doswiadczenie = 0;
+                            this->Awansuj();
+                        }
+                        turDoAtaku = 1000.0/szybkoscAtaku;
+                        return true;
+                    }
+                }
+            }
+        }
+    }
+
+
+
+
+    float odlegloscMin = 99999;
+    int nrDoAtakowania = -1;
+    for (int i = 0; i < kogo->tabStworkow.size(); i++)
+    {
+        float odleglosc = abs(x - kogo->tabStworkow[i]->x);
+        if (odleglosc < odlegloscMin)
+        {
+            odlegloscMin = odleglosc;
+            nrDoAtakowania = i;
+        }
+    }
+
+    if (odlegloscMin < zasieg)          // jezeli w poblizu stworek - atakuj
+    {
+        if (turDoAtaku > 0)        // ograniczenie czestosci strzelania
+        {
+            turDoAtaku--;
+            return true;
+        }
+        else
+        {
+            kogo->tabStworkow[nrDoAtakowania]->poziomZycia -= obrazenia / kogo->tabStworkow[nrDoAtakowania]->mnoznikZycia;
+            if (kogo->tabStworkow[nrDoAtakowania]->poziomZycia < 0) this->doswiadczenie++;
+            if (doswiadczenie > 5)
+            {
+                doswiadczenie = 0;
+                this->Awansuj();
+            }
+
+            turDoAtaku = 1000.0/szybkoscAtaku;
+            return true;
+        }
+
+    }
+
+
+
+
+
+
+    if (abs(x - kogo->zamek->x) < zasieg)      // todo dodac rozmiar zamku
+    {
+        if (turDoAtaku > 0)        // ograniczenie czestosci strzelania
+        {
+            turDoAtaku--;
+            return true;
+        }
+        else
+        {
+            kogo->zamek->poziomZycia -= obrazenia / kogo->zamek->mnoznikZycia;
+            turDoAtaku = 1000.0/szybkoscAtaku;
+            return true;
+        }
+    }
+
+
+    return false;
 }
 
 void cBohater2::Awansuj()
 {
-	mnoznikZycia += 0.25;
+    mnoznikZycia += 0.15;
 	poziomZycia = 100;
-	zasieg += 10;
+    zasieg += 5;
 	obrazenia += 2;
     szybkoscAtaku += 1;
 	level += 1;
 }
 void cBohater2::ZwiekszMoc()
 {
-    mocSilnika = mocSilnika *1.06 + 2;
+    mocSilnika = mocSilnika *1.06 + 3;
 }
 
 void cBohater2::Teleportuj()
@@ -207,5 +302,6 @@ void cBohater2::Teleportuj()
 
 bool cBohater2::SprawdzZycie()
 {
-
+    if (poziomZycia < 0) return false;
+    else return true;
 }

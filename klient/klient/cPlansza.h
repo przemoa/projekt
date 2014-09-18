@@ -49,6 +49,7 @@ public:
 	vector < cGracz* > tabGraczy;
 	bool wybranyGracz;
 	bool czyFocusowac;		// czy ustawiac focus na wybrana jednostke
+	bool moznaBudowac;
 
 	float tabPol[50000];
 	int tabTypowPol[50000];

@@ -30,6 +30,7 @@ public:
 
 	int wybranyBohater;
 	int idWybrane;
+    int liczbaStworkow;
 
     void DodajStworka(int _typStworka);
 	bool ZaplacZlotem(int ile);

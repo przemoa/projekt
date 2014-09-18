@@ -23,7 +23,7 @@ cStworek::cStworek(float _x, float _z, int _typStworka, int _wlasciciel, int lev
 	case LISTA_STWOREK_KULA:
 		wysokosc = ROMIAR_STWORKA_KULA;
 		predkosc = 50;
-		mnoznikZycia = 0.6;
+        mnoznikZycia = 2.1;
 		zasieg = 35;
 		obrazenia = 12;
         szybkoscAtaku = 30;
@@ -31,18 +31,18 @@ cStworek::cStworek(float _x, float _z, int _typStworka, int _wlasciciel, int lev
 	case LISTA_STWOREK_KWADRAT:
 		wysokosc = 35;
 		predkosc = 30;
-		mnoznikZycia = 0.4;
+        mnoznikZycia = 2.6;
 		zasieg = 55;
 		obrazenia = 15;
 		szybkoscAtaku = 15; 
 		break;
 	}
 
-	predkosc += predkosc*levelStworkow/5.0;
-	mnoznikZycia += mnoznikZycia*levelStworkow/5.0;
-	zasieg += zasieg*levelStworkow/5.0;
-	obrazenia += obrazenia*levelStworkow/5.0;
-	szybkoscAtaku += szybkoscAtaku*levelStworkow/5.0;
+    predkosc += predkosc*levelStworkow*1.03+1;
+    mnoznikZycia += mnoznikZycia*levelStworkow*1.03+2;
+    zasieg += zasieg*levelStworkow*1.03+2;
+    obrazenia += obrazenia*levelStworkow*1.03+2;
+    szybkoscAtaku += szybkoscAtaku*levelStworkow*1.03+3;
 
 	y = Plansza->tabPol[Plansza->XDoTab(x)] + wysokosc;
 	yCel = y;
@@ -112,9 +112,17 @@ bool cStworek::Atakuj()
 
     if (odlegloscMin < zasieg)          // jezeli w poblizu stworek - atakuj
     {
-        if (rand()%1000 > szybkoscAtaku) return true;          // ograniczenie czestosci strzelania
-        kogo->tabStworkow[nrDoAtakowania]->poziomZycia -= obrazenia / kogo->tabStworkow[nrDoAtakowania]->mnoznikZycia;
-        return true;
+        if (turDoAtaku > 0)        // ograniczenie czestosci strzelania
+        {
+            turDoAtaku--;
+            return true;
+        }
+        else
+        {
+            kogo->tabStworkow[nrDoAtakowania]->poziomZycia -= obrazenia / kogo->tabStworkow[nrDoAtakowania]->mnoznikZycia;
+            turDoAtaku = 1000.0/szybkoscAtaku;
+            return true;
+        }
     }
 
     for (int i = 0; i < 2; i++)
@@ -125,9 +133,17 @@ bool cStworek::Atakuj()
             {
                 if (zasieg > abs(x - kogo->tabBohaterow[i]->x))
                 {
-                    if (rand()%1000 > szybkoscAtaku) return true;          // ograniczenie czestosci strzelania
-                    kogo->tabBohaterow[i]->poziomZycia -= obrazenia / kogo->tabBohaterow[i]->mnoznikZycia;
-                    return true;
+                    if (turDoAtaku > 0)        // ograniczenie czestosci strzelania
+                    {
+                        turDoAtaku--;
+                        return true;
+                    }
+                    else
+                    {
+                        kogo->tabBohaterow[i]->poziomZycia -= obrazenia / kogo->tabBohaterow[i]->mnoznikZycia;
+                        turDoAtaku = 1000.0/szybkoscAtaku;
+                        return true;
+                    }
                 }
             }
         }
@@ -135,9 +151,18 @@ bool cStworek::Atakuj()
 
     if (abs(x - kogo->zamek->x) < zasieg)      // todo dodac rozmiar zamku
     {
-        if (rand()%1000 > szybkoscAtaku) return true;          // ograniczenie czestosci strzelania
-        kogo->zamek->poziomZycia -= obrazenia / kogo->zamek->mnoznikZycia;
-        return true;
+        if (turDoAtaku > 0)        // ograniczenie czestosci strzelania
+        {
+            turDoAtaku--;
+            return true;
+        }
+        else
+        {
+            kogo->zamek->poziomZycia -= obrazenia / kogo->zamek->mnoznikZycia;
+            turDoAtaku = 1000.0/szybkoscAtaku;
+            return true;
+        }
+
     }
 
 
@@ -150,5 +175,6 @@ bool cStworek::Atakuj()
 
 bool cStworek::SprawdzZycie()
 {
-
+    if (poziomZycia < 0) return false;
+    else return true;
 }

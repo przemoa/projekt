@@ -9,7 +9,7 @@ cJednostka::cJednostka(void)
 	level = 1;
 	doswiadczenie = 0;
 	poziomZycia = 100;
-
+    turDoAtaku = 10;
 }
 
 

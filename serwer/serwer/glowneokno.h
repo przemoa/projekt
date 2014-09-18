@@ -32,6 +32,8 @@ public:
     eETAPGRY etapGry;
     int iloscGraczy;
     void SterujGraczem();
+    int okresTury = 30;
+
 
 public slots:
     void Dzialaj();

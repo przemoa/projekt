@@ -72,7 +72,7 @@ public:
         lineEdit->setGeometry(QRect(20, 450, 651, 20));
         gridLayoutWidget = new QWidget(centralWidget);
         gridLayoutWidget->setObjectName(QStringLiteral("gridLayoutWidget"));
-        gridLayoutWidget->setGeometry(QRect(20, 10, 161, 80));
+        gridLayoutWidget->setGeometry(QRect(20, 10, 204, 80));
         gridLayout = new QGridLayout(gridLayoutWidget);
         gridLayout->setSpacing(6);
         gridLayout->setContentsMargins(11, 11, 11, 11);
@@ -112,8 +112,8 @@ public:
         dial_szybkoscGry = new QDial(centralWidget);
         dial_szybkoscGry->setObjectName(QStringLiteral("dial_szybkoscGry"));
         dial_szybkoscGry->setGeometry(QRect(540, 30, 50, 64));
-        dial_szybkoscGry->setMinimum(1);
-        dial_szybkoscGry->setMaximum(200);
+        dial_szybkoscGry->setMinimum(3);
+        dial_szybkoscGry->setMaximum(50);
         dial_szybkoscGry->setValue(30);
         dial_zlotoPoczatkowe = new QDial(centralWidget);
         dial_zlotoPoczatkowe->setObjectName(QStringLiteral("dial_zlotoPoczatkowe"));

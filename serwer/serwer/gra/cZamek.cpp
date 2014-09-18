@@ -33,7 +33,7 @@ cZamek::cZamek(float _x, float _y, int _wlasciciel)
 //	DodajWieze(16, 200);
 
 
-	mnoznikZycia = 15;
+    mnoznikZycia = 25;
 	wydobycie = 10;
 
 }
@@ -57,7 +57,7 @@ void cZamek::DodajWieze(int _typWiezy, int pozycja)
 	nowaWieza.czyAtakuje = true;
 	nowaWieza.x = x + (pozycja/100 -2) * rozmiarWiezy * 3;
 	nowaWieza.y = y + 1.2*rozmiar + (pozycja%100) * wysokoscWiezy;
-
+    nowaWieza.turDoAtaku = 10;
 	switch (_typWiezy)
 	{
 	case TEKSTURA_WIEZA1:		// luk, srednioszybka, male obrazenia, sredni zasieg
@@ -103,6 +103,79 @@ void cZamek::DodajWieze(int _typWiezy, int pozycja)
 
 bool cZamek::Atakuj()
 {
+    for (int i = 0; i < tabWiez.size(); i++)
+    {
+        sWIEZA* wieza = &(tabWiez[i]);
+        int nrKogo = ((wlasciciel == 1) ? 1 : 0); // ktorego gracza z tablicy stowrek ma atakowac
+
+        if (wieza->czyAtakuje)
+        {
+            cGracz* kogo =  Plansza->tabGraczy[nrKogo];
+
+            float odlegloscMin = 99999;
+            int nrDoAtakowania = -1;
+            for (int i = 0; i < kogo->tabStworkow.size(); i++)
+            {
+                float odleglosc = abs(x - kogo->tabStworkow[i]->x);
+                if (odleglosc < odlegloscMin)
+                {
+                    odlegloscMin = odleglosc;
+                    nrDoAtakowania = i;
+                }
+            }
+
+            if (odlegloscMin < wieza->zasieg)          // jezeli w poblizu stworek - atakuj
+            {
+                if (turDoAtaku > 0)        // ograniczenie czestosci strzelania
+                {
+                    turDoAtaku--;
+                    return true;
+                }
+                else
+                {
+                    kogo->tabStworkow[nrDoAtakowania]->poziomZycia -= wieza->obrazenia / kogo->tabStworkow[nrDoAtakowania]->mnoznikZycia;
+                    turDoAtaku = 1000.0/szybkoscAtaku;
+
+                    if (kogo->tabStworkow[nrDoAtakowania]->poziomZycia < 0) this->doswiadczenie++;
+                    if (doswiadczenie > 25)
+                    {
+                        doswiadczenie = 0;
+                        this->Awansuj();
+                    }
+                    return true;
+                }
+            }
+
+            for (int i = 0; i < 2; i++)
+            {
+                if (kogo->tabBohaterow[i] != NULL)
+                {
+                    if (kogo->tabBohaterow[i]->zywy)
+                    {
+                        if (zasieg > abs(x - kogo->tabBohaterow[i]->x))
+                        {
+                            if (turDoAtaku > 0)        // ograniczenie czestosci strzelania
+                            {
+                                turDoAtaku--;
+                                return true;
+                            }
+                            else
+                            {
+                                kogo->tabBohaterow[i]->poziomZycia -= wieza->obrazenia / kogo->tabBohaterow[i]->mnoznikZycia;
+                                turDoAtaku = 1000.0/szybkoscAtaku;
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        else
+        {
+            if (wieza->typWiezy == TEKSTURA_WIEZA6) if(Plansza->nrTury%100 == 99) Plansza->tabGraczy[!nrKogo]->zloto += wieza->obrazenia;
+            if (wieza->typWiezy == TEKSTURA_WIEZA7) if(Plansza->nrTury%100 == 99) this->poziomZycia += wieza->obrazenia / this->mnoznikZycia;
+        }
+    }
 }
 
 void cZamek::Awansuj()
@@ -114,7 +187,7 @@ void cZamek::Awansuj()
 	poziomZycia += 10;
 	if (poziomZycia > 100) poziomZycia = 100;
 
-	mnoznikZycia += 1;
+    mnoznikZycia += 2;
 	wydobycie += 1;
 
 	for (int i = 0; i < tabWiez.size(); i++)
@@ -177,5 +250,6 @@ void cZamek::SprzedajWieze(int i)
 
 bool cZamek::SprawdzZycie()
 {
-
+    if (poziomZycia < 0) return false;
+    else return true;
 }

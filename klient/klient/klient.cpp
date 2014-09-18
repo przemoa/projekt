@@ -335,8 +335,8 @@ void cPlansza::PrzetworzDane()
 				licznik ++;
 				trzeciBajt = daneOdebrane[licznik];
 
-				if (tabGraczy[drugiBajt]->tabBohaterow[trzeciBajt] != NULL)
-					tabGraczy[drugiBajt]->tabBohaterow[trzeciBajt]->zywy = true;
+				if (tabGraczy[drugiBajt]->tabBohaterow[trzeciBajt-1] != NULL)
+					tabGraczy[drugiBajt]->tabBohaterow[trzeciBajt-1]->zywy = true;
 				else
 				{
 
@@ -347,6 +347,7 @@ void cPlansza::PrzetworzDane()
 					if (trzeciBajt == 2) tabGraczy[drugiBajt]->tabBohaterow[trzeciBajt-1] = new cBohater2(_x+60*_wlasciciel, _y, _wlasciciel);
 				}
 			}
+			break;
 
 		case 0x32:
 			{
@@ -408,10 +409,9 @@ void cPlansza::PrzetworzDane()
 							tabGraczy[0]->tabBohaterow[i]->szybkoscAtaku = _mnoznik;
 						}
 					}
-
 				}
 			}
-
+			break;
 
 
 			case 0x33:
@@ -477,7 +477,7 @@ void cPlansza::PrzetworzDane()
 					}
 				}
 			}
-
+			break;
 
 
 
@@ -547,5 +547,4 @@ void cPlansza::DodajAkcje(char pierwszy, char drugi , char trzeci )
 		daneDoWyslania[bajtyDoWyslania] = trzeci;
 		bajtyDoWyslania++;
 	}
-
 }
