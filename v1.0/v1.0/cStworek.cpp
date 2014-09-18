@@ -36,6 +36,22 @@ cStworek::cStworek(float _x, float _z, int _typStworka, int _wlasciciel, int lev
 		obrazenia = 15;
 		szybkoscAtaku = 15; 
 		break;
+	case LISTA_STWOREK_TROJKAT:
+		wysokosc = 1.5 * ROZMIAR_STWORKA_TROJKAT;
+		predkosc = 100;
+		mnoznikZycia = 0.8;
+		zasieg = 55;
+		obrazenia = 15;
+		szybkoscAtaku = 65; 
+		break;
+	case LISTA_STWOREK_JAJO:
+		wysokosc = 2 * ROZMIAR_STWORKA_TROJKAT;
+		predkosc = 84;
+		mnoznikZycia = 0.15;
+		zasieg = 18;
+		obrazenia = 15;
+		szybkoscAtaku = 20; 
+		break;
 	}
 
 	predkosc += predkosc*levelStworkow/5.0;

@@ -918,7 +918,7 @@ void cPlansza::UtworzListy()
 	// STWOREK KULA
 	glGenLists(LISTA_STWOREK_KULA);
 	glNewList(LISTA_STWOREK_KULA, GL_COMPILE);
-	glBegin(GL_POLYGON);
+		glBegin(GL_POLYGON);
 		for (int i = 0; i < 33; i++)
 		{
 			glVertex2f(ROZMIAR_STWORKA_KULA * sin(6.2832*i/33), ROZMIAR_STWORKA_KULA * cos(6.2832*i/33));
@@ -929,17 +929,34 @@ void cPlansza::UtworzListy()
 	// STWOREK KWADRAT
 	glGenLists(LISTA_STWOREK_KWADRAT);
 	glNewList(LISTA_STWOREK_KWADRAT, GL_COMPILE);
-	glBegin(GL_POLYGON);
-		for (int i = 0; i < 33; i++)
-		{
+		glBegin(GL_POLYGON);
 			glVertex2f(-ROZMIAR_STWORKA_KWADRAT,ROZMIAR_STWORKA_KWADRAT);
 			glVertex2f(ROZMIAR_STWORKA_KWADRAT,ROZMIAR_STWORKA_KWADRAT);
 			glVertex2f(ROZMIAR_STWORKA_KWADRAT,-ROZMIAR_STWORKA_KWADRAT);
 			glVertex2f(-ROZMIAR_STWORKA_KWADRAT,-ROZMIAR_STWORKA_KWADRAT);
-		}
 		glEnd();
 	glEndList();
 
+	// STWOREK TROJKAT
+	glGenLists(LISTA_STWOREK_TROJKAT);
+	glNewList(LISTA_STWOREK_TROJKAT, GL_COMPILE);
+		glBegin(GL_POLYGON);
+			glVertex2f(-ROZMIAR_STWORKA_TROJKAT * 0.866, ROZMIAR_STWORKA_TROJKAT / 2);
+			glVertex2f(ROZMIAR_STWORKA_TROJKAT * 0.866, ROZMIAR_STWORKA_TROJKAT / 2);
+			glVertex2f(0,-ROZMIAR_STWORKA_TROJKAT);
+		glEnd();
+	glEndList();
+
+	// STWOREK JAJO
+	glGenLists(LISTA_STWOREK_JAJO);
+	glNewList(LISTA_STWOREK_JAJO, GL_COMPILE);
+		glBegin(GL_POLYGON);
+		for (int i = 0; i < 33; i++)
+		{
+			glVertex2f(ROZMIAR_STWORKA_JAJO * sin(6.2832*i/33), ROZMIAR_STWORKA_JAJO * 2 * cos(6.2832*i/33));
+		}
+		glEnd();
+	glEndList();
 }
 
 void cPlansza::TworzTekstury()
