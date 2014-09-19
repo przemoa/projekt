@@ -338,7 +338,7 @@ void cPlansza::_ZmianaRozmiaruOkna(int width, int height)
 void cPlansza::_MyszKlawisz(int button, int state, int x, int y)
 {
 
-	if (button == GLUT_LEFT_BUTTON)
+	if (button == GLUT_RIGHT_BUTTON)
 	{
 		if (state == GLUT_DOWN)
 		{		
@@ -352,7 +352,7 @@ void cPlansza::_MyszKlawisz(int button, int state, int x, int y)
 		}
 	}
 
-	if (button == GLUT_RIGHT_BUTTON)
+	if (button == GLUT_LEFT_BUTTON)
 	{
 		if (!etapGry==GRA) return;
 
@@ -593,12 +593,12 @@ void cPlansza::_MyszRuch(int x,int y)
 	{
 		if (x < KAMERA_PRZESUWANIE_MYSZA)
 		{
-			kamera.przesuwajx = -1;
+			kamera.przesuwajx = -5;
 			glutTimerFunc(20, Dzialaj, TIMER_KAMERA_MYSZ_PRZESUN_X);
 		}
 		if (x > rozmiarOkna.x - KAMERA_PRZESUWANIE_MYSZA)
 		{
-			kamera.przesuwajx = +1;
+			kamera.przesuwajx = +5;
 			glutTimerFunc(20, Dzialaj, TIMER_KAMERA_MYSZ_PRZESUN_X);
 		}
 	}

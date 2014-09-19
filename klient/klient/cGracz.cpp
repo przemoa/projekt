@@ -59,6 +59,7 @@ void cGracz::DodajStworka(float _x, int _typStworka)
 
 void cGracz::AktualizujRamke()
 {
+
 	sprintf(napisZloto, "x %d", (int) zloto);
 	for (int i  = 0; i < 3; i++)
 	{
@@ -143,6 +144,24 @@ void cGracz::Rysuj()
 	{
 		if (tabBohaterow[i] == NULL) continue;
 		tabBohaterow[i]->Rysuj();
+
+		if (tabBohaterow[i]->GetId() == idWybrane)
+		{
+			glPushMatrix();
+
+				glColor3f(1, 0, 0);
+				glLineWidth(3);
+				glTranslatef(tabBohaterow[i]->x, tabBohaterow[i]->y, 0);
+				glBegin(GL_LINE_LOOP);
+					for (int j = 0; j < 133; j++)
+					{
+						glVertex2f(tabBohaterow[i]->zasieg * sin(6.2832*j/133), tabBohaterow[i]->zasieg * cos(6.2832*j/133));
+					}
+				glEnd();
+
+			glPopMatrix();
+		}
+
 	}
 
 	zamek->Rysuj();
@@ -150,7 +169,25 @@ void cGracz::Rysuj()
 	for (int i = 0; i < tabStworkow.size(); i++)
 	{
 		tabStworkow[i]->Rysuj();
+		if (tabStworkow[i]->GetId() == idWybrane)
+		{
+			glPushMatrix();
+
+				glColor3f(1, 0, 0);
+				glLineWidth(3);
+				glTranslatef(tabStworkow[i]->x, tabStworkow[i]->y, 0);
+				glBegin(GL_LINE_LOOP);
+					for (int j = 0; j < 133; j++)
+					{
+						glVertex2f(tabStworkow[i]->zasieg * sin(6.2832*j/133), tabStworkow[i]->zasieg * cos(6.2832*j/133));
+					}
+				glEnd();
+
+			glPopMatrix();
+		}
 	}
+
+	cout << idWybrane << endl;
 }
 
 

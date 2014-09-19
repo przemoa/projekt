@@ -83,6 +83,9 @@ void cPlansza::_Przerysuj(void)
 			tabGraczy[i]->Rysuj();
 		}
 
+		
+
+
 		for (int i = 0; i < tabPunktStab.size(); i++)
 		{
 			tabPunktStab[i]->Rysuj();
@@ -400,6 +403,7 @@ void cPlansza::DrawString(float x, float y, const unsigned char * string, float 
 void cPlansza::RysujRamkeOpisu()
 {
 
+
 	glLineWidth(2);
 
 	glMatrixMode(GL_PROJECTION);
@@ -596,6 +600,7 @@ void cPlansza::RysujRamkeOpisu()
 			glDisable(GL_TEXTURE_2D);
 
 			glColor4f(1, 1, 0.3, 1);
+			glLineWidth(2);
 			DrawString(8, 71, (unsigned char*) tabGraczy[wybranyGracz]->napisZloto, 16);
 
 

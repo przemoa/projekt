@@ -44,7 +44,6 @@ void cBohater2::Rysuj()
 		RysujPasekZycia();
 		glCallList(LISTA_BOHATER2);
 	glPopMatrix();
-
 }
 
 
@@ -126,6 +125,9 @@ bool cBohater2::CzyKliknieto(float px, float py)
 }
 void cBohater2::AktualizujRamke()
 {
+
+
+
 	Plansza->ramkaOpisu.id = id;
 	Plansza->ramkaOpisu.typ = BOHATER2;
 	Plansza->ramkaOpisu.ikona = IKONA_BOHATER2;

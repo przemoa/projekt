@@ -42,7 +42,7 @@ void cZamek::DodajWieze(int _typWiezy, int pozycja)
 {
 
 	sWIEZA nowaWieza;
-	for (int i = 0; i < tabWiez.size(); i++)
+    for (unsigned int i = 0; i < tabWiez.size(); i++)
 	{
 		if (pozycja/100 == tabWiez[i].pozycja/100)
 		{
@@ -103,20 +103,25 @@ void cZamek::DodajWieze(int _typWiezy, int pozycja)
 
 bool cZamek::Atakuj()
 {
-    for (int i = 0; i < tabWiez.size(); i++)
+    for (unsigned int i = 0; i < tabWiez.size(); i++)
     {
         sWIEZA* wieza = &(tabWiez[i]);
         int nrKogo = ((wlasciciel == 1) ? 1 : 0); // ktorego gracza z tablicy stowrek ma atakowac
 
         if (wieza->czyAtakuje)
         {
+            int kolumna = wieza->pozycja/100;
+            int wiersz = wieza->pozycja%100 - 1;
+            wieza->x = (-6+3*kolumna)*rozmiarWiezy + x;
+            wieza->y = 1.04*rozmiar + (wiersz+1.3)*wysokoscWiezy + y;
+
             cGracz* kogo =  Plansza->tabGraczy[nrKogo];
 
             float odlegloscMin = 99999;
             int nrDoAtakowania = -1;
-            for (int i = 0; i < kogo->tabStworkow.size(); i++)
+            for (unsigned int i = 0; i < kogo->tabStworkow.size(); i++)
             {
-                float odleglosc = abs(wieza->x - kogo->tabStworkow[i]->x);
+                float odleglosc = sqrt(pow(wieza->x - kogo->tabStworkow[i]->x, 2) + pow(wieza->y - kogo->tabStworkow[i]->y, 2));
                 if (odleglosc < odlegloscMin)
                 {
                     odlegloscMin = odleglosc;
@@ -152,7 +157,8 @@ bool cZamek::Atakuj()
                 {
                     if (kogo->tabBohaterow[i]->zywy)
                     {
-                        if (zasieg > abs(wieza->x - kogo->tabBohaterow[i]->x))
+                        float odleglosc = sqrt(pow(wieza->x - kogo->tabBohaterow[i]->x, 2) + pow(wieza->y - kogo->tabBohaterow[i]->y, 2));
+                        if (wieza->zasieg > odleglosc)
                         {
                             if (wieza->turDoAtaku > 0)        // ograniczenie czestosci strzelania
                             {
@@ -176,6 +182,8 @@ bool cZamek::Atakuj()
             if (wieza->typWiezy == TEKSTURA_WIEZA7) if(Plansza->nrTury%100 == 99) this->poziomZycia += wieza->obrazenia / this->mnoznikZycia;
         }
     }
+
+    return false;
 }
 
 void cZamek::Awansuj()
@@ -190,7 +198,7 @@ void cZamek::Awansuj()
     mnoznikZycia += 2;
 	wydobycie += 1;
 
-	for (int i = 0; i < tabWiez.size(); i++)
+    for (unsigned int i = 0; i < tabWiez.size(); i++)
 	{
 		tabWiez[i].x = x + (tabWiez[i].pozycja/100 -2) * rozmiarWiezy * 3;
 		tabWiez[i].y = y + 1.2*rozmiar + (tabWiez[i].pozycja%100) * wysokoscWiezy;

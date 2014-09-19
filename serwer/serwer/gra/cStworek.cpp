@@ -116,9 +116,9 @@ bool cStworek::Atakuj()
 
     float odlegloscMin = 99999;
     int nrDoAtakowania = -1;
-    for (int i = 0; i < kogo->tabStworkow.size(); i++)
+    for (unsigned int i = 0; i < kogo->tabStworkow.size(); i++)
     {
-        float odleglosc = abs(x - kogo->tabStworkow[i]->x);
+        float odleglosc = sqrt(pow(x - kogo->tabStworkow[i]->x, 2) + pow(y - kogo->tabStworkow[i]->y, 2));
         if (odleglosc < odlegloscMin)
         {
             odlegloscMin = odleglosc;
@@ -141,13 +141,17 @@ bool cStworek::Atakuj()
         }
     }
 
+
+
+
     for (int i = 0; i < 2; i++)
     {
         if (kogo->tabBohaterow[i] != NULL)
         {
             if (kogo->tabBohaterow[i]->zywy)
             {
-                if (zasieg > abs(x - kogo->tabBohaterow[i]->x))
+                float odleglosc = sqrt(pow(x - kogo->tabBohaterow[i]->x, 2) + pow(y - kogo->tabBohaterow[i]->y, 2));
+                if (zasieg > odleglosc)
                 {
                     if (turDoAtaku > 0)        // ograniczenie czestosci strzelania
                     {
@@ -165,7 +169,8 @@ bool cStworek::Atakuj()
         }
     }
 
-    if (abs(x - kogo->zamek->x) < zasieg)      // todo dodac rozmiar zamku
+    float odleglosc = sqrt(pow(x - kogo->zamek->x, 2) + pow(y - kogo->zamek->y, 2));
+    if (zasieg > odleglosc)      // todo dodac rozmiar zamku
     {
         if (turDoAtaku > 0)        // ograniczenie czestosci strzelania
         {

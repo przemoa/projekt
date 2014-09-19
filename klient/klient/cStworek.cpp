@@ -123,6 +123,7 @@ bool cStworek::CzyKliknieto(float px, float py)
 }
 void cStworek::AktualizujRamke()
 {
+
 	Plansza->ramkaOpisu.id = id;
 	Plansza->ramkaOpisu.typ = STWOREK;
 	Plansza->ramkaOpisu.ikona = typStworka;

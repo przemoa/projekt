@@ -38,7 +38,7 @@ extern cPlansza* Plansza;
 #define KAMERA_MAX_POLOZENIE_X 975
 #define KAMERA_MAX_POLOZENIE_Y 200
 #define KAMERA_MIN_POLOZENIE_Y -100
-#define KAMERA_PRZESUWANIE_MYSZA -5		// 20	
+#define KAMERA_PRZESUWANIE_MYSZA 60		// 20	
 
 #define ILOSC_CHMUR 16
 #define SZYBKOSC_CHMUR 120.0
@@ -196,6 +196,7 @@ struct sRAMKAOPISU
 	
 	int rodzajMenu;		// nr tekstury bedacej menu
 	char tekstPomocy[128];
+
 };
 
 enum eETAPGRY

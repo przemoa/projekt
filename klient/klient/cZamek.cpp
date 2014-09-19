@@ -6,6 +6,7 @@ cZamek::cZamek(void)
 }
 
 
+
 cZamek::~cZamek(void)
 {
 }
@@ -103,16 +104,19 @@ void cZamek::DodajWieze(int _typWiezy, int pozycja)
 
 void cZamek::Rysuj()
 {	
+	
 	glColor4f(1, 1, 1, 1);
 	glPushMatrix();
 		glTranslatef(x, y, 0);
 
 		
-		
+		//int nrWiezy = -1;
 		for (int i = 0; i < tabWiez.size(); i++)
 		{
 			int kolumna = tabWiez[i].pozycja/100;
 			int wiersz = tabWiez[i].pozycja%100 - 1;
+
+
 
 			glBindTexture(GL_TEXTURE_2D, tabWiez[i].typWiezy);
 			glEnable(GL_TEXTURE_2D);
@@ -123,6 +127,28 @@ void cZamek::Rysuj()
 				glTexCoord2f(0.0f, 1.0f); glVertex2f((-7+3*kolumna)*rozmiarWiezy,  1.04*rozmiar + (wiersz+1.6)*wysokoscWiezy);
 			glEnd();
 			glDisable(GL_TEXTURE_2D);
+
+			if (tabWiez[i].pozycja == wybranaWiez && tabWiez[i].czyAtakuje && Plansza->tabGraczy[Plansza->wybranyGracz]->idWybrane == this->GetId())
+			{																					 
+				//nrWiezy = i;
+				tabWiez[i].x = (-6+3*kolumna)*rozmiarWiezy;
+				tabWiez[i].y = 1.04*rozmiar + (wiersz+1.3)*wysokoscWiezy;
+
+				glPushMatrix();
+					
+					glColor3f(1, 0, 0);
+					glLineWidth(3);
+					glTranslatef(tabWiez[i].x, tabWiez[i].y, 0);
+					glBegin(GL_LINE_LOOP);
+						for (int j = 0; j < 133; j++)
+						{
+							glVertex2f(tabWiez[i].zasieg * sin(6.2832*j/133), tabWiez[i].zasieg * cos(6.2832*j/133));
+						}
+					glEnd();
+
+				glPopMatrix();
+				glColor4f(1, 1, 1, 1);
+			}
 		}
 
 
@@ -138,6 +164,8 @@ void cZamek::Rysuj()
 	glPopMatrix();
 
 	RysujPasekZycia();
+
+
 
 
 }
@@ -234,6 +262,7 @@ void cZamek::AktualizujRamke()
 					<< "Obrazenia:      " << (int) tabWiez[nrWiezy].obrazenia << endl
 					<< "Zasieg:      " << (int) tabWiez[nrWiezy].zasieg << endl
 					<< "Szybkosc ataku:   " << (int) tabWiez[nrWiezy].szybkoscAtaku << endl;
+
 		}
 		else if (tabWiez[nrWiezy].typWiezy == TEKSTURA_WIEZA6)
 		{
