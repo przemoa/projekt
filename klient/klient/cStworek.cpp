@@ -12,9 +12,10 @@ cStworek::cStworek(float _x, float _z, int _typStworka, int _wlasciciel, int lev
 	wlasciciel = _wlasciciel;
 	rozmiar = 3;	
 	typStworka = _typStworka;
-	kolor.r = 1;
+	kolor.r = (1+wlasciciel)/2;
 	kolor.g = 0;
-	kolor.b = 0;
+	kolor.b = (-1+wlasciciel)/(-2);
+	
 	level = levelStworkow;
 
 	kat = 0;
@@ -23,19 +24,35 @@ cStworek::cStworek(float _x, float _z, int _typStworka, int _wlasciciel, int lev
 	{
 	case LISTA_STWOREK_KULA:
 		wysokosc = ROMIAR_STWORKA_KULA;
-		predkosc = 50;
-		mnoznikZycia = 0.6;
+		predkosc = 55;
+        mnoznikZycia = 2.1;
 		zasieg = 35;
 		obrazenia = 12;
-		szybkoscAtaku = 40;
+        szybkoscAtaku = 30;
 		break;
 	case LISTA_STWOREK_KWADRAT:
 		wysokosc = 35;
-		predkosc = 30;
-		mnoznikZycia = 0.4;
-		zasieg = 65;
+		predkosc = 35;
+        mnoznikZycia = 2.6;
+		zasieg = 55;
 		obrazenia = 15;
 		szybkoscAtaku = 15; 
+		break;
+    case LISTA_STWOREK_TROJKAT:
+		wysokosc = 1.5 * ROZMIAR_STWORKA_TROJKAT;
+		predkosc = 100;
+		mnoznikZycia = 1.6;
+		zasieg = 85;
+		obrazenia = 8;
+		szybkoscAtaku = 65; 
+		break;
+	case LISTA_STWOREK_JAJO:
+		wysokosc = 20;
+		predkosc = 70;
+		mnoznikZycia = 4;
+		zasieg = 50;
+		obrazenia = 85;
+		szybkoscAtaku = 20; 
 		break;
 	}
 
@@ -61,8 +78,8 @@ void cStworek::Rysuj()
 		glTranslatef(x, y, z);
 		glRotatef(kat, 0, 0, 1);
 		glColor3f(kolor.r, kolor.g, kolor.b);  //todo
-		//glCallList(typStworka);
-		glCallList(LISTA_STWOREK_KULA);
+		glCallList(typStworka);
+		//glCallList(LISTA_STWOREK_KULA);
 
 		RysujPasekZycia();
 

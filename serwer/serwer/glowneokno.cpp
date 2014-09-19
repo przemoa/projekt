@@ -105,7 +105,7 @@ void GlowneOkno::SterujGraczem()
 
     if (losowa < 30)
     {
-        Plansza->tabGraczy[1]->DodajStworka(rand()%2 + 125);
+        Plansza->tabGraczy[1]->DodajStworka(rand()%2 + LISTA_STWOREK_KULA);
     }
 
     switch (losowa)

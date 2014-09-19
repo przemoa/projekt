@@ -116,7 +116,7 @@ bool cZamek::Atakuj()
             int nrDoAtakowania = -1;
             for (int i = 0; i < kogo->tabStworkow.size(); i++)
             {
-                float odleglosc = abs(x - kogo->tabStworkow[i]->x);
+                float odleglosc = abs(wieza->x - kogo->tabStworkow[i]->x);
                 if (odleglosc < odlegloscMin)
                 {
                     odlegloscMin = odleglosc;
@@ -126,15 +126,15 @@ bool cZamek::Atakuj()
 
             if (odlegloscMin < wieza->zasieg)          // jezeli w poblizu stworek - atakuj
             {
-                if (turDoAtaku > 0)        // ograniczenie czestosci strzelania
+                if (wieza->turDoAtaku > 0)        // ograniczenie czestosci strzelania
                 {
-                    turDoAtaku--;
+                    wieza->turDoAtaku--;
                     return true;
                 }
                 else
                 {
                     kogo->tabStworkow[nrDoAtakowania]->poziomZycia -= wieza->obrazenia / kogo->tabStworkow[nrDoAtakowania]->mnoznikZycia;
-                    turDoAtaku = 1000.0/szybkoscAtaku;
+                    wieza->turDoAtaku = 1000.0/wieza->szybkoscAtaku;
 
                     if (kogo->tabStworkow[nrDoAtakowania]->poziomZycia < 0) this->doswiadczenie++;
                     if (doswiadczenie > 25)
@@ -152,17 +152,17 @@ bool cZamek::Atakuj()
                 {
                     if (kogo->tabBohaterow[i]->zywy)
                     {
-                        if (zasieg > abs(x - kogo->tabBohaterow[i]->x))
+                        if (zasieg > abs(wieza->x - kogo->tabBohaterow[i]->x))
                         {
-                            if (turDoAtaku > 0)        // ograniczenie czestosci strzelania
+                            if (wieza->turDoAtaku > 0)        // ograniczenie czestosci strzelania
                             {
-                                turDoAtaku--;
+                                wieza->turDoAtaku--;
                                 return true;
                             }
                             else
                             {
                                 kogo->tabBohaterow[i]->poziomZycia -= wieza->obrazenia / kogo->tabBohaterow[i]->mnoznikZycia;
-                                turDoAtaku = 1000.0/szybkoscAtaku;
+                                wieza->turDoAtaku = 1000.0/wieza->szybkoscAtaku;
                                 return true;
                             }
                         }

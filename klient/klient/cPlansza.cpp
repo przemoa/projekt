@@ -234,7 +234,8 @@ void cPlansza::_Dzialaj(int value)
 		if (etapGry == GRA && (bajtyOdebrane > 0))
 		{
 			PrzetworzDane();
-			tabGraczy[0]->PrzyspieszajBohatera(0,0);
+			tabGraczy[wybranyGracz]->PrzyspieszajBohatera(0,0);
+			//tabGraczy[1]->PrzyspieszajBohatera(0,0);
 			//DodajAkcjeDoWyslania();
 			//DodajWiadomoscDoWyslania();
 			WyslijDane();
@@ -286,15 +287,15 @@ void cPlansza::_Klawiatura(unsigned char key, int x, int y)
 		glutTimerFunc(20, Dzialaj, TIMER_KAMERA_SCROLL);
 		break;
 
-	case 'o':
-		tabGraczy[wybranyGracz]->DodajStworka(-900+1800*wybranyGracz, LISTA_STWOREK_KULA);
-		break;
-	case 'p':
-		tabGraczy[wybranyGracz]->DodajStworka(-900+1800*wybranyGracz, LISTA_STWOREK_KWADRAT);
-		break;
-	case 'x':
-		wybranyGracz = !wybranyGracz;
-		break;
+	//case 'o':
+	//	tabGraczy[wybranyGracz]->DodajStworka(-900+1800*wybranyGracz, LISTA_STWOREK_KULA);
+	//	break;
+	//case 'p':
+	//	tabGraczy[wybranyGracz]->DodajStworka(-900+1800*wybranyGracz, LISTA_STWOREK_KWADRAT);
+	//	break;
+	//case 'x':
+	//	wybranyGracz = !wybranyGracz;
+	//	break;
 	case 'c':
 		tabGraczy[wybranyGracz];
 		break;
@@ -462,7 +463,7 @@ void cPlansza::WykonajAkcje(int menu)
 			break;
 
 		case TEKSTURA_MENU_BUDOWA_STWORKA:
-			if (gracz->ZaplacZlotem((menu == 1 ? 30 : (menu == 2 ? 35 : (menu == 3 ? 80 : 220)))))
+			if (gracz->ZaplacZlotem((menu == 1 ? 30 : (menu == 2 ? 35 : ((menu == 3) ? 80 : 150)))))
 			{
 				if (moznaBudowac)
 					gracz->DodajStworka(gracz->x, menu+LISTA_STWOREK_KULA-1);
@@ -539,8 +540,8 @@ void cPlansza::TekstPomocy()
 		case TEKSTURA_MENU_BUDOWA_STWORKA:
 			if (menu == 1) sprintf(ramkaOpisu.tekstPomocy, "Stworek 1 (30$)");
 			if (menu == 2) sprintf(ramkaOpisu.tekstPomocy, "Stworek 2 (35$)");
-			if (menu == 3) sprintf(ramkaOpisu.tekstPomocy, "");
-			if (menu == 4) sprintf(ramkaOpisu.tekstPomocy, "");
+			if (menu == 3) sprintf(ramkaOpisu.tekstPomocy, "Stworek 3 (80$)");
+			if (menu == 4) sprintf(ramkaOpisu.tekstPomocy, "Stworek 4 (150$)");
 			break;
 		case TEKSTURA_MENU_BUDOWA_WIEZY:
 			if (menu == 1) sprintf(ramkaOpisu.tekstPomocy, "Wieza lucznicza (%d$)", cenyWiez[menu-1]);
@@ -1007,7 +1008,41 @@ void cPlansza::UtworzListy()
 		}
 		glEnd();
 	glEndList();
+
+		// STWOREK KWADRAT
+	glGenLists(LISTA_STWOREK_KWADRAT);
+	glNewList(LISTA_STWOREK_KWADRAT, GL_COMPILE);
+	glBegin(GL_POLYGON);
+		for (int i = 0; i < 33; i++)
+		{
+			glVertex2f(-ROZMIAR_STWORKA_KWADRAT,ROZMIAR_STWORKA_KWADRAT);
+			glVertex2f(ROZMIAR_STWORKA_KWADRAT,ROZMIAR_STWORKA_KWADRAT);
+			glVertex2f(ROZMIAR_STWORKA_KWADRAT,-ROZMIAR_STWORKA_KWADRAT);
+			glVertex2f(-ROZMIAR_STWORKA_KWADRAT,-ROZMIAR_STWORKA_KWADRAT);
+		}
+		glEnd();
+	glEndList();
 	
+		// STWOREK TROJKAT
+	glGenLists(LISTA_STWOREK_TROJKAT);
+	glNewList(LISTA_STWOREK_TROJKAT, GL_COMPILE);
+		glBegin(GL_POLYGON);
+			glVertex2f(-ROZMIAR_STWORKA_TROJKAT * 0.866, ROZMIAR_STWORKA_TROJKAT / 2);
+			glVertex2f(ROZMIAR_STWORKA_TROJKAT * 0.866, ROZMIAR_STWORKA_TROJKAT / 2);
+			glVertex2f(0,-ROZMIAR_STWORKA_TROJKAT);
+		glEnd();
+	glEndList();
+
+	// STWOREK JAJO
+	glGenLists(LISTA_STWOREK_JAJO);
+	glNewList(LISTA_STWOREK_JAJO, GL_COMPILE);
+		glBegin(GL_POLYGON);
+			for (int i = 0; i < 33; i++)
+			{
+				glVertex2f(ROZMIAR_STWORKA_JAJO * sin(6.2832*i/33), ROZMIAR_STWORKA_JAJO * 2 * cos(6.2832*i/33));
+			}
+		glEnd();
+	glEndList();
 
 
 }
@@ -1046,6 +1081,8 @@ void cPlansza::TworzTekstury()
 	
 	SOIL_load_OGL_texture("tx\\ikona_stworek1.png", SOIL_LOAD_AUTO, IKONA_STWOREK1, SOIL_FLAG_INVERT_Y);
 	SOIL_load_OGL_texture("tx\\ikona_stworek2.png", SOIL_LOAD_AUTO, IKONA_STWOREK2, SOIL_FLAG_INVERT_Y);
+	SOIL_load_OGL_texture("tx\\ikona_stworek3.png", SOIL_LOAD_AUTO, IKONA_STWOREK3, SOIL_FLAG_INVERT_Y);
+	SOIL_load_OGL_texture("tx\\ikona_stworek4.png", SOIL_LOAD_AUTO, IKONA_STWOREK4, SOIL_FLAG_INVERT_Y);
 
 
 

@@ -22,7 +22,7 @@ cStworek::cStworek(float _x, float _z, int _typStworka, int _wlasciciel, int lev
 	{
 	case LISTA_STWOREK_KULA:
 		wysokosc = ROMIAR_STWORKA_KULA;
-		predkosc = 50;
+        predkosc = 55;
         mnoznikZycia = 2.1;
 		zasieg = 35;
 		obrazenia = 12;
@@ -30,12 +30,28 @@ cStworek::cStworek(float _x, float _z, int _typStworka, int _wlasciciel, int lev
 		break;
 	case LISTA_STWOREK_KWADRAT:
 		wysokosc = 35;
-		predkosc = 30;
+        predkosc = 35;
         mnoznikZycia = 2.6;
 		zasieg = 55;
 		obrazenia = 15;
 		szybkoscAtaku = 15; 
 		break;
+    case LISTA_STWOREK_TROJKAT:
+        wysokosc = 1.5 * ROZMIAR_STWORKA_TROJKAT;
+        predkosc = 100;
+        mnoznikZycia = 1.6;
+        zasieg = 85;
+        obrazenia = 8;
+        szybkoscAtaku = 65;
+        break;
+    case LISTA_STWOREK_JAJO:
+        wysokosc = 20;
+        predkosc = 70;
+        mnoznikZycia = 4;
+        zasieg = 50;
+        obrazenia = 85;
+        szybkoscAtaku = 20;
+        break;
 	}
 
     predkosc += predkosc*levelStworkow*1.03+1;
@@ -61,11 +77,11 @@ void cStworek::Ruszaj()
 	int xTab = Plansza->XDoTab(x);
 	float dx = 0;
 
-	if (typStworka == LISTA_STWOREK_KWADRAT)
+    if (typStworka == LISTA_STWOREK_KWADRAT || typStworka == LISTA_STWOREK_JAJO)
 	{
 		dx = wlasciciel * predkosc;
 	}
-	else if (typStworka == LISTA_STWOREK_KULA)
+    else if (typStworka == LISTA_STWOREK_KULA || typStworka == LISTA_STWOREK_TROJKAT)
 	{
 		dx = Plansza->tabPol[xTab-30] - Plansza->tabPol[xTab+30];
 

@@ -45,6 +45,7 @@ cGracz::cGracz(float _x, float _y, int _wlascicel)
 
 void cGracz::DodajStworka(int _typStworka)
 {
+
     switch (_typStworka)
     {
     case LISTA_STWOREK_KULA:
@@ -53,11 +54,11 @@ void cGracz::DodajStworka(int _typStworka)
     case LISTA_STWOREK_KWADRAT:
         if(!ZaplacZlotem(35)) return;
         break;
-    case LISTA_STWOREK_TRZY:
+    case LISTA_STWOREK_TROJKAT:
         if(!ZaplacZlotem(80)) return;
         break;
-    case LISTA_STWOREK_CZTERY:
-        if(!ZaplacZlotem(220)) return;
+    case LISTA_STWOREK_JAJO:
+        if(!ZaplacZlotem(150)) return;
         break;
     }
 
