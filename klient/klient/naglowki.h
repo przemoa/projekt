@@ -1,3 +1,6 @@
+// PLIK z naglowkami, definicjami i strukturami
+
+
 #pragma once
 
 #include <GL/freeglut.h>
@@ -9,13 +12,13 @@
 #include <vector>
 #include <sstream>
 
-
 using namespace std;
 
-void Dzialaj(int value);
 
+void Dzialaj(int value);
 class cPlansza;
 extern cPlansza* Plansza;
+
 
 #define TIMER_KAMERA_SCROLL 5
 #define TIMER_KAMERA_PRZESUN_X 6
@@ -43,7 +46,6 @@ extern cPlansza* Plansza;
 #define ILOSC_CHMUR 16
 #define SZYBKOSC_CHMUR 120.0
 
-
 #define TEKSTURA_CHMURA1 1
 #define TEKSTURA_CHMURA2 2
 #define TEKSTURA_PALMA1 3
@@ -60,7 +62,6 @@ extern cPlansza* Plansza;
 #define TEKSTURA_WIEZA5 15
 #define TEKSTURA_WIEZA6 16
 #define TEKSTURA_WIEZA7 17
-
 
 #define TEKSTURA_MENU_ZAMEK 31
 #define TEKSTURA_MENU_BOHATER 32
@@ -80,7 +81,6 @@ extern cPlansza* Plansza;
 #define POLE_ZIEMIA 0x0A
 #define POLE_TRAWA 0x71
 
-
 #define POLE_SKRZYNKA_Z_NAGRODA_1 0x00
 #define POLE_SKRZYNKA_Z_NAGRODA_2 0x00
 
@@ -93,7 +93,6 @@ extern cPlansza* Plansza;
 #define LISTA_STWOREK_JAJO 127
 #define LISTA_BOHATER1 2
 #define LISTA_BOHATER2 3
-
 
 #define ROZMIAR_PUNKTUSTABILNEGO 2
 #define ROMIAR_STWORKA_KULA 3
@@ -118,8 +117,6 @@ extern cPlansza* Plansza;
 #define KROK_PRZYSPIESZANIA_BOHATERA2 0.5
 #define PRZYSPIESZENIE_GRAWITACYJNE2 0.07
 #define BOHATER2_ZAKRES_KLIKNIECIE 1.5
-
-
 
 
 #define IKONA_ZAMEK 101
@@ -181,7 +178,6 @@ enum eTYP
 };
 
 
-
 struct sRAMKAOPISU
 {
 	eTYP typ;			
@@ -203,8 +199,6 @@ enum eETAPGRY
 {
 	LACZENIE = 0, OCZEKIWANIE_NA_WARUNKI, OCZEKIWANIE_NA_ROZPOCZECIE, GRA, UTRACONO_POLACZENIE, TEST
 };
-
-
 
 
 

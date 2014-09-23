@@ -14,38 +14,6 @@ void cPlansza::_Przerysuj(void)
 		RysujTloNiebo();
 		
 
-
-
-		//RysujPodloze();
-
-		//glColor3f(0,1,0);
-		//glBegin(GL_POLYGON);
-		//	for (int i = 0; i < licznikPunktow; i++)
-		//	{
-		//		glVertex2f(tabPunktow[i][0], tabPunktow[i][1]);
-		//	}
-		//glEnd();
-
-		//glPushMatrix();
-		//	RysujSzescian();
-		//	glTranslatef(32, -5, 0);
-		//	RysujSzescian();
-		//	glTranslatef(-89, -15, 0);
-		//	RysujSzescian();
-		//glPopMatrix();
-
-		//glPushMatrix();
-		//	glColor4f(1, 0.6, 0.6, 0.5);
-		//	glTranslatef(testowy, testowy2, 0);
-		//	glBegin(GL_POLYGON);
-		//		glVertex2f(1,1);
-		//		glVertex2f(-1,1);
-		//		glVertex2f(-1,-1);
-		//		glVertex2f(1,-1);
-		//	glEnd();
-		//glPopMatrix();
-
-
 		for (int i = 0; i < ILOSC_CHMUR; i++)
 		{
 			tabChmur[i]->Rysuj();
@@ -319,46 +287,6 @@ void cPlansza::RysujTeren()
 
 
 }
-
-
-
-void cPlansza::RysujSzescian()
-{
-	glEnable(GL_DEPTH_TEST);
-	float rozm = 10;
-	glBegin(GL_LINE_LOOP);
-			glVertex3f(rozm, rozm, 0);
-			glVertex3f(-rozm, rozm, 0);
-			glVertex3f(-rozm, -rozm, 0);
-			glVertex3f(rozm, -rozm, 0);
-		glEnd();
-
-		glColor3f(1, 0, 0);
-		glBegin(GL_LINE_LOOP);
-			glVertex3f(rozm, rozm, -5);
-			glVertex3f(-rozm, rozm, -5);
-			glVertex3f(-rozm, -rozm, -5);
-			glVertex3f(rozm, -rozm, -5);
-		glEnd();
-
-
-		glColor3f(0, 1, 0);
-		glBegin(GL_LINES);
-		glVertex3f(rozm, rozm, 0);
-			glVertex3f(rozm, rozm, -5);
-
-			glVertex3f(-rozm, rozm, 0);
-			glVertex3f(-rozm, rozm, -5);
-
-			glVertex3f(-rozm, -rozm, 0);
-			glVertex3f(-rozm, -rozm, -5);
-
-			glVertex3f(rozm, -rozm, 0);
-			glVertex3f(rozm, -rozm, -5);
-		glEnd();
-	glDisable(GL_DEPTH_TEST);
-}
-
 
 void cPlansza::DrawString(float x, float y, const unsigned char * string, float skala)
 {

@@ -79,7 +79,6 @@ void cStworek::Rysuj()
 		glRotatef(kat, 0, 0, 1);
 		glColor3f(kolor.r, kolor.g, kolor.b);  //todo
 		glCallList(typStworka);
-		//glCallList(LISTA_STWOREK_KULA);
 
 		RysujPasekZycia();
 
@@ -91,7 +90,6 @@ void cStworek::Rysuj()
 
 void cStworek::RysujPasekZycia()
 {
-
 	glPushMatrix();
 
 		glTranslatef(-rozmiar, rozmiar*1.7, 0);

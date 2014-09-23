@@ -136,17 +136,6 @@ bool cSerwerClient::Odbierz(void)
     return flagClientConnected;
 }
 
-//void cSerwerClient::PrepareResponse()
-//{
-//    if (this->flagNewDataRecv)
-//    {
-//        strcpy_s(this->sendBuffer, this->bufferSize, "nom");
-
-//        memset(this->recvBuffer, 0, this->bufferSize);
-//        this->flagNewDataRecv = false;
-//        this->flagNewDataSend = true;
-//    }
-//}
 
 void cSerwerClient::Wyslij(void)
 {
@@ -274,18 +263,6 @@ void cSerwer::ReceiveData(void)
 }
 
 
-//void cSerwer::PrepareResponse()
-//{
-//    if(gracz1)
-//    {
-//        (*gracz1).PrepareResponse();
-//    }
-
-//    if(gracz2)
-//    {
-//        (*gracz2).PrepareResponse();
-//    }
-//}
 
 void cSerwer::SendData(void)
 {

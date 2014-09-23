@@ -8,17 +8,19 @@ public:
 	cBohater2(float _x, float _y, int _wlascicel);
 	~cBohater2(void);
 
-	void Rysuj();
-	bool CzyKliknieto(float px, float py);
-	void AktualizujRamke();
-	void RysujPasekZycia();
-
-	void Przyspieszaj(float dVx, float dVy);
-
 	float Vy;
 	float VyCel;
 	bool odbity;			// czy odbil sie od ziemi
 	float yCel;
+
+
+	void Rysuj();
+	bool CzyKliknieto(float px, float py);
+	void AktualizujRamke();
+	void RysujPasekZycia();
+	void Przyspieszaj(float dVx, float dVy);
+
+
 
 };
 

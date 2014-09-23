@@ -51,10 +51,7 @@ cGracz::cGracz(float _x, float _y, int _wlascicel)
 
 void cGracz::DodajStworka(float _x, int _typStworka)
 {
-	//cStworek* nowyStworek = new cStworek(_x+40*wlasciciel, -0.5, _typStworka, wlasciciel, levelStworkow);
-	//tabStworkow.push_back(nowyStworek);
 	Plansza->DodajAkcje(0x07, _typStworka); 
-
 }
 
 void cGracz::AktualizujRamke()
@@ -112,20 +109,11 @@ void cGracz::FocusujKamere()
 				Plansza->PrzesunKamere(0, odlegloscY);
 		}
 	}
-
-
 }
 
 void cGracz::DodajBohatera(float _x, float _y, int ktory)
 {
 	Plansza->DodajAkcje(0x04, ktory);
-
-	//cBohater * nowyBohater;
-	//if (ktory == 1) nowyBohater = new cBohater1(_x+60*wlasciciel, _y, wlasciciel);
-	//if (ktory == 2) nowyBohater = new cBohater2(_x+60*wlasciciel, _y, wlasciciel);
-	//tabBohaterow.push_back(nowyBohater);
-
-
 }
 
 void cGracz::PrzyspieszajBohatera(float dVx, float dVy)
@@ -135,7 +123,6 @@ void cGracz::PrzyspieszajBohatera(float dVx, float dVy)
 	if (Plansza->wcisnieteA) Plansza->DodajAkcje(0x20, wybranyBohater);
 	else if (Plansza->wcisnieteD) Plansza->DodajAkcje(0x21, wybranyBohater);
 
-	//tabBohaterow[wybranyBohater]->Przyspieszaj(dVx, dVy);
 }
 
 void cGracz::Rysuj()
@@ -232,8 +219,6 @@ bool cGracz::ZaplacZlotem(int ile)
 {
 	if (zloto >= ile)
 	{
-		/*zloto -= ile;
-		sprintf(napisZloto, "x %d", (int) zloto);*/
 		return true;
 	}
 	else return false;

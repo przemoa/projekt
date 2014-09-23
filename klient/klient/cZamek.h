@@ -32,29 +32,24 @@ public:
 	cZamek(float _x, float _y, int _wlascicel);
 	~cZamek(void);
 
+	int wydobycie;		// pozyskiwane zloto na sekunde
+	int wybranaWiez;
+	int typWybranejWiezy;
+	int dodawanaWieza;
+
 	void Rysuj();
 	bool CzyKliknieto(float px, float py);
 	void AktualizujRamke();
 	void RysujPasekZycia();
 	void Atakuj();
-	float rozmiarWiezy;
-	float wysokoscWiezy;
-
-	int wydobycie;		// pozyskiwane zloto na sekunde
-	int wybranaWiez;
-	int typWybranejWiezy;
-
 	void Awansuj();
 
-	int dodawanaWieza;
-
-	void AwansujWieze();
-	int SprzedajWieze();
-	//x;	 srodek zamq
-	//y;	 spod zamq
 
 	vector < sWIEZA > tabWiez;
-
+	float rozmiarWiezy;
+	float wysokoscWiezy;
+	void AwansujWieze();
+	int SprzedajWieze();
 	void DodajWieze(int _typWiezy, int pozycja);			// pozycja = 100, 200, lub 300
 
 };

@@ -75,10 +75,6 @@ void GlowneOkno::Dzialaj()
 
     Plansza->bajtyBuforuDodan = 0;
 
-//    while(serwer->gracz1->bajtyDoWyslania && serwer->gracz2->bajtyDoWyslania)
-//    {
-//        serwer->ReceiveData();
-//    }
 
     serwer->ReceiveData();
 

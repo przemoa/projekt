@@ -23,7 +23,22 @@ public:
 	sROZMIAROKNA rozmiarOkna;
 	sKAMERA kamera;
 	sMYSZ mysz;
+	sRAMKAOPISU ramkaOpisu;
 
+	cChmura* tabChmur[ILOSC_CHMUR];
+	vector < cPalma* > tabPalm;
+	vector < cPunktStabilny* > tabPunktStab;
+	vector < cElement* > tabElementow;
+	vector < cGracz* > tabGraczy;
+	bool wybranyGracz;
+	bool czyFocusowac;		// czy ustawiac focus na wybrana jednostke
+	bool moznaBudowac;
+	eETAPGRY etapGry;
+	bool wcisnieteA;
+	bool wcisnieteD;
+	float tabPol[50000];
+	int tabTypowPol[50000];
+	
 	void _Przerysuj();
 	void _ZmianaRozmiaruOkna(int width, int height);
 	void _Dzialaj(int value);
@@ -38,40 +53,15 @@ public:
 	void AktualizujRamke();
 	void FocusujKamere();
 	void WczytajTeren();
-	
+
 	void UtworzListy();
 	void TworzTekstury();
-
-	cChmura* tabChmur[ILOSC_CHMUR];
-	vector < cPalma* > tabPalm;
-	vector < cPunktStabilny* > tabPunktStab;
-	vector < cElement* > tabElementow;
-	vector < cGracz* > tabGraczy;
-	bool wybranyGracz;
-	bool czyFocusowac;		// czy ustawiac focus na wybrana jednostke
-	bool moznaBudowac;
-
-	float tabPol[50000];
-	int tabTypowPol[50000];
-
-
 	void DodajPunktStabilny(float _x, float _y);
-
 	void RysujPodloze();
 	void RysujTloNiebo();
 	void RysujTeren();
-
-	sRAMKAOPISU ramkaOpisu;
 	void RysujRamkeOpisu();
-
 	void DrawString(float x, float y, const unsigned char * string, float skala);
-
-
-	float testowy;
-	float testowy2;
-	void RysujSzescian();
-	
-
 	int KliknieteMenu(int px, int py);
 	void TekstPomocy();
 	void WykonajAkcje(int menu);
@@ -86,32 +76,19 @@ public:
 
 
 
-
-
-
-
-	eETAPGRY etapGry;
-
 	char daneDoWyslania[512];
 	int bajtyDoWyslania;
-
 	char daneOdebrane[8192];
 	int bajtyOdebrane;
-
-	void DodajAkcje(char pierwszy, char drugi=0, char trzeci=0);
-
 	SOCKET m_socket;//socket
 	sockaddr_in clientService; // struktura zwiazana z serwerem - patrz connectToServer
+	
+	void DodajAkcje(char pierwszy, char drugi=0, char trzeci=0);
 	bool PolaczZSerwerem();
 	void OdbierzDane();
 	void PrzetworzDane();
 	void CzekajNaRozpoczenie();
 	void WyslijDane();
 	void DodajAkcjeDoWyslania();
-//	void DodajWiadomoscDoWyslania();
-
-
-	bool wcisnieteA;
-	bool wcisnieteD;
 };
 

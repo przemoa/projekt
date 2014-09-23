@@ -13,27 +13,22 @@ public:
 	
 	sKOLOR kolor;
 	int wlasciciel;		// 1 w prawo (gracz1), -1 w lewo (gracz2)
-
 	int levelStworkow;
 	float x;
 	float y;
-
 	float zloto;
 	char napisZloto[8];
-
 	cBohater* tabBohaterow[3];
 	cZamek* zamek;
 	vector < cStworek* > tabStworkow;
+	int wybranyBohater;
+	int idWybrane;
 
 	void DodajBohatera(float _x, float _y, int ktory);
 	void PrzyspieszajBohatera(float dVx, float dVy);
 	void Rysuj();
 	void AktualizujRamke();
 	void FocusujKamere();
-
-	int wybranyBohater;
-	int idWybrane;
-
 	void DodajStworka(float _x, int _typStworka);
 	bool WybierzJednostke(float px, float py);
 	bool ZaplacZlotem(int ile);

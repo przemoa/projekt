@@ -6,9 +6,6 @@
 cPlansza::cPlansza(void)
 {
 	moznaBudowac = true;
-	testowy = 0;
-	testowy2 = 0;
-	//licznikPunktow = 0;
 
 	rozmiarOkna.x = 1000;
 	rozmiarOkna.y = 600;
@@ -235,19 +232,11 @@ void cPlansza::_Dzialaj(int value)
 		{
 			PrzetworzDane();
 			tabGraczy[wybranyGracz]->PrzyspieszajBohatera(0,0);
-			//tabGraczy[1]->PrzyspieszajBohatera(0,0);
-			//DodajAkcjeDoWyslania();
-			//DodajWiadomoscDoWyslania();
 			WyslijDane();
 			bajtyDoWyslania = 1;
 			daneDoWyslania[0] = 0x01;
 		}
 	}
-
-
-
-
-
 }
 
 void cPlansza::_Idle(void)
@@ -287,15 +276,6 @@ void cPlansza::_Klawiatura(unsigned char key, int x, int y)
 		glutTimerFunc(20, Dzialaj, TIMER_KAMERA_SCROLL);
 		break;
 
-	//case 'o':
-	//	tabGraczy[wybranyGracz]->DodajStworka(-900+1800*wybranyGracz, LISTA_STWOREK_KULA);
-	//	break;
-	//case 'p':
-	//	tabGraczy[wybranyGracz]->DodajStworka(-900+1800*wybranyGracz, LISTA_STWOREK_KWADRAT);
-	//	break;
-	//case 'x':
-	//	wybranyGracz = !wybranyGracz;
-	//	break;
 	case 'c':
 		tabGraczy[wybranyGracz];
 		break;
@@ -342,13 +322,6 @@ void cPlansza::_MyszKlawisz(int button, int state, int x, int y)
 	{
 		if (state == GLUT_DOWN)
 		{		
-			testowy = ((float) x / rozmiarOkna.x * 2 * kamera.zakres - kamera.zakres) * rozmiarOkna.proporcja + kamera.x;
-			testowy2 = - ((float) y / rozmiarOkna.y * 2 * kamera.zakres - kamera.zakres) + kamera.y;
-
-			//tabPunktow[licznikPunktow][0] = testowy;
-			//tabPunktow[licznikPunktow++][1] = testowy2;
-
-			cout << "(" << testowy << " ; " << testowy2 << ") " << endl;
 		}
 	}
 
@@ -1148,10 +1121,6 @@ float cPlansza::Wysokosc(float x)
 {
 	float xWTab = ((x + 1000) / 0.4 * 10);
 	
-	//float y1 = tabPol[(int) xWTab];
-	//float y2 = tabPol[((int) xWTab) + 1];
-	//float x2 = (int) xWTab;
-	//float wynik = y1 + (y2 - y1) * (xWTab - x2);
 	float wynik = tabPol[(int) xWTab]; + ((tabPol[((int) xWTab) + 1] - tabPol[(int) xWTab]) * (xWTab - (int) xWTab));
 	return wynik;
 }

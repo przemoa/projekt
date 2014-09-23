@@ -103,10 +103,6 @@ void cPlansza::_Dzialaj(int value)
 
 void cPlansza::WczytajTeren()
 {
-//	FILE* odczytTerenu = fopen("tx\\1.bin", "r");
-//    unsigned char* tablicaPikseli = new unsigned char[5000*850];
-//	fread(tablicaPikseli, 1, 5000*850, odczytTerenu);
-//	fclose(odczytTerenu);
 
     QFile plik ("C:\\1.bin");
     plik.open(QIODevice::ReadOnly);
@@ -157,7 +153,7 @@ void cPlansza::WczytajTeren()
 			}
 		}
 	}
-    //delete [] tablicaPikseli;
+
 
 	for (int k = 0; k < 50000; k++)
 	{
@@ -200,10 +196,7 @@ float cPlansza::Wysokosc(float x)
 {
 	float xWTab = ((x + 1000) / 0.4 * 10);
 	
-	//float y1 = tabPol[(int) xWTab];
-	//float y2 = tabPol[((int) xWTab) + 1];
-	//float x2 = (int) xWTab;
-	//float wynik = y1 + (y2 - y1) * (xWTab - x2);
+
 	float wynik = tabPol[(int) xWTab]; + ((tabPol[((int) xWTab) + 1] - tabPol[(int) xWTab]) * (xWTab - (int) xWTab));
 	return wynik;
 
