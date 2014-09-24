@@ -1068,8 +1068,31 @@ float cPlansza::Wysokosc(float x)
 
 void cPlansza::DodajElement(float x1, float x2, float y1, float y2)
 {
-	cBelka *nowa = new cBelka(x1, y1, x2, y2, 1);
-	tabElementow.push_back(nowa);
+	float xp, yp, y;
+	bool czyRysowac = true;
+
+	for (auto iter = tabGraczy.begin(); iter < tabGraczy.end(); iter++)
+	{
+		for (auto iter2 = (*iter)->tabBohaterow.begin(); iter2 < (*iter)->tabBohaterow.end(); iter2++)
+		{
+			xp = (*iter2)->GetX();
+			yp = (*iter2)->GetY();
+			y = (y2 - y1) / (x2 - x1) * (xp - x1) + y1;
+			if ((yp < y) && ((xp >= x1) && (xp <= x2) || (xp <= x1) && (xp >= x2)))
+			{
+				czyRysowac = false;
+				break;
+				//cout << "xp = " << xp << endl;
+				//cout << "yp = " << yp << endl;
+			}
+		}
+	}
+
+	if(czyRysowac == true)
+	{
+		cBelka *nowa = new cBelka(x1, y1, x2, y2, 1);
+		tabElementow.push_back(nowa);
+	}
 }
 
 float cPlansza::ZnajdzBelke(float x)
@@ -1086,5 +1109,7 @@ float cPlansza::ZnajdzBelke(float x)
 	}
 	return poziom_max;
 }
+
+
 
 
