@@ -1,0 +1,33 @@
+
+Konfiguracja IP systemu Windows
+
+
+Karta bezprzewodowej sieci LAN Poˆ¥czenie sieci bezprzewodowej:
+
+   Sufiks DNS konkretnego poˆ¥czenia : 
+   Adres IPv6 poˆ¥czenia lokalnego . : fe80::447a:f31c:826:1d86%15
+   Adres IPv4. . . . . . . . . . . . . : 192.168.1.102
+   Maska podsieci. . . . . . . . . . : 255.255.255.0
+   Brama domy˜lna. . . . . . . . . . : 192.168.1.1
+
+Karta Ethernet Poˆ¥czenie lokalne:
+
+   Stan no˜nika . . . .  . . . . . . .: No˜nik odˆ¥czony
+   Sufiks DNS konkretnego poˆ¥czenia : 
+
+Karta tunelowa isatap.{AFEFFDC8-74B7-4A74-BF53-479E0A43FB09}:
+
+   Stan no˜nika . . . .  . . . . . . .: No˜nik odˆ¥czony
+   Sufiks DNS konkretnego poˆ¥czenia : 
+
+Karta tunelowa Poˆ¥czenie lokalne* 3:
+
+   Stan no˜nika . . . .  . . . . . . .: No˜nik odˆ¥czony
+   Sufiks DNS konkretnego poˆ¥czenia : 
+
+Karta tunelowa Teredo Tunneling Pseudo-Interface:
+
+   Sufiks DNS konkretnego poˆ¥czenia : 
+   Adres IPv6. . . . . . . . . . . . : 2001:0:5ef5:79fd:61:3c95:b1f6:b4b9
+   Adres IPv6 poˆ¥czenia lokalnego . : fe80::61:3c95:b1f6:b4b9%16
+   Brama domy˜lna. . . . . . . . . . : ::

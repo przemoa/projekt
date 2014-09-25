@@ -5,7 +5,8 @@
 #include "cSerwer.h"
 #include <QTimer>
 #include "gra/cPlansza.h"
-
+#include <string>
+#include <fstream>
 
 enum eETAPGRY
 {
@@ -33,7 +34,7 @@ public:
     int iloscGraczy;
     void SterujGraczem();
     int okresTury = 30;
-
+    void UstawIp();
 
 public slots:
     void Dzialaj();

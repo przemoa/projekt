@@ -54,6 +54,8 @@ public:
     QCommandLinkButton *commandLinkButton_akcja;
     QLabel *label_gracz1;
     QLabel *label_gracz2;
+    QLabel *label;
+    QLineEdit *lineEdit_AdresIP;
     QMenuBar *menuBar;
     QStatusBar *statusBar;
 
@@ -101,7 +103,7 @@ public:
 
         groupBox_gracze = new QGroupBox(centralWidget);
         groupBox_gracze->setObjectName(QStringLiteral("groupBox_gracze"));
-        groupBox_gracze->setGeometry(QRect(240, 10, 121, 80));
+        groupBox_gracze->setGeometry(QRect(250, 10, 121, 80));
         radioButton_1gracz = new QRadioButton(groupBox_gracze);
         radioButton_1gracz->setObjectName(QStringLiteral("radioButton_1gracz"));
         radioButton_1gracz->setGeometry(QRect(10, 20, 82, 17));
@@ -111,31 +113,31 @@ public:
         radioButton_2graczy->setChecked(true);
         dial_szybkoscGry = new QDial(centralWidget);
         dial_szybkoscGry->setObjectName(QStringLiteral("dial_szybkoscGry"));
-        dial_szybkoscGry->setGeometry(QRect(540, 30, 50, 64));
+        dial_szybkoscGry->setGeometry(QRect(140, 200, 50, 64));
         dial_szybkoscGry->setMinimum(3);
         dial_szybkoscGry->setMaximum(50);
         dial_szybkoscGry->setValue(30);
         dial_zlotoPoczatkowe = new QDial(centralWidget);
         dial_zlotoPoczatkowe->setObjectName(QStringLiteral("dial_zlotoPoczatkowe"));
-        dial_zlotoPoczatkowe->setGeometry(QRect(470, 30, 50, 64));
+        dial_zlotoPoczatkowe->setGeometry(QRect(140, 110, 50, 64));
         dial_zlotoPoczatkowe->setMaximum(10000);
         dial_zlotoPoczatkowe->setSingleStep(50);
         dial_zlotoPoczatkowe->setValue(1000);
         lcdNumber_zlotoPoczatkowe = new QLCDNumber(centralWidget);
         lcdNumber_zlotoPoczatkowe->setObjectName(QStringLiteral("lcdNumber_zlotoPoczatkowe"));
-        lcdNumber_zlotoPoczatkowe->setGeometry(QRect(390, 50, 64, 23));
+        lcdNumber_zlotoPoczatkowe->setGeometry(QRect(40, 140, 64, 23));
         lcdNumber_zlotoPoczatkowe->setProperty("intValue", QVariant(1000));
         lcdNumber_szybkoscGry = new QLCDNumber(centralWidget);
         lcdNumber_szybkoscGry->setObjectName(QStringLiteral("lcdNumber_szybkoscGry"));
-        lcdNumber_szybkoscGry->setGeometry(QRect(600, 50, 64, 23));
+        lcdNumber_szybkoscGry->setGeometry(QRect(40, 220, 64, 23));
         lcdNumber_szybkoscGry->setSmallDecimalPoint(false);
         lcdNumber_szybkoscGry->setProperty("intValue", QVariant(30));
         label_3 = new QLabel(centralWidget);
         label_3->setObjectName(QStringLiteral("label_3"));
-        label_3->setGeometry(QRect(390, 20, 91, 16));
+        label_3->setGeometry(QRect(40, 120, 91, 16));
         label_4 = new QLabel(centralWidget);
         label_4->setObjectName(QStringLiteral("label_4"));
-        label_4->setGeometry(QRect(560, 20, 81, 16));
+        label_4->setGeometry(QRect(40, 200, 81, 16));
         commandLinkButton_akcja = new QCommandLinkButton(centralWidget);
         commandLinkButton_akcja->setObjectName(QStringLiteral("commandLinkButton_akcja"));
         commandLinkButton_akcja->setGeometry(QRect(490, 240, 172, 41));
@@ -145,6 +147,12 @@ public:
         label_gracz2 = new QLabel(centralWidget);
         label_gracz2->setObjectName(QStringLiteral("label_gracz2"));
         label_gracz2->setGeometry(QRect(520, 210, 111, 16));
+        label = new QLabel(centralWidget);
+        label->setObjectName(QStringLiteral("label"));
+        label->setGeometry(QRect(440, 30, 121, 16));
+        lineEdit_AdresIP = new QLineEdit(centralWidget);
+        lineEdit_AdresIP->setObjectName(QStringLiteral("lineEdit_AdresIP"));
+        lineEdit_AdresIP->setGeometry(QRect(440, 60, 161, 20));
         GlowneOkno->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(GlowneOkno);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -173,6 +181,7 @@ public:
         commandLinkButton_akcja->setText(QApplication::translate("GlowneOkno", "Utworz serwer", 0));
         label_gracz1->setText(QApplication::translate("GlowneOkno", "Gracz 1", 0));
         label_gracz2->setText(QApplication::translate("GlowneOkno", "Gracz 2", 0));
+        label->setText(QApplication::translate("GlowneOkno", "Adres IPv4 serwera", 0));
     } // retranslateUi
 
 };

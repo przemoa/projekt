@@ -60,8 +60,6 @@ void cPlansza::_Przerysuj(void)
 		}
 
 
-
-
 		RysujRamkeOpisu();
 
 	glPopMatrix();

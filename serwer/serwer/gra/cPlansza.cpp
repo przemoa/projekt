@@ -104,7 +104,7 @@ void cPlansza::_Dzialaj(int value)
 void cPlansza::WczytajTeren()
 {
 
-    QFile plik ("C:\\1.bin");
+    QFile plik ("1.bin");
     plik.open(QIODevice::ReadOnly);
     QByteArray tablicaPikseli = plik.readAll();
     plik.close();

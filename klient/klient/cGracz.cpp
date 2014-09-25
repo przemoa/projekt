@@ -173,8 +173,6 @@ void cGracz::Rysuj()
 			glPopMatrix();
 		}
 	}
-
-	cout << idWybrane << endl;
 }
 
 
