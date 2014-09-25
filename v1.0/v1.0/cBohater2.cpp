@@ -58,8 +58,8 @@ void cBohater2::Ruszaj()
 
 	float poziomZiemi;
 	//cout << energia << endl;
-	if (Plansza->ZnajdzBelke(x) > Plansza->Wysokosc(x))
-		poziomZiemi = Plansza->ZnajdzBelke(x);
+	if (Plansza->ZnajdzBelke(x, y) > Plansza->Wysokosc(x))
+		poziomZiemi = Plansza->ZnajdzBelke(x, y);
 	else
 		poziomZiemi = Plansza->Wysokosc(x);
 
@@ -72,8 +72,8 @@ void cBohater2::Ruszaj()
 	{
 		float dx = sqrt(energia)*kierunek / 20;				// zmiana x przy aktualnej energii
 		float poziomZiemi2;		// poziom ziemi przy przesuniecu o dx
-		if (Plansza->ZnajdzBelke(x+dx) > Plansza->Wysokosc(x+dx))
-			poziomZiemi2 = Plansza->ZnajdzBelke(x+dx);
+		if (Plansza->ZnajdzBelke(x+dx, y) > Plansza->Wysokosc(x+dx))
+			poziomZiemi2 = Plansza->ZnajdzBelke(x+dx, y);
 		else
 			poziomZiemi2 = Plansza->Wysokosc(x+dx);
 
@@ -125,8 +125,8 @@ void cBohater2::Ruszaj()
 	if (energia == 0)							// gdy nachylenie duze a sie nie rusza to rozpoczyna sie staczanie
 	{
 		float poziomZiemi2;
-		if (Plansza->ZnajdzBelke(x + 2) > Plansza->Wysokosc(x + 2))
-			float poziomZiemi2 = Plansza->ZnajdzBelke(x + 2);
+		if (Plansza->ZnajdzBelke(x + 2, y) > Plansza->Wysokosc(x + 2))
+			float poziomZiemi2 = Plansza->ZnajdzBelke(x + 2, y);
 		else
 			poziomZiemi2 = Plansza->Wysokosc(x + 2);
 		if (poziomZiemi2 - poziomZiemi > 1)							// w lewo
@@ -135,8 +135,8 @@ void cBohater2::Ruszaj()
 			energia = 15;
 		}
 
-		if (Plansza->ZnajdzBelke(x - 2) > Plansza->Wysokosc(x - 2))
-			float poziomZiemi2 = Plansza->ZnajdzBelke(x - 2);
+		if (Plansza->ZnajdzBelke(x - 2, y) > Plansza->Wysokosc(x - 2))
+			float poziomZiemi2 = Plansza->ZnajdzBelke(x - 2, y);
 		else
 			poziomZiemi2 = Plansza->Wysokosc(x - 2);
 		if (poziomZiemi2 - poziomZiemi > 1)						// i prawo
@@ -157,8 +157,8 @@ void cBohater2::Ruszaj()
 void cBohater2::Przyspieszaj(float dVx, float dVy)
 {
 	float poziomZiemi;
-	if (Plansza->ZnajdzBelke(x) > Plansza->Wysokosc(x))
-		poziomZiemi = Plansza->ZnajdzBelke(x);
+	if (Plansza->ZnajdzBelke(x, y) > Plansza->Wysokosc(x))
+		poziomZiemi = Plansza->ZnajdzBelke(x, y);
 	else
 		poziomZiemi = Plansza->Wysokosc(x);
 	if (y - 4 > poziomZiemi) return;				// jesli wisi w powietrzu to nie mozna przyspieszac

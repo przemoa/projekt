@@ -59,8 +59,8 @@ void cBohater1::Ruszaj()
 	if (k < 0)
 		k = 0;
 	float poziomTerenu1;
-	if(Plansza->ZnajdzBelke(x) > Plansza->tabPol[k])
-		poziomTerenu1 = Plansza->ZnajdzBelke(x);
+	if(Plansza->ZnajdzBelke(x, y) > Plansza->tabPol[k])
+		poziomTerenu1 = Plansza->ZnajdzBelke(x, y);
 	else
 		poziomTerenu1 = Plansza->tabPol[k];
 	
@@ -85,8 +85,8 @@ void cBohater1::Ruszaj()
 	if (k2 < 0)
 		k2 = 0;
 	float poziomTerenu2;
-	if(Plansza->ZnajdzBelke(x2) > Plansza->tabPol[k2])
-		poziomTerenu2 = Plansza->ZnajdzBelke(x2);
+	if(Plansza->ZnajdzBelke(x2, y2) > Plansza->tabPol[k2])
+		poziomTerenu2 = Plansza->ZnajdzBelke(x2, y2);
 	else
 		poziomTerenu2 = Plansza->tabPol[k2];
 	if (y2 - BOHATER_PROMIEN2 - KROK_BOHATERA > poziomTerenu2)
@@ -231,8 +231,8 @@ void cBohater1::Przyspieszaj(float dVx, float dVy)
 	if (k < 0)
 		k = 0;
 	float poziomTerenu1;
-	if(Plansza->ZnajdzBelke(x) > Plansza->tabPol[k])
-		poziomTerenu1 = Plansza->ZnajdzBelke(x);
+	if(Plansza->ZnajdzBelke(x, y) > Plansza->tabPol[k])
+		poziomTerenu1 = Plansza->ZnajdzBelke(x, y);
 	else
 		poziomTerenu1 = Plansza->tabPol[k];
 	if (y - BOHATER_PROMIEN1 - 5 * KROK_BOHATERA > poziomTerenu1)
@@ -255,8 +255,8 @@ void cBohater1::Przyspieszaj(float dVx, float dVy)
 	if (k2 < 0)
 		k2 = 0;
 	float poziomTerenu2;
-	if(Plansza->ZnajdzBelke(x2) > Plansza->tabPol[k2])
-		poziomTerenu2 = Plansza->ZnajdzBelke(x2);
+	if(Plansza->ZnajdzBelke(x2, y2) > Plansza->tabPol[k2])
+		poziomTerenu2 = Plansza->ZnajdzBelke(x2, y2);
 	else
 		poziomTerenu2 = Plansza->tabPol[k2];
 	if (y2 - BOHATER_PROMIEN2 - 5 * KROK_BOHATERA > poziomTerenu2)
