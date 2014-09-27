@@ -277,8 +277,8 @@ void cBohater1::Przyspieszaj(float dVx, float dVy)
 
 	if ((b1 == 0) || (b1 == 1) || (b2 == 0) || (b2 == 1))
 	{
-		Vx += dVx * cos(katTerenu * 3.1416 / 180);
-		Vx2 += dVx * cos(katTerenu * 3.1416 / 180);
+		Vx += 10 * dVx * cos(katTerenu * 3.1416 / 180);
+		Vx2 += 10 * dVx * cos(katTerenu * 3.1416 / 180);
 	}
 }
 

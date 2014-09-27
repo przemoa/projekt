@@ -57,7 +57,6 @@ void cBohater2::Ruszaj()
 	}
 
 	float poziomZiemi;
-	//cout << energia << endl;
 	if (Plansza->ZnajdzBelke(x, y) > Plansza->Wysokosc(x))
 		poziomZiemi = Plansza->ZnajdzBelke(x, y);
 	else
@@ -125,10 +124,16 @@ void cBohater2::Ruszaj()
 	if (energia == 0)							// gdy nachylenie duze a sie nie rusza to rozpoczyna sie staczanie
 	{
 		float poziomZiemi2;
+
 		if (Plansza->ZnajdzBelke(x + 2, y) > Plansza->Wysokosc(x + 2))
-			float poziomZiemi2 = Plansza->ZnajdzBelke(x + 2, y);
+		{
+			poziomZiemi2 = Plansza->ZnajdzBelke(x + 2, y);
+		}
 		else
+		{
 			poziomZiemi2 = Plansza->Wysokosc(x + 2);
+		}
+
 		if (poziomZiemi2 - poziomZiemi > 1)							// w lewo
 		{
 			kierunek = -1;

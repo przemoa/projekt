@@ -302,6 +302,7 @@ void cPlansza::_MyszKlawisz(int button, int state, int x, int y)
 					break;
 				}
 			}
+			UsunElement(px, py);
 		}
 	}
 
@@ -1103,11 +1104,40 @@ float cPlansza::ZnajdzBelke(float x, float y)
 		{
 			poziom = ((*iter)->y_konca - (*iter)->y_poczatku) / ((*iter)->x_konca - (*iter)->x_poczatku) * x + (*iter)->y_poczatku - ((*iter)->y_konca - (*iter)->y_poczatku) / ((*iter)->x_konca - (*iter)->x_poczatku) * (*iter)->x_poczatku;
 			poziom += (*iter)->grubosc / 2 * abs(cos(atan2((*iter)->y_konca - (*iter)->y_poczatku, (*iter)->x_konca - (*iter)->x_poczatku)));
-			if((y - poziom >= 0) && (poziom > poziom_max))
+			if((y - poziom >= -2) && (poziom > poziom_max))
 			{
 				poziom_max = poziom;
 			}
 		}
 	}
 	return poziom_max;
+}
+
+void cPlansza::UsunElement(float x, float y)
+{
+	float a1 = 0;
+	float a2 = 0;
+	float b1 = 0;
+	float b2 = 0;
+	float xp, yp;
+	float xs, ys;
+	float odlegloscOdOsi;
+	for (auto iter = tabElementow.begin(); iter < tabElementow.end(); iter++)
+	{
+		a1 = ((*iter)->y_konca - (*iter)->y_poczatku) / ((*iter)->x_konca - (*iter)->x_poczatku);
+		a2 = - (1 / a1);
+		b1 = (*iter)->y_poczatku - a1 * (*iter)->x_poczatku;
+		b2 = y - a2 * x;
+		xp = (b2 - b1) / (a1 - a2);
+		yp = a1 * xp + b1;
+		odlegloscOdOsi = sqrt(pow((x - xp), 2) + pow((y - yp), 2));
+		xs = 0.5 * ((*iter)->x_konca + (*iter)->x_poczatku);
+		ys = 0.5 * ((*iter)->y_konca + (*iter)->y_poczatku);
+		cout << (*iter)->grubosc << endl;
+		if ((odlegloscOdOsi < 4 * (*iter)->grubosc) && (x <= xs + 0.3 * abs((*iter)->x_konca - (*iter)->x_poczatku)) && (x >= xs - 0.3 * abs((*iter)->x_konca - (*iter)->x_poczatku)) && (y <= ys + 0.3 * abs((*iter)->y_konca - (*iter)->y_poczatku)) && (y >= ys - 0.3 * abs((*iter)->y_konca - (*iter)->y_poczatku)))
+		{
+			tabElementow.erase(iter);
+			break;
+		}
+	}
 }
