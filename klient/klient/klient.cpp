@@ -27,7 +27,16 @@ bool cPlansza::PolaczZSerwerem()
 	//(27015) do w³asnych celów nale¿y wykozystywaæ gniazda o numerze >1024. Adres IP
 	//127.0.0.1 odpowiada lokalnemu komputerowi (localhost)
 	clientService.sin_family = AF_INET;
-	clientService.sin_addr.s_addr = inet_addr( "192.168.1.102");
+
+	string adresIP;
+
+	//adresIP = "192.168.1.102";
+	cout << " Podaj IPv4 serwera: ";
+	cin >> adresIP;
+
+
+
+	clientService.sin_addr.s_addr = inet_addr(adresIP.c_str());
 	clientService.sin_port = htons( 27015 );//htons( 27015 );
 	if ( connect( m_socket, (SOCKADDR*) &clientService, sizeof(clientService) ) == SOCKET_ERROR) {
 		printf( ":: Polaczenie nieudane\n" );
@@ -519,16 +528,6 @@ void cPlansza::WyslijDane()
 	bajtyDoWyslania = 0;
 }
 
-
-//void cPlansza::DodajAkcjeDoWyslania()
-//{
-//
-//}
-
-//void cPlansza::DodajWiadomoscDoWyslania()
-//{
-//
-//}
 
 void cPlansza::DodajAkcje(char pierwszy, char drugi , char trzeci )
 {

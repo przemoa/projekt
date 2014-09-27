@@ -7,7 +7,7 @@ GlowneOkno::GlowneOkno(QWidget *parent) :
     ui(new Ui::GlowneOkno)
 {
     ui->setupUi(this);
-
+    UstawIp();
     serwer = new cSerwer();
     serwer->Init(27015);
 
@@ -44,7 +44,10 @@ void GlowneOkno::Dzialaj()
     }
 
 
-
+    if (etapGry == PAUZA)
+    {
+        return;
+    }
 
     if (etapGry == WYBOR_WARUNKOW)
     {
@@ -151,7 +154,14 @@ void GlowneOkno::WykonajAkcje()
         etapGry = GRA;
         ui->commandLinkButton_akcja->setText("Zatrzymaj ...");
         break;
-
+    case GRA:
+        etapGry = PAUZA;
+         ui->commandLinkButton_akcja->setText("Wznów ...");
+        break;
+    case PAUZA:
+        etapGry = GRA;
+         ui->commandLinkButton_akcja->setText("Zatrzymaj ...");
+        break;
     default:
         break;
     }
@@ -463,6 +473,31 @@ void GlowneOkno::keyPressEvent(QKeyEvent *key)
 {
   //  strcpy_s(serwer->gracz1->buforWysylania, 10, "yooo siaa");
   //  serwer->gracz1->bajtyDoWyslania = 10;
+}
 
+void GlowneOkno::UstawIp()
+{
+    string line;
+    ifstream IPFile;
+    int offset;
+    char* search0 = "Adres IPv4. . . . . . . . . . . . . :";      // search pattern
 
+    system("ipconfig > ip.txt");
+
+    IPFile.open ("ip.txt");
+    if(IPFile.is_open())
+    {
+        while(!IPFile.eof())
+        {
+            getline(IPFile,line);
+            if ((offset = line.find(search0, 0)) != string::npos)
+            {
+                //   IPv4 Address. . . . . . . . . . . : 1
+                //1234567890123456789012345678901234567890
+                line.erase(0,41);
+                ui->lineEdit_AdresIP->setText(QString::fromStdString(line));
+                IPFile.close();
+            }
+        }
+    }
 }
