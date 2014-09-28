@@ -103,6 +103,7 @@ int main(int argc, char **argv)
 	glutTimerFunc(20, Dzialaj, TIMER_ANIMACJI_TLA);
 	glutTimerFunc(2000, Dzialaj, TIMER_CO_DWASEKUNDOWY);
 	glutTimerFunc(20, Dzialaj, TIMER_20);
+	glutTimerFunc(50, Dzialaj, TIMER_50);
 
 	glLineWidth(2);
 

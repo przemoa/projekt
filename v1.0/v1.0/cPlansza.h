@@ -36,6 +36,7 @@ public:
 	
 	void UtworzListy();
 	void TworzTekstury();
+	void CzyBelkaWytrzyma();
 
 	cChmura* tabChmur[ILOSC_CHMUR];
 	vector < cPalma* > tabPalm;
@@ -76,6 +77,7 @@ public:
 	int YDoTab(float y);
 	float Wysokosc(float x);		// wysokosc poziomu mapy
 	void DodajElement(float x1, float x2, float y1, float y2);
+	void UsunElement(float x, float y);
 	float ZnajdzBelke(float x, float y);
 };
 

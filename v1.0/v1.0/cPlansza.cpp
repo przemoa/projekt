@@ -173,8 +173,45 @@ void cPlansza::_Dzialaj(int value)
 		glutTimerFunc(100, Dzialaj, TIMER_100);
 	}
 
+	if (value == TIMER_50)
+	{
+		CzyBelkaWytrzyma();
+		glutTimerFunc(50, Dzialaj, TIMER_50);
+	}
 
 
+
+}
+
+void cPlansza::CzyBelkaWytrzyma()
+{
+	float momentGnacy = 0;
+	float obciazenie = 0;
+	float cosAlfa;
+	float a, b;
+
+	for (auto iter = tabElementow.begin(); iter < tabElementow.end(); iter++)
+	{
+		cosAlfa = ((*iter)->y_konca - (*iter)->y_poczatku) / sqrt((pow((*iter)->y_konca - (*iter)->y_poczatku, 2) + pow((*iter)->x_konca - (*iter)->x_poczatku, 2)));
+		a = ((*iter)->y_konca - (*iter)->y_poczatku) / ((*iter)->x_konca - (*iter)->x_poczatku);
+		b = (*iter)->y_poczatku - a * (*iter)->x_poczatku;
+
+		for (auto iter2 = tabGraczy.begin(); iter2 < tabGraczy.end(); iter2++)
+		{
+			for (auto iter3 = (*iter2)->tabBohaterow.begin(); iter3 < (*iter2)->tabBohaterow.end(); iter3++)
+			{
+				if (((((*iter3)->GetX() > (*iter)->x_poczatku) && ((*iter3)->GetX() < (*iter)->x_konca)) || (((*iter3)->GetX() < (*iter)->x_poczatku) && ((*iter3)->GetX() > (*iter)->x_konca))) && (((*iter3)->GetY() < a * (*iter3)->GetX() + b + 2 / cosAlfa) && ((*iter3)->GetY() > a * (*iter3)->GetX() + b - 2 / cosAlfa)))
+				{
+					obciazenie += (*iter3)->masa;
+				}
+			}
+		}
+		if (obciazenie > (*iter)->wytrzymalosc)
+		{
+			cout << "belka zlamana" << endl;
+		}
+		obciazenie = 0;
+	}
 }
 
 void cPlansza::_Idle(void)
@@ -1133,7 +1170,6 @@ void cPlansza::UsunElement(float x, float y)
 		odlegloscOdOsi = sqrt(pow((x - xp), 2) + pow((y - yp), 2));
 		xs = 0.5 * ((*iter)->x_konca + (*iter)->x_poczatku);
 		ys = 0.5 * ((*iter)->y_konca + (*iter)->y_poczatku);
-		cout << (*iter)->grubosc << endl;
 		if ((odlegloscOdOsi < 4 * (*iter)->grubosc) && (x <= xs + 0.3 * abs((*iter)->x_konca - (*iter)->x_poczatku)) && (x >= xs - 0.3 * abs((*iter)->x_konca - (*iter)->x_poczatku)) && (y <= ys + 0.3 * abs((*iter)->y_konca - (*iter)->y_poczatku)) && (y >= ys - 0.3 * abs((*iter)->y_konca - (*iter)->y_poczatku)))
 		{
 			tabElementow.erase(iter);
@@ -1141,3 +1177,4 @@ void cPlansza::UsunElement(float x, float y)
 		}
 	}
 }
+

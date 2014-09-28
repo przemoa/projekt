@@ -33,6 +33,7 @@ cBohater2::cBohater2(float _x, float _y, int _wlascicel)
 	zasieg = 250;
 	obrazenia = 25;
 	szybkoscAtaku = 15; 
+	masa = 5;
 }
 
 

@@ -28,6 +28,7 @@ extern cPlansza* Plansza;
 #define TIMER_20 10
 #define TIMER_500 11
 #define TIMER_100 12
+#define TIMER_50 13
 
 
 #define SZYBKOSC_PRZESUWANIA 0.25

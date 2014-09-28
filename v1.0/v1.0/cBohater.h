@@ -23,6 +23,6 @@ public:
 
 	float xBaz;
 	float yBaz;
-
+	float masa;
 };
 
