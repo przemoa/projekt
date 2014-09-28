@@ -176,6 +176,7 @@ void cPlansza::_Dzialaj(int value)
 	if (value == TIMER_50)
 	{
 		CzyBelkaWytrzyma();
+		AnimacjaBelek();
 		glutTimerFunc(50, Dzialaj, TIMER_50);
 	}
 
@@ -213,15 +214,40 @@ void cPlansza::CzyBelkaWytrzyma()
 			float xk = (*iter)->x_konca;
 			float yp = (*iter)->y_poczatku;
 			float yk = (*iter)->y_konca;
+			float xs = 0.5 * (xp + xk);
+			float ys = 0.5 * (yp + yk);
 			float dlugosc = sqrt((pow((*iter)->x_konca - (*iter)->x_poczatku, 2)) + (pow((*iter)->y_konca - (*iter)->y_poczatku, 2)));
 			tabElementow.erase(iter);
-			cBelka *nowa = new cBelka(xp, yp, xp, yp - dlugosc / 2, 1);
-			cBelka *nowa2 = new cBelka(xk, yk, xk, yk - dlugosc / 2, 1);
+			cBelka *nowa = new cBelka(xp, yp, xs, ys, 100, true);
+			cBelka *nowa2 = new cBelka(xk, yk, xs, ys, 100, true);
 			tabElementow.push_back(nowa);
 			tabElementow.push_back(nowa2);
 			break;
 		}
 		obciazenie = 0;
+	}
+}
+
+void cPlansza::AnimacjaBelek()
+{
+	for (auto iter = tabElementow.begin(); iter < tabElementow.end(); iter++)
+	{
+		if ((*iter)->czyObracac == true)
+		{
+			float kat = atan2((*iter)->y_konca - (*iter)->y_poczatku, (*iter)->x_konca - (*iter)->x_poczatku);
+			(*iter)->predkoscKatowa -= 0.1 * cos(kat);
+			kat += (*iter)->predkoscKatowa * 0.25;
+			(*iter)->predkoscKatowa *= 0.95;
+			(*iter)->x_konca = (*iter)->x_poczatku + sqrt(pow((*iter)->x_konca - (*iter)->x_poczatku, 2) + pow((*iter)->y_konca - (*iter)->y_poczatku, 2)) * cos(kat);
+			(*iter)->y_konca = (*iter)->y_poczatku + sqrt(pow((*iter)->x_konca - (*iter)->x_poczatku, 2) + pow((*iter)->y_konca - (*iter)->y_poczatku, 2)) * sin(kat);
+			if (((*iter)->predkoscKatowa < 0.01) && ((*iter)->predkoscKatowa > -0.1) && (kat > -1.72) && (kat < -1.42))
+			{
+				(*iter)->predkoscKatowa = 0;
+				(*iter)->czyObracac = false;
+				(*iter)->y_konca = (*iter)->y_poczatku - sqrt(pow((*iter)->x_konca - (*iter)->x_poczatku, 2) + pow((*iter)->y_konca - (*iter)->y_poczatku, 2));
+				(*iter)->x_konca = (*iter)->x_poczatku;
+			}
+		}
 	}
 }
 
@@ -1137,7 +1163,7 @@ void cPlansza::DodajElement(float x1, float x2, float y1, float y2)
 
 	if(czyRysowac == true)
 	{
-		cBelka *nowa = new cBelka(x1, y1, x2, y2, 1);
+		cBelka *nowa = new cBelka(x1, y1, x2, y2, 15, false);
 		tabElementow.push_back(nowa);
 	}
 }

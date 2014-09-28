@@ -14,6 +14,8 @@ public:
 	float kolor_r;
 	float kolor_g;
 	float kolor_b;
+	bool czyObracac;
+	float predkoscKatowa;
 public:
 	cElement(void);
 	~cElement(void);
