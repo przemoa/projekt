@@ -23,6 +23,7 @@ public:
 	float yBaz;
     bool zywy;
     float energia;
-
+    float masa;
+    float kat;
 };
 

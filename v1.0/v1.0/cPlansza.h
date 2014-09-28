@@ -6,7 +6,6 @@
 #include "cGracz.h"
 #include "cElement.h"
 #include "cBelka.h"
-#include "cTeownik.h"
 
 
 
@@ -36,7 +35,7 @@ public:
 	
 	void UtworzListy();
 	void TworzTekstury();
-	void CzyBelkaWytrzyma();
+
 
 	cChmura* tabChmur[ILOSC_CHMUR];
 	vector < cPalma* > tabPalm;
@@ -76,9 +75,13 @@ public:
 	int XDoTab(float x);
 	int YDoTab(float y);
 	float Wysokosc(float x);		// wysokosc poziomu mapy
-	void DodajElement(float x1, float x2, float y1, float y2);
+	
+
+
 	void UsunElement(float x, float y);
+	void DodajElement(float x1, float x2, float y1, float y2);
 	float ZnajdzBelke(float x, float y);
 	void AnimacjaBelek();
+	void CzyBelkaWytrzyma();
 };
 

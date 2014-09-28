@@ -2,7 +2,7 @@
 
 class cObiekt
 {
-protected:
+public:
 	float x;
 	float y;
 	float z;

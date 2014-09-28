@@ -34,7 +34,7 @@ cBohater1::cBohater1(float _x, float _y, int _wlascicel)
 	UstawXs();
 	UstawYs();
 	katPoprzedni = 0;
-	masa = 10;
+	masa = 10;//
 }
 
 void cBohater1::Rysuj()

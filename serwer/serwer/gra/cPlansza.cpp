@@ -205,3 +205,83 @@ float cPlansza::Wysokosc(float x)
 
 
 
+
+void cPlansza::DodajElement(int belkaP, char belkaK, char wlascicel)
+{
+    float x1 = Plansza->tabPunktStab[belkaP]->x;
+    float x2 = Plansza->tabPunktStab[belkaK]->x;
+    float y1 = Plansza->tabPunktStab[belkaP]->y;
+    float y2 = Plansza->tabPunktStab[belkaK]->y;
+
+    float xp, yp, y;
+    bool czyRysowac = true;
+
+    for (int i = 0; i < 2; i++)
+    {
+        for (int j = 0; j < 2; j++)
+        {
+            if (tabGraczy[i]->tabBohaterow[j] == NULL) continue;
+            if (tabGraczy[i]->tabBohaterow[j]->zywy == false) continue;
+
+            xp = tabGraczy[i]->tabBohaterow[j]->GetX();
+            yp = tabGraczy[i]->tabBohaterow[j]->GetY();
+            y = (y2 - y1) / (x2 - x1) * (xp - x1) + y1;
+            if ((yp < y) && ((xp >= x1) && (xp <= x2) || (xp <= x1) && (xp >= x2)))
+            {
+                czyRysowac = false;
+                break;
+            }
+        }
+    }
+
+    if(czyRysowac == true)
+    {
+        if (tabGraczy[wlascicel]->ZaplacZlotem(200))
+        {
+            cBelka *nowa = new cBelka(x1, y1, x2, y2, 15, false);
+            tabElementow.push_back(nowa);
+            Plansza->DodajDodanie(0x65, belkaP, belkaK);
+        }
+
+    }
+}
+
+void cPlansza::UsunElement(float x, float y)
+{
+
+}
+
+
+
+
+void cPlansza::CzyBelkaWytrzyma()
+{
+
+}
+
+float cPlansza::ZnajdzBelke(float x, float y)
+{
+
+    float poziom_max = -1000;
+    float poziom = -1000;
+    for (int i = 0; i < tabElementow.size(); i++)
+    {
+        if(((x >= tabElementow[i]->x_poczatku) && (x <= tabElementow[i]->x_konca)) || ((x >= tabElementow[i]->x_konca) && (x <= tabElementow[i]->x_poczatku)))
+        {
+            poziom = (tabElementow[i]->y_konca - tabElementow[i]->y_poczatku) / (tabElementow[i]->x_konca - tabElementow[i]->x_poczatku) * x + tabElementow[i]->y_poczatku - (tabElementow[i]->y_konca - tabElementow[i]->y_poczatku) / (tabElementow[i]->x_konca - tabElementow[i]->x_poczatku) * tabElementow[i]->x_poczatku;
+            poziom += tabElementow[i]->grubosc / 2 * abs(cos(atan2(tabElementow[i]->y_konca - tabElementow[i]->y_poczatku, tabElementow[i]->x_konca - tabElementow[i]->x_poczatku)));
+            if((y - poziom >= -2) && (poziom > poziom_max))
+            {
+                poziom_max = poziom;
+            }
+        }
+    }
+    return poziom_max;
+
+}
+
+void cPlansza::AnimacjaBelek()
+{
+
+}
+

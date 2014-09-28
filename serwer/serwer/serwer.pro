@@ -25,7 +25,6 @@ SOURCES += main.cpp\
     gra/cPlansza.cpp \
     gra/cPunktStabilny.cpp \
     gra/cStworek.cpp \
-    gra/cTeownik.cpp \
     gra/cZamek.cpp \
     gra/cObiekt.cpp
 
@@ -41,7 +40,6 @@ HEADERS  += glowneokno.h \
     gra/cPlansza.h \
     gra/cPunktStabilny.h \
     gra/cStworek.h \
-    gra/cTeownik.h \
     gra/cZamek.h \
     gra/naglowki.h \
     gra/cObiekt.h

@@ -30,9 +30,9 @@ bool cPlansza::PolaczZSerwerem()
 
 	string adresIP;
 
-	//adresIP = "192.168.1.102";
-	cout << " Podaj IPv4 serwera: ";
-	cin >> adresIP;
+	adresIP = "192.168.0.101";
+	//cout << " Podaj IPv4 serwera: ";
+	//cin >> adresIP;
 
 
 
@@ -369,53 +369,109 @@ void cPlansza::PrzetworzDane()
 						else
 						{
 							tabGraczy[0]->tabBohaterow[i]->zywy = 1;
-							float _x = 0;
-							float _y = 0;
-							float _hp = 0;
-							float _obrazenia = 0;
-							float _zasieg = 0;
-							float _mocSilnika = 0;
-							float _energia = 0;
-							int _level = 0;
-							int _doswiadczenie = 0;
-							int _szybkosc = 0;
-							float _mnoznik = 0;
+							if (i == 1)
+							{
+								float _x = 0;
+								float _y = 0;
+								float _hp = 0;
+								float _obrazenia = 0;
+								float _zasieg = 0;
+								float _mocSilnika = 0;
+								float _energia = 0;
+								int _level = 0;
+								int _doswiadczenie = 0;
+								int _szybkosc = 0;
+								float _mnoznik = 0;
 						
-							memcpy(&_x, daneOdebrane+licznik+1, 4);
-							licznik += 4;
-							memcpy(&_y, daneOdebrane+licznik+1, 4);
-							licznik += 4;
-							memcpy(&_hp, daneOdebrane+licznik+1, 4);
-							licznik += 4;
-							memcpy(&_obrazenia, daneOdebrane+licznik+1, 4);
-							licznik += 4;
-							memcpy(&_zasieg, daneOdebrane+licznik+1, 4);
-							licznik += 4;
-							memcpy(&_mocSilnika, daneOdebrane+licznik+1, 4);
-							licznik += 4;
-							memcpy(&_energia, daneOdebrane+licznik+1, 4);
-							licznik += 4;
-							memcpy(&_level, daneOdebrane+licznik+1, 4);
-							licznik += 4;
-							memcpy(&_doswiadczenie, daneOdebrane+licznik+1, 4);
-							licznik += 4;
-							memcpy(&_szybkosc, daneOdebrane+licznik+1, 4);
-							licznik += 4;
-							memcpy(&_mnoznik, daneOdebrane+licznik+1, 4);
-							licznik += 4;
+								memcpy(&_x, daneOdebrane+licznik+1, 4);
+								licznik += 4;
+								memcpy(&_y, daneOdebrane+licznik+1, 4);
+								licznik += 4;
+								memcpy(&_hp, daneOdebrane+licznik+1, 4);
+								licznik += 4;
+								memcpy(&_obrazenia, daneOdebrane+licznik+1, 4);
+								licznik += 4;
+								memcpy(&_zasieg, daneOdebrane+licznik+1, 4);
+								licznik += 4;
+								memcpy(&_mocSilnika, daneOdebrane+licznik+1, 4);
+								licznik += 4;
+								memcpy(&_energia, daneOdebrane+licznik+1, 4);
+								licznik += 4;
+								memcpy(&_level, daneOdebrane+licznik+1, 4);
+								licznik += 4;
+								memcpy(&_doswiadczenie, daneOdebrane+licznik+1, 4);
+								licznik += 4;
+								memcpy(&_szybkosc, daneOdebrane+licznik+1, 4);
+								licznik += 4;
+								memcpy(&_mnoznik, daneOdebrane+licznik+1, 4);
+								licznik += 4;
 
 						
-							tabGraczy[0]->tabBohaterow[i]->x = _x;
-							tabGraczy[0]->tabBohaterow[i]->y = _y;
-							tabGraczy[0]->tabBohaterow[i]->poziomZycia = _hp;
-							tabGraczy[0]->tabBohaterow[i]->obrazenia = _obrazenia;
-							tabGraczy[0]->tabBohaterow[i]->zasieg = _zasieg;
-							tabGraczy[0]->tabBohaterow[i]->mocSilnika = _mocSilnika;
-							tabGraczy[0]->tabBohaterow[i]->energia = _energia;
-							tabGraczy[0]->tabBohaterow[i]->level = _level;
-							tabGraczy[0]->tabBohaterow[i]->doswiadczenie = _doswiadczenie;
-							tabGraczy[0]->tabBohaterow[i]->szybkoscAtaku = _szybkosc;
-							tabGraczy[0]->tabBohaterow[i]->szybkoscAtaku = _mnoznik;
+								tabGraczy[0]->tabBohaterow[i]->x = _x;
+								tabGraczy[0]->tabBohaterow[i]->y = _y;
+								tabGraczy[0]->tabBohaterow[i]->poziomZycia = _hp;
+								tabGraczy[0]->tabBohaterow[i]->obrazenia = _obrazenia;
+								tabGraczy[0]->tabBohaterow[i]->zasieg = _zasieg;
+								tabGraczy[0]->tabBohaterow[i]->mocSilnika = _mocSilnika;
+								tabGraczy[0]->tabBohaterow[i]->energia = _energia;
+								tabGraczy[0]->tabBohaterow[i]->level = _level;
+								tabGraczy[0]->tabBohaterow[i]->doswiadczenie = _doswiadczenie;
+								tabGraczy[0]->tabBohaterow[i]->szybkoscAtaku = _szybkosc;
+								tabGraczy[0]->tabBohaterow[i]->szybkoscAtaku = _mnoznik;
+							}
+							if (i == 0)
+							{
+								float _x = 0;
+								float _y = 0;
+								float _hp = 0;
+								float _obrazenia = 0;
+								float _zasieg = 0;
+								float _mocSilnika = 0;
+								float _energia = 0;
+								int _level = 0;
+								int _doswiadczenie = 0;
+								int _szybkosc = 0;
+								float _mnoznik = 0;
+								float _kat = 0;
+						
+								memcpy(&_x, daneOdebrane+licznik+1, 4);
+								licznik += 4;
+								memcpy(&_y, daneOdebrane+licznik+1, 4);
+								licznik += 4;
+								memcpy(&_hp, daneOdebrane+licznik+1, 4);
+								licznik += 4;
+								memcpy(&_obrazenia, daneOdebrane+licznik+1, 4);
+								licznik += 4;
+								memcpy(&_zasieg, daneOdebrane+licznik+1, 4);
+								licznik += 4;
+								memcpy(&_mocSilnika, daneOdebrane+licznik+1, 4);
+								licznik += 4;
+								memcpy(&_energia, daneOdebrane+licznik+1, 4);
+								licznik += 4;
+								memcpy(&_level, daneOdebrane+licznik+1, 4);
+								licznik += 4;
+								memcpy(&_doswiadczenie, daneOdebrane+licznik+1, 4);
+								licznik += 4;
+								memcpy(&_szybkosc, daneOdebrane+licznik+1, 4);
+								licznik += 4;
+								memcpy(&_mnoznik, daneOdebrane+licznik+1, 4);
+								licznik += 4;
+								memcpy(&_kat, daneOdebrane+licznik+1, 4);
+								licznik += 4;
+						
+								tabGraczy[0]->tabBohaterow[i]->x = _x;
+								tabGraczy[0]->tabBohaterow[i]->y = _y;
+								tabGraczy[0]->tabBohaterow[i]->poziomZycia = _hp;
+								tabGraczy[0]->tabBohaterow[i]->obrazenia = _obrazenia;
+								tabGraczy[0]->tabBohaterow[i]->zasieg = _zasieg;
+								tabGraczy[0]->tabBohaterow[i]->mocSilnika = _mocSilnika;
+								tabGraczy[0]->tabBohaterow[i]->energia = _energia;
+								tabGraczy[0]->tabBohaterow[i]->level = _level;
+								tabGraczy[0]->tabBohaterow[i]->doswiadczenie = _doswiadczenie;
+								tabGraczy[0]->tabBohaterow[i]->szybkoscAtaku = _szybkosc;
+								tabGraczy[0]->tabBohaterow[i]->szybkoscAtaku = _mnoznik;
+								tabGraczy[0]->tabBohaterow[i]->kat = _kat;
+							}
 						}
 					}
 				}
@@ -435,6 +491,8 @@ void cPlansza::PrzetworzDane()
 						else
 						{
 							tabGraczy[1]->tabBohaterow[i]->zywy = 1;
+							if (i == 1)
+							{
 							float _x = 0;
 							float _y = 0;
 							float _hp = 0;
@@ -482,12 +540,85 @@ void cPlansza::PrzetworzDane()
 							tabGraczy[1]->tabBohaterow[i]->doswiadczenie = _doswiadczenie;
 							tabGraczy[1]->tabBohaterow[i]->szybkoscAtaku = _szybkosc;
 							tabGraczy[1]->tabBohaterow[i]->szybkoscAtaku = _mnoznik;
+							}
+
+							if (i == 2)
+							{
+							float _x = 0;
+								float _y = 0;
+								float _hp = 0;
+								float _obrazenia = 0;
+								float _zasieg = 0;
+								float _mocSilnika = 0;
+								float _energia = 0;
+								int _level = 0;
+								int _doswiadczenie = 0;
+								int _szybkosc = 0;
+								float _mnoznik = 0;
+								float _kat = 0;
+						
+								memcpy(&_x, daneOdebrane+licznik+1, 4);
+								licznik += 4;
+								memcpy(&_y, daneOdebrane+licznik+1, 4);
+								licznik += 4;
+								memcpy(&_hp, daneOdebrane+licznik+1, 4);
+								licznik += 4;
+								memcpy(&_obrazenia, daneOdebrane+licznik+1, 4);
+								licznik += 4;
+								memcpy(&_zasieg, daneOdebrane+licznik+1, 4);
+								licznik += 4;
+								memcpy(&_mocSilnika, daneOdebrane+licznik+1, 4);
+								licznik += 4;
+								memcpy(&_energia, daneOdebrane+licznik+1, 4);
+								licznik += 4;
+								memcpy(&_level, daneOdebrane+licznik+1, 4);
+								licznik += 4;
+								memcpy(&_doswiadczenie, daneOdebrane+licznik+1, 4);
+								licznik += 4;
+								memcpy(&_szybkosc, daneOdebrane+licznik+1, 4);
+								licznik += 4;
+								memcpy(&_mnoznik, daneOdebrane+licznik+1, 4);
+								licznik += 4;
+								memcpy(&_kat, daneOdebrane+licznik+1, 4);
+								licznik += 4;
+						
+								tabGraczy[1]->tabBohaterow[i]->x = _x;
+								tabGraczy[1]->tabBohaterow[i]->y = _y;
+								tabGraczy[1]->tabBohaterow[i]->poziomZycia = _hp;
+								tabGraczy[1]->tabBohaterow[i]->obrazenia = _obrazenia;
+								tabGraczy[1]->tabBohaterow[i]->zasieg = _zasieg;
+								tabGraczy[1]->tabBohaterow[i]->mocSilnika = _mocSilnika;
+								tabGraczy[1]->tabBohaterow[i]->energia = _energia;
+								tabGraczy[1]->tabBohaterow[i]->level = _level;
+								tabGraczy[1]->tabBohaterow[i]->doswiadczenie = _doswiadczenie;
+								tabGraczy[1]->tabBohaterow[i]->szybkoscAtaku = _szybkosc;
+								tabGraczy[1]->tabBohaterow[i]->szybkoscAtaku = _mnoznik;
+								tabGraczy[1]->tabBohaterow[i]->kat = _kat;
+							}
 						}
 					}
 				}
 			}
 			break;
 
+			case 0x65:
+			{
+
+				licznik++;
+				drugiBajt = daneOdebrane[licznik];
+				licznik ++;
+				trzeciBajt = daneOdebrane[licznik];
+
+				float x1 = Plansza->tabPunktStab[drugiBajt]->x;
+				float x2 = Plansza->tabPunktStab[trzeciBajt]->x;
+				float y1 = Plansza->tabPunktStab[drugiBajt]->y;
+				float y2 = Plansza->tabPunktStab[trzeciBajt]->y;
+
+				cBelka *nowa = new cBelka(x1, y1, x2, y2);
+				tabElementow.push_back(nowa);
+
+			}
+			break;
 
 
 
@@ -527,7 +658,6 @@ void cPlansza::WyslijDane()
 	send( m_socket, daneDoWyslania, bajtyDoWyslania, 0 );
 	bajtyDoWyslania = 0;
 }
-
 
 void cPlansza::DodajAkcje(char pierwszy, char drugi , char trzeci )
 {

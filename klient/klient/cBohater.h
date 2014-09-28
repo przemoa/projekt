@@ -13,6 +13,8 @@ public:
 	float yBaz;
 	bool zywy;
 	float energia;
+	float masa;
+	float kat;
 
 	virtual void Rysuj() = 0;
 	virtual bool CzyKliknieto(float px, float py) = 0;

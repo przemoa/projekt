@@ -12,7 +12,6 @@ INPUT(
 ./debug\cPlansza.o
 ./debug\cPunktStabilny.o
 ./debug\cStworek.o
-./debug\cTeownik.o
 ./debug\cZamek.o
 ./debug\cObiekt.o
 ./debug\moc_glowneokno.o

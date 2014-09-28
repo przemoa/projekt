@@ -2,10 +2,8 @@
 #include "naglowki.h"
 class cElement
 {
-protected:
-	float wytrzymalosc;
+public:
 	float grubosc;
-	float dlugosc;
 	float x_poczatku;
 	float y_poczatku;
 	float x_konca;

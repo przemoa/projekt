@@ -55,14 +55,6 @@ void KlawiszeSpecjalne(int key, int x, int y)
 }
 
 
-
-
-
-
-
-
-bool dodawanieBelki;
-
 int main(int argc, char **argv)
 {
 	srand(time(NULL));

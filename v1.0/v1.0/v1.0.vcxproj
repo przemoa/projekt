@@ -114,7 +114,6 @@
     <ClInclude Include="cPlansza.h" />
     <ClInclude Include="cPunktStabilny.h" />
     <ClInclude Include="cStworek.h" />
-    <ClInclude Include="cTeownik.h" />
     <ClInclude Include="cZamek.h" />
     <ClInclude Include="image_DXT.h" />
     <ClInclude Include="image_helper.h" />

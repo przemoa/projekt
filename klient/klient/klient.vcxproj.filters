@@ -69,9 +69,6 @@
     <ClCompile Include="cBohater.cpp">
       <Filter>Source Files\jednostki</Filter>
     </ClCompile>
-    <ClCompile Include="cTeownik.cpp">
-      <Filter>Source Files\elementy</Filter>
-    </ClCompile>
     <ClCompile Include="cElement.cpp">
       <Filter>Source Files\elementy</Filter>
     </ClCompile>
@@ -139,9 +136,6 @@
     </ClInclude>
     <ClInclude Include="cZamek.h">
       <Filter>Header Files\jednostki</Filter>
-    </ClInclude>
-    <ClInclude Include="cTeownik.h">
-      <Filter>Header Files\elementy</Filter>
     </ClInclude>
     <ClInclude Include="cPunktStabilny.h">
       <Filter>Header Files\elementy</Filter>

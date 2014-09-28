@@ -12,7 +12,6 @@ INPUT(
 ./release\cPlansza.o
 ./release\cPunktStabilny.o
 ./release\cStworek.o
-./release\cTeownik.o
 ./release\cZamek.o
 ./release\cObiekt.o
 ./release\moc_glowneokno.o

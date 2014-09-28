@@ -285,20 +285,41 @@ void GlowneOkno::PrzygotujDaneDoWyslania(int ktoryGracz)
             if (!kto1->tabBohaterow[i]->zywy) klient->DodajBajty(0);
             else
             {
-                klient->DodajBajty(1);
-                klient->DodajFloat(kto1->tabBohaterow[i]->x);
-                klient->DodajFloat(kto1->tabBohaterow[i]->y);
-                klient->DodajFloat(kto1->tabBohaterow[i]->poziomZycia);
-                klient->DodajFloat(kto1->tabBohaterow[i]->obrazenia);
-                klient->DodajFloat(kto1->tabBohaterow[i]->zasieg);
-                klient->DodajFloat(kto1->tabBohaterow[i]->mocSilnika);
-                klient->DodajFloat(kto1->tabBohaterow[i]->energia);
-                klient->DodajInt(kto1->tabBohaterow[i]->level);
-                klient->DodajInt(kto1->tabBohaterow[i]->doswiadczenie);
-                klient->DodajInt(kto1->tabBohaterow[i]->szybkoscAtaku);
-                klient->DodajFloat(kto1->tabBohaterow[i]->mnoznikZycia);
+                if (i == 1)
+                {
+                    klient->DodajBajty(1);
+                    klient->DodajFloat(kto1->tabBohaterow[i]->x);
+                    klient->DodajFloat(kto1->tabBohaterow[i]->y);
+                    klient->DodajFloat(kto1->tabBohaterow[i]->poziomZycia);
+                    klient->DodajFloat(kto1->tabBohaterow[i]->obrazenia);
+                    klient->DodajFloat(kto1->tabBohaterow[i]->zasieg);
+                    klient->DodajFloat(kto1->tabBohaterow[i]->mocSilnika);
+                    klient->DodajFloat(kto1->tabBohaterow[i]->energia);
+                    klient->DodajInt(kto1->tabBohaterow[i]->level);
+                    klient->DodajInt(kto1->tabBohaterow[i]->doswiadczenie);
+                    klient->DodajInt(kto1->tabBohaterow[i]->szybkoscAtaku);
+                    klient->DodajFloat(kto1->tabBohaterow[i]->mnoznikZycia);
+                }
+                if (i == 0)
+                {
+                    klient->DodajBajty(1);
+                    klient->DodajFloat(kto1->tabBohaterow[i]->x);
+                    klient->DodajFloat(kto1->tabBohaterow[i]->y);
+                    klient->DodajFloat(kto1->tabBohaterow[i]->poziomZycia);
+                    klient->DodajFloat(kto1->tabBohaterow[i]->obrazenia);
+                    klient->DodajFloat(kto1->tabBohaterow[i]->zasieg);
+                    klient->DodajFloat(kto1->tabBohaterow[i]->mocSilnika);
+                    klient->DodajFloat(kto1->tabBohaterow[i]->energia);
+                    klient->DodajInt(kto1->tabBohaterow[i]->level);
+                    klient->DodajInt(kto1->tabBohaterow[i]->doswiadczenie);
+                    klient->DodajInt(kto1->tabBohaterow[i]->szybkoscAtaku);
+                    klient->DodajFloat(kto1->tabBohaterow[i]->mnoznikZycia);
+                    klient->DodajFloat(kto1->tabBohaterow[i]->kat);
+                }
             }
         }
+
+
     }
 
 
@@ -311,18 +332,37 @@ void GlowneOkno::PrzygotujDaneDoWyslania(int ktoryGracz)
             if (!kto2->tabBohaterow[i]->zywy) klient->DodajBajty(0);
             else
             {
-                klient->DodajBajty(1);
-                klient->DodajFloat(kto2->tabBohaterow[i]->x);
-                klient->DodajFloat(kto2->tabBohaterow[i]->y);
-                klient->DodajFloat(kto2->tabBohaterow[i]->poziomZycia);
-                klient->DodajFloat(kto2->tabBohaterow[i]->obrazenia);
-                klient->DodajFloat(kto2->tabBohaterow[i]->zasieg);
-                klient->DodajFloat(kto2->tabBohaterow[i]->mocSilnika);
-                klient->DodajFloat(kto2->tabBohaterow[i]->energia);
-                klient->DodajInt(kto2->tabBohaterow[i]->level);
-                klient->DodajInt(kto2->tabBohaterow[i]->doswiadczenie);
-                klient->DodajInt(kto2->tabBohaterow[i]->szybkoscAtaku);
-                klient->DodajFloat(kto2->tabBohaterow[i]->mnoznikZycia);
+                if (i == 1)
+                {
+                    klient->DodajBajty(1);
+                    klient->DodajFloat(kto2->tabBohaterow[i]->x);
+                    klient->DodajFloat(kto2->tabBohaterow[i]->y);
+                    klient->DodajFloat(kto2->tabBohaterow[i]->poziomZycia);
+                    klient->DodajFloat(kto2->tabBohaterow[i]->obrazenia);
+                    klient->DodajFloat(kto2->tabBohaterow[i]->zasieg);
+                    klient->DodajFloat(kto2->tabBohaterow[i]->mocSilnika);
+                    klient->DodajFloat(kto2->tabBohaterow[i]->energia);
+                    klient->DodajInt(kto2->tabBohaterow[i]->level);
+                    klient->DodajInt(kto2->tabBohaterow[i]->doswiadczenie);
+                    klient->DodajInt(kto2->tabBohaterow[i]->szybkoscAtaku);
+                    klient->DodajFloat(kto2->tabBohaterow[i]->mnoznikZycia);
+                }
+                if (i == 0)
+                {
+                    klient->DodajBajty(1);
+                    klient->DodajFloat(kto2->tabBohaterow[i]->x);
+                    klient->DodajFloat(kto2->tabBohaterow[i]->y);
+                    klient->DodajFloat(kto2->tabBohaterow[i]->poziomZycia);
+                    klient->DodajFloat(kto2->tabBohaterow[i]->obrazenia);
+                    klient->DodajFloat(kto2->tabBohaterow[i]->zasieg);
+                    klient->DodajFloat(kto2->tabBohaterow[i]->mocSilnika);
+                    klient->DodajFloat(kto2->tabBohaterow[i]->energia);
+                    klient->DodajInt(kto2->tabBohaterow[i]->level);
+                    klient->DodajInt(kto2->tabBohaterow[i]->doswiadczenie);
+                    klient->DodajInt(kto2->tabBohaterow[i]->szybkoscAtaku);
+                    klient->DodajFloat(kto2->tabBohaterow[i]->mnoznikZycia);
+                    klient->DodajFloat(kto2->tabBohaterow[i]->kat);
+                }
 
             }
         }
@@ -383,21 +423,25 @@ void GlowneOkno::PrzetworzOdebraneDane(int ktoryGracz)
                 drugiBajt = klient->buforOdbioru[licznik];
                 kto->DodajBohatera(drugiBajt);
                 break;
+
             case 0x07:
                 licznik++;
                 drugiBajt = klient->buforOdbioru[licznik];
                 kto->DodajStworka(drugiBajt);
                 break;
+
             case  0x0B:
                 licznik++;
                 drugiBajt = klient->buforOdbioru[licznik];
                 if (kto->ZaplacZlotem(200)) kto->tabBohaterow[drugiBajt]->Awansuj();
                 break;
+
             case  0x0C:
                 licznik++;
                 drugiBajt = klient->buforOdbioru[licznik];
                 if (kto->ZaplacZlotem(150)) kto->tabBohaterow[drugiBajt]->ZwiekszMoc();
                 break;
+
             case  0x0D:
                 licznik++;
                 drugiBajt = klient->buforOdbioru[licznik];
@@ -407,6 +451,7 @@ void GlowneOkno::PrzetworzOdebraneDane(int ktoryGracz)
             case 0x14:
                 kto->AwansujStworki();
                 break;
+
             case 0x15:
                 if (kto->ZaplacZlotem(500)) kto->zamek->Awansuj();
                 break;
@@ -416,6 +461,7 @@ void GlowneOkno::PrzetworzOdebraneDane(int ktoryGracz)
                 drugiBajt = klient->buforOdbioru[licznik];
                 kto->tabBohaterow[drugiBajt]->Przyspieszaj(-KROK_PRZYSPIESZANIA_BOHATERA, 0);
                 break;
+
             case 0x21:
                 licznik++;
                 drugiBajt = klient->buforOdbioru[licznik];
@@ -431,12 +477,14 @@ void GlowneOkno::PrzetworzOdebraneDane(int ktoryGracz)
                     kto->zamek->AwansujWieze(drugiBajt);
                 }
                 break;
+
             case 0x1E:
                 licznik++;
                 drugiBajt = klient->buforOdbioru[licznik];
                 kto->ZaplacZlotem(-80*kto->zamek->tabWiez[drugiBajt].level);
                 kto->zamek->SprzedajWieze(drugiBajt);
                 break;
+
             case 0x16:
                 licznik++;
                 drugiBajt = klient->buforOdbioru[licznik];
@@ -444,6 +492,16 @@ void GlowneOkno::PrzetworzOdebraneDane(int ktoryGracz)
                 trzeciBajt = klient->buforOdbioru[licznik];
                 if (kto->ZaplacZlotem(cenyWiez[drugiBajt-11])) kto->zamek->DodajWieze(drugiBajt, trzeciBajt*100);
                 break;
+
+            case 0x30:
+                licznik++;
+                drugiBajt = klient->buforOdbioru[licznik];
+                licznik++;
+                trzeciBajt = klient->buforOdbioru[licznik];
+
+                Plansza->DodajElement(drugiBajt, trzeciBajt, ktoryGracz);
+                break;
+
             case 0x00:
                 return;
                 break;

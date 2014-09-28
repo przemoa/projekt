@@ -18,22 +18,24 @@ cBohater1::cBohater1(float _x, float _y, int _wlascicel)
 	yBaz = y = _y;
 	y = BOHATER_PROMIEN1 + 60;
 	z = 0;
-	Vx = 0;
-	Vy = 0;
-	Vx2 = 0;
-	Vy2 = 0;
-	Vg = 0;
-	Vg2 = 0;
-	Vkatowa = 0;
+
 	rozmiar = 2;
 	kat = 0;
 	mocSilnika = 6;
-	fazaKol = atan2(BOHATER_PROMIEN1 - BOHATER_PROMIEN2, BOHATER_POZYCJA_KOLA);
-	x2 = x + BOHATER_POZYCJA_KOLA / cos(fazaKol) * cos((kat)*3.1415/180 - fazaKol);
-	y2 = y + BOHATER_POZYCJA_KOLA / cos(fazaKol) * sin((kat)*3.1415/180 - fazaKol);
+
+
 	UstawXs();
 	UstawYs();
-	katPoprzedni = 0;
+
+	masa = 10;
+
+
+	energia = 0;
+	mnoznikZycia = 11.5;
+	poziomZycia = 100;
+	zasieg = 70;
+	obrazenia = 70;
+	szybkoscAtaku = 12; 
 }
 
 void cBohater1::Rysuj()
@@ -56,108 +58,43 @@ void cBohater1::Opadaj()
 
 void cBohater1::Przyspieszaj(float dVx, float dVy)
 {
-	int b1;
-	int b2;
-	int k = Plansza->XDoTab(x);
-	if (k < 0)
-		k = 0;
-	if (y - BOHATER_PROMIEN1 - 5 * KROK_BOHATERA > Plansza->tabPol[k])
-	{
-		b1 = -1;
-	}
-	else 
-	{
-		if(y - BOHATER_PROMIEN1 - 5 * KROK_BOHATERA == Plansza->tabPol[k])
-		{
-			b1 = 0;
-		}
-		else
-		{
-			b1 = 1;
-		}
-	}
 
-	int k2 = Plansza->XDoTab(x2);
-	if (k2 < 0)
-		k2 = 0;
-	if (y2 - BOHATER_PROMIEN2 - 5 * KROK_BOHATERA > Plansza->tabPol[k2])
-	{
-		b2 = -1;
-	}
-	else 
-	{
-		if(y2 - BOHATER_PROMIEN2 - 5 * KROK_BOHATERA == Plansza->tabPol[k2])
-		{
-			b2 = 0;
-		}
-		else
-		{
-			b2 = 1;
-		}
-	}
-
-	if ((b1 == 0) || (b1 == 1) || (b2 == 0) || (b2 == 1))
-	{
-		Vx += dVx * cos(katTerenu * 3.1416 / 180);
-		Vx2 += dVx * cos(katTerenu * 3.1416 / 180);
-	}
 }
 
-void cBohater1::ZmienKat(float dkat)
-{
-	kat += dkat;
-	if (kat < -90) kat = 360 - kat;
-	if (kat > 270) kat = -(360 - kat);
-	UstawX2();
-	//UstawY2();
-}
 
 void cBohater1::UstawX()
 {
-	x = xs - 0.5 * BOHATER_POZYCJA_KOLA / cos(fazaKol) * cos((kat)*3.1415/180 - fazaKol);
-	y = ys - 0.5 * BOHATER_POZYCJA_KOLA / cos(fazaKol) * sin((kat)*3.1415/180 - fazaKol);
+
 }
 
 void cBohater1::UstawX2()
 {
-	x2 = xs + 0.5 * BOHATER_POZYCJA_KOLA / cos(fazaKol) * cos((kat)*3.1415/180 - fazaKol);
-	y2 = ys + 0.5 * BOHATER_POZYCJA_KOLA / cos(fazaKol) * sin((kat)*3.1415/180 - fazaKol);
+
 }
 
 void cBohater1::UstawY2()
 {
-	y2 = y + BOHATER_POZYCJA_KOLA * sin((+kat)*3.1415/180 - fazaKol);
+
 }
 
 void cBohater1::Przesun(float dx, float dy)
 {
-	x += dx;
-	x2 += dx;
-	y += dy;
-	y2 += dy;
+
 }
 
 void cBohater1::UstawXs()
 {
-	xs = 0.5 * (x + x2);
+
 }
 
 void cBohater1::UstawYs()
 {
-	ys = 0.5 * (y + y2);
+
 }
 
 void cBohater1::UstawKat()
 {
-	kat = (atan((y2 - y)/(x2 - x)) + fazaKol) * 180 / 3.1416;
 
-	if (kat < -80)
-		kat = -80;
-	if (kat > 80)
-		kat = 80;
-	ys = 0.5 * (y + y2);
-	y = ys;
-	y2 = ys;
 }
 
 void cBohater1::RysujPasekZycia()
@@ -206,7 +143,7 @@ void cBohater1::AktualizujRamke()
 			<< "Obrazenia:   " << (int) obrazenia << endl
 			<< "Zasieg:    " << (int) zasieg << endl
 			<< "Moc Silnika:    " << (int) mocSilnika << endl
-			<< "Vx:   " << Vx ;
+			<< "Vx:   " << 0 ;
 	Plansza->ramkaOpisu.opis = ssOpis.str();
 	Plansza->ramkaOpisu.rodzajMenu = 0;
 }

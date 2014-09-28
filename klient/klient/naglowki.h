@@ -169,6 +169,9 @@ struct sMYSZ
 	int x;		// aktualne wspolrzedne myszy
 	int y;
 
+	float px;
+	float py;
+
 };
 
 
@@ -202,6 +205,3 @@ enum eETAPGRY
 
 
 
-
-
-extern bool dodawanieBelki;

@@ -60,6 +60,8 @@ cPlansza::cPlansza(void)
 
 	wcisnieteA = 0;
 	wcisnieteD = 0;
+
+	dodawanieBelki = false;
 }
 
 cPlansza::~cPlansza(void)
@@ -237,6 +239,7 @@ void cPlansza::_Dzialaj(int value)
 			daneDoWyslania[0] = 0x01;
 		}
 	}
+
 }
 
 void cPlansza::_Idle(void)
@@ -321,7 +324,31 @@ void cPlansza::_MyszKlawisz(int button, int state, int x, int y)
 	if (button == GLUT_RIGHT_BUTTON)
 	{
 		if (state == GLUT_DOWN)
-		{		
+		{	
+			float px = ((float) x / rozmiarOkna.x * 2 * kamera.zakres - kamera.zakres) * rozmiarOkna.proporcja + kamera.x;
+			float py = - ((float) y / rozmiarOkna.y * 2 * kamera.zakres - kamera.zakres) + kamera.y;
+
+
+			//bool anulujDodawanie = false;
+			for (int i = 0; i < tabPunktStab.size(); i++)
+			{
+				if((px <= tabPunktStab[i]->GetX() + ROZMIAR_PUNKTUSTABILNEGO) && (px >= tabPunktStab[i]->GetX() - ROZMIAR_PUNKTUSTABILNEGO) && (py <= tabPunktStab[i]->GetY() + ROZMIAR_PUNKTUSTABILNEGO) && (py >= tabPunktStab[i]->GetY() - ROZMIAR_PUNKTUSTABILNEGO))
+				{
+					//anulujDodawanie = true;
+					if (dodawanieBelki == 0)
+					{
+						nrBelkiPoczatkowej = i;
+					}
+					else
+					{
+
+						DodajAkcje(0x30, nrBelkiPoczatkowej, i);
+					}
+					dodawanieBelki = !dodawanieBelki;
+					break;
+				}
+				//dodawanieBelki = anulujDodawanie;
+			}
 		}
 	}
 
@@ -561,6 +588,9 @@ void cPlansza::_MyszRuch(int x,int y)
 {
 	mysz.x = x;
 	mysz.y = y;
+
+	mysz.px = ((float) x / rozmiarOkna.x * 2 * kamera.zakres - kamera.zakres) * rozmiarOkna.proporcja + kamera.x;
+	mysz.py = - ((float) y / rozmiarOkna.y * 2 * kamera.zakres - kamera.zakres) + kamera.y;
 
 	if (kamera.przesuwajx == 0)
 	{
@@ -1125,11 +1155,49 @@ float cPlansza::Wysokosc(float x)
 	return wynik;
 }
 
+
+
+
+
+
+
 void cPlansza::DodajElement(float x1, float x2, float y1, float y2)
 {
-	cBelka *nowa = new cBelka(x1, y1, x2, y2, 1);
-	tabElementow.push_back(nowa);
+
 }
+
+void cPlansza::UsunElement(float x, float y)
+{
+	float a1 = 0;
+	float a2 = 0;
+	float b1 = 0;
+	float b2 = 0;
+	float xp, yp;
+	float xs, ys;
+	float odlegloscOdOsi;
+	for (auto iter = tabElementow.begin(); iter < tabElementow.end(); iter++)
+	{
+		a1 = ((*iter)->y_konca - (*iter)->y_poczatku) / ((*iter)->x_konca - (*iter)->x_poczatku);
+		a2 = - (1 / a1);
+		b1 = (*iter)->y_poczatku - a1 * (*iter)->x_poczatku;
+		b2 = y - a2 * x;
+		xp = (b2 - b1) / (a1 - a2);
+		yp = a1 * xp + b1;
+		odlegloscOdOsi = sqrt(pow((x - xp), 2) + pow((y - yp), 2));
+		xs = 0.5 * ((*iter)->x_konca + (*iter)->x_poczatku);
+		ys = 0.5 * ((*iter)->y_konca + (*iter)->y_poczatku);
+		if ((odlegloscOdOsi < 4 * (*iter)->grubosc) && (x <= xs + 0.3 * abs((*iter)->x_konca - (*iter)->x_poczatku)) && (x >= xs - 0.3 * abs((*iter)->x_konca - (*iter)->x_poczatku)) && (y <= ys + 0.3 * abs((*iter)->y_konca - (*iter)->y_poczatku)) && (y >= ys - 0.3 * abs((*iter)->y_konca - (*iter)->y_poczatku)))
+		{
+			tabElementow.erase(iter);
+			break;
+		}
+	}
+}
+
+
+
+
+
 
 
 

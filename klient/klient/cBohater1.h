@@ -15,25 +15,8 @@ public:
 	void Przyspieszaj(float dVx, float dVy);
 
 
-	float x2;			// wspolrzedne mniejszego kola
-	float y2;
-	float xs;
-	float ys;
-	float Vx;
-	float Vy;
-	float Vx2;
-	float Vy2;
-	float Vkatowa;
-	float katTerenu;
-	float Vg;
-	float Vg2;
-	float katPoprzedni;
-	float fazaKol;		// kat miedzy kolami w poziomie
-
-	float kat;
 
 	void Opadaj();
-	void ZmienKat(float dkat);
 	void UstawX2();
 	void UstawY2();
 	void Przesun(float dx, float dy);

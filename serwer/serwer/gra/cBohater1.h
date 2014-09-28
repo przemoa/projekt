@@ -31,7 +31,6 @@ public:
 	float katPoprzedni;
 	float fazaKol;		// kat miedzy kolami w poziomie
 
-	float kat;
 
 	void Opadaj();
 	void ZmienKat(float dkat);

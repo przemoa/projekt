@@ -59,6 +59,20 @@ void cPlansza::_Przerysuj(void)
 			tabPunktStab[i]->Rysuj();
 		}
 
+		for (int i = 0; i < tabElementow.size(); i++)
+		{
+			tabElementow[i]->Rysuj();
+		}
+
+		if (dodawanieBelki)
+		{
+			glBegin(GL_LINE);
+				glVertex2f(tabPunktStab[nrBelkiPoczatkowej]->x, tabPunktStab[nrBelkiPoczatkowej]->y);
+				glVertex2f(mysz.px, mysz.py);
+			glEnd();
+		}
+
+
 
 		RysujRamkeOpisu();
 

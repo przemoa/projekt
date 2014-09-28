@@ -21,7 +21,7 @@ public:
 
 	vector < cPunktStabilny* > tabPunktStab;
 	vector < cGracz* > tabGraczy;
-
+    vector < cElement* > tabElementow;
 	float tabPol[50000];
 	int tabTypowPol[50000];
     int nrTury;
@@ -45,5 +45,10 @@ public:
     int bajtyBuforuDodan;
 
 
+    void UsunElement(float x, float y);
+    void DodajElement(int belkaP, char belkaK, char wlascicel);
+    float ZnajdzBelke(float x, float y);
+    void CzyBelkaWytrzyma();
+    void AnimacjaBelek();
 };
 

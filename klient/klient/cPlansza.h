@@ -6,7 +6,6 @@
 #include "cGracz.h"
 #include "cElement.h"
 #include "cBelka.h"
-#include "cTeownik.h"
 #include "winsock2.h"
 #ifdef WIN32
 #pragma comment(lib,"ws2_32")
@@ -71,7 +70,6 @@ public:
 	int XDoTab(float x);
 	int YDoTab(float y);
 	float Wysokosc(float x);		// wysokosc poziomu mapy
-	void DodajElement(float x1, float x2, float y1, float y2);
 
 
 
@@ -90,5 +88,13 @@ public:
 	void CzekajNaRozpoczenie();
 	void WyslijDane();
 	void DodajAkcjeDoWyslania();
+
+
+	void UsunElement(float x, float y);
+	void DodajElement(float x1, float x2, float y1, float y2);
+	bool dodawanieBelki;
+	char nrBelkiPoczatkowej;
+
+
 };
 

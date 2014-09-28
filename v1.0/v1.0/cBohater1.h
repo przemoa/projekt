@@ -12,12 +12,12 @@ public:
 	bool CzyKliknieto(float px, float py);
 	void AktualizujRamke();
 	void RysujPasekZycia();
-	void Atakuj();
-	void Ruszaj();
-	void Przyspieszaj(float dVx, float dVy);
-	void Awansuj();
-	void ZwiekszMoc();
-	void Teleportuj();
+	void Atakuj();//
+	void Ruszaj();//
+	void Przyspieszaj(float dVx, float dVy);//
+	void Awansuj();//
+	void ZwiekszMoc();//
+	void Teleportuj();//
 
 	float x2;			// wspolrzedne mniejszego kola
 	float y2;
