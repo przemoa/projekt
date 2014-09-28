@@ -69,7 +69,6 @@ void cGracz::DodajStworka(int _typStworka)
 
 }
 
-
 void cGracz::Dzialaj()
 {
     if(Plansza->nrTury%100==99) zloto += zamek->wydobycie;
@@ -110,6 +109,9 @@ void cGracz::Dzialaj()
             liczbaStworkow--;
         }
     }
+
+
+    if (zamek->poziomZycia < 0) Plansza->koniecGry = true;
 
 
 

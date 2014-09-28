@@ -25,7 +25,7 @@ public:
 	float tabPol[50000];
 	int tabTypowPol[50000];
     int nrTury;
-
+    bool koniecGry = false;
 
 	void DodajPunktStabilny(float _x, float _y);
 

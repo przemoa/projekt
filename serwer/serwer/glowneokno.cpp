@@ -95,6 +95,11 @@ void GlowneOkno::Dzialaj()
     Plansza->nrTury++;
 
 
+    if (Plansza->koniecGry == true)
+    {
+        etapGry == KONIEC_GRY;
+        ui->commandLinkButton_akcja->setText("Gra zakończona!");
+    }
 }
 
 void GlowneOkno::SterujGraczem()

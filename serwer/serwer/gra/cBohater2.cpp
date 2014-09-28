@@ -35,9 +35,6 @@ cBohater2::cBohater2(float _x, float _y, int _wlascicel)
     szybkoscAtaku = 15;
 }
 
-
-
-
 void cBohater2::Ruszaj()
 {
 	if (abs(x) > 920)
@@ -131,7 +128,6 @@ void cBohater2::Ruszaj()
 	if (energia < 0) { energia = 0; kierunek = 0; }			
 }
 
-
 void cBohater2::Przyspieszaj(float dVx, float dVy)
 {
 	float poziomZiemi = Plansza->Wysokosc(x);
@@ -175,8 +171,6 @@ void cBohater2::Przyspieszaj(float dVx, float dVy)
 
 
 }
-
-
 
 bool cBohater2::Atakuj()
 {
@@ -287,6 +281,7 @@ void cBohater2::Awansuj()
     szybkoscAtaku += 1;
 	level += 1;
 }
+
 void cBohater2::ZwiekszMoc()
 {
     mocSilnika = mocSilnika *1.06 + 3;
