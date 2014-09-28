@@ -200,7 +200,7 @@ void cPlansza::CzyBelkaWytrzyma()
 		{
 			for (auto iter3 = (*iter2)->tabBohaterow.begin(); iter3 < (*iter2)->tabBohaterow.end(); iter3++)
 			{
-				if (((((*iter3)->GetX() > (*iter)->x_poczatku) && ((*iter3)->GetX() < (*iter)->x_konca)) || (((*iter3)->GetX() < (*iter)->x_poczatku) && ((*iter3)->GetX() > (*iter)->x_konca))) && (((*iter3)->GetY() < a * (*iter3)->GetX() + b + 2 / cosAlfa) && ((*iter3)->GetY() > a * (*iter3)->GetX() + b - 2 / cosAlfa)))
+				if (((((*iter3)->GetX() > (*iter)->x_poczatku) && ((*iter3)->GetX() < (*iter)->x_konca)) || (((*iter3)->GetX() < (*iter)->x_poczatku) && ((*iter3)->GetX() > (*iter)->x_konca))) && (((*iter3)->GetY() < a * (*iter3)->GetX() + b + 2 * (*iter)->grubosc / cosAlfa) && ((*iter3)->GetY() > a * (*iter3)->GetX() + b - 2 * (*iter)->grubosc / cosAlfa)))
 				{
 					obciazenie += (*iter3)->masa;
 				}
@@ -209,6 +209,17 @@ void cPlansza::CzyBelkaWytrzyma()
 		if (obciazenie > (*iter)->wytrzymalosc)
 		{
 			cout << "belka zlamana" << endl;
+			float xp = (*iter)->x_poczatku;
+			float xk = (*iter)->x_konca;
+			float yp = (*iter)->y_poczatku;
+			float yk = (*iter)->y_konca;
+			float dlugosc = sqrt((pow((*iter)->x_konca - (*iter)->x_poczatku, 2)) + (pow((*iter)->y_konca - (*iter)->y_poczatku, 2)));
+			tabElementow.erase(iter);
+			cBelka *nowa = new cBelka(xp, yp, xp, yp - dlugosc / 2, 1);
+			cBelka *nowa2 = new cBelka(xk, yk, xk, yk - dlugosc / 2, 1);
+			tabElementow.push_back(nowa);
+			tabElementow.push_back(nowa2);
+			break;
 		}
 		obciazenie = 0;
 	}
