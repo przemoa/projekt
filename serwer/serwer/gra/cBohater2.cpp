@@ -292,7 +292,7 @@ void cBohater2::ZwiekszMoc()
 void cBohater2::Teleportuj()
 {
 	x = xBaz;
-    yCel = y = yBaz + 30;;
+    yCel = y = yBaz + 30;
 	energia = 0;
 	kierunek = 0;
 	Vy = VyCel = 0;

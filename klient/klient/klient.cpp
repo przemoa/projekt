@@ -631,8 +631,8 @@ void cPlansza::PrzetworzDane()
 				float xk = Plansza->tabElementow[drugiBajt]->x_konca;
 				float yk = Plansza->tabElementow[drugiBajt]->y_konca;
 
-				float xs = 0.5 * (xp + xk)+10;
-				float ys = 0.5 * (yp + yk)+10;
+				float xs = 0.5 * (xp + xk)+40;
+				float ys = 0.5 * (yp + yk)+40;
 
 				tabElementow.erase(drugiBajt + tabElementow.begin());
 

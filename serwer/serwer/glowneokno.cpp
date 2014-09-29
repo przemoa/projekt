@@ -113,7 +113,7 @@ void GlowneOkno::SterujGraczem()
 
     int losowa = rand() % (50*100);
 
-    if (losowa < 30)
+    if (losowa < 20)
     {
         Plansza->tabGraczy[1]->DodajStworka(rand()%2 + LISTA_STWOREK_KULA);
     }
@@ -439,18 +439,21 @@ void GlowneOkno::PrzetworzOdebraneDane(int ktoryGracz)
             case  0x0B:
                 licznik++;
                 drugiBajt = klient->buforOdbioru[licznik];
+                if(drugiBajt != 1) drugiBajt = 0;
                 if (kto->ZaplacZlotem(200)) kto->tabBohaterow[drugiBajt]->Awansuj();
                 break;
 
             case  0x0C:
                 licznik++;
                 drugiBajt = klient->buforOdbioru[licznik];
+                if(drugiBajt != 1) drugiBajt = 0;
                 if (kto->ZaplacZlotem(150)) kto->tabBohaterow[drugiBajt]->ZwiekszMoc();
                 break;
 
             case  0x0D:
                 licznik++;
                 drugiBajt = klient->buforOdbioru[licznik];
+                if(drugiBajt != 1) drugiBajt = 0;
                 if (kto->ZaplacZlotem(30)) kto->tabBohaterow[drugiBajt]->Teleportuj();
                 break;
 

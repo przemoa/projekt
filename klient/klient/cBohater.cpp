@@ -21,7 +21,8 @@ void cBohater::Awansuj()
 }
 void cBohater::ZwiekszMoc()
 {
-	Plansza->DodajAkcje(0x0C, (char) (Plansza->tabGraczy[Plansza->wybranyGracz]->wybranyBohater));
+	char drugiBajt = Plansza->tabGraczy[Plansza->wybranyGracz]->wybranyBohater;
+	Plansza->DodajAkcje(0x0C, drugiBajt);
 }
 void cBohater::Teleportuj()
 {

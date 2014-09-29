@@ -34,7 +34,7 @@ cBohater1::cBohater1(float _x, float _y, int _wlascicel)
 	UstawXs();
 	UstawYs();
 	katPoprzedni = 0;
-    masa = 10;
+    masa = 100;
 
     energia = 0;
     mnoznikZycia = 13.5;
@@ -220,7 +220,7 @@ void cBohater1::Ruszaj()
     if (x < -920)
     {
         Teleportuj();
-        y = yBaz;
+        y = yBaz+5;
     }
     if (x > 920)
     {
@@ -479,7 +479,8 @@ void cBohater1::Awansuj()
 }
 void cBohater1::ZwiekszMoc()
 {
-    mocSilnika = mocSilnika *1.02 + 2;
+
+    mocSilnika = mocSilnika * 1.02 + 2;
 }
 
 void cBohater1::Teleportuj()
