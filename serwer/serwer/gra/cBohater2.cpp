@@ -16,6 +16,7 @@ cBohater2::cBohater2(float _x, float _y, int _wlascicel)
 	wlasciciel = _wlascicel;
 	xBaz = x = _x;
 	yBaz = y = _y;
+    y += 30;
 	z = 0;
 	Vy = 0;
 	yCel = y;
@@ -28,11 +29,12 @@ cBohater2::cBohater2(float _x, float _y, int _wlascicel)
 	kierunek = 1;
 	rozmiar = 2;
 
-    mnoznikZycia = 7.5;
+    mnoznikZycia = 8.5;
 	poziomZycia = 100;
 	zasieg = 250;
-	obrazenia = 25;
-    szybkoscAtaku = 15;
+    obrazenia = 35;
+    szybkoscAtaku = 20;
+    masa = 5;
 }
 
 void cBohater2::Ruszaj()
@@ -47,7 +49,7 @@ void cBohater2::Ruszaj()
 
 
 	//cout << energia << endl;
-	float poziomZiemi = Plansza->Wysokosc(x);
+    float poziomZiemi = Plansza->Wysokosc(x, y);
 
 	yCel += VyCel;
 	y += 0.1*(yCel - y);
@@ -57,7 +59,7 @@ void cBohater2::Ruszaj()
 	if (energia != 0)
 	{
 		float dx = sqrt(energia)*kierunek / 20;				// zmiana x przy aktualnej energii
-		float poziomZiemi2 = Plansza->Wysokosc(x+dx);		// poziom ziemi przy przesuniecu o dx
+        float poziomZiemi2 = Plansza->Wysokosc(x+dx, y);		// poziom ziemi przy przesuniecu o dx
 
 		
 		if (y - 0.11 > poziomZiemi && y - 0.11 > poziomZiemi2) x += dx;			// jesli jest w powietrzu i za dx b�dzie w powietrzu to przeun o dx
@@ -106,14 +108,14 @@ void cBohater2::Ruszaj()
 
 	if (energia == 0)							// gdy nachylenie duze a sie nie rusza to rozpoczyna sie staczanie
 	{
-		float poziomZiemi2 = Plansza->Wysokosc(x + 2);
+        float poziomZiemi2 = Plansza->Wysokosc(x + 2 ,y);
 		if (poziomZiemi2 - poziomZiemi > 1)							// w lewo
 		{
 			kierunek = -1;
 			energia = 15;
 		}
 
-		poziomZiemi2 = Plansza->Wysokosc(x - 2);
+        poziomZiemi2 = Plansza->Wysokosc(x - 2, y);
 		if (poziomZiemi2 - poziomZiemi > 1)						// i prawo
 		{
 			kierunek = 1;
@@ -130,7 +132,7 @@ void cBohater2::Ruszaj()
 
 void cBohater2::Przyspieszaj(float dVx, float dVy)
 {
-	float poziomZiemi = Plansza->Wysokosc(x);
+    float poziomZiemi = Plansza->Wysokosc(x, y);
 	if (y - 4 > poziomZiemi) return;				// jesli wisi w powietrzu to nie mozna przyspieszac
 
 
@@ -277,7 +279,7 @@ void cBohater2::Awansuj()
     mnoznikZycia += 0.15;
 	poziomZycia = 100;
     zasieg += 5;
-	obrazenia += 2;
+    obrazenia += 3;
     szybkoscAtaku += 1;
 	level += 1;
 }
@@ -290,7 +292,7 @@ void cBohater2::ZwiekszMoc()
 void cBohater2::Teleportuj()
 {
 	x = xBaz;
-	yCel = y = yBaz;
+    yCel = y = yBaz + 30;;
 	energia = 0;
 	kierunek = 0;
 	Vy = VyCel = 0;

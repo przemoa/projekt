@@ -16,7 +16,7 @@ cBohater1::cBohater1(float _x, float _y, int _wlascicel)
 	wlasciciel = _wlascicel;
 	xBaz = x = _x;
 	yBaz = y = _y;
-	y = BOHATER_PROMIEN1 + 60;
+    y = yBaz + 30;
 	z = 0;
 	Vx = 0;
 	Vy = 0;
@@ -27,7 +27,7 @@ cBohater1::cBohater1(float _x, float _y, int _wlascicel)
 	Vkatowa = 0;
 	rozmiar = 2;
 	kat = 0;
-	mocSilnika = 6;
+    mocSilnika = 5;
 	fazaKol = atan2(BOHATER_PROMIEN1 - BOHATER_PROMIEN2, BOHATER_POZYCJA_KOLA);
 	x2 = x + BOHATER_POZYCJA_KOLA / cos(fazaKol) * cos((kat)*3.1415/180 - fazaKol);
 	y2 = y + BOHATER_POZYCJA_KOLA / cos(fazaKol) * sin((kat)*3.1415/180 - fazaKol);
@@ -37,17 +37,20 @@ cBohater1::cBohater1(float _x, float _y, int _wlascicel)
     masa = 10;
 
     energia = 0;
-    mnoznikZycia = 11.5;
+    mnoznikZycia = 13.5;
     poziomZycia = 100;
-    zasieg = 70;
+    zasieg = 90;
     obrazenia = 70;
-    szybkoscAtaku = 12;
+    szybkoscAtaku = 14;
 }
 
 
 
 void cBohater1::Ruszaj()
 {
+    Vx*= 0.99;      //testowe!!!
+
+
     int b1, b2;			// 0 - bez zmian, 1 - podnosi się do góry, -1 - opada w dół
 
     Przesun(Vx * KROK_CZASOWY, 0);
@@ -214,17 +217,39 @@ void cBohater1::Ruszaj()
     }
 
 
+    if (x < -920)
+    {
+        Teleportuj();
+        y = yBaz;
+    }
+    if (x > 920)
+    {
+        x = 915;
+        y = yBaz + 3;
+        Vx = 0;
+        Vy = 0;
+        Vx2 = 0;
+        Vy2 = 0;
+        Vg = 0;
+        Vg2 = 0;
+        Vkatowa = 0;
+        kat = 0;
+        fazaKol = atan2(BOHATER_PROMIEN1 - BOHATER_PROMIEN2, BOHATER_POZYCJA_KOLA);
+        x2 = x + BOHATER_POZYCJA_KOLA / cos(fazaKol) * cos((kat)*3.1415/180 - fazaKol);
+        y2 = y + BOHATER_POZYCJA_KOLA / cos(fazaKol) * sin((kat)*3.1415/180 - fazaKol);
+        UstawXs();
+        UstawYs();
+        katPoprzedni = 0;
+    }
 
+    energia = (Vx*Vx) / 25.0;
 }
 
-void cBohater1::Opadaj()
-{
-    //Vy += KROK_CZASOWY * PRZYSPIESZENIE_GRAWITACYJNE;
-    //Vy2 += KROK_CZASOWY * PRZYSPIESZENIE_GRAWITACYJNE;
-}
 
 void cBohater1::Przyspieszaj(float dVx, float dVy)
 {
+    dVx *= sqrt(mocSilnika) / 125.0 + 0.2;
+
     int b1;
     int b2;
     int k = Plansza->XDoTab(x);
@@ -345,25 +370,138 @@ void cBohater1::UstawKat()
 
 bool cBohater1::Atakuj()
 {
+    int nrKogo = ((wlasciciel == 1) ? 1 : 0); // ktorego gracza z tablicy stowrek ma atakowac
+    cGracz* kogo =  Plansza->tabGraczy[nrKogo];
+
+
+
+    for (int i = 0; i < 2; i++)
+    {
+        if (kogo->tabBohaterow[i] != NULL)
+        {
+            if (kogo->tabBohaterow[i]->zywy)
+            {
+                float odleglosc = sqrt(pow(x - kogo->tabBohaterow[i]->x, 2) + pow(y - kogo->tabBohaterow[i]->y, 2));
+                if (zasieg > odleglosc)
+                {
+                    if (turDoAtaku > 0)        // ograniczenie czestosci strzelania
+                    {
+                        turDoAtaku--;
+                        return true;
+                    }
+                    else
+                    {
+                        kogo->tabBohaterow[i]->poziomZycia -= obrazenia / kogo->tabBohaterow[i]->mnoznikZycia;
+                        if (kogo->tabBohaterow[i]->poziomZycia < 0) this->doswiadczenie++;
+                        if (doswiadczenie > 5)
+                        {
+                            doswiadczenie = 0;
+                            this->Awansuj();
+                        }
+                        turDoAtaku = 1000.0/szybkoscAtaku;
+                        return true;
+                    }
+                }
+            }
+        }
+    }
+
+
+
+
+    float odlegloscMin = 99999;
+    int nrDoAtakowania = -1;
+    for (unsigned int i = 0; i < kogo->tabStworkow.size(); i++)
+    {
+        float odleglosc = sqrt(pow(x - kogo->tabStworkow[i]->x, 2) + pow(y - kogo->tabStworkow[i]->y, 2));
+        if (odleglosc < odlegloscMin)
+        {
+            odlegloscMin = odleglosc;
+            nrDoAtakowania = i;
+        }
+    }
+
+    if (odlegloscMin < zasieg)          // jezeli w poblizu stworek - atakuj
+    {
+        if (turDoAtaku > 0)        // ograniczenie czestosci strzelania
+        {
+            turDoAtaku--;
+            return true;
+        }
+        else
+        {
+            kogo->tabStworkow[nrDoAtakowania]->poziomZycia -= obrazenia / kogo->tabStworkow[nrDoAtakowania]->mnoznikZycia;
+            if (kogo->tabStworkow[nrDoAtakowania]->poziomZycia < 0) this->doswiadczenie++;
+            if (doswiadczenie > 5)
+            {
+                doswiadczenie = 0;
+                this->Awansuj();
+            }
+
+            turDoAtaku = 1000.0/szybkoscAtaku;
+            return true;
+        }
+
+    }
+
+
+
+
+
+    float odleglosc = sqrt(pow(x - kogo->zamek->x, 2) + pow(y - kogo->zamek->y, 2));
+    if (zasieg > odleglosc)      // todo dodac rozmiar zamku
+    {
+        if (turDoAtaku > 0)        // ograniczenie czestosci strzelania
+        {
+            turDoAtaku--;
+            return true;
+        }
+        else
+        {
+            kogo->zamek->poziomZycia -= obrazenia / kogo->zamek->mnoznikZycia;
+            turDoAtaku = 1000.0/szybkoscAtaku;
+            return true;
+        }
+    }
+
+
+    return false;
 }
 
 void cBohater1::Awansuj()
 {
-	mnoznikZycia += 0.25;
+    mnoznikZycia += 0.45;
 	poziomZycia = 100;
 	zasieg += 10;
-	obrazenia += 2;
-    szybkoscAtaku += 1;
+    obrazenia += 3;
+    szybkoscAtaku += 2;
+    level++;
 }
 void cBohater1::ZwiekszMoc()
 {
-	mocSilnika += 1;
+    mocSilnika = mocSilnika *1.02 + 2;
 }
 
 void cBohater1::Teleportuj()
 {
 	x = xBaz;
-	y = yBaz;
+    y = yBaz + 30;
+
+    z = 0;
+    Vx = 0;
+    Vy = 0;
+    Vx2 = 0;
+    Vy2 = 0;
+    Vg = 0;
+    Vg2 = 0;
+    Vkatowa = 0;
+    kat = 0;
+    fazaKol = atan2(BOHATER_PROMIEN1 - BOHATER_PROMIEN2, BOHATER_POZYCJA_KOLA);
+    x2 = x + BOHATER_POZYCJA_KOLA / cos(fazaKol) * cos((kat)*3.1415/180 - fazaKol);
+    y2 = y + BOHATER_POZYCJA_KOLA / cos(fazaKol) * sin((kat)*3.1415/180 - fazaKol);
+    UstawXs();
+    UstawYs();
+    katPoprzedni = 0;
 }
 
 bool cBohater1::SprawdzZycie()

@@ -23,7 +23,7 @@ public:
 	void Awansuj();
 	void ZwiekszMoc();
 	void Teleportuj();
-	virtual void Przyspieszaj(float dVx, float dVy) = 0;
+
 
 };
 

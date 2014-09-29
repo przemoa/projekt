@@ -542,7 +542,7 @@ void cPlansza::PrzetworzDane()
 							tabGraczy[1]->tabBohaterow[i]->szybkoscAtaku = _mnoznik;
 							}
 
-							if (i == 2)
+							if (i == 0)
 							{
 							float _x = 0;
 								float _y = 0;
@@ -614,12 +614,35 @@ void cPlansza::PrzetworzDane()
 				float y1 = Plansza->tabPunktStab[drugiBajt]->y;
 				float y2 = Plansza->tabPunktStab[trzeciBajt]->y;
 
-				cBelka *nowa = new cBelka(x1, y1, x2, y2);
+				cBelka *nowa = new cBelka(x1, y1, x2, y2, false);
 				tabElementow.push_back(nowa);
 
 			}
 			break;
 
+			case 0x66:
+			{
+				licznik++;
+				drugiBajt = daneOdebrane[licznik];
+
+				float xp = Plansza->tabElementow[drugiBajt]->x_poczatku;
+				float yp = Plansza->tabElementow[drugiBajt]->y_poczatku;
+
+				float xk = Plansza->tabElementow[drugiBajt]->x_konca;
+				float yk = Plansza->tabElementow[drugiBajt]->y_konca;
+
+				float xs = 0.5 * (xp + xk)+10;
+				float ys = 0.5 * (yp + yk)+10;
+
+				tabElementow.erase(drugiBajt + tabElementow.begin());
+
+				cBelka *nowa = new cBelka(xp, yp, xs, ys, true);
+				cBelka *nowa2 = new cBelka(xk, yk, xs, ys, true);
+				tabElementow.push_back(nowa);
+				tabElementow.push_back(nowa2);
+
+			}
+			break;
 
 
 		}

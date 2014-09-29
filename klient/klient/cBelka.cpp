@@ -5,8 +5,9 @@ cBelka::cBelka(void)
 {
 }
 
-cBelka::cBelka(float xp, float yp, float xk, float yk)
+cBelka::cBelka(float xp, float yp, float xk, float yk, bool _animuj)
 {
+	animuj = _animuj;
 	x_poczatku = xp;
 	x_konca = xk;
 	y_poczatku = yp;
@@ -15,7 +16,7 @@ cBelka::cBelka(float xp, float yp, float xk, float yk)
 	kolor_g = 0.3;
 	kolor_b = 0;
 	z = 0;
-	grubosc = 1;
+	grubosc = 0.4;
 }
 
 cBelka::~cBelka(void)

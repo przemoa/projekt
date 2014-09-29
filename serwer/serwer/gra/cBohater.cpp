@@ -7,6 +7,7 @@ cBohater::cBohater(void)
 {
     zywy = true;
     energia = 0;
+    turDoAtaku = 1;
 }
 
 

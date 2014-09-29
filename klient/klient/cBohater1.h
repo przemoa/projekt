@@ -12,17 +12,10 @@ public:
 	bool CzyKliknieto(float px, float py);
 	void AktualizujRamke();
 	void RysujPasekZycia();
-	void Przyspieszaj(float dVx, float dVy);
 
 
 
-	void Opadaj();
-	void UstawX2();
-	void UstawY2();
-	void Przesun(float dx, float dy);
-	void UstawX();
-	void UstawXs();
-	void UstawYs();
-	void UstawKat();
+
+	
 };
 

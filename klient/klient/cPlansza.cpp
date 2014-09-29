@@ -61,6 +61,7 @@ cPlansza::cPlansza(void)
 	wcisnieteA = 0;
 	wcisnieteD = 0;
 
+	moznaWykonywacAkcje = true;
 	dodawanieBelki = false;
 }
 
@@ -152,12 +153,18 @@ void cPlansza::_Dzialaj(int value)
 
 	if (value == TIMER_CO_DWASEKUNDOWY)
 	{
-		moznaBudowac = true;
+		
 		for (int i = 0; i < ILOSC_CHMUR; i++)
 		{
 			tabChmur[i]->SprawdzZasieg();
 		}
 		glutTimerFunc(2000, Dzialaj, TIMER_CO_DWASEKUNDOWY);
+	}
+
+	if (value == TIMER_BUDOWA_STWORKOW)
+	{
+		moznaBudowac = true;
+		
 	}
 
 	if (value == TIMER_BUDOWA_STWORKA)
@@ -190,7 +197,10 @@ void cPlansza::_Dzialaj(int value)
 		glutTimerFunc(100, Dzialaj, TIMER_100);
 	}
 
-
+	if (value == TIMER_AKCJE)
+	{
+		moznaWykonywacAkcje = true;
+	}
 
 
 
@@ -323,32 +333,34 @@ void cPlansza::_MyszKlawisz(int button, int state, int x, int y)
 
 	if (button == GLUT_RIGHT_BUTTON)
 	{
+		if (!etapGry==GRA) return;
+
 		if (state == GLUT_DOWN)
 		{	
 			float px = ((float) x / rozmiarOkna.x * 2 * kamera.zakres - kamera.zakres) * rozmiarOkna.proporcja + kamera.x;
 			float py = - ((float) y / rozmiarOkna.y * 2 * kamera.zakres - kamera.zakres) + kamera.y;
 
 
-			//bool anulujDodawanie = false;
+			bool anulujDodawanie = false;
 			for (int i = 0; i < tabPunktStab.size(); i++)
 			{
 				if((px <= tabPunktStab[i]->GetX() + ROZMIAR_PUNKTUSTABILNEGO) && (px >= tabPunktStab[i]->GetX() - ROZMIAR_PUNKTUSTABILNEGO) && (py <= tabPunktStab[i]->GetY() + ROZMIAR_PUNKTUSTABILNEGO) && (py >= tabPunktStab[i]->GetY() - ROZMIAR_PUNKTUSTABILNEGO))
 				{
-					//anulujDodawanie = true;
+					anulujDodawanie = true;
 					if (dodawanieBelki == 0)
 					{
 						nrBelkiPoczatkowej = i;
 					}
 					else
 					{
-
+						if (nrBelkiPoczatkowej == i) return;
 						DodajAkcje(0x30, nrBelkiPoczatkowej, i);
+						anulujDodawanie = false;
 					}
-					dodawanieBelki = !dodawanieBelki;
 					break;
 				}
-				//dodawanieBelki = anulujDodawanie;
 			}
+			dodawanieBelki = anulujDodawanie;
 		}
 	}
 
@@ -412,10 +424,15 @@ void cPlansza::_MyszKlawisz(int button, int state, int x, int y)
 
 void cPlansza::WykonajAkcje(int menu)
 {
+	if (moznaWykonywacAkcje == false) return;
+
 	float zloto = tabGraczy[wybranyGracz]->zloto;
 	cGracz* gracz = tabGraczy[wybranyGracz];
 
 	int cenyWiez[8] = {300, 200, 450, 1200, 250, 800, 600, 0}; 
+
+	moznaWykonywacAkcje = false;
+	glutTimerFunc(250, Dzialaj, TIMER_AKCJE);
 
 	switch (ramkaOpisu.rodzajMenu)
 	{
@@ -468,6 +485,7 @@ void cPlansza::WykonajAkcje(int menu)
 				if (moznaBudowac)
 					gracz->DodajStworka(gracz->x, menu+LISTA_STWOREK_KULA-1);
 				moznaBudowac = false;
+				glutTimerFunc(500, Dzialaj, TIMER_BUDOWA_STWORKOW);
 			}
 			break;
 			

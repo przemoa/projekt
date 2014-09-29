@@ -97,6 +97,7 @@ public:
 
         lcdNumber_nrTury = new QLCDNumber(gridLayoutWidget);
         lcdNumber_nrTury->setObjectName(QStringLiteral("lcdNumber_nrTury"));
+        lcdNumber_nrTury->setDigitCount(6);
         lcdNumber_nrTury->setProperty("intValue", QVariant(-1));
 
         gridLayout->addWidget(lcdNumber_nrTury, 1, 1, 1, 1);

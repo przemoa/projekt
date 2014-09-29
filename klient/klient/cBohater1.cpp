@@ -21,11 +21,9 @@ cBohater1::cBohater1(float _x, float _y, int _wlascicel)
 
 	rozmiar = 2;
 	kat = 0;
-	mocSilnika = 6;
+	mocSilnika = 4;
 
 
-	UstawXs();
-	UstawYs();
 
 	masa = 10;
 
@@ -33,13 +31,15 @@ cBohater1::cBohater1(float _x, float _y, int _wlascicel)
 	energia = 0;
 	mnoznikZycia = 11.5;
 	poziomZycia = 100;
-	zasieg = 70;
+	zasieg = 90;
 	obrazenia = 70;
 	szybkoscAtaku = 12; 
 }
 
 void cBohater1::Rysuj()
 {
+	if (!zywy) return;
+
 	glPushMatrix();
 		glTranslatef(x, y, z);
 		RysujPasekZycia();
@@ -50,58 +50,11 @@ void cBohater1::Rysuj()
 
 }
 
-void cBohater1::Opadaj()
-{
-	//Vy += KROK_CZASOWY * PRZYSPIESZENIE_GRAWITACYJNE;
-	//Vy2 += KROK_CZASOWY * PRZYSPIESZENIE_GRAWITACYJNE;
-}
-
-void cBohater1::Przyspieszaj(float dVx, float dVy)
-{
-
-}
-
-
-void cBohater1::UstawX()
-{
-
-}
-
-void cBohater1::UstawX2()
-{
-
-}
-
-void cBohater1::UstawY2()
-{
-
-}
-
-void cBohater1::Przesun(float dx, float dy)
-{
-
-}
-
-void cBohater1::UstawXs()
-{
-
-}
-
-void cBohater1::UstawYs()
-{
-
-}
-
-void cBohater1::UstawKat()
-{
-
-}
 
 void cBohater1::RysujPasekZycia()
 {
 	glPushMatrix();
 		glTranslatef(-3*rozmiar, 6*rozmiar, 0);
-		poziomZycia  = 50;
 		glColor3f(0.1,0.1,0.1);
 		glBegin(GL_POLYGON);
 			glVertex2f(0, -0.4*rozmiar);
@@ -139,13 +92,16 @@ void cBohater1::AktualizujRamke()
 
 	stringstream ssOpis;
 	ssOpis	<< "Poziom zycia:  " << (int) poziomZycia << endl
-			<< "Rozmiar:      " << (int) rozmiar << endl
+			<< "Level:    " << (int) level << " (" << doswiadczenie << "/5)" << endl
 			<< "Obrazenia:   " << (int) obrazenia << endl
 			<< "Zasieg:    " << (int) zasieg << endl
+			<< "Szybkosc ataku: " << szybkoscAtaku << endl
 			<< "Moc Silnika:    " << (int) mocSilnika << endl
-			<< "Vx:   " << 0 ;
+			<< "Energia:   " << energia ;
 	Plansza->ramkaOpisu.opis = ssOpis.str();
-	Plansza->ramkaOpisu.rodzajMenu = 0;
+	Plansza->ramkaOpisu.rodzajMenu = TEKSTURA_MENU_BOHATER;
+
+	if (poziomZycia < 0) Plansza->ramkaOpisu.czyWidoczna = false;
 }
 
 

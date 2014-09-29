@@ -34,7 +34,7 @@ public:
 	float TabDoY(int w);
 	int XDoTab(float x);
 	int YDoTab(float y);
-	float Wysokosc(float x);		// wysokosc poziomu mapy
+    float Wysokosc(float x, float y);		// wysokosc poziomu mapy
 
 
     void DodajDodanie(char pierwszy, char drugi, char trzeci, char czwarty);

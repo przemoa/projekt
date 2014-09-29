@@ -92,10 +92,14 @@ void cPlansza::DodajDodanie(char pierwszy)
 void cPlansza::_Dzialaj(int value)
 {
 
+
+
     for (int i = 0; i < tabGraczy.size(); i++)
     {
         tabGraczy[i]->Dzialaj();
     }
+
+
 }
 
 
@@ -192,13 +196,19 @@ int cPlansza::YDoTab(float y)
 	return ((y+170) / 0.4) + 0.5;
 }
 
-float cPlansza::Wysokosc(float x)
+float cPlansza::Wysokosc(float x, float y)
 {
 	float xWTab = ((x + 1000) / 0.4 * 10);
 	
 
 	float wynik = tabPol[(int) xWTab]; + ((tabPol[((int) xWTab) + 1] - tabPol[(int) xWTab]) * (xWTab - (int) xWTab));
+
+    float poziomBelki = Plansza->ZnajdzBelke(x, y);
+    if (poziomBelki > wynik) wynik = poziomBelki;
+
 	return wynik;
+
+
 
 }
 
@@ -254,9 +264,56 @@ void cPlansza::UsunElement(float x, float y)
 
 
 
+
 void cPlansza::CzyBelkaWytrzyma()
 {
+    float momentGnacy = 0;
+    float obciazenie = 0;
+    float cosAlfa;
+    float a, b;
+    for (int i = 0; i < tabElementow.size(); i++)
+    {
+        cosAlfa = (tabElementow[i]->y_konca - tabElementow[i]->y_poczatku) / sqrt((pow(tabElementow[i]->y_konca - tabElementow[i]->y_poczatku, 2) + pow(tabElementow[i]->x_konca - tabElementow[i]->x_poczatku, 2)));
+        a = (tabElementow[i]->y_konca - tabElementow[i]->y_poczatku) / (tabElementow[i]->x_konca - tabElementow[i]->x_poczatku);
+        b = tabElementow[i]->y_poczatku - a * tabElementow[i]->x_poczatku;
 
+        for (int j = 0; j < 2; j++)
+        {
+            for (int k = 0; k < 3; k++)
+            {
+                if (tabGraczy[j]->tabBohaterow[k] == NULL) continue;
+                if (tabGraczy[j]->tabBohaterow[k]->zywy == false) continue;
+                if ((((tabGraczy[j]->tabBohaterow[k]->GetX() > tabElementow[i]->x_poczatku) && (tabGraczy[j]->tabBohaterow[k]->GetX() < tabElementow[i]->x_konca)) || ((tabGraczy[j]->tabBohaterow[k]->GetX() < tabElementow[i]->x_poczatku) && (tabGraczy[j]->tabBohaterow[k]->GetX() > tabElementow[i]->x_konca))) && ((tabGraczy[j]->tabBohaterow[k]->GetY() < a * tabGraczy[j]->tabBohaterow[k]->GetX() + b + 2 * tabElementow[i]->grubosc / cosAlfa) && (tabGraczy[j]->tabBohaterow[k]->GetY() > a * tabGraczy[j]->tabBohaterow[k]->GetX() + b - 2 * tabElementow[i]->grubosc / cosAlfa)))
+                {
+                    obciazenie += tabGraczy[j]->tabBohaterow[k]->masa;
+                }
+            }
+        }
+        if (obciazenie > tabElementow[i]->wytrzymalosc)
+        {
+            cout << "belka zlamana" << endl;
+            float xp = tabElementow[i]->x_poczatku;
+            float xk = tabElementow[i]->x_konca;
+            float yp = tabElementow[i]->y_poczatku;
+            float yk = tabElementow[i]->y_konca;
+            float xs = 0.5 * (xp + xk);
+            float ys = 0.5 * (yp + yk);
+            float dlugosc = sqrt((pow(tabElementow[i]->x_konca - tabElementow[i]->x_poczatku, 2)) + (pow(tabElementow[i]->y_konca - tabElementow[i]->y_poczatku, 2)));
+
+
+            DodajDodanie(0x66, (char) i);
+
+            tabElementow.erase(i + tabElementow.begin());
+            cBelka *nowa = new cBelka(xp, yp, xs, ys, 100, true);
+            cBelka *nowa2 = new cBelka(xk, yk, xs, ys, 100, true);
+
+
+            tabElementow.push_back(nowa);
+            tabElementow.push_back(nowa2);
+            break;
+        }
+        obciazenie = 0;
+    }
 }
 
 float cPlansza::ZnajdzBelke(float x, float y)
@@ -270,7 +327,7 @@ float cPlansza::ZnajdzBelke(float x, float y)
         {
             poziom = (tabElementow[i]->y_konca - tabElementow[i]->y_poczatku) / (tabElementow[i]->x_konca - tabElementow[i]->x_poczatku) * x + tabElementow[i]->y_poczatku - (tabElementow[i]->y_konca - tabElementow[i]->y_poczatku) / (tabElementow[i]->x_konca - tabElementow[i]->x_poczatku) * tabElementow[i]->x_poczatku;
             poziom += tabElementow[i]->grubosc / 2 * abs(cos(atan2(tabElementow[i]->y_konca - tabElementow[i]->y_poczatku, tabElementow[i]->x_konca - tabElementow[i]->x_poczatku)));
-            if((y - poziom >= -2) && (poziom > poziom_max))
+            if((y - poziom >= -6) && (poziom > poziom_max))
             {
                 poziom_max = poziom;
             }

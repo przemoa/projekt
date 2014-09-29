@@ -76,6 +76,7 @@ void cGracz::Dzialaj()
     for (int i  = 0; i < 3; i++)
 	{
         if (tabBohaterow[i] == NULL) continue;
+        if (tabBohaterow[i]->zywy == false) continue;
 		tabBohaterow[i]->Ruszaj();
         tabBohaterow[i]->Atakuj();
 	}
@@ -111,7 +112,11 @@ void cGracz::Dzialaj()
     }
 
 
-    if (zamek->poziomZycia < 0) Plansza->koniecGry = true;
+    if (zamek->poziomZycia < 0)
+    {
+
+        Plansza->koniecGry = true;
+    }
 
 
 
@@ -132,7 +137,8 @@ void cGracz::DodajBohatera(int ktory)
             tabBohaterow[0]->zywy = true;
             tabBohaterow[0]->poziomZycia = 100;
             tabBohaterow[0]->x = tabBohaterow[0]->xBaz;
-            tabBohaterow[0]->y = tabBohaterow[0]->yBaz;
+            tabBohaterow[0]->y = tabBohaterow[0]->yBaz+60;
+            tabBohaterow[0]->poziomZycia = 100;
         }
 
     }
@@ -146,7 +152,7 @@ void cGracz::DodajBohatera(int ktory)
         {
             tabBohaterow[1]->zywy = true;
             tabBohaterow[1]->x = tabBohaterow[1]->xBaz;
-            tabBohaterow[1]->y = tabBohaterow[1]->yBaz;
+            tabBohaterow[1]->y = tabBohaterow[1]->yBaz+60;
             tabBohaterow[1]->poziomZycia = 100;
         }
     }

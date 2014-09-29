@@ -18,7 +18,7 @@ public:
 	bool CzyKliknieto(float px, float py);
 	void AktualizujRamke();
 	void RysujPasekZycia();
-	void Przyspieszaj(float dVx, float dVy);
+
 
 
 

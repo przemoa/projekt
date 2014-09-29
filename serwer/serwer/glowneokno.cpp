@@ -37,6 +37,11 @@ GlowneOkno::~GlowneOkno()
 void GlowneOkno::Dzialaj()
 {
 
+    if (etapGry == KONIEC_GRY)
+    {
+        return;
+    }
+
     if(!serwer->wiadomosc.isEmpty())
     {
         ui->textBrowser->append("<b> serwer:</b>   " + serwer->wiadomosc);
@@ -97,7 +102,8 @@ void GlowneOkno::Dzialaj()
 
     if (Plansza->koniecGry == true)
     {
-        etapGry == KONIEC_GRY;
+
+        etapGry = KONIEC_GRY;
         ui->commandLinkButton_akcja->setText("Gra zakończona!");
     }
 }
@@ -517,6 +523,8 @@ void GlowneOkno::DzialajPlansze()
 {
     Plansza->tabGraczy[0]->Dzialaj();
     Plansza->tabGraczy[1]->Dzialaj();
+
+    Plansza->CzyBelkaWytrzyma();
 
 }
 

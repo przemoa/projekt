@@ -21,7 +21,6 @@ void Dzialaj(int value)
 void idle(void)
 {
 	Plansza->_Idle();
-	Sleep(1);
 }
 void Klawisz(unsigned char key, int x, int y)
 {

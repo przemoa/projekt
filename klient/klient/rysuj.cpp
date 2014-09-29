@@ -27,24 +27,7 @@ void cPlansza::_Przerysuj(void)
 		RysujTeren();
 		
 
-	// napis przemek
-			//glPushMatrix();
-			//	glBindTexture(GL_TEXTURE_2D, 77);
-			//	glTranslatef(-250,-240,0);
-			//	glEnable(GL_TEXTURE_2D);
-			//	glColor4f(1, 1, 1, 0.7);
-			//	glBegin(GL_POLYGON);
-			//		for (int i = 0; i < 100; i++)
-			//		{
-			//			glTexCoord2f(i/99.0, 0.0); glVertex3f(i, 0.005*i*i, -0.1*i);
-			//		}
-			//		for (int i = 99; i >= 0; i--)
-			//		{
-			//			glTexCoord2f(i/99.0, 1); glVertex3f(i, 0.005*i*i+95, -0.1*i);
-			//		}
-			//	glEnd();
-			//	glDisable(GL_TEXTURE_2D);
-			//glPopMatrix();
+
 
 		for (int i = 0; i < tabGraczy.size(); i++)
 		{
@@ -66,10 +49,15 @@ void cPlansza::_Przerysuj(void)
 
 		if (dodawanieBelki)
 		{
-			glBegin(GL_LINE);
-				glVertex2f(tabPunktStab[nrBelkiPoczatkowej]->x, tabPunktStab[nrBelkiPoczatkowej]->y);
-				glVertex2f(mysz.px, mysz.py);
+			glLineWidth(4);
+
+			glColor3f(0.5, 0.5, 0);
+			glBegin(GL_LINES);
+				glVertex3f(tabPunktStab[nrBelkiPoczatkowej]->x, tabPunktStab[nrBelkiPoczatkowej]->y, 0);
+				glVertex3f(mysz.px, mysz.py, 0);
 			glEnd();
+
+			glLineWidth(2);
 		}
 
 

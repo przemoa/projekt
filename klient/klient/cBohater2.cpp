@@ -47,49 +47,6 @@ void cBohater2::Rysuj()
 }
 
 
-void cBohater2::Przyspieszaj(float dVx, float dVy)
-{
-	float poziomZiemi = Plansza->Wysokosc(x);
-	if (y - 4 > poziomZiemi) return;				// jesli wisi w powietrzu to nie mozna przyspieszac
-
-
-	int zwrot = abs(dVx)/dVx;				// zwrot zadanego przyspieszenia
-
-	if (energia < 5*mocSilnika*abs(dVx))			// gdy energia mala to przyspiesze od razu do pewnej wartosci
-	{
-		int tabX = Plansza->XDoTab(x);
-		if (Plansza->tabPol[tabX + zwrot*60] -Plansza->tabPol[tabX] < 1.2)		// pod warunkiem ze nachylenie nie jest zbyt duze
-		{
-			energia = 6*mocSilnika*abs(dVx);
-		}
-		else return;
-
-		if (kierunek == -zwrot)				// zahamuj do 0
-		{
-			kierunek = 0;
-			energia = 0;
-		}
-		else	kierunek = zwrot;
-	}
-
-	else if (kierunek == zwrot)			// przyspieszaj w kierunku ruchu
-	{
-		energia *= 1.0005;
-		energia += mocSilnika*abs(dVx);
-	}
-	else if (kierunek != zwrot)			// hamuj 
-	{
-		energia /= 1.05;
-		energia -= mocSilnika*4*abs(dVx);
-	}
-
-	if (energia < 0) energia = 0;
-
-	
-	
-
-
-}
 
 
 void cBohater2::RysujPasekZycia()
@@ -149,5 +106,7 @@ void cBohater2::AktualizujRamke()
 			<< "Energia:   " << energia ;
 	Plansza->ramkaOpisu.opis = ssOpis.str();
 	Plansza->ramkaOpisu.rodzajMenu = TEKSTURA_MENU_BOHATER;
+
+	if (poziomZycia < 0) Plansza->ramkaOpisu.czyWidoczna = false;
 }
 
